@@ -1,0 +1,15 @@
+.lineResponse {
+  width: 100%;
+  height: 80px;
+  font-size: 40px;
+  padding: 10px;
+}
+
+.selected {
+  background: #0000BB;
+  color: white;
+}
+
+.subtitle {
+  font-size: 12px;
+}

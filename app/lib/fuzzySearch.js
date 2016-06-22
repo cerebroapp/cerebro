@@ -1,10 +1,6 @@
 export default (items, term, toString = (item) => item) => {
-  const result = [];
   term = term.toLowerCase();
-  items.forEach(item => {
-    if (toString(item).toLowerCase().indexOf(term) !== -1) {
-      result.push(item);
-    }
+  return items.filter(item => {
+    return toString(item).toLowerCase().indexOf(term) !== -1
   });
-  return result;
 }

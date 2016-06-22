@@ -5,7 +5,7 @@ html, body {
 body {
   position: relative;
   height: 100vh;
-  font-family: Helvetica;
+  font-family: "Helvetica Neue";
   overflow-y: hidden;
   -webkit-app-region: drag;
 }

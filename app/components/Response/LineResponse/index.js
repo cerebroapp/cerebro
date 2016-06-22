@@ -1,15 +1,19 @@
 import React from 'react';
 import styles from './styles.css';
 
-export default ({title, onSelect, selected, subtitle}) => {
+export default ({title, onSelect, selected, subtitle, index}) => {
   const classNames = [
     styles.lineResponse,
     selected ? styles.selected : null
   ].join(' ');
   return (
     <div className={classNames} onClick={onSelect}>
-      <h2>{title}</h2>
-      <span className={styles.subtitle}>{subtitle}</span>
+      <div className={styles.details}>
+        {title && <div className={styles.title}> {title} </div> }
+        {subtitle && <div className={styles.subtitle}> {subtitle} </div> }
+      </div>
+      {index && <div className={styles.keycode}>⌘{index}</div>}
     </div>
   )
 }
+

@@ -1,9 +1,10 @@
 .input {
   width: 600px;
-  height: 80px;
-  font-size: 40px;
+  height: 60px;
+  font-size: 2em;
   border: 0;
   outline: none;
-  padding: 0 15px;
-  line-height: 80px;
+  padding: 0 10px;
+  line-height: 60px;
+  box-sizing: border-box;
 }

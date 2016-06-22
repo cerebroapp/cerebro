@@ -13,7 +13,7 @@ const HOME_DIR_REGEXP = /^\~/;
 export default (term, callback) => {
   let path = term;
   if (path.match(HOME_DIR_REGEXP)) {
-    path = path.replace(HOME_DIR_REGEXP, `/Users/${process.env['USER']}`);
+    path = path.replace(HOME_DIR_REGEXP, `/Users/${process.env['USER']}/`);
   }
   const match = path.match(DIR_REGEXP);
   if (match) {

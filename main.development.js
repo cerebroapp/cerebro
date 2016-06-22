@@ -20,20 +20,19 @@ app.on('ready', () => {
     show: false,
     width: 600,
     height: 80,
-    useContentSize: true,
     frame: false,
   });
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);
 
-  // mainWindow.on('blur', () => {
-  //   mainWindow.hide();
-  // });
+  mainWindow.on('blur', () => mainWindow.hide()});
 
   globalShortcut.register('Cmd+Alt+Shift+Control+Space', () => {
     mainWindow.show();
     mainWindow.focus();
   });
+
+  app.dock.hide();
 
   // if (process.env.NODE_ENV === 'development') {
   //   mainWindow.openDevTools();

@@ -13,6 +13,9 @@
 
 .title {
   font-size: 1.5em;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
 }
 
 .selected {
@@ -24,6 +27,14 @@
   font-size: 0.8em;
   font-weight: 100;
   color: #cccccc;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.keycode {
+  align-self: center;
+  font-size: 1.1em;
 }
 
 .details {
@@ -33,4 +44,5 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  max-width: 560px;
 }

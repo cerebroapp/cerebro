@@ -4,6 +4,7 @@ import MainInput from '../../components/MainInput';
 import LineResponse from '../../components/Response/LineResponse';
 import * as plugins from '../../plugins/';
 import styles from './styles.css';
+import define from '../../lib/define';
 
 import { remote } from 'electron';
 
@@ -109,8 +110,13 @@ export default class Search extends Component {
   }
   onKeyDown(event) {
     if (event.metaKey) {
+      if (event.keyCode === 68) {
+        // define word on cmd+d
+        define(this.state.term);
+        event.preventDefault();
+        return;
+      }
       if (event.keyCode === 67) {
-        console.log('copy?', this.selectedResult());
         // Copy to clipboard on cmd+c
         const text = this.selectedResult().clipboard;
         if (text) {
@@ -152,7 +158,6 @@ export default class Search extends Component {
   }
   search() {
     let { term } = this.state;
-    term = term.trim();
     if (term === '') {
       this.reset();
     } else {

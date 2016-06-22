@@ -36,6 +36,7 @@ export default class Search extends Component {
     this.onFound = this.onFound.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
+    currentWindow().on('hide', this.reset.bind(this));
   }
   onFound(term, result) {
     if (term != this.state.term) {

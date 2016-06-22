@@ -55,7 +55,9 @@ export default class Search extends Component {
     this.resize();
   }
   resize() {
-    currentWindow().setSize(600, (this.state.results.length + 1) * 60);
+    let height = (this.state.results.length + 1) * 60;
+    height = Math.min(height, 360);
+    currentWindow().setSize(600, height);
   }
   /**
    * Move highlighted cursor to next or prev element
@@ -91,6 +93,7 @@ export default class Search extends Component {
       this.setState({
         term,
         results: [],
+        selected: 0,
       }, this.search);
     }
   }

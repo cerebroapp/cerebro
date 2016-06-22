@@ -31,7 +31,7 @@ export default (term, callback) => {
           subtitle: path,
           clipboard: path,
           term: path,
-          onSelect: shellCommand.bind(this, `open ${path}`),
+          onSelect: shellCommand.bind(null, `open ${path}`),
         };
       });
       callback(term, result);

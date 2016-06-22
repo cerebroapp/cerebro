@@ -19,7 +19,7 @@ export default (term, callback) => {
           id: path,
           title: file,
           subtitle: `Open ${path} in editor`,
-          onSelect: shellCommand.bind(this, `e ${path}`),
+          onSelect: shellCommand.bind(null, `e ${path}`),
         };
       });
       callback(term, result);

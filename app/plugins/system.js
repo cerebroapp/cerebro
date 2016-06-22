@@ -3,6 +3,10 @@ import fuzzySearch from '../lib/fuzzySearch';
 import shellCommand from '../lib/shellCommand';
 
 const COMMANDS = {
+  'Shut Down': "osascript -e 'tell app \"loginwindow\" to «event aevtrsdn»'",
+  'Restart': "osascript -e 'tell app \"loginwindow\" to «event aevtrrst»'",
+  'Logout': "osascript -e 'tell app \"System Events\" to log out'",
+  'Sleep': "pmset sleepnow",
   'Screen Saver': 'open -a ScreenSaverEngine',
   'Lock': "/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 };

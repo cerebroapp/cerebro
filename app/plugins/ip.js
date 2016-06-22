@@ -1,5 +1,4 @@
 import React from 'react';
-import { clipboard } from 'electron';
 import shellCommand from '../lib/shellCommand';
 
 const LOCAL_IP_CMD = "ipconfig getifaddr en0";
@@ -15,18 +14,14 @@ export default (term, callback) => {
       callback(term, {
         id: 'local-ip',
         title: `Local IP: ${local}`,
-        onSelect: () => {
-          clipboard.writeText(local);
-        },
+        clipboard: local,
       });
     });
     shellCommand(EXTERNAL_IP_CMD).then(external => {
       callback(term, {
         id: 'external-ip',
         title: `External IP: ${external}`,
-        onSelect: () => {
-          clipboard.writeText(external);
-        },
+        clipboard: external
       });
     });
   }

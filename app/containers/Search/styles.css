@@ -1,3 +1,20 @@
+.search {
+  position: relative;
+}
+
+.autocomplete {
+  position: absolute;
+  z-index: 1;
+  width: 600px;
+  height: 60px;
+  font-size: 2em;
+  padding: 0 10px;
+  line-height: 60px;
+  box-sizing: border-box;
+  color: #bbbbbb;
+  white-space: nowrap;
+}
+
 .resultsWrapper {
   max-height: 480px;
   overflow-y: auto;

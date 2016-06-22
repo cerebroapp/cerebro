@@ -17,10 +17,10 @@ export default (term, callback) => {
     const result = commands.map((cmd) => {
       return {
         title: cmd,
+        term: cmd,
         onSelect: () => shellCommand(COMMANDS[cmd])
       }
     });
-    console.log(result);
     callback(term, result);
   }
 }

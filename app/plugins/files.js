@@ -29,6 +29,7 @@ export default (term, callback) => {
           id: path,
           title: file,
           subtitle: path,
+          clipboard: path,
           term: path,
           onSelect: shellCommand.bind(this, `open ${path}`),
         };

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { clipboard } from 'electron';
 import MainInput from '../../components/MainInput';
 import LineResponse from '../../components/Response/LineResponse';
 import * as plugins from '../../plugins/';
@@ -18,8 +19,9 @@ function currentWindow() {
 const eachPlugin = (term, callback) => {
   // TODO: somehow set priority to plugins
   Object.keys(plugins).map((name) => {
-    return plugins[name](term, callback);
+    plugins[name](term, callback);
   });
+
 };
 
 export default class Search extends Component {
@@ -67,16 +69,19 @@ export default class Search extends Component {
   selectedResult() {
     return this.state.results[this.state.selected];
   }
+  reset() {
+    this.setState({
+      results: [],
+      term: '',
+    }, this.resize);
+  }
   /**
    * Select item from results list
    * @param  {[type]} item [description]
    * @return {[type]}      [description]
    */
   selectItem(item) {
-    this.setState({
-      results: [],
-      term: '',
-    }, this.resize);
+    this.reset();
     item.onSelect();
   }
   autocomplete() {
@@ -99,12 +104,25 @@ export default class Search extends Component {
     }, this.search);
   }
   onKeyDown(event) {
-    if (event.metaKey && event.keyCode >= 49 && event.keyCode <= 57) {
-      // Select element by number
-      const number = Math.abs(49 - event.keyCode);
-      const result = this.state.results[number];
-      if (result) {
-        return this.selectItem(result);
+    if (event.metaKey) {
+      if (event.keyCode === 67) {
+        console.log('copy?', this.selectedResult());
+        // Copy to clipboard on cmd+c
+        const text = this.selectedResult().clipboard;
+        if (text) {
+          clipboard.writeText(text);
+          this.reset();
+        }
+        event.preventDefault();
+        return;
+      }
+      if (event.keyCode >= 49 && event.keyCode <= 57) {
+        // Select element by number
+        const number = Math.abs(49 - event.keyCode);
+        const result = this.state.results[number];
+        if (result) {
+          return this.selectItem(result);
+        }
       }
     }
     // TODO: Copy to clipboard  by cmd+c
@@ -132,9 +150,7 @@ export default class Search extends Component {
     let { term } = this.state;
     term = term.trim();
     if (term === '') {
-      this.setState({
-        results: [],
-      }, this.resize);
+      this.reset();
     } else {
       eachPlugin(term, this.onFound);
     }
@@ -147,7 +163,7 @@ export default class Search extends Component {
         // In some cases action should be executed and window should be closed
         // In some cases we should autocomplete value
         selected: index === this.state.selected,
-        onSelect: () => this.selectItem(result),
+        onSelect: this.selectItem.bind(this, result),
         key: result.id,
       }
       if (index <= 8) {
@@ -156,9 +172,25 @@ export default class Search extends Component {
       return <LineResponse {...attrs}/>
     });
   }
+  /**
+   * Render autocomplete suggestion from selected item
+   * @return {React}
+   */
+  renderAutocomplete() {
+    const selected = this.selectedResult();
+    if (selected && selected.term) {
+      const regexp = new RegExp(`^${this.state.term}`, 'i');
+      if (selected.term.match(regexp)) {
+        // We should show suggestion in the same case
+        const term = selected.term.replace(regexp, this.state.term);
+        return <div className={styles.autocomplete}>{term}</div>
+      }
+    }
+  }
   render() {
     return (
-      <div>
+      <div className={styles.search}>
+        { this.renderAutocomplete() }
         <MainInput value={this.state.term} onChange={this.onChange} onKeyDown={this.onKeyDown} />
         <div className={styles.resultsWrapper}>
           {this.renderResults()}

@@ -1,4 +1,6 @@
 .input {
+  position: relative;
+  z-index: 2;
   width: 600px;
   height: 60px;
   font-size: 2em;
@@ -7,4 +9,6 @@
   padding: 0 10px;
   line-height: 60px;
   box-sizing: border-box;
+  background: transparent;
+  white-space: nowrap;
 }

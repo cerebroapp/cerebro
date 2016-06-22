@@ -8,6 +8,7 @@
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: flex-start;
+  white-space: nowrap;
 }
 
 .title {

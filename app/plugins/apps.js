@@ -13,9 +13,11 @@ export default (term, callback) => {
     ).map(file => {
       const path = [APPS_PATH, file].join('/');
       const shellPath = path.replace(/ /g, '\\ ');
+      const title = file.replace(/\.app$/, '');
       return {
+        title,
+        term: title,
         id: path,
-        title: file.replace(/\.app$/, ''),
         subtitle: path,
         onSelect: shellCommand.bind(this, `open ${shellPath}`),
       };

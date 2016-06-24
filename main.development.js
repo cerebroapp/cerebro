@@ -21,6 +21,7 @@ app.on('ready', () => {
     width: 600,
     height: 80,
     frame: false,
+    resizable: false,
   });
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);

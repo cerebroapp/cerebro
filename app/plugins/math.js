@@ -9,15 +9,21 @@ const MATH_REGEXP = /^[-+/*\d\s\(\ )]+$/;
  * Plugin to show result of math calculation
  * @param  {String} term
  */
-export default (term, callback) => {
+const mathPlugin = (term, callback) => {
   const match = term.match(MATH_REGEXP)
   if (match) {
     try {
+      const result = eval(term);
       callback(term, {
-        title: `= ${eval(term)}`,
+        title: `= ${result}`,
+        clipboard: result,
       });
     } catch (err) {
       // Do nothing when eval failed
     }
   }
+}
+
+export default {
+  fn: mathPlugin,
 }

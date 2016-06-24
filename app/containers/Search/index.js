@@ -20,7 +20,7 @@ function currentWindow() {
 const eachPlugin = (term, callback) => {
   // TODO: somehow set priority to plugins
   Object.keys(plugins).map((name) => {
-    plugins[name](term, callback);
+    plugins[name].fn(term, callback);
   });
 
 };

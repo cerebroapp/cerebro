@@ -6,7 +6,7 @@ import shellCommand from '../lib/shellCommand';
 const APPS_PATH = '/Applications';
 
 //TODO: read icons
-export default (term, callback) => {
+const appsPlugin = (term, callback) => {
   fs.readdir(APPS_PATH, (err, items) => {
     const result = fuzzySearch(items, term).filter(file =>
       file.match(/\.app$/)
@@ -24,4 +24,8 @@ export default (term, callback) => {
     });
     callback(term, result);
   });
+}
+
+export default {
+  fn: appsPlugin,
 }

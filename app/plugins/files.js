@@ -10,7 +10,7 @@ const HOME_DIR_REGEXP = /^\~/;
  * Plugin to look and display local and external IPs
  * @param  {String} term
  */
-export default (term, callback) => {
+const filesPlugin = (term, callback) => {
   let path = term;
   if (path.match(HOME_DIR_REGEXP)) {
     path = path.replace(HOME_DIR_REGEXP, `/Users/${process.env['USER']}/`);
@@ -37,4 +37,8 @@ export default (term, callback) => {
       callback(term, result);
     });
   }
+}
+
+export default {
+  fn: filesPlugin,
 }

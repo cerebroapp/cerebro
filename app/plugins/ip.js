@@ -8,8 +8,8 @@ const EXTERNAL_IP_CMD = "curl --silent http://icanhazip.com";
  * Plugin to look and display local and external IPs
  * @param  {String} term
  */
-export default (term, callback) => {
-  if (term.toLowerCase() === 'ip') {
+const ipPlugin = (term, callback) => {
+  if (term.match(/^ip\s?$/i)) {
     shellCommand(LOCAL_IP_CMD).then(local => {
       callback(term, {
         id: 'local-ip',
@@ -25,4 +25,11 @@ export default (term, callback) => {
       });
     });
   }
+}
+
+
+export default {
+  name: 'Show IP addresses',
+  keyword: 'ip',
+  fn: ipPlugin,
 }

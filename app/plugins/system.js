@@ -15,7 +15,7 @@ const COMMANDS = {
  * Plugin for system commands, like lock, screen saver, etc.
  * @param  {String} term
  */
-export default (term, callback) => {
+const systemPlugin = (term, callback) => {
   const commands = fuzzySearch(Object.keys(COMMANDS), term);
   if (commands.length > 0) {
     const result = commands.map((cmd) => {
@@ -27,4 +27,8 @@ export default (term, callback) => {
     });
     callback(term, result);
   }
+}
+
+export default {
+  fn: systemPlugin,
 }

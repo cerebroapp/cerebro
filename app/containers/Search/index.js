@@ -144,9 +144,11 @@ export default class Search extends Component {
         break;
       case 40:
         this.moveCursor(1);
+        event.preventDefault();
         break;
       case 38:
         this.moveCursor(-1);
+        event.preventDefault();
         break;
       case 13:
         this.selectCurrent();

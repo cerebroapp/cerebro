@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './styles.css';
 
-export default ({title, onSelect, selected, subtitle, index}) => {
+export default ({title, onSelect, onMouseOver, selected, subtitle, index}) => {
   const classNames = [
     styles.lineResponse,
     selected ? styles.selected : null
   ].join(' ');
   return (
-    <div className={classNames} onClick={onSelect}>
+    <div className={classNames} onClick={onSelect} onMouseOver={onMouseOver}>
       <div className={styles.details}>
         {title && <div className={styles.title}> {title} </div> }
         {subtitle && <div className={styles.subtitle}> {subtitle} </div> }

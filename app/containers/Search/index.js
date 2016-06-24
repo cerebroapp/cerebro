@@ -173,6 +173,8 @@ export default class Search extends Component {
         // In some cases we should autocomplete value
         selected: index === this.state.selected,
         onSelect: this.selectItem.bind(this, result),
+        // Move selection to item under cursor
+        onMouseOver: () => this.setState({selected: index}),
         key: result.id,
       }
       if (index <= 8) {

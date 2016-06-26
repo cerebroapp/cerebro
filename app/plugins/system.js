@@ -5,7 +5,7 @@ const COMMANDS = {
   Restart: "osascript -e 'tell app \"loginwindow\" to «event aevtrrst»'",
   Logout: "osascript -e 'tell app \"System Events\" to log out'",
   Sleep: 'pmset sleepnow',
-  Lock: "/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend",
+  Lock: '/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend',
   'Shut Down': "osascript -e 'tell app \"loginwindow\" to «event aevtrsdn»'",
   'Screen Saver': 'open -a ScreenSaverEngine',
 };

@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { clipboard, remote } from 'electron';
 import MainInput from '../../components/MainInput';
 import LineResponse from '../../components/Response/LineResponse';
-import * as plugins from '../../plugins/';
 import styles from './styles.css';
 import define from '../../lib/define';
+import { updateTerm, moveCursor, reset } from '../../actions/search';
 
 /**
  * Get current electron window
@@ -15,55 +17,33 @@ function currentWindow() {
   return remote.getCurrentWindow();
 }
 
-const eachPlugin = (term, callback) => {
-  // TODO: somehow set priority to plugins
-  Object.keys(plugins).forEach((name) => {
-    plugins[name].fn(term, callback);
-  });
-};
-
-export default class Search extends Component {
+class Search extends Component {
+  propTypes = {
+    actions: {
+      reset: PropTypes.func,
+      moveCursor: PropTypes.func,
+      updateTerm: PropTypes.func,
+    },
+    results: PropTypes.array,
+    selected: PropTypes.integer,
+    term: PropTypes.string,
+    prevTerm: PropTypes.string,
+  }
   constructor(props) {
     super(props);
-    this.state = {
-      results: [],
-      selected: 0,
-      term: '',
-    };
-    this.search = this.search.bind(this);
-    this.onFound = this.onFound.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-    currentWindow().on('hide', this.reset.bind(this));
+    currentWindow().on('hide', this.props.actions.reset);
   }
-  onFound(term, result) {
-    if (term !== this.state.term) {
-      // Do not show this result if term was changed
-      return;
+  componentDidUpdate(prevProps) {
+    if (this.props.results.length !== prevProps.results.length) {
+      this.resize();
     }
-    let { results } = this.state;
-    if (results.length >= 10) {
-      return;
-    }
-    if (!Array.isArray(result)) {
-      result = [result];
-    }
-    results = [...results, ...result].slice(0, 10);
-    this.setState({ results });
-    this.resize();
-  }
-  onChange(term) {
-    this.setState({
-      term,
-      results: [],
-      selected: 0
-    }, this.search);
   }
   onKeyDown(event) {
     if (event.metaKey) {
       if (event.keyCode === 68) {
         // define word on cmd+d
-        define(this.state.term);
+        define(this.props.term);
         event.preventDefault();
         return;
       }
@@ -72,7 +52,7 @@ export default class Search extends Component {
         const text = this.selectedResult().clipboard;
         if (text) {
           clipboard.writeText(text);
-          this.reset();
+          this.props.actions.reset();
         }
         event.preventDefault();
         return;
@@ -80,7 +60,7 @@ export default class Search extends Component {
       if (event.keyCode >= 49 && event.keyCode <= 57) {
         // Select element by number
         const number = Math.abs(49 - event.keyCode);
-        const result = this.state.results[number];
+        const result = this.props.results[number];
         if (result) {
           return this.selectItem(result);
         }
@@ -94,11 +74,15 @@ export default class Search extends Component {
         this.autocomplete();
         break;
       case 40:
-        this.moveCursor(1);
+        this.props.actions.moveCursor(1);
         event.preventDefault();
         break;
       case 38:
-        this.moveCursor(-1);
+        if (this.props.results.length > 0) {
+          this.props.actions.moveCursor(-1);
+        } else if (this.props.prevTerm) {
+          this.props.actions.updateTerm(this.props.prevTerm);
+        }
         event.preventDefault();
         break;
       case 13:
@@ -110,13 +94,7 @@ export default class Search extends Component {
     }
   }
   selectedResult() {
-    return this.state.results[this.state.selected];
-  }
-  reset() {
-    this.setState({
-      results: [],
-      term: '',
-    }, this.resize);
+    return this.props.results[this.props.selected];
   }
   /**
    * Select item from results list
@@ -124,58 +102,36 @@ export default class Search extends Component {
    * @return {[type]}      [description]
    */
   selectItem(item) {
-    this.reset();
+    this.props.actions.reset();
     item.onSelect();
   }
   autocomplete() {
     const { term } = this.selectedResult();
     if (term) {
-      this.setState({
-        term,
-        results: [],
-        selected: 0,
-      }, this.search);
+      this.props.actions.updateTerm(term);
     }
   }
   selectCurrent() {
     this.selectItem(this.selectedResult());
   }
-  /**
-   * Move highlighted cursor to next or prev element
-   * @param  {Integer} diff 1 or -1
-   */
-  moveCursor(diff) {
-    let { selected } = this.state;
-    selected += diff;
-    selected = Math.max(Math.min(selected, this.state.results.length - 1), 0);
-    this.setState({ selected });
-  }
   resize() {
-    let height = (this.state.results.length + 1) * 60;
+    let height = (this.props.results.length + 1) * 60;
     height = Math.min(height, 360);
     currentWindow().setSize(600, height);
   }
-  search() {
-    const { term } = this.state;
-    if (term === '') {
-      this.reset();
-    } else {
-      eachPlugin(term, this.onFound);
-    }
-  }
   renderResults() {
-    return this.state.results.map((result, index) => {
+    return this.props.results.map((result, index) => {
       const attrs = {
         ...result,
         // TODO: think about events
         // In some cases action should be executed and window should be closed
         // In some cases we should autocomplete value
-        selected: index === this.state.selected,
+        selected: index === this.props.selected,
         onSelect: this.selectItem.bind(this, result),
         // Move selection to item under cursor
         onMouseOver: () => this.setState({ selected: index }),
         key: result.id,
-      }
+      };
       if (index <= 8) {
         attrs.index = index + 1;
       }
@@ -189,10 +145,10 @@ export default class Search extends Component {
   renderAutocomplete() {
     const selected = this.selectedResult();
     if (selected && selected.term) {
-      const regexp = new RegExp(`^${this.state.term}`, 'i');
+      const regexp = new RegExp(`^${this.props.term}`, 'i');
       if (selected.term.match(regexp)) {
         // We should show suggestion in the same case
-        const term = selected.term.replace(regexp, this.state.term);
+        const term = selected.term.replace(regexp, this.props.term);
         return <div className={styles.autocomplete}>{term}</div>;
       }
     }
@@ -201,7 +157,11 @@ export default class Search extends Component {
     return (
       <div className={styles.search}>
         {this.renderAutocomplete()}
-        <MainInput value={this.state.term} onChange={this.onChange} onKeyDown={this.onKeyDown} />
+        <MainInput
+          value={this.props.term}
+          onChange={this.props.actions.updateTerm}
+          onKeyDown={this.onKeyDown}
+        />
         <div className={styles.resultsWrapper}>
           {this.renderResults()}
         </div>
@@ -209,3 +169,21 @@ export default class Search extends Component {
     );
   }
 }
+
+
+function mapStateToProps(state) {
+  return {
+    selected: state.search.selected,
+    results: state.search.results,
+    term: state.search.term,
+    prevTerm: state.search.prevTerm,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({ updateTerm, moveCursor, reset }, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

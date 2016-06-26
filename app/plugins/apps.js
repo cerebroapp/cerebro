@@ -4,7 +4,7 @@ import shellCommand from '../lib/shellCommand';
 
 const APPS_PATH = '/Applications';
 
-// TODO: read icons
+// TODO: create util to read .icns files
 const appsPlugin = (term, callback) => {
   fs.readdir(APPS_PATH, (err, items) => {
     const result = search(items, term).filter(file =>

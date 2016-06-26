@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './styles.css';
 
 export default class MainInput extends Component {
-  propTypes = {
+  static propTypes = {
     value: PropTypes.string,
     onKeyDown: PropTypes.func,
     onChange: PropTypes.func,

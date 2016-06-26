@@ -1,4 +1,5 @@
 import { app, BrowserWindow, Menu, shell, globalShortcut } from 'electron';
+import { INPUT_HEIGHT, WINDOW_WIDTH } from './app/constants/ui';
 
 let menu;
 let template;
@@ -18,17 +19,25 @@ let mainWindow = null;
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
     show: false,
-    width: 600,
-    height: 80,
+    width: WINDOW_WIDTH,
+    height: INPUT_HEIGHT,
     frame: false,
     resizable: false,
   });
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);
 
-  mainWindow.on('blur', () => mainWindow.hide()});
+  if (process.env.NODE_ENV !== 'development') {
+    // Hide window on blur in production move
+    // In development we usually use developer tools
+    mainWindow.on('blur', () => mainWindow.hide());
+  }
 
-  globalShortcut.register('Cmd+Alt+Shift+Control+Space', () => {
+  //
+  // const HOTKEY = 'Cmd+Alt+Shift+Control+Space';
+  const HOTKEY = 'Control+Space';
+
+  globalShortcut.register(HOTKEY, () => {
     mainWindow.show();
     mainWindow.focus();
   });

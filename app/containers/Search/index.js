@@ -6,7 +6,9 @@ import MainInput from '../../components/MainInput';
 import LineResponse from '../../components/Response/LineResponse';
 import styles from './styles.css';
 import define from '../../lib/define';
-import { updateTerm, moveCursor, reset } from '../../actions/search';
+import * as searchActions from '../../actions/search';
+
+import { INPUT_HEIGHT, RESULT_HEIGHT, WINDOW_WIDTH } from '../../constants/ui';
 
 /**
  * Get current electron window
@@ -18,7 +20,7 @@ function currentWindow() {
 }
 
 class Search extends Component {
-  propTypes = {
+  static propTypes = {
     actions: {
       reset: PropTypes.func,
       moveCursor: PropTypes.func,
@@ -38,6 +40,9 @@ class Search extends Component {
     if (this.props.results.length !== prevProps.results.length) {
       this.resize();
     }
+    if (this.props.selected !== prevProps.selected) {
+      // TODO: scroll to highlighted element
+    }
   }
   onKeyDown(event) {
     if (event.metaKey) {
@@ -49,7 +54,7 @@ class Search extends Component {
       }
       if (event.keyCode === 67) {
         // Copy to clipboard on cmd+c
-        const text = this.selectedResult().clipboard;
+        const text = this.highlightedResult().clipboard;
         if (text) {
           clipboard.writeText(text);
           this.props.actions.reset();
@@ -93,7 +98,12 @@ class Search extends Component {
         break;
     }
   }
-  selectedResult() {
+
+  /**
+   * Get highlighted result
+   * @return {Object}
+   */
+  highlightedResult() {
     return this.props.results[this.props.selected];
   }
   /**
@@ -105,19 +115,27 @@ class Search extends Component {
     this.props.actions.reset();
     item.onSelect();
   }
+  /**
+   * Autocomple search term from highlighted result
+   */
   autocomplete() {
-    const { term } = this.selectedResult();
+    const { term } = this.highlightedResult();
     if (term) {
       this.props.actions.updateTerm(term);
     }
   }
+  /**
+   * Select highlighted element
+   */
   selectCurrent() {
-    this.selectItem(this.selectedResult());
+    this.selectItem(this.highlightedResult());
   }
+  /**
+   * Resize search window, when results lists changed
+   */
   resize() {
-    let height = (this.props.results.length + 1) * 60;
-    height = Math.min(height, 360);
-    currentWindow().setSize(600, height);
+    const height = INPUT_HEIGHT + Math.min(this.props.results.length, 5) * RESULT_HEIGHT;
+    currentWindow().setSize(WINDOW_WIDTH, height);
   }
   renderResults() {
     return this.props.results.map((result, index) => {
@@ -129,7 +147,7 @@ class Search extends Component {
         selected: index === this.props.selected,
         onSelect: this.selectItem.bind(this, result),
         // Move selection to item under cursor
-        onMouseOver: () => this.setState({ selected: index }),
+        onMouseOver: () => this.props.actions.selectElement(index),
         key: result.id,
       };
       if (index <= 8) {
@@ -143,7 +161,7 @@ class Search extends Component {
    * @return {React}
    */
   renderAutocomplete() {
-    const selected = this.selectedResult();
+    const selected = this.highlightedResult();
     if (selected && selected.term) {
       const regexp = new RegExp(`^${this.props.term}`, 'i');
       if (selected.term.match(regexp)) {
@@ -162,7 +180,7 @@ class Search extends Component {
           onChange={this.props.actions.updateTerm}
           onKeyDown={this.onKeyDown}
         />
-        <div className={styles.resultsWrapper}>
+        <div className={styles.resultsWrapper} ref="results">
           {this.renderResults()}
         </div>
       </div>
@@ -182,7 +200,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ updateTerm, moveCursor, reset }, dispatch),
+    actions: bindActionCreators(searchActions, dispatch),
   };
 }
 

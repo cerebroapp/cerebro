@@ -1,9 +1,12 @@
 import * as plugins from '../plugins/';
 
-export const UPDATE_TERM = 'UPDATE_TERM';
-export const MOVE_CURSOR = 'MOVE_CURSOR';
-export const SHOW_RESULT = 'SHOW_RESULT';
-export const RESET = 'RESET';
+import {
+ UPDATE_TERM,
+ MOVE_CURSOR,
+ SELECT_ELEMENT,
+ SHOW_RESULT,
+ RESET,
+} from '../constants/actionTypes';
 
 
 /**
@@ -77,5 +80,17 @@ export function moveCursor(diff) {
   return {
     type: MOVE_CURSOR,
     payload: diff
+  };
+}
+
+/**
+ * Action to change highlighted element
+ * @param  {Integer} index of new highlighted element
+ * @return {Object}  redux action
+ */
+export function selectElement(index) {
+  return {
+    type: SELECT_ELEMENT,
+    payload: index
   };
 }

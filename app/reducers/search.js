@@ -3,9 +3,10 @@
 import {
   UPDATE_TERM,
   MOVE_CURSOR,
+  SELECT_ELEMENT,
   SHOW_RESULT,
   RESET,
-} from '../actions/search';
+} from '../constants/actionTypes';
 
 const initialState = {
   // Search term in main input
@@ -18,6 +19,20 @@ const initialState = {
   selected: 0,
 };
 
+
+/**
+ * Normalize index of selected item.
+ * Index should be >= 0 and <= results.length
+ *
+ * @param  {Integer} index
+ * @param  {Array} results results array
+ * @return {Integer} normalized index
+ */
+function normalizeSelection(index, results) {
+  const normalizedIndex = index < 0 ? results.length - index : index;
+  return Math.min(normalizedIndex, results.length - 1);
+}
+
 export default function search(state = initialState, { type, payload }) {
   switch (type) {
     case UPDATE_TERM: {
@@ -29,9 +44,15 @@ export default function search(state = initialState, { type, payload }) {
     }
     case MOVE_CURSOR: {
       let { selected } = state;
-      const { results } = state;
       selected += payload;
-      selected = Math.max(Math.min(selected, results.length - 1), 0);
+      selected = normalizeSelection(selected, state.results);
+      return {
+        ...state,
+        selected,
+      };
+    }
+    case SELECT_ELEMENT: {
+      const selected = normalizeSelection(payload, state.results);
       return {
         ...state,
         selected,

@@ -29,8 +29,8 @@ const initialState = {
  * @return {Integer} normalized index
  */
 function normalizeSelection(index, results) {
-  const normalizedIndex = index < 0 ? results.length - index : index;
-  return Math.min(normalizedIndex, results.length - 1);
+  const normalizedIndex = index % results.length;
+  return normalizedIndex < 0 ? results.length + normalizedIndex : normalizedIndex;
 }
 
 export default function search(state = initialState, { type, payload }) {

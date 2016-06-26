@@ -1,5 +1,7 @@
 import shellCommand from './shellCommand';
 
-export default (word) => {
-  return shellCommand(`open dict://"${word}"`);
-}
+/**
+ * Show query in OSx dictionary
+ * @param  {String} word
+ */
+export default (word) => shellCommand(`open dict://"${word}"`);

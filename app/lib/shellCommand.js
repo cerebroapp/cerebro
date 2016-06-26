@@ -7,7 +7,7 @@ import { exec } from 'child_process';
  */
 export default function (cmd) {
   return new Promise((resolve, reject) => {
-    exec(cmd, function (error, stdout, stderr) {
+    exec(cmd, (error, stdout) => {
       if (error) {
         return reject(error);
       }

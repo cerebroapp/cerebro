@@ -1,14 +1,13 @@
-import React from 'react';
 import fs from 'fs';
-import fuzzySearch from '../lib/fuzzySearch';
+import search from '../lib/search';
 import shellCommand from '../lib/shellCommand';
 
 const APPS_PATH = '/Applications';
 
-//TODO: read icons
+// TODO: read icons
 const appsPlugin = (term, callback) => {
   fs.readdir(APPS_PATH, (err, items) => {
-    const result = fuzzySearch(items, term).filter(file =>
+    const result = search(items, term).filter(file =>
       file.match(/\.app$/)
     ).map(file => {
       const path = [APPS_PATH, file].join('/');
@@ -24,8 +23,8 @@ const appsPlugin = (term, callback) => {
     });
     callback(term, result);
   });
-}
+};
 
 export default {
   fn: appsPlugin,
-}
+};

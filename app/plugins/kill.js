@@ -1,8 +1,16 @@
-import React from 'react';
 import shellCommand from '../lib/shellCommand';
 
-const REGEXP = /kill\s(.*)/
+const REGEXP = /kill\s(.*)/;
 const LIST_CMD = 'ps -A -o pid -o %cpu -o comm | sed 1d';
+
+/**
+ * Parse line of ps command
+ * @param {String} line of ps result
+ * @return {Array} array of processId, processName and processPath
+ */
+function parsePsResult(str) {
+  return str.match(/(\d+)\s+(\d+[\.|,]\d+)\s+(.*)/).slice(1);
+}
 
 /**
  * Plugin to look and display local and external IPs
@@ -11,17 +19,16 @@ const LIST_CMD = 'ps -A -o pid -o %cpu -o comm | sed 1d';
 const killPlugin = (term, callback) => {
   const match = term.match(REGEXP);
   if (match) {
-    const processName = match[1];
-    if (!processName) {
+    const searchProcessName = match[1];
+    if (!searchProcessName) {
       return;
     }
-    const regexp = new RegExp(`[^\/]*${processName}[^\/]*$`, 'i');
+    const regexp = new RegExp(`[^\/]*${searchProcessName}[^\/]*$`, 'i');
     shellCommand(LIST_CMD).then(result => {
       const results = result.split('\n').filter(line =>
         line.match(regexp)
       ).map((str) => {
-        console.log(str, str.match(/(\d+)\s+(\d+[\.|\,]\d+)\s+(.*)/));
-        const [_, processId, processCpu, processPath] = str.match(/(\d+)\s+(\d+[\.|\,]\d+)\s+(.*)/);
+        const [processId, processCpu, processPath] = parsePsResult(str);
         const processName = processPath.match(regexp)[0];
         return {
           title: processName,
@@ -33,10 +40,10 @@ const killPlugin = (term, callback) => {
       callback(term, results);
     });
   }
-}
+};
 
 export default {
   name: 'Kill process named',
   keyword: 'kill',
   fn: killPlugin,
-}
+};

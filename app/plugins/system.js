@@ -1,14 +1,13 @@
-import React from 'react';
-import fuzzySearch from '../lib/fuzzySearch';
+import search from '../lib/search';
 import shellCommand from '../lib/shellCommand';
 
 const COMMANDS = {
+  Restart: "osascript -e 'tell app \"loginwindow\" to «event aevtrrst»'",
+  Logout: "osascript -e 'tell app \"System Events\" to log out'",
+  Sleep: 'pmset sleepnow',
+  Lock: "/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend",
   'Shut Down': "osascript -e 'tell app \"loginwindow\" to «event aevtrsdn»'",
-  'Restart': "osascript -e 'tell app \"loginwindow\" to «event aevtrrst»'",
-  'Logout': "osascript -e 'tell app \"System Events\" to log out'",
-  'Sleep': "pmset sleepnow",
   'Screen Saver': 'open -a ScreenSaverEngine',
-  'Lock': "/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 };
 
 /**
@@ -16,19 +15,17 @@ const COMMANDS = {
  * @param  {String} term
  */
 const systemPlugin = (term, callback) => {
-  const commands = fuzzySearch(Object.keys(COMMANDS), term);
+  const commands = search(Object.keys(COMMANDS), term);
   if (commands.length > 0) {
-    const result = commands.map((cmd) => {
-      return {
-        title: cmd,
-        term: cmd,
-        onSelect: () => shellCommand(COMMANDS[cmd])
-      }
-    });
+    const result = commands.map((cmd) => ({
+      title: cmd,
+      term: cmd,
+      onSelect: () => shellCommand(COMMANDS[cmd])
+    }));
     callback(term, result);
   }
-}
+};
 
 export default {
   fn: systemPlugin,
-}
+};

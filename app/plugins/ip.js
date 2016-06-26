@@ -1,8 +1,7 @@
-import React from 'react';
 import shellCommand from '../lib/shellCommand';
 
-const LOCAL_IP_CMD = "ipconfig getifaddr en0";
-const EXTERNAL_IP_CMD = "curl --silent http://icanhazip.com";
+const LOCAL_IP_CMD = 'ipconfig getifaddr en0';
+const EXTERNAL_IP_CMD = 'curl --silent http://icanhazip.com';
 
 /**
  * Plugin to look and display local and external IPs
@@ -25,11 +24,11 @@ const ipPlugin = (term, callback) => {
       });
     });
   }
-}
+};
 
 
 export default {
   name: 'Show IP addresses',
   keyword: 'ip',
   fn: ipPlugin,
-}
+};

@@ -1,9 +1,8 @@
-import React from 'react';
 import fs from 'fs';
-import fuzzySearch from '../lib/fuzzySearch';
+import search from '../lib/search';
 import shellCommand from '../lib/shellCommand';
 
-//TODO: make configurable
+// TODO: make configurable
 const PROJECTS_PATH = '/Users/KELiON/projects';
 
 /**
@@ -11,10 +10,10 @@ const PROJECTS_PATH = '/Users/KELiON/projects';
  * @param  {String} term
  */
 const editorPlugin = (term, callback) => {
-  const match = term.match(/^e\s(.*)/)
+  const match = term.match(/^e\s(.*)/);
   if (match) {
     fs.readdir(PROJECTS_PATH, (err, items) => {
-      let result = fuzzySearch(items, match[1]).map(file => {
+      const result = search(items, match[1]).map(file => {
         const path = [PROJECTS_PATH, file].join('/');
         return {
           id: path,
@@ -27,10 +26,10 @@ const editorPlugin = (term, callback) => {
       callback(term, result);
     });
   }
-}
+};
 
 export default {
   name: 'Open in editor',
   keyword: 'e',
   fn: editorPlugin,
-}
+};

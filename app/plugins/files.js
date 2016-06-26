@@ -1,10 +1,9 @@
-import React from 'react';
 import fs from 'fs';
-import fuzzySearch from '../lib/fuzzySearch';
+import search from '../lib/search';
 import shellCommand from '../lib/shellCommand';
 
-const DIR_REGEXP = /^\/(.*\/)*(.*)/
-const HOME_DIR_REGEXP = /^\~/;
+const DIR_REGEXP = /^\/(.*\/)*(.*)/;
+const HOME_DIR_REGEXP = /^~/;
 
 /**
  * Plugin to look and display local and external IPs
@@ -13,32 +12,33 @@ const HOME_DIR_REGEXP = /^\~/;
 const filesPlugin = (term, callback) => {
   let path = term;
   if (path.match(HOME_DIR_REGEXP)) {
-    path = path.replace(HOME_DIR_REGEXP, `/Users/${process.env['USER']}/`);
+    path = path.replace(HOME_DIR_REGEXP, `/Users/${process.env.USER}/`);
   }
   const match = path.match(DIR_REGEXP);
   if (match) {
     const dir = match[1] ? `/${match[1]}` : '/';
     const fileName = match[2];
     fs.readdir(dir, (err, items) => {
+      let fileItems = items;
       if (fileName) {
-        items = fuzzySearch(items, fileName);
+        fileItems = search(fileItems, fileName);
       }
-      const result = items.map(file => {
-        const path = [dir, file].join('');
+      const result = fileItems.map(file => {
+        const filePath = [dir, file].join('');
         return {
-          id: path,
+          id: filePath,
           title: file,
-          subtitle: path,
-          clipboard: path,
-          term: path,
+          subtitle: filePath,
+          clipboard: filePath,
+          term: filePath,
           onSelect: shellCommand.bind(null, `open ${path}`),
         };
       });
       callback(term, result);
     });
   }
-}
+};
 
 export default {
   fn: filesPlugin,
-}
+};

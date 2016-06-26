@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { clipboard } from 'electron';
+import { clipboard, remote } from 'electron';
 import MainInput from '../../components/MainInput';
 import LineResponse from '../../components/Response/LineResponse';
 import * as plugins from '../../plugins/';
 import styles from './styles.css';
 import define from '../../lib/define';
-
-import { remote } from 'electron';
 
 /**
  * Get current electron window
@@ -19,10 +17,9 @@ function currentWindow() {
 
 const eachPlugin = (term, callback) => {
   // TODO: somehow set priority to plugins
-  Object.keys(plugins).map((name) => {
+  Object.keys(plugins).forEach((name) => {
     plugins[name].fn(term, callback);
   });
-
 };
 
 export default class Search extends Component {
@@ -40,7 +37,7 @@ export default class Search extends Component {
     currentWindow().on('hide', this.reset.bind(this));
   }
   onFound(term, result) {
-    if (term != this.state.term) {
+    if (term !== this.state.term) {
       // Do not show this result if term was changed
       return;
     }
@@ -54,52 +51,6 @@ export default class Search extends Component {
     results = [...results, ...result].slice(0, 10);
     this.setState({ results });
     this.resize();
-  }
-  resize() {
-    let height = (this.state.results.length + 1) * 60;
-    height = Math.min(height, 360);
-    currentWindow().setSize(600, height);
-  }
-  /**
-   * Move highlighted cursor to next or prev element
-   * @param  {Integer} diff 1 or -1
-   */
-  moveCursor(diff) {
-    let { selected, results } = this.state;
-    selected += diff;
-    selected = Math.max(Math.min(selected, results.length - 1), 0);
-    this.setState({ selected });
-  }
-  selectedResult() {
-    return this.state.results[this.state.selected];
-  }
-  reset() {
-    this.setState({
-      results: [],
-      term: '',
-    }, this.resize);
-  }
-  /**
-   * Select item from results list
-   * @param  {[type]} item [description]
-   * @return {[type]}      [description]
-   */
-  selectItem(item) {
-    this.reset();
-    item.onSelect();
-  }
-  autocomplete() {
-    const { term } = this.selectedResult();
-    if (term) {
-      this.setState({
-        term,
-        results: [],
-        selected: 0,
-      }, this.search);
-    }
-  }
-  selectCurrent() {
-    this.selectItem(this.selectedResult());
   }
   onChange(term) {
     this.setState({
@@ -158,8 +109,54 @@ export default class Search extends Component {
         break;
     }
   }
+  selectedResult() {
+    return this.state.results[this.state.selected];
+  }
+  reset() {
+    this.setState({
+      results: [],
+      term: '',
+    }, this.resize);
+  }
+  /**
+   * Select item from results list
+   * @param  {[type]} item [description]
+   * @return {[type]}      [description]
+   */
+  selectItem(item) {
+    this.reset();
+    item.onSelect();
+  }
+  autocomplete() {
+    const { term } = this.selectedResult();
+    if (term) {
+      this.setState({
+        term,
+        results: [],
+        selected: 0,
+      }, this.search);
+    }
+  }
+  selectCurrent() {
+    this.selectItem(this.selectedResult());
+  }
+  /**
+   * Move highlighted cursor to next or prev element
+   * @param  {Integer} diff 1 or -1
+   */
+  moveCursor(diff) {
+    let { selected } = this.state;
+    selected += diff;
+    selected = Math.max(Math.min(selected, this.state.results.length - 1), 0);
+    this.setState({ selected });
+  }
+  resize() {
+    let height = (this.state.results.length + 1) * 60;
+    height = Math.min(height, 360);
+    currentWindow().setSize(600, height);
+  }
   search() {
-    let { term } = this.state;
+    const { term } = this.state;
     if (term === '') {
       this.reset();
     } else {
@@ -176,13 +173,13 @@ export default class Search extends Component {
         selected: index === this.state.selected,
         onSelect: this.selectItem.bind(this, result),
         // Move selection to item under cursor
-        onMouseOver: () => this.setState({selected: index}),
+        onMouseOver: () => this.setState({ selected: index }),
         key: result.id,
       }
       if (index <= 8) {
         attrs.index = index + 1;
       }
-      return <LineResponse {...attrs}/>
+      return <LineResponse {...attrs} />;
     });
   }
   /**
@@ -196,14 +193,14 @@ export default class Search extends Component {
       if (selected.term.match(regexp)) {
         // We should show suggestion in the same case
         const term = selected.term.replace(regexp, this.state.term);
-        return <div className={styles.autocomplete}>{term}</div>
+        return <div className={styles.autocomplete}>{term}</div>;
       }
     }
   }
   render() {
     return (
       <div className={styles.search}>
-        { this.renderAutocomplete() }
+        {this.renderAutocomplete()}
         <MainInput value={this.state.term} onChange={this.onChange} onKeyDown={this.onKeyDown} />
         <div className={styles.resultsWrapper}>
           {this.renderResults()}

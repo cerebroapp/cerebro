@@ -1,5 +1,4 @@
-import React from 'react';
-import fuzzySearch from '../lib/fuzzySearch';
+import search from '../lib/search';
 
 import * as plugins from './index';
 
@@ -13,17 +12,15 @@ const keywordPlugins = Object
  * @param  {String} term
  */
 const pluginsPlugin = (term, callback) => {
-  let results = fuzzySearch(keywordPlugins, term, (plugin) => plugin.keyword);
-  results = results.map(res => {
-    return {
-      title: res.name,
-      term: `${res.keyword} `
-    }
-  });
+  let results = search(keywordPlugins, term, (plugin) => plugin.keyword);
+  results = results.map(res => ({
+    title: res.name,
+    term: `${res.keyword} `
+  }));
   callback(term, results);
-}
+};
 
 export default {
   name: 'Plugins',
   fn: pluginsPlugin,
-}
+};

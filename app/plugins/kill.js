@@ -3,6 +3,8 @@ import shellCommand from '../lib/shellCommand';
 const REGEXP = /kill\s(.*)/;
 const LIST_CMD = 'ps -A -o pid -o %cpu -o comm | sed 1d';
 
+const DEFAULT_ICON = "/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/ExecutableBinaryIcon.icns";
+
 /**
  * Parse line of ps command
  * @param {String} line of ps result
@@ -10,6 +12,15 @@ const LIST_CMD = 'ps -A -o pid -o %cpu -o comm | sed 1d';
  */
 function parsePsResult(str) {
   return str.match(/(\d+)\s+(\d+[\.|,]\d+)\s+(.*)/).slice(1);
+}
+
+function getIcon(processPath) {
+  const match = processPath.match(/^.*?\.app/);
+  if (match) {
+    return match[0];
+  }
+  // If no .app was found, use OS X's generic 'executable binary' icon.
+  return DEFAULT_ICON;
 }
 
 /**
@@ -29,10 +40,12 @@ const killPlugin = (term, callback) => {
         line.match(regexp)
       ).map((str) => {
         const [processId, processCpu, processPath] = parsePsResult(str);
+        const icon = getIcon(processPath);
         const processName = processPath.match(regexp)[0];
         return {
           title: processName,
           id: processId,
+          icon,
           subtitle: `${processCpu}% CPU @ ${processPath}`,
           onSelect: shellCommand.bind(null, `kill -9 ${processId}`)
         };

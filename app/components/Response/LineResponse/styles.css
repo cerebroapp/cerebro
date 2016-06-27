@@ -1,20 +1,30 @@
+/**
+ * TODO: colors should be moved to variables
+ */
+
 .lineResponse {
-  width: 100%;
-  cursor: pointer;
-  box-sizing: border-box;
-  height: 60px;
-  padding: 5px 10px;
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: flex-start;
   white-space: nowrap;
+  width: 100%;
+  cursor: pointer;
+  box-sizing: border-box;
+  height: 60px;
+  padding: 5px 10px;
+}
+
+.icon {
+  height: 100%;
+  width: auto;
+  margin-right: 10px;
 }
 
 .title {
   font-size: 1.5em;
   max-width: 100%;
-  text-overflow: ellipsis;
   overflow-x: hidden;
 }
 
@@ -28,16 +38,19 @@
   font-weight: 100;
   color: #cccccc;
   max-width: 100%;
-  text-overflow: ellipsis;
   overflow-x: hidden;
 }
 
 .keycode {
-  align-self: center;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translate(0, -50%);
   font-size: 1.1em;
 }
 
 .details {
+  position: relative;
   display: flex;
   flex-grow: 2;
   flex-wrap: wrap;
@@ -45,4 +58,18 @@
   align-items: flex-start;
   justify-content: center;
   max-width: 560px;
+}
+
+.details::after {
+  content: '';
+  background: linear-gradient(to right, transparent, white);
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  top: 0;
+  right: 0px;
+}
+
+.selected .details::after {
+  background: linear-gradient(to right, transparent, #126EDB);
 }

@@ -1,19 +1,62 @@
-import define from '../lib/define';
-
 const REGEXP = /^(\d+(?:(?:\.|\,)\d+)?)\s?([\wa-я\$\€£]+)\s*(?:to|in|at|в)?\s?([\wа-я\$\€£]+)?$/i;
 
+// TODO: show autocomplete with other targets, i.e.
+// 100$ → (in rub, in eur, others...)
+// TODO: add converters to mass, distance
 const SYNONIMS = {
-  'dollar*': 'usd',
-  'долл*': 'usd',
+  'франк*': 'chf',
+  'franc*': 'chf',
+  '₣': 'chf',
+
+  'real*': 'brl',
+  'реал*': 'brl',
+
+  'kun*': 'hrk',
+  'кун*': 'hrk',
+
+  'форинт*': 'HUF',
+  'forint*': 'HUF',
+
+  'ringgit*': 'myr',
+  'ринггит*': 'myr',
+
+  '฿': 'thb',
+  'бат*': 'thb',
+  'bat*': 'thb',
+
+  'lir*': 'try',
+  'лир*': 'try',
+
+  'rand*': 'zar',
+  'рэнд*': 'zar',
+  'ренд*': 'zar',
+
+  'zlot*': 'pln',
+  'злот*': 'pln',
+
   'bucks': 'usd',
   '$': 'usd',
+  'dollar*': 'usd',
+  'долл*': 'usd',
+
   '€': 'eur',
+  'euro': 'eur',
+  'евро': 'eur',
+
   '£': 'gbp',
+  'фунт*': 'gbp',
+  'pound*': 'gbp',
+
   '₽': 'rub',
   'руб': 'rub',
   'рубл*': 'rub',
-  'euro': 'eur',
-  'евро': 'eur'
+
+  '₪': 'ils',
+  'шекел*': 'ils',
+  'йен*': 'jpy',
+
+  'юан*': 'cny',
+  'yuan': 'cny',
 };
 
 const MATCH_SYNONIMS = Object.keys(SYNONIMS).filter(key => key.indexOf('*') !== -1);
@@ -23,11 +66,16 @@ const DISPLAY_NAMES = {
   'EUR': '€',
   'GBP': '£',
   'RUB': '₽',
+  'ILS': '₪',
+  'CHF': '₣',
+  'THB': '฿',
 }
 
 const BASE_CURRENCY = 'RUB';
 
 let cache = null;
+
+//TODO expire cache every day
 
 /**
  * Fetch & save rates from API
@@ -70,7 +118,7 @@ function toCurrency(currency) {
  * @param  {string} currency
  * @return {string}
  */
-function defaultForSource(currency) {
+function defaultTarget(currency) {
   if (BASE_CURRENCY !== currency) {
     return BASE_CURRENCY
   }
@@ -85,7 +133,7 @@ function defaultForSource(currency) {
 function parseMatch(match) {
   const amount = parseFloat(match[1].toString().replace(',', '.'));
   const from = toCurrency(match[2]);
-  const to = match[3] ? toCurrency(match[3]) : defaultForSource(from);
+  const to = match[3] ? toCurrency(match[3]) : defaultTarget(from);
   return [amount, from, to];
 }
 

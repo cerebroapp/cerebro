@@ -8,6 +8,8 @@ import {
   RESET,
 } from '../constants/actionTypes';
 
+import { MAX_RESULTS } from '../constants/ui';
+
 const initialState = {
   // Search term in main input
   term: '',
@@ -69,7 +71,7 @@ export default function search(state = initialState, { type, payload }) {
         return;
       }
 
-      results = [...results, ...result].slice(0, 10);
+      results = [...results, ...result].slice(0, MAX_RESULTS);
       return {
         ...state,
         results,

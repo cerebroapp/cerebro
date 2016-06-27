@@ -8,7 +8,12 @@ import styles from './styles.css';
 import define from '../../lib/define';
 import * as searchActions from '../../actions/search';
 
-import { INPUT_HEIGHT, RESULT_HEIGHT, WINDOW_WIDTH } from '../../constants/ui';
+import {
+  INPUT_HEIGHT,
+  RESULT_HEIGHT,
+  WINDOW_WIDTH,
+  VISIBLE_RESULTS,
+} from '../../constants/ui';
 
 /**
  * Get current electron window
@@ -37,11 +42,14 @@ class Search extends Component {
     currentWindow().on('hide', this.props.actions.reset);
   }
   componentDidUpdate(prevProps) {
-    if (this.props.results.length !== prevProps.results.length) {
+    const { results, selected } = this.props;
+    if (results.length !== prevProps.results.length) {
+      // Resize electron window when results count changed
       this.resize();
     }
-    if (this.props.selected !== prevProps.selected) {
-      // TODO: scroll to highlighted element
+    if (selected !== prevProps.selected) {
+      // Scroll to selected element if it is not visible
+      this.scrollToItem(selected);
     }
   }
   onKeyDown(event) {
@@ -134,8 +142,22 @@ class Search extends Component {
    * Resize search window, when results lists changed
    */
   resize() {
-    const height = INPUT_HEIGHT + Math.min(this.props.results.length, 5) * RESULT_HEIGHT;
+    const height = INPUT_HEIGHT + Math.min(this.props.results.length, VISIBLE_RESULTS) * RESULT_HEIGHT;
     currentWindow().setSize(WINDOW_WIDTH, height);
+  }
+  /**
+   * Scroll results wrapper to selected element if it is not visible
+   * @param  {Integer} index Index of element that should be shown
+   */
+  scrollToItem(index) {
+    const position = index * RESULT_HEIGHT;
+    const { scrollTop } = this.refs.results;
+    const resultsHeight = RESULT_HEIGHT * VISIBLE_RESULTS;
+    if (position < scrollTop) {
+      this.refs.results.scrollTop = position;
+    } else if (position >= resultsHeight + scrollTop) {
+      this.refs.results.scrollTop = Math.abs(resultsHeight - position - RESULT_HEIGHT);
+    }
   }
   renderResults() {
     return this.props.results.map((result, index) => {
@@ -147,7 +169,14 @@ class Search extends Component {
         selected: index === this.props.selected,
         onSelect: this.selectItem.bind(this, result),
         // Move selection to item under cursor
-        onMouseOver: () => this.props.actions.selectElement(index),
+        onMouseMove: (event) => {
+          const { movementX, movementY } = event.nativeEvent;
+          if (movementX || movementY) {
+            // Change selection only when we had real movement of mouse
+            // We should prevent changing of selection when user uses keyboard
+            this.props.actions.selectElement(index);
+          }
+        },
         key: result.id,
       };
       if (index <= 8) {

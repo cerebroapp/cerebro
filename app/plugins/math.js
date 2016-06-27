@@ -13,6 +13,7 @@ const mathPlugin = (term, callback) => {
       const result = eval(term);
       callback(term, {
         title: `= ${result}`,
+        term: `${term} = ${result}`,
         clipboard: result,
       });
     } catch (err) {

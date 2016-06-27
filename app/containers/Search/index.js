@@ -7,6 +7,7 @@ import ResultsList from '../../components/ResultsList';
 import styles from './styles.css';
 import define from '../../lib/define';
 import * as searchActions from '../../actions/search';
+import escapeStringRegexp from 'escape-string-regexp';
 
 import {
   INPUT_HEIGHT,
@@ -150,7 +151,7 @@ class Search extends Component {
   renderAutocomplete() {
     const selected = this.highlightedResult();
     if (selected && selected.term) {
-      const regexp = new RegExp(`^${this.props.term}`, 'i');
+      const regexp = new RegExp(`^${escapeStringRegexp(this.props.term)}`, 'i');
       if (selected.term.match(regexp)) {
         // We should show suggestion in the same case
         const term = selected.term.replace(regexp, this.props.term);

@@ -104,6 +104,7 @@
   "dependencies": {
     "css-modules-require-hook": "^4.0.0",
     "electron-debug": "^1.0.1",
+    "escape-string-regexp": "^1.0.5",
     "font-awesome": "^4.6.3",
     "normalize.css": "^4.1.1",
     "plist": "^1.2.0",

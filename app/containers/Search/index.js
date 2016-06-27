@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { clipboard, remote } from 'electron';
 import MainInput from '../../components/MainInput';
-import LineResponse from '../../components/Response/LineResponse';
+import ResultsList from '../../components/ResultsList';
 import styles from './styles.css';
 import define from '../../lib/define';
 import * as searchActions from '../../actions/search';
@@ -32,7 +32,7 @@ class Search extends Component {
       updateTerm: PropTypes.func,
     },
     results: PropTypes.array,
-    selected: PropTypes.integer,
+    selected: PropTypes.number,
     term: PropTypes.string,
     prevTerm: PropTypes.string,
   }
@@ -42,14 +42,10 @@ class Search extends Component {
     currentWindow().on('hide', this.props.actions.reset);
   }
   componentDidUpdate(prevProps) {
-    const { results, selected } = this.props;
+    const { results } = this.props;
     if (results.length !== prevProps.results.length) {
       // Resize electron window when results count changed
       this.resize();
-    }
-    if (selected !== prevProps.selected) {
-      // Scroll to selected element if it is not visible
-      this.scrollToItem(selected);
     }
   }
   onKeyDown(event) {
@@ -114,6 +110,7 @@ class Search extends Component {
   highlightedResult() {
     return this.props.results[this.props.selected];
   }
+
   /**
    * Select item from results list
    * @param  {[type]} item [description]
@@ -123,6 +120,7 @@ class Search extends Component {
     this.props.actions.reset();
     item.onSelect();
   }
+
   /**
    * Autocomple search term from highlighted result
    */
@@ -144,46 +142,6 @@ class Search extends Component {
   resize() {
     const height = INPUT_HEIGHT + Math.min(this.props.results.length, VISIBLE_RESULTS) * RESULT_HEIGHT;
     currentWindow().setSize(WINDOW_WIDTH, height);
-  }
-  /**
-   * Scroll results wrapper to selected element if it is not visible
-   * @param  {Integer} index Index of element that should be shown
-   */
-  scrollToItem(index) {
-    const position = index * RESULT_HEIGHT;
-    const { scrollTop } = this.refs.results;
-    const resultsHeight = RESULT_HEIGHT * VISIBLE_RESULTS;
-    if (position < scrollTop) {
-      this.refs.results.scrollTop = position;
-    } else if (position >= resultsHeight + scrollTop) {
-      this.refs.results.scrollTop = Math.abs(resultsHeight - position - RESULT_HEIGHT);
-    }
-  }
-  renderResults() {
-    return this.props.results.map((result, index) => {
-      const attrs = {
-        ...result,
-        // TODO: think about events
-        // In some cases action should be executed and window should be closed
-        // In some cases we should autocomplete value
-        selected: index === this.props.selected,
-        onSelect: this.selectItem.bind(this, result),
-        // Move selection to item under cursor
-        onMouseMove: (event) => {
-          const { movementX, movementY } = event.nativeEvent;
-          if (movementX || movementY) {
-            // Change selection only when we had real movement of mouse
-            // We should prevent changing of selection when user uses keyboard
-            this.props.actions.selectElement(index);
-          }
-        },
-        key: result.id,
-      };
-      if (index <= 8) {
-        attrs.index = index + 1;
-      }
-      return <LineResponse {...attrs} />;
-    });
   }
   /**
    * Render autocomplete suggestion from selected item
@@ -209,14 +167,16 @@ class Search extends Component {
           onChange={this.props.actions.updateTerm}
           onKeyDown={this.onKeyDown}
         />
-        <div className={styles.resultsWrapper} ref="results">
-          {this.renderResults()}
-        </div>
+        <ResultsList
+          results={this.props.results}
+          selected={this.props.selected}
+          onItemHover={this.props.actions.selectElement}
+          onSelect={this.selectItem}
+        />
       </div>
     );
   }
 }
-
 
 function mapStateToProps(state) {
   return {

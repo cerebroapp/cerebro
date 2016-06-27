@@ -14,8 +14,3 @@
   color: #bbbbbb;
   white-space: nowrap;
 }
-
-.resultsWrapper {
-  max-height: 300px;
-  overflow-y: auto;
-}

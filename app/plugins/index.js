@@ -7,4 +7,5 @@ export { default as files } from './files';
 export { default as define } from './define';
 export { default as kill } from './kill';
 export { default as plugins } from './plugins';
+export { default as converter } from './converter';
 

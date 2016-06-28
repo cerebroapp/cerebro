@@ -8,4 +8,7 @@ export { default as define } from './define';
 export { default as kill } from './kill';
 export { default as plugins } from './plugins';
 export { default as converter } from './converter';
+export { default as openWeb } from './openWeb';
+export { default as google } from './google';
+export { default as googleTranslate } from './googleTranslate';
 

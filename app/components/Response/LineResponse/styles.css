@@ -58,6 +58,7 @@
   align-items: flex-start;
   justify-content: center;
   max-width: 560px;
+  height: 90%;
 }
 
 .details::after {

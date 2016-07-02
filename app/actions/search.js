@@ -15,7 +15,7 @@ import {
  * @param {Function} callback Callback function that receives used search term and found results
  */
 const eachPlugin = (term, callback) => {
-  // TODO: somehow set priority to plugins
+  // TODO: set priority to plugins
   Object.keys(plugins).forEach((name) => {
     plugins[name].fn(term, callback);
   });
@@ -26,11 +26,10 @@ const eachPlugin = (term, callback) => {
  * Handle results found by plugin
  *
  * @param  {String} term Search term that was used for found results
- * @param  {Array or Object} payload Found results (or result)
+ * @param  {Array or Object} result Found results (or result)
  * @return {Object}  redux action
  */
-function onResultFound(term, payload) {
-  const result = Array.isArray(payload) ? payload : [payload];
+function onResultFound(term, result) {
   return {
     type: SHOW_RESULT,
     payload: {
@@ -67,7 +66,14 @@ export function updateTerm(term) {
       type: UPDATE_TERM,
       payload: term,
     });
-    eachPlugin(term, (...args) => dispatch(onResultFound(...args)));
+    eachPlugin(term, (foundTerm, payload) => {
+      const result = Array.isArray(payload) ? payload : [payload];
+      if (result.length === 0) {
+        // Do not dispatch for empty results
+        return;
+      }
+      dispatch(onResultFound(foundTerm, result));
+    });
   };
 }
 

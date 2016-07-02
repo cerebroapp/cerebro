@@ -13,6 +13,7 @@ const mathPlugin = (term, callback) => {
       const result = eval(term);
       callback(term, {
         title: `= ${result}`,
+        icon: '/Applications/Calculator.app',
         term: `${term} = ${result}`,
         clipboard: result,
       });

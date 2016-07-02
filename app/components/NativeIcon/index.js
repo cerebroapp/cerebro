@@ -24,7 +24,7 @@ class NativeIcon extends Component {
   render() {
     const src = this.src();
     if (src) {
-      return <img src={src} alt={src} className={this.props.className} />;
+      return <img src={src} alt="" className={this.props.className} />;
     }
     return null;
   }

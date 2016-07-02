@@ -21,7 +21,11 @@ export default class LineResponse extends Component {
   }
   renderIcon() {
     const { icon } = this.props;
-    return icon && <NativeIcon path={icon} className={styles.icon} />;
+    if (!icon) return null;
+    if (icon.match(/\.(icns|app)$/)) {
+      return <NativeIcon path={icon} className={styles.icon} />;
+    }
+    return <img src={icon} alt="" className={styles.icon} />;
   }
   render() {
     const {

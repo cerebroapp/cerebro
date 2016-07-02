@@ -1,4 +1,4 @@
-import define from '../lib/define';
+import define from '../../lib/define';
 
 /**
  * Look up term in OSx dictionary
@@ -8,9 +8,9 @@ const definePlugin = (term, callback) => {
   const match = term.match(/^def(?:ine)?\s(.+)/);
   if (match) {
     const word = match[1];
-    // TODO: show results from dictionary right here
     callback(term, {
       id: `define${word}`,
+      icon: '/Applications/Dictionary.app',
       title: `Define ${word}`,
       onSelect: () => define(word),
     });

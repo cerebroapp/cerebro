@@ -57,6 +57,10 @@ class Search extends Component {
         event.preventDefault();
         return;
       }
+      if (event.keyCode === 8) {
+        // Clean search term on cmd+backspace
+        this.props.actions.reset();
+      }
       if (event.keyCode === 67) {
         // Copy to clipboard on cmd+c
         const text = this.highlightedResult().clipboard;

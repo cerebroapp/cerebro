@@ -12,10 +12,13 @@ const keywordPlugins = Object
  * @param  {String} term
  */
 const pluginsPlugin = (term, callback) => {
-  let results = search(keywordPlugins, term, (plugin) => plugin.keyword);
+  let results = search(keywordPlugins, term, (plugin) => plugin.keyword)
+    .filter(plugin => plugin.keyword !== term);
   results = results.map(res => ({
+    id: `plugin${res.name}`,
     title: res.name,
-    term: `${res.keyword} `
+    icon: res.icon,
+    term: `${res.keyword}`,
   }));
   callback(term, results);
 };

@@ -1,9 +1,16 @@
+/**
+ * Convert user-provided string to real unit name
+ *
+ * @param  {Object} synonims Hash with synonims
+ * @param  {Object} units Hash with conversion rates
+ * @param  {String} unit provided unit
+ * @return {String} real unit name
+ */
 export default function parseUnitName(synonims, units, unit) {
   let result = unit;
   if (synonims[result]) {
     result = synonims[result];
-  }
-  else {
+  } else {
     const synonim = Object
       .keys(synonims)
       .filter(key => key.indexOf('*') !== -1)

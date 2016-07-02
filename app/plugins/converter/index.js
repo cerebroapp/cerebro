@@ -1,23 +1,25 @@
 import distance from './distance';
 import mass from './mass';
 import currency from './currency';
+import temperature from './temperature';
 
 // Array of all available converters
 const CONVERTERS = [
   distance,
   mass,
   currency,
+  temperature,
 ];
 
-const numberRegexp = /\d+(?:(?:\.|\,)\d+)?/;
-const unitRegexp = /[\wa-я\$\€£\'\"]+/;
+const numberRegexp = /-?\d+(?:(?:\.|,)\d+)?/;
+const unitRegexp = /[\wa-я\$€£'"°℃]+/;
 
 const mainRegexpString = [
   // Start of line
   '^',
   // Number that we want to convert
   `(${numberRegexp.source})`,
-  //Maybe space before source unit
+  // Maybe space before source unit
   '\\s?',
   // Source unit name
   `(${unitRegexp.source})`,
@@ -27,31 +29,19 @@ const mainRegexpString = [
   `(${unitRegexp.source})?`,
   // End of line
   '$'
-].join('')
+].join('');
 
+// Main regexp to match conversation strings
 const REGEXP = new RegExp(mainRegexpString, 'i');
-
-// const REGEXP = /^(\d+(?:(?:\.|\,)\d+)?)\s?([\wa-я\$\€£]+)\s*(?:to|in|at|в)?\s?([\wа-я\$\€£]+)?$/i;
 
 /**
  * Get rates for all units
  * @return {Promise} promise that resolves when all units are ready
  */
-function getRates() {
-  return Promise.all(CONVERTERS.map(converter => converter.getRates()));
-}
-
-/**
- * Parse regexp match to amount,
- * @param  {Array} match Result of regexp match
- * @return {Array} amount, fromCurrency and toCurrency
- */
-function parseMatch(match) {
-  const amount = parseFloat(match[1].toString().replace(',', '.'));
-  const pairs = CONVERTERS.map(conv => conv.extract(match)).filter(pair =>
-    pair && pair[0] && pair[1]
-  );
-  return [amount, pairs];
+function eachConverter(fn) {
+  CONVERTERS.forEach(converter => {
+    converter.getRates().then(() => fn(converter));
+  });
 }
 
 /**
@@ -59,20 +49,23 @@ function parseMatch(match) {
  * @param  {String} term
  */
 const converterPlugin = (term, callback) => {
-  const match = term.match(REGEXP);
+  const match = term.toLowerCase().match(REGEXP);
   if (match) {
-    getRates().then(rates => {
-      const [amount, pairs] = parseMatch(match);
-      const results = pairs.map(([from, to]) => {
-        const result = Math.round(amount / from.rate * to.rate * 100) / 100;
-        return {
-          id: `converter-${from.unit}-${to.unit}`,
-          title: `${amount}${from.displayName} = ${result}${to.displayName}`,
-          term: `${term} = ${result}${to.displayName}`,
-          clipboard: result.toString(),
-        }
+    const amount = parseFloat(match[1].toString().replace(',', '.'));
+    eachConverter(converter => {
+      const pair = converter.extract(match);
+      if (!pair) {
+        return;
+      }
+      const [from, to] = pair;
+      const result = converter.convert(amount, from, to);
+      callback(term, {
+        id: `converter-${from.unit}-${to.unit}`,
+        title: `${amount}${from.displayName} = ${result}${to.displayName}`,
+        term: `${term} = ${result}${to.displayName}`,
+        clipboard: result.toString(),
+        icon: '/Applications/Calculator.app',
       });
-      callback(term, results);
     });
   }
 };

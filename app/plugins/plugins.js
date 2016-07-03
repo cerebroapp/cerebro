@@ -20,7 +20,7 @@ const pluginsPlugin = (term, callback) => {
     icon: res.icon,
     term: `${res.keyword}`,
   }));
-  callback(term, results);
+  callback(results);
 };
 
 export default {

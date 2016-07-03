@@ -34,7 +34,7 @@ const filesPlugin = (term, callback) => {
           onSelect: shellCommand.bind(null, `open ${path}`),
         };
       });
-      callback(term, result);
+      callback(result);
     });
   }
 };

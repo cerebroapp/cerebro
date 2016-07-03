@@ -23,7 +23,7 @@ const editorPlugin = (term, callback) => {
           onSelect: shellCommand.bind(null, `e ${path}`),
         };
       });
-      callback(term, result);
+      callback(result);
     });
   }
 };

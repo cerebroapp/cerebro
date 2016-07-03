@@ -53,7 +53,7 @@ const killPlugin = (term, callback) => {
           onSelect: shellCommand.bind(null, `kill -9 ${processId}`)
         };
       });
-      callback(term, results);
+      callback(results);
     });
   }
 };

@@ -24,7 +24,7 @@ const systemPlugin = (term, callback) => {
       term: cmd,
       onSelect: () => shellCommand(COMMANDS[cmd])
     }));
-    callback(term, result);
+    callback(result);
   }
 };
 

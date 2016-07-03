@@ -5,7 +5,7 @@ const googlePlugin = (term, callback) => {
   if (match) {
     const query = match[1];
     const url = `https://google.com/?q=${encodeURIComponent(query)}`;
-    callback(term, {
+    callback({
       id: 'search-web',
       title: `Search web for ${query}`,
       onSelect: () => { shellCommand(`open ${url}`); },

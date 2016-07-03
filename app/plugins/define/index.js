@@ -8,7 +8,7 @@ const definePlugin = (term, callback) => {
   const match = term.match(/^def(?:ine)?\s(.+)/);
   if (match) {
     const word = match[1];
-    callback(term, {
+    callback({
       id: `define${word}`,
       icon: '/Applications/Dictionary.app',
       title: `Define ${word}`,

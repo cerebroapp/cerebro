@@ -30,10 +30,10 @@ const openWebPlugin = (term, callback) => {
     if (!term.match(/^https?:\/\//)) {
       url = `http://${url}`;
     }
-    callback(term, toResult(url));
+    callback(toResult(url));
   }
   const result = matchedUsedUrls(term).map(toResult);
-  callback(term, result);
+  callback(result);
 };
 
 export default {

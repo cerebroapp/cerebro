@@ -11,7 +11,7 @@ const EXTERNAL_IP_CMD = 'curl --silent http://icanhazip.com';
 const ipPlugin = (term, callback) => {
   if (term.match(/^ip\s?$/i)) {
     shellCommand(LOCAL_IP_CMD).then(local => {
-      callback(term, {
+      callback({
         icon,
         id: 'local-ip',
         title: `Local IP: ${local}`,
@@ -19,7 +19,7 @@ const ipPlugin = (term, callback) => {
       });
     });
     shellCommand(EXTERNAL_IP_CMD).then(external => {
-      callback(term, {
+      callback({
         icon,
         id: 'external-ip',
         title: `External IP: ${external}`,

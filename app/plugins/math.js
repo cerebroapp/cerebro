@@ -11,7 +11,7 @@ const mathPlugin = (term, callback) => {
   if (match) {
     try {
       const result = eval(term);
-      callback(term, {
+      callback({
         title: `= ${result}`,
         icon: '/Applications/Calculator.app',
         term: `${term} = ${result}`,

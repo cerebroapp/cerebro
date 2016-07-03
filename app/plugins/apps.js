@@ -23,7 +23,7 @@ const appsPlugin = (term, callback) => {
         onSelect: shellCommand.bind(this, `open ${shellPath}`),
       };
     });
-    callback(term, result);
+    callback(result);
   });
 };
 

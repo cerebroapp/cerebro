@@ -16,7 +16,7 @@ import {
  */
 const eachPlugin = (term, callback) => {
   // TODO: set priority to plugins
-  Object.keys(plugins).forEach((name) => {
+  Object.keys(plugins).forEach(name => {
     plugins[name].fn(term, callback);
   });
 };
@@ -66,13 +66,13 @@ export function updateTerm(term) {
       type: UPDATE_TERM,
       payload: term,
     });
-    eachPlugin(term, (foundTerm, payload) => {
+    eachPlugin(term, (payload) => {
       const result = Array.isArray(payload) ? payload : [payload];
       if (result.length === 0) {
         // Do not dispatch for empty results
         return;
       }
-      dispatch(onResultFound(foundTerm, result));
+      dispatch(onResultFound(term, result));
     });
   };
 }

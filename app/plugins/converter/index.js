@@ -59,7 +59,7 @@ const converterPlugin = (term, callback) => {
       }
       const [from, to] = pair;
       const result = converter.convert(amount, from, to);
-      callback(term, {
+      callback({
         id: `converter-${from.unit}-${to.unit}`,
         title: `${amount}${from.displayName} = ${result}${to.displayName}`,
         term: `${term} = ${result}${to.displayName}`,

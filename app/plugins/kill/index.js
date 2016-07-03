@@ -1,3 +1,5 @@
+/* eslint max-len: [0] */
+
 import shellCommand from '../../lib/shellCommand';
 import pluginIcon from './icon.png';
 

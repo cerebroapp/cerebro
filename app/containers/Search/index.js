@@ -1,3 +1,5 @@
+/* eslint default-case: 0 */
+
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -80,8 +82,6 @@ class Search extends Component {
         }
       }
     }
-    // TODO: Copy to clipboard  by cmd+c
-    // TODO: autocomplete by tab and →
     switch (event.keyCode) {
       case 9:
         event.preventDefault();
@@ -145,7 +145,8 @@ class Search extends Component {
    * Resize search window, when results lists changed
    */
   resize() {
-    const height = INPUT_HEIGHT + Math.min(this.props.results.length, VISIBLE_RESULTS) * RESULT_HEIGHT;
+    const { length } = this.props.results;
+    const height = INPUT_HEIGHT + Math.min(length, VISIBLE_RESULTS) * RESULT_HEIGHT;
     currentWindow().setSize(WINDOW_WIDTH, height);
   }
   /**

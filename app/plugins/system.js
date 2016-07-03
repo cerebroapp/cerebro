@@ -1,3 +1,5 @@
+/* eslint max-len: [0] */
+
 import search from '../lib/search';
 import shellCommand from '../lib/shellCommand';
 

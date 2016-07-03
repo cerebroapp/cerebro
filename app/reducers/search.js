@@ -8,6 +8,8 @@ import {
   RESET,
 } from '../constants/actionTypes';
 
+import uniq from 'lodash/uniq';
+
 import { MAX_RESULTS } from '../constants/ui';
 
 const initialState = {
@@ -15,8 +17,9 @@ const initialState = {
   term: '',
   // Store last used term in separate field
   prevTerm: '',
-  // Array of found results
-  results: [],
+  // Array of ids of results
+  resultIds: [],
+  resultsById: {},
   // Index of selected result
   selected: 0,
 };
@@ -27,12 +30,24 @@ const initialState = {
  * Index should be >= 0 and <= results.length
  *
  * @param  {Integer} index
- * @param  {Array} results results array
+ * @param  {Integer} length current count of found results
  * @return {Integer} normalized index
  */
-function normalizeSelection(index, results) {
-  const normalizedIndex = index % results.length;
-  return normalizedIndex < 0 ? results.length + normalizedIndex : normalizedIndex;
+function normalizeSelection(index, length) {
+  const normalizedIndex = index % length;
+  return normalizedIndex < 0 ? length + normalizedIndex : normalizedIndex;
+}
+
+// Function that does nothing
+const noon = () => {};
+
+function normalizeResult(result) {
+  return {
+    ...result,
+    onFocus: result.onFocus || noon,
+    onBlur: result.onFocus || noon,
+    onSelect: result.onSelect || noon,
+  };
 }
 
 export default function search(state = initialState, { type, payload }) {
@@ -40,21 +55,23 @@ export default function search(state = initialState, { type, payload }) {
     case UPDATE_TERM: {
       return {
         term: payload,
-        results: [],
+        resultIds: [],
+        resultsById: {},
         selected: 0
       };
     }
     case MOVE_CURSOR: {
-      let { selected } = state;
+      let selected = state.selected;
+      const resultIds = state.resultIds;
       selected += payload;
-      selected = normalizeSelection(selected, state.results);
+      selected = normalizeSelection(selected, resultIds.length);
       return {
         ...state,
         selected,
       };
     }
     case SELECT_ELEMENT: {
-      const selected = normalizeSelection(payload, state.results);
+      const selected = normalizeSelection(payload, state.resultIds.length);
       return {
         ...state,
         selected,
@@ -66,22 +83,27 @@ export default function search(state = initialState, { type, payload }) {
         // Do not show this result if term was changed
         return state;
       }
-      let { results } = state;
-      if (results.length >= 10) {
-        return;
-      }
+      const { resultsById, resultIds } = state;
 
-      results = [...results, ...result].slice(0, MAX_RESULTS);
+      const newIds = [];
+
+      result.forEach(res => {
+        resultsById[res.id] = normalizeResult(res);
+        newIds.push(res.id);
+      });
+
       return {
         ...state,
-        results,
+        resultsById,
+        resultIds: uniq([...resultIds, ...newIds]).slice(0, MAX_RESULTS),
       };
     }
     case RESET: {
       return {
         // Do not override last used search term with empty string
         prevTerm: state.term || state.prevTerm,
-        results: [],
+        resultsById: {},
+        resultIds: [],
         term: '',
         selected: 0,
       };

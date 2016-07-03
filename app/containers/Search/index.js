@@ -186,7 +186,7 @@ class Search extends Component {
 function mapStateToProps(state) {
   return {
     selected: state.search.selected,
-    results: state.search.results,
+    results: state.search.resultIds.map(id => state.search.resultsById[id]),
     term: state.search.term,
     prevTerm: state.search.prevTerm,
   };

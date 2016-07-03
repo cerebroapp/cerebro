@@ -1,13 +1,10 @@
 import shellCommand from '../lib/shellCommand';
+import uniq from 'lodash/uniq';
 
 const URL_REGEXP = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
 
 // Cache used urls to autocomplete them
 let lastUrls = [];
-
-function uniq(arr) {
-  return arr.filter((elem, pos, source) => source.indexOf(elem) === pos);
-}
 
 function matchedUsedUrls(term) {
   return lastUrls.filter(url => url.replace(/^https?:\/\//, '').indexOf(term) === 0);

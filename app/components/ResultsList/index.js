@@ -27,12 +27,12 @@ export default class ResultsList extends Component {
    */
   scrollToItem(index) {
     const position = index * RESULT_HEIGHT;
-    const { scrollTop } = this.refs.wrapper;
+    const { scrollTop } = this.refs.list;
     const resultsHeight = RESULT_HEIGHT * VISIBLE_RESULTS;
     if (position < scrollTop) {
-      this.refs.wrapper.scrollTop = position;
+      this.refs.list.scrollTop = position;
     } else if (position >= resultsHeight + scrollTop) {
-      this.refs.wrapper.scrollTop = Math.abs(resultsHeight - position - RESULT_HEIGHT);
+      this.refs.list.scrollTop = Math.abs(resultsHeight - position - RESULT_HEIGHT);
     }
   }
   renderList() {
@@ -46,6 +46,9 @@ export default class ResultsList extends Component {
         onSelect: () => this.props.onSelect(result),
         // Move selection to item under cursor
         onMouseMove: (event) => {
+          if (index === this.props.selected) {
+            return false;
+          }
           const { movementX, movementY } = event.nativeEvent;
           if (movementX || movementY) {
             // Hover item only when we had real movement of mouse
@@ -63,7 +66,7 @@ export default class ResultsList extends Component {
   }
   render() {
     return (
-      <div className={styles.resultsList} ref="wrapper">
+      <div className={styles.resultsList} ref="list">
         {this.renderList()}
       </div>
     );

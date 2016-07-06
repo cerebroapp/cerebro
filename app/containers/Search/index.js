@@ -11,6 +11,8 @@ import define from '../../lib/define';
 import * as searchActions from '../../actions/search';
 import escapeStringRegexp from 'escape-string-regexp';
 
+import { debounce, bind } from 'lodash-decorators';
+
 import {
   INPUT_HEIGHT,
   RESULT_HEIGHT,
@@ -41,7 +43,6 @@ class Search extends Component {
   }
   constructor(props) {
     super(props);
-    this.onKeyDown = this.onKeyDown.bind(this);
     currentWindow().on('hide', this.props.actions.reset);
   }
   componentDidUpdate(prevProps) {
@@ -51,6 +52,7 @@ class Search extends Component {
       this.resize();
     }
   }
+  @bind()
   onKeyDown(event) {
     if (event.metaKey) {
       if (event.keyCode === 68) {
@@ -141,9 +143,11 @@ class Search extends Component {
   selectCurrent() {
     this.selectItem(this.highlightedResult());
   }
+
   /**
    * Resize search window, when results lists changed
    */
+  @debounce(16)
   resize() {
     const { length } = this.props.results;
     const height = INPUT_HEIGHT + Math.min(length, VISIBLE_RESULTS) * RESULT_HEIGHT;

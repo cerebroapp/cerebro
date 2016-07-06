@@ -1,6 +1,6 @@
 {
   "presets": ["es2015", "stage-0", "react"],
-  "plugins": ["lodash", "add-module-exports"],
+  "plugins": ["lodash", "add-module-exports", "babel-plugin-transform-decorators-legacy"],
   "env": {
   	"production": {
   		"presets": ["react-optimize"],

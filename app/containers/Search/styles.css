@@ -1,5 +1,15 @@
 .search {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.inputWrapper {
+  position: relative;
+  z-index: 2;
+  width: 600px;
+  height: 60px;
 }
 
 .autocomplete {

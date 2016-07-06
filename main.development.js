@@ -1,5 +1,10 @@
 import { app, BrowserWindow, Menu, shell, globalShortcut } from 'electron';
-import { INPUT_HEIGHT, WINDOW_WIDTH } from './app/constants/ui';
+import {
+  INPUT_HEIGHT,
+  WINDOW_WIDTH,
+  RESULT_HEIGHT,
+  MIN_VISIBLE_RESULTS
+} from './app/constants/ui';
 
 let menu;
 let template;
@@ -18,11 +23,15 @@ let mainWindow = null;
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
+    alwaysOnTop: true,
     show: false,
     width: WINDOW_WIDTH,
+    minWidth: WINDOW_WIDTH,
+    maxWidth: WINDOW_WIDTH,
     height: INPUT_HEIGHT,
+    minHeight: INPUT_HEIGHT + RESULT_HEIGHT * MIN_VISIBLE_RESULTS,
     frame: false,
-    resizable: false,
+    resizable: false
   });
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);

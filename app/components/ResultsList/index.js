@@ -4,7 +4,6 @@ import styles from './styles.css';
 
 import {
   RESULT_HEIGHT,
-  VISIBLE_RESULTS,
 } from '../../constants/ui';
 
 export default class ResultsList extends Component {
@@ -28,7 +27,7 @@ export default class ResultsList extends Component {
   scrollToItem(index) {
     const position = index * RESULT_HEIGHT;
     const { scrollTop } = this.refs.list;
-    const resultsHeight = RESULT_HEIGHT * VISIBLE_RESULTS;
+    const resultsHeight = parseInt(window.getComputedStyle(this.refs.list).height, 10);
     if (position < scrollTop) {
       this.refs.list.scrollTop = position;
     } else if (position >= resultsHeight + scrollTop) {

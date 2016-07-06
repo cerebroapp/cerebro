@@ -16,9 +16,14 @@ import { debounce, bind } from 'lodash-decorators';
 import {
   INPUT_HEIGHT,
   RESULT_HEIGHT,
+  MIN_VISIBLE_RESULTS,
   WINDOW_WIDTH,
-  VISIBLE_RESULTS,
 } from '../../constants/ui';
+
+// By default we show MIN_VISIBLE_RESULTS, but user can resize main window to see more
+// Window height after resize will be saved and used intead
+let maxWindowHeight = INPUT_HEIGHT + MIN_VISIBLE_RESULTS * RESULT_HEIGHT;
+
 
 /**
  * Get current electron window
@@ -28,6 +33,13 @@ import {
 function currentWindow() {
   return remote.getCurrentWindow();
 }
+
+/**
+* Listen for window.resize and change default space for results to user's value
+*/
+window.addEventListener('resize', () => {
+  maxWindowHeight = Math.max(window.outerHeight, maxWindowHeight);
+});
 
 class Search extends Component {
   static propTypes = {
@@ -49,7 +61,7 @@ class Search extends Component {
     const { results } = this.props;
     if (results.length !== prevProps.results.length) {
       // Resize electron window when results count changed
-      this.resize();
+      this.updateElectronWindow();
     }
   }
   @bind()
@@ -145,13 +157,18 @@ class Search extends Component {
   }
 
   /**
-   * Resize search window, when results lists changed
+   * Set resizable and size for main electron window when results count is changed
    */
   @debounce(16)
-  resize() {
+  updateElectronWindow() {
     const { length } = this.props.results;
-    const height = INPUT_HEIGHT + Math.min(length, VISIBLE_RESULTS) * RESULT_HEIGHT;
-    currentWindow().setSize(WINDOW_WIDTH, height);
+    const height = Math.min(INPUT_HEIGHT + length * RESULT_HEIGHT, maxWindowHeight);
+    const electronWindow = currentWindow();
+    // When results list is empty window is not resizable
+    electronWindow.setResizable(length !== 0);
+    // User can't see empty space after last result
+    electronWindow.setMaximumSize(WINDOW_WIDTH, INPUT_HEIGHT + length * RESULT_HEIGHT);
+    electronWindow.setSize(WINDOW_WIDTH, height);
   }
   /**
    * Render autocomplete suggestion from selected item
@@ -172,11 +189,13 @@ class Search extends Component {
     return (
       <div className={styles.search}>
         {this.renderAutocomplete()}
-        <MainInput
-          value={this.props.term}
-          onChange={this.props.actions.updateTerm}
-          onKeyDown={this.onKeyDown}
-        />
+        <div className={styles.inputWrapper}>
+          <MainInput
+            value={this.props.term}
+            onChange={this.props.actions.updateTerm}
+            onKeyDown={this.onKeyDown}
+          />
+        </div>
         <ResultsList
           results={this.props.results}
           selected={this.props.selected}

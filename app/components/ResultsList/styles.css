@@ -1,4 +1,5 @@
 .resultsList {
-  max-height: 300px;
   overflow-y: auto;
+  flex-grow: 2;
+  border-top: 1px solid #eee;
 }

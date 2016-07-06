@@ -39,3 +39,7 @@ a:hover {
   text-decoration: none;
   cursor: pointer;
 }
+
+#root {
+  height: 100%;
+}

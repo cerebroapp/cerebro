@@ -106,6 +106,7 @@
     "electron-debug": "^1.0.1",
     "escape-string-regexp": "^1.0.5",
     "font-awesome": "^4.6.3",
+    "glob": "^7.0.5",
     "lodash": "^4.13.1",
     "normalize.css": "^4.1.1",
     "plist": "^1.2.0",

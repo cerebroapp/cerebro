@@ -1,6 +1,6 @@
 /* eslint no-eval: 0 */
 
-const MATH_REGEXP = /^[-+/*\d\s\( )]+$/;
+const MATH_REGEXP = /^[-+/*\d\s,\.\( )]+$/;
 
 /**
  * Plugin to show result of math calculation
@@ -10,7 +10,7 @@ const mathPlugin = (term, callback) => {
   const match = term.match(MATH_REGEXP);
   if (match) {
     try {
-      const result = eval(term);
+      const result = eval(term.replace(',', '.'));
       callback({
         title: `= ${result}`,
         icon: '/Applications/Calculator.app',

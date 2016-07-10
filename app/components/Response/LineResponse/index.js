@@ -8,7 +8,7 @@ export default class LineResponse extends Component {
     icon: PropTypes.string,
     selected: PropTypes.bool,
     subtitle: PropTypes.string,
-    keycode: PropTypes.integer,
+    keycode: PropTypes.number,
     onSelect: PropTypes.func,
     onMouseMove: PropTypes.func,
   }

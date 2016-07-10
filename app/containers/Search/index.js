@@ -16,14 +16,9 @@ import { debounce, bind } from 'lodash-decorators';
 import {
   INPUT_HEIGHT,
   RESULT_HEIGHT,
-  MIN_VISIBLE_RESULTS,
   WINDOW_WIDTH,
+  MIN_VISIBLE_RESULTS,
 } from '../../constants/ui';
-
-// By default we show MIN_VISIBLE_RESULTS, but user can resize main window to see more
-// Window height after resize will be saved and used intead
-let maxWindowHeight = INPUT_HEIGHT + MIN_VISIBLE_RESULTS * RESULT_HEIGHT;
-
 
 /**
  * Get current electron window
@@ -34,28 +29,26 @@ function currentWindow() {
   return remote.getCurrentWindow();
 }
 
-/**
-* Listen for window.resize and change default space for results to user's value
-*/
-window.addEventListener('resize', () => {
-  maxWindowHeight = Math.max(window.outerHeight, maxWindowHeight);
-});
-
 class Search extends Component {
   static propTypes = {
-    actions: {
+    actions: PropTypes.shape({
       reset: PropTypes.func,
       moveCursor: PropTypes.func,
       updateTerm: PropTypes.func,
-    },
+      changeVisibleResults: PropTypes.func,
+      selectElement: PropTypes.func,
+    }),
     results: PropTypes.array,
     selected: PropTypes.number,
+    visibleResults: PropTypes.number,
     term: PropTypes.string,
     prevTerm: PropTypes.string,
   }
   constructor(props) {
     super(props);
     currentWindow().on('hide', this.props.actions.reset);
+    // Listen for window.resize and change default space for results to user's value
+    window.addEventListener('resize', this.onWindowResize);
   }
   componentDidUpdate(prevProps) {
     const { results } = this.props;
@@ -64,6 +57,29 @@ class Search extends Component {
       this.updateElectronWindow();
     }
   }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onWindowResize);
+  }
+
+  /**
+   * Handle resize window and change count of visible results depends on window size
+   */
+  @bind()
+  @debounce(100)
+  onWindowResize() {
+    if (this.props.results.length <= MIN_VISIBLE_RESULTS) {
+      return false;
+    }
+    let visibleResults = Math.floor((window.outerHeight - INPUT_HEIGHT) / RESULT_HEIGHT);
+    visibleResults = Math.max(MIN_VISIBLE_RESULTS, visibleResults);
+    if (visibleResults !== this.props.visibleResults) {
+      this.props.actions.changeVisibleResults(visibleResults);
+    }
+  }
+
+  /**
+   * Handle keyboard shortcuts
+   */
   @bind()
   onKeyDown(event) {
     if (event.metaKey) {
@@ -117,7 +133,7 @@ class Search extends Component {
         this.selectCurrent();
         break;
       case 27:
-        currentWindow().blur();
+        currentWindow().hide();
         break;
     }
   }
@@ -161,8 +177,9 @@ class Search extends Component {
    */
   @debounce(16)
   updateElectronWindow() {
-    const { length } = this.props.results;
-    const height = Math.min(INPUT_HEIGHT + length * RESULT_HEIGHT, maxWindowHeight);
+    const { results, visibleResults } = this.props;
+    const { length } = results;
+    const height = Math.min(visibleResults, length) * RESULT_HEIGHT + INPUT_HEIGHT;
     const electronWindow = currentWindow();
     // When results list is empty window is not resizable
     electronWindow.setResizable(length !== 0);
@@ -199,6 +216,7 @@ class Search extends Component {
         <ResultsList
           results={this.props.results}
           selected={this.props.selected}
+          visibleResults={this.props.visibleResults}
           onItemHover={this.props.actions.selectElement}
           onSelect={this.selectItem}
         />
@@ -213,6 +231,7 @@ function mapStateToProps(state) {
     results: state.search.resultIds.map(id => state.search.resultsById[id]),
     term: state.search.term,
     prevTerm: state.search.prevTerm,
+    visibleResults: state.search.visibleResults,
   };
 }
 

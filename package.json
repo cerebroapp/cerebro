@@ -118,6 +118,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "react-router-redux": "^4.0.4",
+    "react-virtualized": "^7.11.8",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "source-map-support": "^0.4.0"

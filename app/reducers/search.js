@@ -6,11 +6,12 @@ import {
   SELECT_ELEMENT,
   SHOW_RESULT,
   RESET,
+  CHANGE_VISIBLE_RESULTS
 } from '../constants/actionTypes';
 
-import uniq from 'lodash/uniq';
+import { MIN_VISIBLE_RESULTS } from '../constants/ui';
 
-import { MAX_RESULTS } from '../constants/ui';
+import uniq from 'lodash/uniq';
 
 const initialState = {
   // Search term in main input
@@ -22,6 +23,8 @@ const initialState = {
   resultsById: {},
   // Index of selected result
   selected: 0,
+  // Count of visible results
+  visibleResults: MIN_VISIBLE_RESULTS
 };
 
 
@@ -54,9 +57,9 @@ export default function search(state = initialState, { type, payload }) {
   switch (type) {
     case UPDATE_TERM: {
       return {
+        ...state,
         term: payload,
         resultIds: [],
-        resultsById: {},
         selected: 0
       };
     }
@@ -83,24 +86,32 @@ export default function search(state = initialState, { type, payload }) {
         // Do not show this result if term was changed
         return state;
       }
-      const { resultsById, resultIds } = state;
-
-      const newIds = [];
+      let { resultsById, resultIds } = state;
 
       result.forEach(res => {
-        resultsById[res.id] = normalizeResult(res);
-        newIds.push(res.id);
+        resultsById = {
+          ...resultsById,
+          [res.id]: normalizeResult(res)
+        };
+        resultIds = [...resultIds, res.id];
       });
 
       return {
         ...state,
         resultsById,
-        resultIds: uniq([...resultIds, ...newIds]).slice(0, MAX_RESULTS),
+        resultIds: uniq(resultIds)
+      };
+    }
+    case CHANGE_VISIBLE_RESULTS: {
+      return {
+        ...state,
+        visibleResults: payload,
       };
     }
     case RESET: {
       return {
         // Do not override last used search term with empty string
+        ...state,
         prevTerm: state.term || state.prevTerm,
         resultsById: {},
         resultIds: [],

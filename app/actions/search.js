@@ -6,6 +6,7 @@ import {
  SELECT_ELEMENT,
  SHOW_RESULT,
  RESET,
+ CHANGE_VISIBLE_RESULTS,
 } from '../constants/actionTypes';
 
 
@@ -98,5 +99,15 @@ export function selectElement(index) {
   return {
     type: SELECT_ELEMENT,
     payload: index
+  };
+}
+
+/**
+ * Change count of visible results (without scroll) in list
+ */
+export function changeVisibleResults(count) {
+  return {
+    type: CHANGE_VISIBLE_RESULTS,
+    payload: count,
   };
 }

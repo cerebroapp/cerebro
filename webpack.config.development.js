@@ -9,10 +9,16 @@ const config = {
 
   devtool: 'cheap-module-eval-source-map',
 
-  entry: [
-    'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
-    './app/index'
-  ],
+  entry: {
+    background: [
+      'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
+      './background/background',
+    ],
+    main: [
+      'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
+      './main/main',
+    ]
+  },
 
   output: {
     ...baseConfig.output,

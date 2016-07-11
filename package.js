@@ -27,7 +27,11 @@ const DEFAULT_OPTS = {
     '^/test($|/)',
     '^/tools($|/)',
     '^/release($|/)',
-    '^/main.development.js'
+    '^/main.development.js',
+    '.*\.sublime-project',
+    '.*\.sublime-workspace',
+    '^/tmp',
+    '^/webpack',
   ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
   .concat(
     deps.filter(name => !electronCfg.externals.includes(name))

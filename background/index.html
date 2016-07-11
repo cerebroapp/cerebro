@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+  <head>
+    <script>
+      (function() {
+        const script = document.createElement('script');
+        script.src = (process.env.HOT) ? 'http://localhost:3000/dist/background.bundle.js' : '../dist/background.bundle.js';
+        document.write(script.outerHTML);
+      }());
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

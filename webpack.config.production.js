@@ -7,7 +7,10 @@ const config = {
 
   devtool: 'source-map',
 
-  entry: './app/index',
+  entry: {
+    main: './main/main',
+    background: './background/background',
+  },
 
   output: {
     ...baseConfig.output,

@@ -18879,40 +18879,6 @@
       "from": "normalize.css@>=4.1.1 <5.0.0",
       "resolved": "https://registry.npmjs.org/normalize.css/-/normalize.css-4.1.1.tgz"
     },
-    "plist": {
-      "version": "1.2.0",
-      "from": "plist@latest",
-      "resolved": "https://registry.npmjs.org/plist/-/plist-1.2.0.tgz",
-      "dependencies": {
-        "base64-js": {
-          "version": "0.0.8",
-          "from": "base64-js@0.0.8",
-          "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-0.0.8.tgz"
-        },
-        "xmlbuilder": {
-          "version": "4.0.0",
-          "from": "xmlbuilder@4.0.0",
-          "resolved": "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-4.0.0.tgz",
-          "dependencies": {
-            "lodash": {
-              "version": "3.10.1",
-              "from": "lodash@>=3.5.0 <4.0.0",
-              "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
-            }
-          }
-        },
-        "xmldom": {
-          "version": "0.1.22",
-          "from": "xmldom@>=0.1.0 <0.2.0",
-          "resolved": "https://registry.npmjs.org/xmldom/-/xmldom-0.1.22.tgz"
-        },
-        "util-deprecate": {
-          "version": "1.0.2",
-          "from": "util-deprecate@1.0.2",
-          "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
-        }
-      }
-    },
     "postcss": {
       "version": "5.0.21",
       "from": "postcss@>=5.0.21 <6.0.0",

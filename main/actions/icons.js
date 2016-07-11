@@ -16,6 +16,8 @@ export function loadIcon(path) {
           icon,
         }
       });
+    }).catch(() => {
+      // Icon can't be fetched
     });
   };
 }

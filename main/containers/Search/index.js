@@ -151,6 +151,7 @@ class Search extends Component {
    * @param  {[type]} item [description]
    * @return {[type]}      [description]
    */
+  @bind()
   selectItem(item) {
     this.props.actions.reset();
     item.onSelect();

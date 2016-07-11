@@ -17,6 +17,7 @@ export const SYNONIMS = {
 
   'in*': 'in',
   '"': 'in',
+  'дюйм*': 'in',
 
   "'": 'ft',
   'фут*': 'ft',

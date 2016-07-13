@@ -10,7 +10,7 @@ const mathPlugin = (term, callback) => {
   const match = term.match(MATH_REGEXP);
   if (match) {
     try {
-      const result = eval(term.replace(',', '.'));
+      const result = eval(term.replace(',', '.')).toLocaleString();
       callback({
         title: `= ${result}`,
         icon: '/Applications/Calculator.app',

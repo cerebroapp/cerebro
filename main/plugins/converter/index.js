@@ -60,11 +60,11 @@ const converterPlugin = (term, callback) => {
         return;
       }
       const [from, to] = pair;
-      const result = converter.convert(amount, from, to);
+      const result = converter.convert(amount, from, to).toLocaleString();
       callback({
         icon,
         id: `converter-${from.unit}-${to.unit}`,
-        title: `${amount}${from.displayName} = ${result}${to.displayName}`,
+        title: `${amount.toLocaleString()}${from.displayName} = ${result}${to.displayName}`,
         term: `${term} = ${result}${to.displayName}`,
         clipboard: result.toString(),
       });

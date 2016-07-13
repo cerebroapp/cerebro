@@ -1,9 +1,29 @@
+import React from 'react';
 import fs from 'fs';
 import search from 'lib/search';
+import styles from './styles.css';
 import shellCommand from 'lib/shellCommand';
 
 const DIR_REGEXP = /^\/(.*\/)*(.*)/;
 const HOME_DIR_REGEXP = /^~/;
+
+function imagePreview(path) {
+  return <img src={path} className={styles.previewImage}/>;
+}
+
+function videoPreview(path) {
+  return <video src={path} className={styles.previewVideo} controls='true' />;
+}
+
+function generatePreview(filePath) {
+  if (filePath.match(/\.(jpg|jpeg|png|gif|bmp)$/i)) {
+    return imagePreview.bind(null, filePath)
+  } else if (filePath.match(/\.(mp4|mov|ogg)$/i)) {
+    return videoPreview.bind(null, filePath);
+  }
+  // TODO: pdf, text format, files with code (highlight.js)
+  return null;
+}
 
 /**
  * Plugin to look and display local and external IPs
@@ -32,6 +52,7 @@ const filesPlugin = (term, callback) => {
           clipboard: filePath,
           term: filePath,
           onSelect: shellCommand.bind(null, `open ${filePath}`),
+          getPreview: generatePreview(filePath)
         };
       });
       callback(result);

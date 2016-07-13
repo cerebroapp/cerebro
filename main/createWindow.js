@@ -14,7 +14,6 @@ export default (url) => {
     show: false,
     width: WINDOW_WIDTH,
     minWidth: WINDOW_WIDTH,
-    maxWidth: WINDOW_WIDTH,
     height: INPUT_HEIGHT,
     minHeight: INPUT_HEIGHT + RESULT_HEIGHT * MIN_VISIBLE_RESULTS,
     frame: false,

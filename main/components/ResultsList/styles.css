@@ -1,5 +1,21 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  border-top: 1px solid #eee;
+}
+
 .resultsList {
   overflow-y: auto;
+  width: 250px;
+  min-width: 250px;
+}
+
+.preview {
   flex-grow: 2;
-  border-top: 1px solid #eee;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  position: relative;
 }

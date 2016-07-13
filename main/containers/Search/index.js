@@ -185,13 +185,12 @@ class Search extends Component {
   updateElectronWindow() {
     const { results, visibleResults } = this.props;
     const { length } = results;
-    const height = Math.min(visibleResults, length) * RESULT_HEIGHT + INPUT_HEIGHT;
+    const height = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS) * RESULT_HEIGHT + INPUT_HEIGHT;
     const electronWindow = currentWindow();
     // When results list is empty window is not resizable
     electronWindow.setResizable(length !== 0);
-    // User can't see empty space after last result
-    electronWindow.setMaximumSize(WINDOW_WIDTH, INPUT_HEIGHT + length * RESULT_HEIGHT);
-    electronWindow.setSize(WINDOW_WIDTH, height);
+    const [width] = electronWindow.getSize();
+    electronWindow.setSize(width, length === 0 ? INPUT_HEIGHT : height);
   }
   /**
    * Render autocomplete suggestion from selected item

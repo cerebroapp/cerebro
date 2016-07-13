@@ -6,6 +6,7 @@ import { bind } from 'lodash-decorators';
 
 import {
   RESULT_HEIGHT,
+  RESULT_WIDTH,
   WINDOW_WIDTH,
 } from '../../constants/ui';
 
@@ -47,22 +48,34 @@ export default class ResultsList extends Component {
     }
     return <LineResponse {...attrs} />;
   }
+  renderPreview() {
+    const selected = this.props.results[this.props.selected];
+    return selected.getPreview ? selected.getPreview() : null;
+  }
   render() {
     const { results, selected, visibleResults } = this.props;
+    if (results.length === 0) {
+      return null;
+    }
     return (
-      <VirtualScroll
-        ref="list"
-        className={styles.resultsList}
-        height={visibleResults * RESULT_HEIGHT}
-        overscanRowCount={2}
-        rowCount={results.length}
-        rowHeight={RESULT_HEIGHT}
-        rowRenderer={this.rowRenderer}
-        width={WINDOW_WIDTH}
-        scrollToIndex={selected}
-        // Needed to force update of VirtualScroll
-        titles={results.map(result => result.title)}
-      />
+      <div className={styles.wrapper}>
+        <VirtualScroll
+          ref="list"
+          className={styles.resultsList}
+          height={visibleResults * RESULT_HEIGHT}
+          overscanRowCount={2}
+          rowCount={results.length}
+          rowHeight={RESULT_HEIGHT}
+          rowRenderer={this.rowRenderer}
+          width={RESULT_WIDTH}
+          scrollToIndex={selected}
+          // Needed to force update of VirtualScroll
+          titles={results.map(result => result.title)}
+        />
+        <div className={styles.preview}>
+          {this.renderPreview()}
+        </div>
+      </div>
     );
   }
 }

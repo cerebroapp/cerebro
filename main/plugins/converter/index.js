@@ -3,6 +3,8 @@ import mass from './mass';
 import currency from './currency';
 import temperature from './temperature';
 
+const icon = '/Applications/Calculator.app';
+
 // Array of all available converters
 const CONVERTERS = [
   distance,
@@ -60,11 +62,11 @@ const converterPlugin = (term, callback) => {
       const [from, to] = pair;
       const result = converter.convert(amount, from, to);
       callback({
+        icon,
         id: `converter-${from.unit}-${to.unit}`,
         title: `${amount}${from.displayName} = ${result}${to.displayName}`,
         term: `${term} = ${result}${to.displayName}`,
         clipboard: result.toString(),
-        icon: '/Applications/Calculator.app',
       });
     });
   }

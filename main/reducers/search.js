@@ -12,6 +12,7 @@ import {
 import { MIN_VISIBLE_RESULTS } from '../constants/ui';
 
 import uniq from 'lodash/uniq';
+import orderBy from 'lodash/orderBy';
 
 const initialState = {
   // Search term in main input
@@ -99,7 +100,7 @@ export default function search(state = initialState, { type, payload }) {
       return {
         ...state,
         resultsById,
-        resultIds: uniq(resultIds)
+        resultIds: orderBy(uniq(resultIds), id => resultsById[id].order || 0)
       };
     }
     case CHANGE_VISIBLE_RESULTS: {

@@ -1,24 +1,22 @@
 import define from 'lib/define';
 
+const order = 2;
+
 /**
  * Look up term in OSx dictionary
  * @param  {String} term
  */
 const definePlugin = (term, callback) => {
-  const match = term.match(/^def(?:ine)?\s(.+)/);
-  if (match) {
-    const word = match[1];
-    callback({
-      id: `define${word}`,
-      icon: '/Applications/Dictionary.app',
-      title: `Define ${word}`,
-      onSelect: () => define(word),
-    });
-  }
+  callback({
+    order,
+    id: `define${term}`,
+    icon: '/Applications/Dictionary.app',
+    title: `Define ${term}`,
+    onSelect: () => define(term),
+    order,
+  });
 };
 
 export default {
-  name: 'Define word',
-  keyword: 'define',
   fn: definePlugin,
 };

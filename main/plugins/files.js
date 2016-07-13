@@ -31,7 +31,7 @@ const filesPlugin = (term, callback) => {
           subtitle: filePath,
           clipboard: filePath,
           term: filePath,
-          onSelect: shellCommand.bind(null, `open ${path}`),
+          onSelect: shellCommand.bind(null, `open ${filePath}`),
         };
       });
       callback(result);

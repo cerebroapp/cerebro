@@ -10,7 +10,6 @@ body {
   height: 100vh;
   font-family: "Helvetica Neue";
   overflow-y: hidden;
-  -webkit-app-region: drag;
 }
 
 h2 {

@@ -4,7 +4,6 @@ import styles from './styles.css';
 export default class MainInput extends Component {
   static propTypes = {
     value: PropTypes.string,
-    onKeyDown: PropTypes.func,
     onChange: PropTypes.func,
   }
   componentDidMount() {
@@ -18,7 +17,6 @@ export default class MainInput extends Component {
         ref="input"
         value={this.props.value}
         className={styles.input}
-        onKeyDown={this.props.onKeyDown}
         onChange={(e) => this.props.onChange(e.target.value)}
       />
     );

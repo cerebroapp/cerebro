@@ -47,8 +47,6 @@ class Search extends Component {
   constructor(props) {
     super(props);
     currentWindow().on('hide', this.props.actions.reset);
-    // Listen for window.resize and change default space for results to user's value
-    window.addEventListener('resize', this.onWindowResize);
   }
   componentDidUpdate(prevProps) {
     const { results } = this.props;
@@ -57,8 +55,15 @@ class Search extends Component {
       this.updateElectronWindow();
     }
   }
+  componentWillMount() {
+    // Listen for window.resize and change default space for results to user's value
+    window.addEventListener('resize', this.onWindowResize);
+    // Listen for document keydown to handle hot keys
+    document.addEventListener('keydown', this.onKeyDown);
+  }
   componentWillUnmount() {
     window.removeEventListener('resize', this.onWindowResize);
+    document.removeEventListener('keyDown', this.onKeyDown);
   }
 
   /**
@@ -211,7 +216,6 @@ class Search extends Component {
           <MainInput
             value={this.props.term}
             onChange={this.props.actions.updateTerm}
-            onKeyDown={this.onKeyDown}
           />
         </div>
         <ResultsList

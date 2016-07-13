@@ -28,8 +28,8 @@ const DEFAULT_OPTS = {
     '^/tools($|/)',
     '^/release($|/)',
     '^/main.development.js',
-    '.*\.sublime-project',
-    '.*\.sublime-workspace',
+    '.*.sublime-project',
+    '.*.sublime-workspace',
     '^/tmp',
     '^/webpack',
   ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))

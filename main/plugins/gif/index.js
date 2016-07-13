@@ -1,0 +1,36 @@
+import React from 'react';
+import Preview from './Preview';
+
+const API_KEY = 'dc6zaTOxFJmzC';
+
+/**
+ * Plugin to look and display local and external IPs
+ * @param  {String} term
+ */
+const gifPlugin = (term, callback) => {
+  let match = term.match(/^gif\s+(.+)/i);
+  match = match || term.match(/(.+)\sgif$/i);
+  if (match) {
+    const url = `http://api.giphy.com/v1/gifs/search?q=${encodeURIComponent(match[1])}&api_key=${API_KEY}`;
+    fetch(url)
+      .then(resp => resp.json())
+      .then(results => {
+        const response = results.data.map(item => {
+          return {
+            id: `gif-${item.id}`,
+            title: item.images.original.url,
+            clipboard: item.images.original.url,
+            getPreview: () => <Preview images={item.images} id={item.id}  />
+          }
+        });
+        callback(response);
+      })
+  }
+};
+
+
+export default {
+  name: 'Search gif',
+  keyword: 'gif',
+  fn: gifPlugin,
+};

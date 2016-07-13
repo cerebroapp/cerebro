@@ -11,6 +11,4 @@ export { default as converter } from './converter';
 export { default as openWeb } from './openWeb';
 export { default as google } from './google';
 export { default as googleTranslate } from './googleTranslate';
-export { default as spanishdict } from './spanishdict';
-// TEMPORARY PLUGIN TO CHECK PASSPORT STATUS
-export { default as passport } from './passport';
+export { default as gif } from './gif';

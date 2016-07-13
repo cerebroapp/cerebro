@@ -33,8 +33,12 @@ export default (url) => {
   const HOTKEY = 'Control+Space';
 
   globalShortcut.register(HOTKEY, () => {
-    mainWindow.show();
-    mainWindow.focus();
+    if (mainWindow.isVisible()) {
+      mainWindow.hide();
+    } else {
+      mainWindow.show();
+      mainWindow.focus();
+    }
   });
 
   buildMenu(mainWindow);

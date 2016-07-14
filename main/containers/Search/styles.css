@@ -9,17 +9,17 @@
   position: relative;
   z-index: 2;
   width: 600px;
-  height: 60px;
+  height: 45px;
 }
 
 .autocomplete {
   position: absolute;
   z-index: 1;
   width: 600px;
-  height: 60px;
-  font-size: 2em;
+  height: 45px;
+  font-size: 1.5em;
   padding: 0 10px;
-  line-height: 60px;
+  line-height: 45px;
   box-sizing: border-box;
   color: #bbbbbb;
   white-space: pre;

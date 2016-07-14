@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-import Loading from 'main/components/Loading';
 import styles from './styles.css';
 import { bind } from 'lodash-decorators';
 import bytesToSize from 'lib/helpers/bytesToSize';

@@ -26,6 +26,10 @@ module.exports = {
       path.resolve('./node_modules'),
     ]
   },
+  postcss: () => [
+    require('autoprefixer'),
+    require('postcss-nested'),
+  ],
   plugins: [
 
   ],

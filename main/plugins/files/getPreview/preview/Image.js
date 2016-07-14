@@ -1,6 +1,10 @@
 import React from 'react';
+import FileDetails from '../../../../components/FileDetails';
 import styles from './styles.css';
 
 export default ({ path }) => (
-  <img src={path} className={styles.previewImage}/>
+  <div>
+    <img src={path} className={styles.previewImage}/>
+    <FileDetails path={path} />
+  </div>
 )

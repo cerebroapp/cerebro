@@ -1,0 +1,23 @@
+.fileDetails {
+  margin-top: 50px;
+  font-size: .8em;
+  color: #999;
+  width: 100%;
+
+  dt {
+    float: left;
+    width: 49%;
+    padding: 0;
+    margin: 0;
+    text-align: right;
+    margin-right: 2%;
+  }
+
+  dd {
+    float: left;
+    width: 49%;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+}

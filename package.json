@@ -112,6 +112,7 @@
   },
   "dependencies": {
     "css-modules-require-hook": "^4.0.0",
+    "du": "^0.1.0",
     "electron-debug": "^1.0.1",
     "escape-string-regexp": "^1.0.5",
     "glob": "^7.0.5",

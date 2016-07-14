@@ -7,8 +7,7 @@ import shellCommand from 'lib/shellCommand';
 import Preview from './Preview';
 
 function getPreview(path, name) {
-  const details = fs.statSync(path);
-  return <Preview name={name} path={path} details={details} />;
+  return <Preview name={name} path={path} />;
 }
 
 // TODO: preload and cache app icons

@@ -1,10 +1,19 @@
+import React from 'react';
+
+import fs from 'fs';
 import getAppsList from 'lib/getAppsList';
 import search from 'lib/search';
 import shellCommand from 'lib/shellCommand';
+import Preview from './Preview';
+
+function getPreview(path, name) {
+  const details = fs.statSync(path);
+  return <Preview name={name} path={path} details={details} />;
+}
 
 // TODO: preload and cache app icons
 // TODO: get apps from subdirs
-const appsPlugin = (term, callback) => {
+const appsPlugin = (term,  callback) => {
   getAppsList().then(items => {
     const result = search(items, term, (file) => file.name).map(file => {
       const { path, name } = file;
@@ -16,6 +25,7 @@ const appsPlugin = (term, callback) => {
         icon: path,
         subtitle: path,
         onSelect: shellCommand.bind(this, `open ${shellPath}`),
+        getPreview: () => getPreview(path, name)
       };
     });
     callback(result);

@@ -61,18 +61,16 @@
   justify-content: center;
   max-width: 225px;
   height: 90%;
-}
-
-.details::after {
-  content: '';
-  background: linear-gradient(to right, transparent, white);
-  position: absolute;
-  width: 10px;
-  height: 100%;
-  top: 0;
-  right: 0px;
-}
-
-.selected .details::after {
-  background: linear-gradient(to right, transparent, #126EDB);
+  &::after {
+    content: '';
+    background: linear-gradient(to right, transparent, white);
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    top: 0;
+    right: 0px;
+    .selected & {
+      background: linear-gradient(to right, transparent, #126EDB);
+    }
+  }
 }

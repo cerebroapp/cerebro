@@ -7,12 +7,14 @@ import styles from './styles.css';
 export default ({path}) => {
   const language = path.match(/\.(.+)$/)[1];
   return (
-    <WithFetchedFile path={path}>
+    <WithFetchedFile path={path} key={path}>
       {
         (source) => (
-          <Highlight className={`${language} ${styles.previewCode}`}>
-            {source}
-          </Highlight>
+          <div className={styles.previewCode}>
+            <Highlight className={language}>
+              {source}
+            </Highlight>
+          </div>
         )
       }
     </WithFetchedFile>

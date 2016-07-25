@@ -16,7 +16,7 @@ export default class Preview extends Component {
           <NativeIcon path={path} />
         </div>
         <div className={styles.previewName}>{name}</div>
-        <FileDetails path={path} />
+        <FileDetails path={path} key={path} />
       </div>
     )
   }

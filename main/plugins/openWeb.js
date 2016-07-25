@@ -1,4 +1,4 @@
-import shellCommand from 'lib/shellCommand';
+import { shell } from 'electron';
 import uniq from 'lodash/uniq';
 
 const URL_REGEXP = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
@@ -18,7 +18,7 @@ function toResult(url) {
     term: url,
     onSelect: () => {
       lastUrls = uniq([url, ...lastUrls]);
-      shellCommand(`open ${url}`);
+      shell.openExternal(url);
     },
   };
 }

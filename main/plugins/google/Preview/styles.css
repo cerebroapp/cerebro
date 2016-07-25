@@ -1,0 +1,14 @@
+.wrapper {
+  align-self: flex-start;
+  width: 100%;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  padding: 10px 0;
+  cursor: pointer;
+}

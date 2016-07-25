@@ -87,6 +87,15 @@ class Search extends Component {
    */
   @bind()
   onKeyDown(event) {
+    const highlighted = this.highlightedResult();
+    // TODO: go to first result on cmd+up and last result on cmd+down
+    // TODO: global shortcuts priorities
+    if (highlighted && highlighted.onKeyDown) {
+      highlighted.onKeyDown(event);
+    }
+    if (event.defaultPrevented) {
+      return;
+    }
     if (event.metaKey) {
       if (event.keyCode === 68) {
         // define word on cmd+d
@@ -167,7 +176,7 @@ class Search extends Component {
    */
   autocomplete() {
     const { term } = this.highlightedResult();
-    if (term) {
+    if (term && term != this.props.term) {
       this.props.actions.updateTerm(term);
     }
   }

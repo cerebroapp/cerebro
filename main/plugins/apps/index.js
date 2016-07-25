@@ -5,6 +5,7 @@ import getAppsList from 'lib/getAppsList';
 import search from 'lib/search';
 import shellCommand from 'lib/shellCommand';
 import Preview from './Preview';
+import { shell } from 'electron';
 
 function getPreview(path, name) {
   return <Preview name={name} path={path} />;
@@ -23,6 +24,12 @@ const appsPlugin = (term,  callback) => {
         id: path,
         icon: path,
         subtitle: path,
+        onKeyDown: (event) => {
+          if (event.metaKey && event.keyCode === 82) {
+            shell.showItemInFolder(path);
+            event.preventDefault();
+          }
+        },
         onSelect: shellCommand.bind(this, `open ${shellPath}`),
         getPreview: () => getPreview(path, name)
       };

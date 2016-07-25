@@ -3,6 +3,7 @@ import fs from 'fs';
 import search from 'lib/search';
 import shellCommand from 'lib/shellCommand';
 import getPreview from './getPreview';
+import { shell } from 'electron';
 
 const DIR_REGEXP = /^\/(.*\/)*(.*)/;
 const HOME_DIR_REGEXP = /^~/;
@@ -14,7 +15,7 @@ const HOME_DIR_REGEXP = /^~/;
 const filesPlugin = (term, callback) => {
   let path = term;
   if (path.match(HOME_DIR_REGEXP)) {
-    path = path.replace(HOME_DIR_REGEXP, `/Users/${process.env.USER}/`);
+    path = path.replace(HOME_DIR_REGEXP, `/Users/${process.env.USER}`);
   }
   const match = path.match(DIR_REGEXP);
   if (match) {
@@ -33,6 +34,12 @@ const filesPlugin = (term, callback) => {
           subtitle: filePath,
           clipboard: filePath,
           term: filePath,
+          onKeyDown: (event) => {
+            if (event.metaKey && event.keyCode === 82) {
+              shell.showItemInFolder(filePath);
+              event.preventDefault();
+            }
+          },
           onSelect: shellCommand.bind(null, `open ${filePath}`),
           getPreview: getPreview.bind(null, filePath)
         };

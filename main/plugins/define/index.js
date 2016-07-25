@@ -1,4 +1,6 @@
+import React from 'react';
 import define from 'lib/define';
+import Preview from './Preview';
 
 const order = 2;
 
@@ -13,6 +15,7 @@ const definePlugin = (term, callback) => {
     icon: '/Applications/Dictionary.app',
     title: `Define ${term}`,
     onSelect: () => define(term),
+    getPreview: () => <Preview word={term} />,
     order,
   });
 };

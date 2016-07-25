@@ -64,9 +64,9 @@ export default (mainWindow) => {
     }]
   }, {
     label: 'View',
-    submenu: (true) ? [{
+    submenu: (process.env.NODE_ENV === 'development') ? [{
       label: 'Reload',
-      accelerator: 'Command+R',
+      accelerator: 'Ctrl+R',
       click() {
         mainWindow.webContents.reload();
       }
@@ -75,6 +75,12 @@ export default (mainWindow) => {
       accelerator: 'Ctrl+Command+F',
       click() {
         mainWindow.setFullScreen(!mainWindow.isFullScreen());
+      }
+    }, {
+      label: 'Toggle Developer Tools',
+      accelerator: 'Alt+Command+I',
+      click() {
+        mainWindow.toggleDevTools();
       }
     }] : [{
       label: 'Toggle Full Screen',

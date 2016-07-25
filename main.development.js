@@ -1,10 +1,7 @@
 import { app, ipcMain } from 'electron';
-import electronDebug from 'electron-debug';
 
 import createMainWindow from './main/createWindow';
 import createBackgroundWindow from './background/createWindow';
-
-electronDebug({ showDevTools: true });
 
 let mainWindow;
 let backgroundWindow;

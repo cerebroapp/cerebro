@@ -15,7 +15,17 @@
   flex-grow: 2;
   padding: 10px;
   align-items: center;
-  justify-content: center;
   display: flex;
+  max-height: 100%;
   position: relative;
+  overflow: auto;
+  /*
+    Instead of using `justify-content: center` we have to use this hack.
+    In this case child element that is bigger than `.preview ` will be placed on left border
+    instead of moving outside of container
+   */
+  &::before, &::after {
+    content: '';
+    margin: auto;
+  }
 }

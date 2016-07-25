@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 
 import bytesToSize from 'lib/helpers/bytesToSize';
-import du from 'du';
-import fs from 'fs';
 import styles from './styles.css';
+
+import getFileSize from 'lib/getFileSize';
+import getFileDetails from 'lib/getFileDetails';
 
 export default class FileDetails extends Component {
   constructor(props) {
@@ -15,9 +16,8 @@ export default class FileDetails extends Component {
   }
   componentDidMount() {
     const { path } = this.props;
-    du(path, (_, size) => this.setState({ size } ));
-    fs.stat(path, (_, details) => { this.setState({ details }); })
-
+    getFileSize(path).then(size => this.setState({ size }));
+    getFileDetails(path).then(details => this.setState({ details }));
   }
   render() {
     const { details, size } = this.state

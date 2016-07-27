@@ -118,6 +118,7 @@
     "lodash": "^4.13.1",
     "lodash-decorators": "^3.0.1",
     "normalize.css": "^4.1.1",
+    "pdfjs-dist": "^1.5.355",
     "postcss": "^5.0.21",
     "react": "^15.1.0",
     "react-addons-css-transition-group": "^15.2.1",

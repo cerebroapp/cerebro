@@ -7,7 +7,7 @@ import styles from './styles.css';
 export default ({path}) => {
   const language = path.match(/\.(.+)$/)[1];
   return (
-    <WithFetchedFile path={path} key={path}>
+    <WithFetchedFile path={path}>
       {
         (source) => (
           <div className={styles.previewCode}>

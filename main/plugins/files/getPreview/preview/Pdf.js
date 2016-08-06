@@ -104,7 +104,7 @@ export default class Pdf extends Component {
   render() {
     if (this.state.loading) return <Loading />;
     return (
-      <div className={styles.previewPdf} ref='wrapper' onScroll={this.onScroll} key={this.props.path}>
+      <div className={styles.previewPdf} ref='wrapper' onScroll={this.onScroll}>
         {this.renderPages()}
       </div>
     );

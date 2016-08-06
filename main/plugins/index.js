@@ -10,5 +10,5 @@ export { default as plugins } from './plugins';
 export { default as converter } from './converter';
 export { default as openWeb } from './openWeb';
 export { default as google } from './google';
-export { default as googleTranslate } from './googleTranslate';
+export { default as translate } from './translate';
 export { default as gif } from './gif';

@@ -1,0 +1,22 @@
+.wrapper {
+  align-self: flex-start;
+  width: 100%;
+  padding: 10px;
+}
+
+.controls {
+  margin-bottom: 20px;
+  select {
+    margin: 0 15px;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.poweredBy {
+  position: absolute;
+  cursor: pointer;
+  bottom: 20px;
+  right: 20px;
+}

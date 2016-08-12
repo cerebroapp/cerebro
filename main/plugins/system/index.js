@@ -36,6 +36,11 @@ const COMMANDS = {
     command: `open /Users/${process.env.USER}/Library/Mobile\\ Documents/com\~apple\~CloudDocs`,
     icon: icloudDriveIcon,
     subtitle: 'Open iCloud Drive in Finder'
+  },
+  'Trash': {
+    command: `open /Users/${process.env.USER}/.Trash`,
+    icon: '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/TrashIcon.icns',
+    subtitle: 'Show trash'
   }
 };
 

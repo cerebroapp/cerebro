@@ -10,7 +10,8 @@ const translatePlugin = (term, callback) => {
   const match = term.match(REGEXP);
   if (match) {
     // Show translation in results list
-    const text = match[1];
+    // TODO: check why using const here throws undefined variable text in production build
+    var text = match[1];
     const lang = toLanguageCode(match[2]);
     translate(text, lang).then(result => {
       const translation = result.text[0];

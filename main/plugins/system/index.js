@@ -33,7 +33,7 @@ const COMMANDS = {
     subtitle: 'Open Airdrop in Finder'
   },
   'iCloud Drive': {
-    command: 'open /Users/KELiON/Library/Mobile\\ Documents/com\~apple\~CloudDocs',
+    command: `open /Users/${process.env.USER}/Library/Mobile\\ Documents/com\~apple\~CloudDocs`,
     icon: icloudDriveIcon,
     subtitle: 'Open iCloud Drive in Finder'
   }

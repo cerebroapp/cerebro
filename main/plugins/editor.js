@@ -3,7 +3,7 @@ import search from 'lib/search';
 import shellCommand from 'lib/shellCommand';
 
 // TODO: make configurable
-const PROJECTS_PATH = '/Users/KELiON/projects';
+const PROJECTS_PATH = `/Users/${process.env.USER}/projects`;
 
 /**
  * Plugin to open directory in editor

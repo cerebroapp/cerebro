@@ -18,7 +18,6 @@ const appName = argv.name || argv.n || pkg.productName;
 const shouldUseAsar = argv.asar || argv.a || false;
 const shouldBuildAll = argv.all || false;
 
-
 const DEFAULT_OPTS = {
   dir: './',
   name: appName,
@@ -32,7 +31,19 @@ const DEFAULT_OPTS = {
     '.*.sublime-workspace',
     '^/tmp',
     '^/webpack',
-  ].concat(devDeps.map(name => `/node_modules/${name}($|/)`))
+    '^/lib',
+    '^/npm-shrinkwrap.json',
+    '^/dist/.*\.map$',
+    '^/TODO',
+    '^/README.md',
+    '^/LICENSE',
+    '^/server.js',
+    '^/mocha-webpack.opts',
+    '^/main/(?!app.html)',
+    '^/background/(?!index.html)',
+    '^/\.babelrc',
+  ]
+  .concat(devDeps.map(name => `/node_modules/${name}($|/)`))
   .concat(
     deps.filter(name => !electronCfg.externals.includes(name))
       .map(name => `/node_modules/${name}($|/)`)

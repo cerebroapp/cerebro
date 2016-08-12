@@ -16,6 +16,7 @@ export default {
 
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
+      sourceMap: false,
       compressor: {
         warnings: false
       }

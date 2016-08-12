@@ -52,7 +52,8 @@ const config = {
       compressor: {
         screw_ie8: true,
         warnings: false
-      }
+      },
+      sourceMap: false
     }),
     new ExtractTextPlugin('style.css', { allChunks: true })
   ],

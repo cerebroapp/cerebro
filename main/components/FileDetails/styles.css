@@ -1,3 +1,11 @@
+.fileName {
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .fileDetails {
   margin-top: 50px;
   font-size: .8em;

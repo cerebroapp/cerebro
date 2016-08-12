@@ -9,6 +9,16 @@ const DIR_REGEXP = /^\/(.*\/)*(.*)/;
 const HOME_DIR_REGEXP = /^~/;
 
 /**
+ * Do not show some files in results, i.e. system files
+ *
+ * @param  {String} fileName
+ * @return {Boolean}
+ */
+const ignoreFile = (fileName) => (
+  fileName.match(/^\./)
+);
+
+/**
  * Plugin to look and display local and external IPs
  * @param  {String} term
  */
@@ -26,9 +36,13 @@ const filesPlugin = (term, callback) => {
       if (fileName) {
         fileItems = search(fileItems, fileName);
       }
-      const result = fileItems.map(file => {
+      const result = [];
+      fileItems.forEach(file => {
+        if (ignoreFile(file)) {
+          return;
+        }
         const filePath = [dir, file].join('');
-        return {
+        result.push({
           id: filePath,
           title: file,
           subtitle: filePath,
@@ -42,7 +56,7 @@ const filesPlugin = (term, callback) => {
           },
           onSelect: shellCommand.bind(null, `open ${filePath}`),
           getPreview: getPreview.bind(null, filePath)
-        };
+        });
       });
       callback(result);
     });

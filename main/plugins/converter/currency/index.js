@@ -8,14 +8,23 @@ const URL = getUrl(BASE_CURRENCY);
 const rates = {};
 
 // Date of fetching exchange rates
-let ratesDates = null;
+let ratesDate = null;
+
+/**
+ * Get yesterday's date
+ * @return {Date}
+ */
+function yesterday() {
+  return new Date(Date.now() - 24 * 3600 * 1000);
+}
 
 /**
  * Check that saved exchange rates are still valid
- * @return {[type]} [description]
+ * @return {Boolean}
  */
 function cacheValid() {
-  return ratesDates && ratesDates >= new Date().toDateString();
+  console.log(ratesDate, yesterday());
+  return ratesDate && ratesDate >= yesterday();
 }
 
 /**
@@ -28,7 +37,7 @@ function getRates() {
     .then(resp => resp.json())
     .then(response => {
       // Save exchange rates date
-      ratesDates = new Date(response.query.created).toDateString();
+      ratesDate = new Date(response.query.created);
       // Convert response array with exchange rates to hash
       response.query.results.rate.forEach(value => {
         rates[value.Name.split('/')[1].toLowerCase()] = parseFloat(value.Rate);

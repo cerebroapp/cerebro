@@ -9,12 +9,10 @@ export default () => (
     </p>
 
     <div className={styles.block}>
-      <p>Maybe it is <span className={styles.math}><sup>2</sup>&frasl;<sub>3</sub></span>?</p>
-      <p>If <span className={styles.math}><sup>0</sup>&frasl;<sub>0</sub> = <sup>2</sup>&frasl;<sub>3</sub></span> then <span className={styles.math}>2&middot;0 = 3&middot;0</span></p>
+      <p>Lets suppose that anwer is <span className={styles.math}><sup>x</sup>&frasl;<sub>y</sub></span></p>
+      <p>If <span className={styles.math}><sup>0</sup>&frasl;<sub>0</sub> = <sup>x</sup>&frasl;<sub>y</sub></span> then <span className={styles.math}>x&middot;0 = y&middot;0</span></p>
       <p>And it is correct, because <span className={styles.math}>0 = 0</span>.</p>
-    </div>
-    <div className={styles.block}>
-      <p>Maybe it is <span className={styles.math}><sup>5</sup>&frasl;<sub>4</sub></span>? Hmm.. Yes, exactly.</p>
+      <p>So any <span className={styles.math}>x</span> and <span className={styles.math}>y</span> could be an anwer.</p>
     </div>
   </div>
 );

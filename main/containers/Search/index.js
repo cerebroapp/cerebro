@@ -169,6 +169,7 @@ class Search extends Component {
   selectItem(item) {
     this.props.actions.reset();
     item.onSelect();
+    currentWindow().hide();
   }
 
   /**

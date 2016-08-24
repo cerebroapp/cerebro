@@ -1,0 +1,75 @@
+.contact {
+  align-self: flex-start;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.imageWrapper {
+  width: 150px;
+  min-width: 150px;
+  margin-right: 5px;
+  margin-right: 10px;
+  text-align: right;
+}
+
+.image {
+  display: inline-block;
+  background-color: #B3B3B3;
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  text-align: center;
+  line-height: 64px;
+  color: #ffffff;
+  font-size: 1.3em;
+  font-weight: 100;
+  letter-spacing: 1px;
+}
+
+.name {
+  font-size: 1.3em;
+  font-weight: 300;
+}
+
+.job {
+  font-size: .8em;
+  color: #999;
+}
+
+.block {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 5px 0;
+}
+
+.label {
+  min-width: 150px;
+  width: 150px;
+  text-align: right;
+  margin-right: 5px;
+  color: #999;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.value {
+  flex-grow: 2;
+  text-align: left;
+  margin-left: 5px;
+}
+
+.details {
+  font-size: 0.8em;
+}

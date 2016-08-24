@@ -12,3 +12,4 @@ export { default as openWeb } from './openWeb';
 export { default as google } from './google';
 export { default as translate } from './translate';
 export { default as gif } from './gif';
+export { default as contacts } from './contacts';

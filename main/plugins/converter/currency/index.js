@@ -23,7 +23,6 @@ function yesterday() {
  * @return {Boolean}
  */
 function cacheValid() {
-  console.log(ratesDate, yesterday());
   return ratesDate && ratesDate >= yesterday();
 }
 

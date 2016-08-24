@@ -113,8 +113,8 @@ class Search extends Component {
         if (text) {
           clipboard.writeText(text);
           this.props.actions.reset();
+          event.preventDefault();
         }
-        event.preventDefault();
         return;
       }
       if (event.keyCode >= 49 && event.keyCode <= 57) {

@@ -33,7 +33,6 @@ export default class Archive extends Component {
     if (!this.state.loaded) return <Loading />;
     const type = this.props.path.match(/\.(\w+)$/)[1];
     const icon = `/System/Library/CoreServices/Applications/Archive Utility.app/Contents/Resources/bah-${type}.icns`;
-    console.log(icon);
     return (
       <div className={styles.previewArchive}>
         <div className={styles.previewIcon}>

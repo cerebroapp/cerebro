@@ -1,6 +1,6 @@
 @import "~normalize.css/normalize.css";
 @import "~react-virtualized/styles.css";
-@import "~react-highlight/node_modules/highlight.js/styles/github-gist.css";
+@import "~highlight.js/styles/github-gist.css";
 
 html, body {
   margin: 0;

@@ -35,15 +35,21 @@ function serializePerson(person, id) {
   }
 }
 
-export default (callback) => {
-  macOS.framework('AddressBook');
-  const addressBook = macOS.ABAddressBook('addressBook');
-  const people = addressBook('people');
-  const count = people('count');
-  const result = [];
-  for (var i = 0; i < count; i++) {
-    const person = serializePerson(people('objectAtIndex', i), i);
-    result.push(person);
-  }
-  callback(result);
+/**
+ * Fetch address book from os
+ * @return {Promise}
+ */
+export default () => {
+  return new Promise((resolve, reject) => {
+    macOS.framework('AddressBook');
+    const addressBook = macOS.ABAddressBook('addressBook');
+    const people = addressBook('people');
+    const count = people('count');
+    const result = [];
+    for (var i = 0; i < count; i++) {
+      const person = serializePerson(people('objectAtIndex', i), i);
+      result.push(person);
+    }
+    resolve(result);
+  });
 }

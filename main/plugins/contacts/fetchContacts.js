@@ -1,7 +1,5 @@
 import { remote } from 'electron';
-
-// TODO: find a way to use nodobjc module in renderer process instead of remote.require it
-const loadAddressBook = remote.require('./main/plugins/contacts/loadAddressBook');
+import loadAddressBook from './loadAddressBook';
 
 /**
  * Promise wrapper for loadAddressBook function

@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
+import { bind } from 'lodash-decorators';
 import Loading from 'main/components/Loading';
 import GoogleMap from "react-google-maps/lib/GoogleMap";
 import GoogleMapLoader from "react-google-maps/lib/GoogleMapLoader";
 import ScriptjsLoader from "react-google-maps/lib/async/ScriptjsLoader";
+import { triggerEvent }  from "react-google-maps/lib/utils";
 import Marker from "react-google-maps/lib/Marker";
 import styles from './styles.css';
 
 export default class Preview extends Component {
+  componentDidMount() {
+    window.addEventListener(`resize`, this.handleWindowResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(`resize`, this.handleWindowResize);
+  }
+
+  @bind()
+  handleWindowResize() {
+    triggerEvent(this.map, `resize`);
+  }
   /**
    * Fit google maps to geocoded viewport
    *
    * @param  {GoogleMap} map Ref to GoogleMap component
    */
-  fitBounds(map) {
+  fitBounds() {
+    const { map } = this;
     if (!map) return;
     const bounds = new google.maps.LatLngBounds();
     bounds.extend(this.props.geometry.location);
@@ -41,7 +56,7 @@ export default class Preview extends Component {
         containerElement={ <div className={styles.container} /> }
         googleMapElement={
           <GoogleMap
-            ref={(map) => this.fitBounds(map)}
+            ref={(map) => (this.map = map) && this.fitBounds()}
             defaultZoom={3}
             defaultCenter={location}
           >

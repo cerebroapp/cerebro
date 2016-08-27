@@ -127,6 +127,7 @@
     "react-addons-css-transition-group": "15.1.0",
     "react-addons-shallow-compare": "15.1.0",
     "react-dom": "15.1.0",
+    "react-google-maps": "4.11.0",
     "react-highlight": "0.8.0",
     "react-markdown": "2.4.2",
     "react-redux": "4.4.5",

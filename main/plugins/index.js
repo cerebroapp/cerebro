@@ -14,3 +14,4 @@ export { default as translate } from './translate';
 export { default as gif } from './gif';
 export { default as contacts } from './contacts';
 export { default as maps } from './maps';
+export { default as films } from './films';

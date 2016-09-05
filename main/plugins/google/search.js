@@ -5,5 +5,6 @@ import { shell } from 'electron';
  * @param  {String} term
  */
 export default (term) => {
-  shell.openExternal(`https://google.com/?q=${encodeURIComponent(term)}`);
+  const q = encodeURIComponent(term);
+  shell.openExternal(`https://google.com/?q=${q}#newwindow=1&q=${q}`);
 }

@@ -1,12 +1,5 @@
 // List of available currencies
-const CURRENCIES = [
-  'aud', 'bgn', 'brl', 'cad', 'chf', 'cny',
-  'czk', 'dkk', 'eur', 'gbp', 'hkd', 'hrk',
-  'huf', 'idr', 'ils', 'inr', 'jpy', 'krw',
-  'mxn', 'myr', 'nok', 'nzd', 'php', 'pln',
-  'ron', 'rub', 'sek', 'sgd', 'thb', 'try',
-  'usd', 'zar'
-];
+import { CURRENCIES } from './constants.js';
 
 /**
  * Build url to get exchange rates

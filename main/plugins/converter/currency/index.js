@@ -1,5 +1,5 @@
 import getUrl from './getUrl';
-import { BASE_CURRENCY, SYNONIMS, DISPLAY_NAMES } from './constants';
+import { BASE_CURRENCY, SYNONIMS, DISPLAY_NAMES, PRIORITY_CURRENCIES } from './constants';
 import { parseUnitName, buildExtract, linearConverter } from '../base/';
 
 const URL = getUrl(BASE_CURRENCY);
@@ -62,7 +62,7 @@ function defaultTarget(currency) {
   if (BASE_CURRENCY !== currency) {
     return BASE_CURRENCY;
   }
-  return 'eur';
+  return PRIORITY_CURRENCIES.find(cur => cur !== currency);
 }
 
 /**

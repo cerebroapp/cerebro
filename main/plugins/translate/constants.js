@@ -5,16 +5,6 @@
 export const API_KEY = 'trnsl.1.1.20160805T150627Z.ae65df04cc8d53ee.aa50e499437fd517837eabb12220e8e61e99217a';
 
 /**
- * List of supported languages
- * @type {Array}
- */
-export const LANGS = [
-  'ru' ,
-  'en',
-  'es'
-];
-
-/**
  * List of synonims for languages
  * @type {Object}
  */
@@ -27,7 +17,17 @@ export const SYNONIMS = {
   'англ*': 'en',
 
   'rus*': 'ru',
-  'рус*': 'ru'
+  'рус*': 'ru',
+
+  'ital*': 'it',
+  'итал*': 'it',
+
+  'germ*': 'de',
+  'немец*': 'de',
+  'герм*': 'de',
+
+  'fra*': 'fr',
+  'фра*': 'fr',
 };
 
 
@@ -38,10 +38,19 @@ export const SYNONIMS = {
  * @type {Object}
  */
 export const DISPLAY_NAMES = {
-  'ru': 'Russian',
   'en': 'English',
-  'es': 'Spanish'
+  'ru': 'Russian',
+  'es': 'Spanish',
+  'it': 'Italian',
+  'de': 'German',
+  'fr': 'French'
 };
+
+/**
+ * List of supported languages
+ * @type {Array}
+ */
+export const LANGS = Object.keys(DISPLAY_NAMES);
 
 // Main regexp parts
 const textRegexp = /.+/;

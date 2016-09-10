@@ -147,7 +147,7 @@ export const SYNONIMS = {
   'долл*': 'usd',
 
   '€': 'eur',
-  'euro': 'eur',
+  'eur*': 'eur',
   'евро': 'eur',
 
   '£': 'gbp',

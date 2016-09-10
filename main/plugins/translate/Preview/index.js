@@ -1,16 +1,22 @@
 import React, { PropTypes, Component } from 'react';
 import Loading from 'main/components/Loading';
+import detectLanguage from '../detectLanguage';
 import translate from '../translate';
+import getTargetLanguage from '../getTargetLanguage';
 import { LANGS, DISPLAY_NAMES } from '../constants';
 import { bind } from 'lodash-decorators';
 import { shell } from 'electron';
 
 import styles from './styles.css';
 
+// Detect source language and detect target language by it
+
 export default class Preview extends Component {
   propTypes: {
     text: PropTypes.string,
-    to: PropTypes.string
+    targetLang: PropTypes.string,
+    sourceLang: PropTypes.string,
+    translation: PropTypes.string,
   }
 
   constructor(props) {
@@ -18,33 +24,35 @@ export default class Preview extends Component {
     this.state = {
       error: false,
       loading: true,
-      from: null,
-      to: props.to,
+      sourceLang: props.sourceLang,
+      targetLang: props.targetLang,
+      translation: props.translation,
     }
   }
 
   @bind()
   handleTranslation({lang, text}) {
-    const [from, to] = lang.split('-');
+    const [sourceLang, targetLang] = lang.split('-');
     this.setState({
       loading: false,
       translation: text,
-      from,
-      to
+      sourceLang,
+      targetLang
     })
   }
 
   @bind()
   handleError() {
-    this.setState({error: true});
+    this.setState({ error: true });
   }
 
   componentDidMount() {
-    const { text, to } = this.props;
-    translate(text, to).then(
-      this.handleTranslation,
-      this.handleError
-    );
+    const { text, sourceLang, targetLang, translation } = this.props;
+    const detect = sourceLang ? Promise.resolve(sourceLang) : detectLanguage(text);
+    detect.then(from => {
+      const to = targetLang || getTargetLanguage(from);
+      return translate(text, `${from}-${to}`);
+    }).then(this.handleTranslation).catch(this.handleError);
   }
   /**
    * Handle click on "Powered by..."
@@ -61,8 +69,8 @@ export default class Preview extends Component {
   onChangeLanguage(field) {
     return (event) => {
       this.setState({[field]: event.target.value}, () => {
-        const {from, to} = this.state;
-        translate(this.props.text, `${from}-${to}`).then(
+        const {sourceLang, targetLang} = this.state;
+        translate(this.props.text, `${sourceLang}-${targetLang}`).then(
           this.handleTranslation,
           this.handleError
         );
@@ -77,17 +85,17 @@ export default class Preview extends Component {
     return LANGS.map(lang => <option value={lang}>{DISPLAY_NAMES[lang]}</option>);
   }
   render() {
-    const { error, loading, translation, from, to } = this.state;
+    const { error, loading, translation, sourceLang, targetLang } = this.state;
     if (error) return <div>Can't translate.</div>;
     if (loading) return <Loading />;
     return (
       <div className={styles.wrapper}>
         <div className={styles.controls}>
-          <select value={from} onChange={this.onChangeLanguage('from')}>
+          <select value={sourceLang} onChange={this.onChangeLanguage('sourceLang')}>
             {this.renderLanguages()}
           </select>
           →
-          <select value={to} onChange={this.onChangeLanguage('to')}>
+          <select value={targetLang} onChange={this.onChangeLanguage('targetLang')}>
             {this.renderLanguages()}
           </select>
         </div>

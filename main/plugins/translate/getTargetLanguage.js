@@ -1,11 +1,17 @@
+import { LANGS } from './constants';
+import { lang as  localeLanguage } from 'lib/locale';
+
 /**
- * Detect target language by source text
- * @param  {String} text
+ * Get default target language by source language
+ *
+ * @param  {String} lang
  * @return {String}
  */
-export default (text) => {
-  if (text.match(/[а-яА-Я]/i)) {
-    return 'en';
+export default (lang) => {
+  if (lang !== localeLanguage) {
+    return localeLanguage;
   }
-  return 'ru';
+  // We suppose that LANGS sorted by priority so we just return first language
+  // that is not from locale
+  return LANGS.find(lang => lang !== localeLanguage);
 }

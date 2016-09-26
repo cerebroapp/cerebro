@@ -5,7 +5,10 @@ import geocode from './geocode';
 import icon from './icon.png'
 
 const mapsPlugin = (term, callback) => {
-  geocode(term).then(points => {
+  let match = term.match(/^(?:show\s)?(?:on\s)?maps?\s+(.+)/i);
+  match = match || term.match(/(.+)\s(?:show\s)?(?:on\s)?maps?$/i);
+  if (!match) return;
+  geocode(match[1]).then(points => {
     const result = points.map(point => {
       const { geometry, formatted_address, place_id } = point;
       return {

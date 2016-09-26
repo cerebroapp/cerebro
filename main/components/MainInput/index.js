@@ -6,7 +6,7 @@ export default class MainInput extends Component {
     value: PropTypes.string,
     onChange: PropTypes.func,
   }
-  componentDidMount() {
+  focus() {
     this.refs.input.focus();
   }
   render() {

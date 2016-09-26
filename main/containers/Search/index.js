@@ -55,15 +55,24 @@ class Search extends Component {
       this.updateElectronWindow();
     }
   }
+  componentDidMount() {
+    this.refs.mainInput.focus();
+  }
   componentWillMount() {
     // Listen for window.resize and change default space for results to user's value
     window.addEventListener('resize', this.onWindowResize);
     // Listen for document keydown to handle hot keys
     document.addEventListener('keydown', this.onKeyDown);
+    currentWindow().on('show', () => {
+      this.refs.mainInput.focus();
+    });
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.onWindowResize);
     document.removeEventListener('keyDown', this.onKeyDown);
+    currentWindow().off('show', () => {
+      this.refs.mainInput.focus();
+    });
   }
 
   /**
@@ -224,6 +233,7 @@ class Search extends Component {
         <div className={styles.inputWrapper}>
           <MainInput
             value={this.props.term}
+            ref='mainInput'
             onChange={this.props.actions.updateTerm}
           />
         </div>

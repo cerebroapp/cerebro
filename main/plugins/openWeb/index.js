@@ -1,5 +1,7 @@
+import React from 'react';
 import { shell } from 'electron';
 import uniq from 'lodash/uniq';
+import Preview from './Preview';
 
 const URL_REGEXP = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
 
@@ -20,6 +22,7 @@ function toResult(url) {
       lastUrls = uniq([url, ...lastUrls]);
       shell.openExternal(url);
     },
+    getPreview: () => <Preview url={url} />
   };
 }
 

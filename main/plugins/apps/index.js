@@ -5,14 +5,12 @@ import getAppsList from 'lib/getAppsList';
 import search from 'lib/search';
 import shellCommand from 'lib/shellCommand';
 import Preview from './Preview';
+import initialize from './initialize';
 import { shell } from 'electron';
+import { saveIcon } from '../../actions/icons';
 
-function getPreview(path, name) {
-  return <Preview name={name} path={path} />;
-}
+import store from '../../store';
 
-// TODO: preload and cache app icons
-// TODO: get apps from subdirs
 const appsPlugin = (term,  callback) => {
   getAppsList().then(items => {
     const result = search(items, term, (file) => file.name).map(file => {
@@ -26,12 +24,13 @@ const appsPlugin = (term,  callback) => {
         subtitle: path,
         onKeyDown: (event) => {
           if (event.metaKey && event.keyCode === 82) {
+            // Show application in Finder by cmd+R shortcut
             shell.showItemInFolder(path);
             event.preventDefault();
           }
         },
-        onSelect: shellCommand.bind(this, `open ${shellPath}`),
-        getPreview: () => getPreview(path, name)
+        onSelect: () => shellCommand(`open ${shellPath}`),
+        getPreview: () => <Preview name={name} path={path} />
       };
     });
     callback(result);
@@ -40,4 +39,6 @@ const appsPlugin = (term,  callback) => {
 
 export default {
   fn: appsPlugin,
+  initialize: initialize,
+  onMessage: (payload) => store.dispatch(saveIcon(payload)),
 };

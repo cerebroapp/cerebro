@@ -1,16 +1,14 @@
 import { ipcRenderer } from 'electron';
-import * as initializers from './initializers';
+import initializePlugins from './initializers/plugins';
 
 function send(message) {
   ipcRenderer.send('message', message);
 }
 
-function handler(event, payload) {
-  if (payload.type === 'main_window_loaded') {
-    Object.keys(initializers).forEach(name => initializers[name](send));
-  }
-}
-
 window.onload = function () {
-  ipcRenderer.on('message', handler);
+  ipcRenderer.on('message', (event, payload) => {
+    if (payload.type !== 'main.window.loaded') return;
+    // Run plugin initializers only when main window is loaded
+    initializePlugins(send);
+  });
 }

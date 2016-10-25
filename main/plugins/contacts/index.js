@@ -1,21 +1,13 @@
 import React from 'react';
 import Preview from './Preview';
-
 import search from 'lib/search';
-import fetchContacts from './fetchContacts';
-import co from 'co';
+import initialize from './initialize';
 
 /**
  * List of all contacts from osx address book
  * @type {Array}
  */
 let addressBook = [];
-
-// Initialize contacts plugin with contacts info
-// TODO: update contacts sometimes
-co(fetchContacts()).then(contacts => {
-  addressBook = contacts
-});
 
 /**
  * Get person full name
@@ -46,6 +38,11 @@ const contactsPlugin = (term, callback) => {
 };
 
 export default {
+  initialize,
   name: 'Contacts',
   fn: contactsPlugin,
+  onMessage: (contacts) => {
+    console.log('contacts updated');
+    addressBook = contacts;
+  }
 };

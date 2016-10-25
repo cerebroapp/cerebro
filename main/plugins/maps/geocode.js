@@ -1,4 +1,4 @@
-import { lang } from 'lib/locale';
+import { lang } from 'lib/config';
 
 export default (term) => {
   const url = `http://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(term)}&language=${lang}`;

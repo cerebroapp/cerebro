@@ -1,5 +1,5 @@
 import { LANGS } from './constants';
-import { lang as  localeLanguage } from 'lib/locale';
+import { lang as  localeLanguage } from 'lib/config';
 
 /**
  * Get default target language by source language

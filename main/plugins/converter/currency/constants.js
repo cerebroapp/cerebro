@@ -1,6 +1,6 @@
 /* eslint quote-props: 0 */
 
-import { lang, country } from 'lib/locale';
+import { lang, country } from 'lib/config';
 
 /**
  * List of all supported currencies

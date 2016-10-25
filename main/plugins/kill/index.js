@@ -2,6 +2,7 @@
 
 import shellCommand from 'lib/shellCommand';
 import pluginIcon from './icon.png';
+import orderBy from 'lodash/orderBy';
 
 const REGEXP = /kill\s(.*)/;
 const LIST_CMD = 'ps -A -o pid -o %cpu -o comm | sed 1d';
@@ -39,20 +40,23 @@ const killPlugin = (term, callback) => {
     }
     const regexp = new RegExp(`[^\/]*${searchProcessName}[^\/]*$`, 'i');
     shellCommand(LIST_CMD).then(result => {
-      const results = result.split('\n').filter(line =>
-        line.match(regexp)
-      ).map((str) => {
-        const [processId, processCpu, processPath] = parsePsResult(str);
-        const icon = getIcon(processPath);
-        const processName = processPath.match(regexp)[0];
-        return {
-          title: processName,
-          id: processId,
+      const list =result
+        .split('\n')
+        .filter(line => line.match(regexp))
+        .map(str => {
+          const [id, cpu, path] = parsePsResult(str);
+          const icon = getIcon(path);
+          const title = path.match(regexp)[0];
+          return { id, title, cpu, path, icon };
+        });
+      const results = orderBy(list, ({cpu}) => -cpu)
+        .map(({id, title, cpu, path, icon}) => ({
+          title,
+          id,
           icon,
-          subtitle: `${processCpu}% CPU @ ${processPath}`,
-          onSelect: shellCommand.bind(null, `kill -9 ${processId}`)
-        };
-      });
+          subtitle: `${cpu}% CPU @ ${path}`,
+          onSelect: () => shellCommand(`kill -9 ${id}`)
+        }));
       callback(results);
     });
   }

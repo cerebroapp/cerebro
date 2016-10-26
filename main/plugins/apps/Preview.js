@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import NativeIcon from '../../components/NativeIcon';
+import FileIcon from '../../components/FileIcon';
 import FileDetails from '../../components/FileDetails';
 import styles from './styles.css';
 
@@ -13,7 +13,7 @@ export default class Preview extends Component {
     return (
       <div>
         <div className={styles.previewIcon}>
-          <NativeIcon path={path} />
+          <FileIcon path={path} />
         </div>
         <div className={styles.previewName}>{name}</div>
         <FileDetails path={path} key={path} />

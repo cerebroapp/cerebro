@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import NativeIcon from '../../NativeIcon';
+import SmartIcon from '../../SmartIcon';
 import styles from './styles.css';
 
 export default class LineResponse extends Component {
@@ -22,10 +22,7 @@ export default class LineResponse extends Component {
   renderIcon() {
     const { icon } = this.props;
     if (!icon) return null;
-    if (icon.match(/\.(icns|app|prefPane)$/)) {
-      return <NativeIcon path={icon} className={styles.icon} />;
-    }
-    return <img src={icon} alt="" className={styles.icon} />;
+    return <SmartIcon path={icon} className={styles.icon} />;
   }
   render() {
     const {

@@ -38,9 +38,7 @@ const filesPlugin = (term, callback) => {
       }
       const result = [];
       fileItems.forEach(file => {
-        if (ignoreFile(file)) {
-          return;
-        }
+        if (ignoreFile(file)) return;
         const filePath = [dir, file].join('');
         result.push({
           id: filePath,
@@ -48,6 +46,7 @@ const filesPlugin = (term, callback) => {
           subtitle: filePath,
           clipboard: filePath,
           term: filePath,
+          icon: filePath,
           onKeyDown: (event) => {
             if (event.metaKey && event.keyCode === 82) {
               shell.showItemInFolder(filePath);

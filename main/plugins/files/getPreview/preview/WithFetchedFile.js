@@ -1,32 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Loading from 'main/components/Loading';
+import Preload from 'main/components/Preload';
 import fs from 'fs';
+import memoize from 'lodash/memoize';
+import { readFile } from 'lib/rpc/functions';
 
-export default class WithFetchedFile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: false,
-      loaded: false
-    }
-  }
-  componentDidMount() {
-    const { path, options } = this.props;
-    fs.readFile(path, options || 'utf8', (err, source) => {
-      if (err) {
-        this.setState({ error: true });
-      } else {
-        this.setState({
-          loaded: true,
-          source
-        });
-      }
-    })
-  }
-  render() {
-    const { loaded, error, source } = this.state;
+const WithFetchedFile = ({path, options, children}) => {
+  const renderer = (source, error) => {
     if (error) return <div>Error fetching file</div>;
-    if (!loaded) return <Loading />;
-    return this.props.children(source);
+    return children(source);
   }
+  return (
+    <Preload loader={<Loading />} promise={readFile(path, options)}>
+      {renderer}
+    </Preload>
+  );
 }
+
+export default memoize(WithFetchedFile);

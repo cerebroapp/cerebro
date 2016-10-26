@@ -1,46 +1,28 @@
 import React, { Component } from 'react';
 import listArchive from 'lib/listArchive';
-import NativeIcon from 'main/components/NativeIcon';
+import FileIcon from 'main/components/FileIcon';
 import FileDetails from 'main/components/FileDetails';
 import Loading from 'main/components/Loading';
+import Preload from 'main/components/Preload';
 import styles from './styles.css'
 
-export default class Archive extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: false,
-      loaded: false
-    }
-  }
-  componentDidMount() {
-    const { path } = this.props;
-    listArchive(path).then(list => {
-      this.setState({
-        loaded: true,
-        list
-      });
-    }).catch(() => {
-      this.setState({ error: true });
-    });
-  }
-  renderList() {
-    return this.state.list.map(file => <li>{file}</li>);
-  }
-  render() {
-    const { path } = this.props;
-    if (this.state.error) return <div>Error fetching archive</div>;
-    if (!this.state.loaded) return <Loading />;
-    const type = this.props.path.match(/\.(\w+)$/)[1];
-    const icon = `/System/Library/CoreServices/Applications/Archive Utility.app/Contents/Resources/bah-${type}.icns`;
+export default ({path}) => {
+  const renderer = (list, error) => {
+    if (error) return <div>Error fetching archive</div>;
     return (
       <div className={styles.previewArchive}>
         <div className={styles.previewIcon}>
-          <NativeIcon path={icon} />
+          <FileIcon path={path} />
         </div>
         <div className={styles.filesListText}>Files:</div>
-        <ul key={path}>{this.renderList()}</ul>
+        <ul key={path}>{list.map(file => <li>{file}</li>)}</ul>
         <FileDetails path={path} />
-      </div>)
+      </div>
+    );
   }
+  return (
+    <Preload promise={listArchive(path)} loader={<Loading />}>
+      {renderer}
+    </Preload>
+  );
 }

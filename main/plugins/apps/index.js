@@ -1,15 +1,11 @@
 import React from 'react';
 
 import fs from 'fs';
-import getAppsList from 'lib/getAppsList';
+import { getAppsList } from 'lib/rpc/functions';
 import search from 'lib/search';
 import shellCommand from 'lib/shellCommand';
 import Preview from './Preview';
-import initialize from './initialize';
 import { shell } from 'electron';
-import { saveIcon } from '../../actions/icons';
-
-import store from '../../store';
 
 const appsPlugin = (term,  callback) => {
   getAppsList().then(items => {
@@ -38,7 +34,5 @@ const appsPlugin = (term,  callback) => {
 };
 
 export default {
-  fn: appsPlugin,
-  initialize: initialize,
-  onMessage: (payload) => store.dispatch(saveIcon(payload)),
+  fn: appsPlugin
 };

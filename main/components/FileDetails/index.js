@@ -3,8 +3,7 @@ import React, { PropTypes, Component } from 'react';
 import bytesToSize from 'lib/helpers/bytesToSize';
 import styles from './styles.css';
 
-import getFileSize from 'lib/getFileSize';
-import getFileDetails from 'lib/getFileDetails';
+import { getFileSize, getFileDetails } from 'lib/rpc/functions';
 
 export default class FileDetails extends Component {
   constructor(props) {
@@ -29,11 +28,11 @@ export default class FileDetails extends Component {
         <h3 className={styles.fileName}>{name}</h3>
         <dl>
           <dt>Last opened:</dt>
-          <dd>{atime && atime.toLocaleString()}</dd>
+          <dd>{atime && new Date(atime).toLocaleString()}</dd>
           <dt>Modified:</dt>
-          <dd>{mtime && mtime.toLocaleString()}</dd>
+          <dd>{mtime && new Date(mtime).toLocaleString()}</dd>
           <dt>Created:</dt>
-          <dd>{ctime && ctime.toLocaleString()}</dd>
+          <dd>{ctime && new Date(ctime).toLocaleString()}</dd>
           {!skipSize && <dt>Size:</dt>}
           {!skipSize && <dd>{size && bytesToSize(size)}</dd>}
         </dl>

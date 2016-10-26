@@ -42,7 +42,6 @@ export default {
   name: 'Contacts',
   fn: contactsPlugin,
   onMessage: (contacts) => {
-    console.log('contacts updated');
     addressBook = contacts;
   }
 };

@@ -32,7 +32,7 @@ export default class Preview extends Component {
       <div className={styles.meta}>
         {meta.image &&
           <div className={styles.imageWrapper}>
-            <img src={meta.image} className={styles.image}/>}
+            <img src={meta.image} className={styles.image}/>
           </div>
         }
         <div className={styles.details}>

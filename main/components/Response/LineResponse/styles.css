@@ -18,8 +18,8 @@
 }
 
 .icon {
-  height: 75%;
-  width: auto;
+  max-height: 30px;
+  max-width: 30px;
   margin-right: 5px;
 }
 

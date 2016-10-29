@@ -1,6 +1,6 @@
 import React from 'react';
 import FileIcon from './FileIcon';
-import memoize from 'lodash/memoize';
+import memoize from 'memoizee';
 
 /**
  * Check if provided string is an image src

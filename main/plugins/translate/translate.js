@@ -1,4 +1,5 @@
 import { API_KEY } from './constants.js'
+import memoize from 'memoizee';
 
 /**
  * Translate text using Yandex.Translate api
@@ -9,7 +10,7 @@ import { API_KEY } from './constants.js'
  *    or pair of source and target languages, like `en-ru`
  * @return {Promise}
  */
-export default (text, direction) => {
+const translate = (text, direction) => {
   const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${API_KEY}&text=${encodeURIComponent(text)}&lang=${direction}`;
   return fetch(url)
     .then(response => response.json())
@@ -20,3 +21,10 @@ export default (text, direction) => {
       return response;
     });
 }
+
+export default memoize(translate, {
+  length: false,
+  promise: 'then',
+  // Expire suggestions in 10 minutes
+  maxAge: 10 * 60 * 1000
+})

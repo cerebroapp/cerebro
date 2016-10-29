@@ -1,7 +1,7 @@
 import React from 'react';
 import Preload from './Preload';
 import { getFileIcon } from 'lib/rpc/functions';
-import memoize from 'lodash/memoize';
+import memoize from 'memoizee';
 
 /**
  * Render icon for provided path.

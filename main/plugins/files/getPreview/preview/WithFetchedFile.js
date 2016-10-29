@@ -2,8 +2,8 @@ import React from 'react';
 import Loading from 'main/components/Loading';
 import Preload from 'main/components/Preload';
 import fs from 'fs';
-import memoize from 'lodash/memoize';
-import { readFile } from 'lib/rpc/functions';
+import memoize from 'memoizee';
+import readFile from 'lib/readFile';
 
 const WithFetchedFile = ({path, options, children}) => {
   const renderer = (source, error) => {

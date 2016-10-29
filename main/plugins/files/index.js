@@ -2,6 +2,7 @@ import React from 'react';
 import fs from 'fs';
 import search from 'lib/search';
 import shellCommand from 'lib/shellCommand';
+import { readDir } from 'lib/rpc/functions';
 import getPreview from './getPreview';
 import { shell } from 'electron';
 
@@ -31,13 +32,11 @@ const filesPlugin = (term, callback) => {
   if (match) {
     const dir = match[1] ? `/${match[1]}` : '/';
     const fileName = match[2];
-    fs.readdir(dir, (err, items) => {
-      let fileItems = items;
-      if (fileName) {
-        fileItems = search(fileItems, fileName);
-      }
+    readDir(dir).then(files =>
+      fileName ? search(files, fileName) : files
+    ).then(files => {
       const result = [];
-      fileItems.forEach(file => {
+      files.forEach(file => {
         if (ignoreFile(file)) return;
         const filePath = [dir, file].join('');
         result.push({

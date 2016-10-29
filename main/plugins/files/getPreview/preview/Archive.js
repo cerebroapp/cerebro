@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import listArchive from 'lib/listArchive';
+import { listArchive } from 'lib/rpc/functions';
 import FileIcon from 'main/components/FileIcon';
 import FileDetails from 'main/components/FileDetails';
 import Loading from 'main/components/Loading';

@@ -2,10 +2,13 @@
 import command from 'raw!./dict.py';
 import shellCommand from 'lib/shellCommand';
 
-import memoize from 'lodash/memoize';
+import memoize from 'memoizee';
 
 const WORD_REGEXP = /^\s*(.*)\s*\|(.+)\|\s*(.*)$/i;
 const TYPE_REGEXP = /^(adjective|adverb|determiner|noun|preposition|pronoun|verb)(.*)$/i;
+
+// Expire definition cache in 30 minutes
+const EXPIRATION = 30 * 60 * 1000;
 
 function parseHeader(result) {
   let blocks = result.plain.split('\n\n');
@@ -70,4 +73,4 @@ function getDefinition(word) {
   return shellCommand(`python -c "${command}" ${word}`).then(parseDictionary);
 };
 
-export default memoize(getDefinition);
+export default memoize(getDefinition, {maxAge: EXPIRATION});

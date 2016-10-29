@@ -119,6 +119,7 @@
     "highlight.js": "9.6.0",
     "lodash": "4.13.1",
     "lodash-decorators": "3.0.1",
+    "memoizee": "0.4.1",
     "nodobjc": "2.1.0",
     "normalize.css": "4.1.1",
     "pdfjs-dist": "1.5.355",

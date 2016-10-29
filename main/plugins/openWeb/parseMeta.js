@@ -1,4 +1,7 @@
-import memoize from 'lodash/memoize';
+import memoize from 'memoizee';
+
+// Expire sites meta informaiton in 30 minutes
+const EXPIRATION = 30 * 60 * 1000;
 
 /**
  * Get key and content of meta tag
@@ -7,7 +10,7 @@ import memoize from 'lodash/memoize';
  * @return {Object}
  */
 function parseMetaTag(tag) {
-  const key = tag.match(/(:?property|name)=["'](.+?)["']/)[1];
+  const key = tag.match(/(?:property|name)=["'](.+?)["']/)[1];
   const content = tag.match(/content=["'](.+?)["']/)[1];
   return { key, content };
 }
@@ -68,4 +71,7 @@ function parseMeta(url) {
     .then(response => processMetaTags(getAllMetas(response)));
 }
 
-export default memoize(parseMeta);
+export default memoize(parseMeta, {
+  maxAge: EXPIRATION,
+  promise: 'then'
+});

@@ -26,8 +26,9 @@
 
 .previewPdf {
   align-self: flex-start;
-  /*flex-direction: column;
-  align-items: center;*/
+  position: absolute;
+  left: 0;
+  top: 0;
   min-width: 100%;
   height: 100%;
   overflow: auto;

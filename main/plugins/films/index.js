@@ -8,6 +8,9 @@ import { shell } from 'electron';
  * @param  {String} term
  */
 const filmsPlugin = (term, callback) => {
+  let match = term.match(/^(kinopoisk|film|фильм)\s+(.+)/i);
+  match = match || term.match(/(.+)\s(kinopoisk|film|фильм)$/i);
+  if (!match) return;
   provider.search(term).then(films => {
     const result = films.map(film => ({
       id: `film${film.id}`,

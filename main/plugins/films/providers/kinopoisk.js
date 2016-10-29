@@ -1,4 +1,5 @@
 import flatten from 'lodash/flatten';
+import memoize from 'memoizee';
 
 const API_URL = 'http://api.kinopoisk.cf';
 
@@ -38,7 +39,7 @@ function formatFilm(film) {
   }
 }
 
-export const search = (term) => {
+export const search = memoize((term) => {
   const url = `${API_URL}/searchFilms?keyword=${term}`;
   return fetch(url)
     .then(result => result.json())
@@ -49,13 +50,13 @@ export const search = (term) => {
         description: film.description
       }))
     })
-}
+})
 
-export const getFilm = (id) => {
+export const getFilm = memoize((id) => {
   const url = `${API_URL}/getFilm?filmID=${id}`;
   return fetch(url)
     .then(result => result.json())
     .then(formatFilm);
-}
+})
 
 export { default as icon } from '../kinopoisk.png';

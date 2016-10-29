@@ -18,7 +18,7 @@ const translatePlugin = (term, callback) => {
       translate(text, `${sourceLang}-${targetLang}`)
     ).then(({lang, text}) => {
       const translation = text[0];
-      const [sourceLang, targetLang] = lang.split('-')[0];
+      const [sourceLang, targetLang] = lang.split('-');
       const options = {
         text,
         sourceLang,

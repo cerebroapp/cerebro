@@ -6,6 +6,12 @@ import toLanguageCode from './toLanguageCode';
 import Preview from './Preview';
 import { id, order, REGEXP } from './constants.js';
 
+const onKeyDown = ({target}) => {
+  if (target && target.getAttribute('role') === 'combobox') {
+    event.preventDefault();
+  }
+}
+
 const translatePlugin = (term, callback) => {
   const match = term.match(REGEXP);
   if (match) {
@@ -28,6 +34,7 @@ const translatePlugin = (term, callback) => {
       callback({
         id,
         icon,
+        onKeyDown,
         title: `${translation}`,
         getPreview: () => <Preview {...options} />
       });
@@ -39,6 +46,7 @@ const translatePlugin = (term, callback) => {
   callback({
     id,
     icon,
+    onKeyDown,
     // Low priority for fallback result
     order: 3,
     title: `Translate ${term}`,

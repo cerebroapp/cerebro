@@ -6,12 +6,9 @@
 
 .controls {
   margin-bottom: 20px;
-  select {
-    margin: 0 15px;
-    &:first-child {
-      margin-left: 0;
-    }
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .poweredBy {
@@ -19,4 +16,12 @@
   cursor: pointer;
   bottom: 20px;
   right: 20px;
+}
+
+.select {
+  margin: 0 15px;
+  width: 150px;
+  &:first-child {
+    margin-left: 0;
+  }
 }

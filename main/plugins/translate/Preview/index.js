@@ -6,8 +6,14 @@ import getTargetLanguage from '../getTargetLanguage';
 import { LANGS, DISPLAY_NAMES } from '../constants';
 import { bind } from 'lodash-decorators';
 import { shell } from 'electron';
-
+import Select from 'react-select';
 import styles from './styles.css';
+
+
+const OPTIONS = LANGS.map(lang => ({
+  value: lang,
+  label: DISPLAY_NAMES[lang]
+}));
 
 // Detect source language and detect target language by it
 
@@ -67,8 +73,8 @@ export default class Preview extends Component {
    * @return {Function}
    */
   onChangeLanguage(field) {
-    return (event) => {
-      this.setState({[field]: event.target.value}, () => {
+    return ({value}) => {
+      this.setState({[field]: value}, () => {
         const {sourceLang, targetLang} = this.state;
         translate(this.props.text, `${sourceLang}-${targetLang}`).then(
           this.handleTranslation,
@@ -77,13 +83,6 @@ export default class Preview extends Component {
       });
     };
   }
-  /**
-   * Render language options list for select
-   * @return {Component}
-   */
-  renderLanguages() {
-    return LANGS.map(lang => <option value={lang}>{DISPLAY_NAMES[lang]}</option>);
-  }
   render() {
     const { error, loading, translation, sourceLang, targetLang } = this.state;
     if (error) return <div>Can't translate.</div>;
@@ -91,13 +90,21 @@ export default class Preview extends Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.controls}>
-          <select value={sourceLang} onChange={this.onChangeLanguage('sourceLang')}>
-            {this.renderLanguages()}
-          </select>
+          <Select
+            className={styles.select}
+            value={sourceLang}
+            options={OPTIONS}
+            clearable={false}
+            onChange={this.onChangeLanguage('sourceLang')}
+          />
           →
-          <select value={targetLang} onChange={this.onChangeLanguage('targetLang')}>
-            {this.renderLanguages()}
-          </select>
+          <Select
+            className={styles.select}
+            value={targetLang}
+            options={OPTIONS}
+            clearable={false}
+            onChange={this.onChangeLanguage('targetLang')}
+          />
         </div>
         {translation.map(text => <div>{text}</div>)}
         <div className={styles.poweredBy} onClick={this.openYandexTranslate}>

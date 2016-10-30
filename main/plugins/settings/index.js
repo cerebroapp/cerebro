@@ -1,23 +1,35 @@
 import React from 'react';
+import search from 'lib/search';
 import Settings from './Settings';
+
+// Settings plugin name
+const NAME = 'Cerebro Settings';
+
+// Phrases that used to find settings plugins
+const KEYWORDS = [
+  NAME,
+  'Cerebro Preferences'
+];
 
 /**
  * Plugin to show app settings in results list
  * @param  {String} term
  */
 const settingsPlugin = (term, callback) => {
-  if (!term.match(/^(show\s+)?(settings|preferences)\s*/i)) return;
-  callback([{
-    icon: '/Applications/Cerebro.app',
-    title: 'Cerebro settings',
-    id: `settings`,
-    getPreview: () => <Settings />
-  }]);
-};
+  const found = search(KEYWORDS, term).length > 0;
+  if (found) {
+    const results = [{
+      icon: '/Applications/Cerebro.app',
+      title: NAME,
+      term: NAME,
+      id: 'settings',
+      getPreview: () => <Settings />
+    }];
+    callback(results);
+  }
+}
 
 export default {
-  name: 'Cerebro settings',
-  icon: '/Applications/Cerebro.app',
-  keyword: 'Settings',
+  name: NAME,
   fn: settingsPlugin
 };

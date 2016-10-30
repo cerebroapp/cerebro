@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import baseConfig from './webpack.config.base';
+import OptimizeJsPlugin from 'optimize-js-plugin';
 
 const config = {
   ...baseConfig,
@@ -55,7 +56,10 @@ const config = {
       },
       sourceMap: false
     }),
-    new ExtractTextPlugin('style.css', { allChunks: true })
+    new ExtractTextPlugin('style.css', { allChunks: true }),
+    new OptimizeJsPlugin({
+      sourceMap: false
+    })
   ],
 
   target: 'electron-renderer'

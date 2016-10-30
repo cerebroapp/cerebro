@@ -94,6 +94,7 @@
     "mocha": "2.5.3",
     "mocha-webpack": "0.4.0",
     "node-libs-browser": "1.0.0",
+    "optimize-js-plugin": "0.0.4",
     "postcss-loader": "0.9.1",
     "postcss-nested": "1.0.0",
     "raw-loader": "0.5.1",
@@ -112,7 +113,6 @@
   },
   "dependencies": {
     "co": "4.6.0",
-    "css-modules-require-hook": "4.0.0",
     "du": "0.1.0",
     "escape-string-regexp": "1.0.5",
     "glob": "7.0.5",

@@ -8,14 +8,14 @@
 .inputWrapper {
   position: relative;
   z-index: 2;
-  width: 600px;
+  width: 100%;
   height: 45px;
 }
 
 .autocomplete {
   position: absolute;
   z-index: 1;
-  width: 600px;
+  width: 100%;
   height: 45px;
   font-size: 1.5em;
   padding: 0 10px;

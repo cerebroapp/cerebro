@@ -10,7 +10,7 @@ const config = {
 
   entry: {
     main: './main/main',
-    background: './background/background',
+    background: './background/background'
   },
 
   output: {

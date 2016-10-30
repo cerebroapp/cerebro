@@ -1,6 +1,6 @@
 /* eslint quote-props: 0 */
 
-import { lang, country } from 'lib/config';
+import { get } from 'lib/config';
 
 /**
  * List of all supported currencies
@@ -102,8 +102,8 @@ const CURRENCY_BY_LANG = {
  * Default currency for user. We are trying to guess it by locale.
  * @type {String}
  */
-export const BASE_CURRENCY = CURRENCY_BY_COUNTRY[country]
-  || CURRENCY_BY_LANG[lang]
+export const BASE_CURRENCY = CURRENCY_BY_COUNTRY[get('country')]
+  || CURRENCY_BY_LANG[get('lang')]
   || 'usd';
 
 /**

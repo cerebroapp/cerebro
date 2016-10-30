@@ -1,5 +1,5 @@
 import { LANGS } from './constants';
-import { lang as  localeLanguage } from 'lib/config';
+import { get } from 'lib/config';
 
 /**
  * Get default target language by source language
@@ -8,10 +8,10 @@ import { lang as  localeLanguage } from 'lib/config';
  * @return {String}
  */
 export default (lang) => {
-  if (lang !== localeLanguage) {
-    return localeLanguage;
+  if (lang !== get('lang')) {
+    return get('lang');
   }
   // We suppose that LANGS sorted by priority so we just return first language
   // that is not from locale
-  return LANGS.find(lang => lang !== localeLanguage);
+  return LANGS.find(lang => lang !== get('lang'));
 }

@@ -1,0 +1,28 @@
+.settings {
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Helvetica Neue";
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  width: 250px;
+}
+
+.itemValue {
+  display: flex;
+  flex-direction: column;
+}
+.itemNotice{
+  color: #999;
+  font-size: .8em;
+  margin-top: 10px;
+}
+
+.label {
+  margin-right: 15px;
+  margin-top: 8px;
+}

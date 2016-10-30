@@ -17,3 +17,7 @@ ipcMain.on('message', (event, payload) => {
   const toWindow = event.sender === mainWindow.webContents ? backgroundWindow : mainWindow;
   toWindow.webContents.send('message', payload);
 });
+
+ipcMain.on('updateSettings', (event, key, value) => {
+  mainWindow.onUpdateSettings(key, value);
+});

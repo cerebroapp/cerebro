@@ -8,6 +8,8 @@ import {
 
 import buildMenu from './createWindow/buildMenu';
 
+import { get } from '../lib/config';
+
 export default (url) => {
   const mainWindow = new BrowserWindow({
     alwaysOnTop: true,
@@ -22,23 +24,39 @@ export default (url) => {
 
   mainWindow.loadURL(url);
 
+  // Get global shortcut from app settings
+  let shortCut = get('hotkey');
+
   if (process.env.NODE_ENV !== 'development') {
     // Hide window on blur in production move
     // In development we usually use developer tools
     mainWindow.on('blur', () => mainWindow.hide());
   }
 
-  // const HOTKEY = 'Cmd+Alt+Shift+Control+Space';
-  const HOTKEY = 'Control+Space';
-
-  globalShortcut.register(HOTKEY, () => {
+  /**
+   * Handle global shortcut function. Show or hide main window
+   *
+   * @return {Function}
+   */
+  const handleShortcut = () => {
     if (mainWindow.isVisible()) {
       mainWindow.hide();
     } else {
       mainWindow.show();
       mainWindow.focus();
     }
-  });
+  };
+
+  globalShortcut.register(shortCut, handleShortcut);
+
+  mainWindow.onUpdateSettings = (key, value) => {
+    if (key === 'hotkey' && value != shortCut) {
+      console.log('hotkey updated to', value);
+      globalShortcut.unregister(shortCut);
+      shortCut = value;
+      globalShortcut.register(shortCut, handleShortcut);
+    }
+  }
 
   buildMenu(mainWindow);
   return mainWindow;

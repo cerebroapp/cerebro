@@ -1,7 +1,5 @@
 /* eslint quote-props: 0 */
 
-import { get } from 'lib/config';
-
 /**
  * List of all supported currencies
  * @type {Array}
@@ -29,8 +27,9 @@ export const PRIORITY_CURRENCIES = [
  * Hash of currencies by locale countries
  * @type {Object}
  */
-const CURRENCY_BY_COUNTRY = {
+export const CURRENCY_BY_COUNTRY = {
   'AU': 'aud',
+  'BR': 'brl',
   'US': 'usd',
   'CA': 'cad',
   'CH': 'chf',
@@ -43,45 +42,46 @@ const CURRENCY_BY_COUNTRY = {
   'RU': 'rub',
   'SG': 'sgd',
   'ZA': 'zar',
-  'AD': 'EUR',
-  'AT': 'EUR',
-  'AX': 'EUR',
-  'BE': 'EUR',
-  'BL': 'EUR',
-  'CY': 'EUR',
-  'DE': 'EUR',
-  'EE': 'EUR',
-  'ES': 'EUR',
-  'FI': 'EUR',
-  'FR': 'EUR',
-  'GF': 'EUR',
-  'GP': 'EUR',
-  'GR': 'EUR',
-  'IE': 'EUR',
-  'IT': 'EUR',
-  'LU': 'EUR',
-  'MC': 'EUR',
-  'ME': 'EUR',
-  'MF': 'EUR',
-  'MQ': 'EUR',
-  'MT': 'EUR',
-  'NL': 'EUR',
-  'PM': 'EUR',
-  'PT': 'EUR',
-  'RE': 'EUR',
-  'SI': 'EUR',
-  'SK': 'EUR',
-  'SM': 'EUR',
-  'TF': 'EUR',
-  'VA': 'EUR',
-  'YT': 'EUR'
+  'AD': 'eur',
+  'AT': 'eur',
+  'AX': 'eur',
+  'BE': 'eur',
+  'BL': 'eur',
+  'CY': 'eur',
+  'DE': 'eur',
+  'EE': 'eur',
+  'ES': 'eur',
+  'FI': 'eur',
+  'FR': 'eur',
+  'GF': 'eur',
+  'GP': 'eur',
+  'GR': 'eur',
+  'IE': 'eur',
+  'IT': 'eur',
+  'LU': 'eur',
+  'MC': 'eur',
+  'ME': 'eur',
+  'MF': 'eur',
+  'MQ': 'eur',
+  'MT': 'eur',
+  'NL': 'eur',
+  'PM': 'eur',
+  'PT': 'eur',
+  'RE': 'eur',
+  'SI': 'eur',
+  'SK': 'eur',
+  'SM': 'eur',
+  'TF': 'eur',
+  'VA': 'eur',
+  'YT': 'eur',
+  'IL': 'ils'
 }
 
 /**
  * Hash of currencies by locale language
  * @type {Object}
  */
-const CURRENCY_BY_LANG = {
+export const CURRENCY_BY_LANG = {
   'bg': 'bgn',
   'cs': 'czk',
   'da': 'dkk',
@@ -97,14 +97,6 @@ const CURRENCY_BY_LANG = {
   'no': 'nok',
   'ru': 'rub',
 }
-
-/**
- * Default currency for user. We are trying to guess it by locale.
- * @type {String}
- */
-export const BASE_CURRENCY = CURRENCY_BY_COUNTRY[get('country')]
-  || CURRENCY_BY_LANG[get('lang')]
-  || 'usd';
 
 /**
  * Object of synonims of currencies for better matching them in search queries

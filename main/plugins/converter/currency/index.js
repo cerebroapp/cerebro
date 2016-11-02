@@ -1,14 +1,16 @@
 import getUrl from './getUrl';
-import { BASE_CURRENCY, SYNONIMS, DISPLAY_NAMES, PRIORITY_CURRENCIES } from './constants';
+import getBaseCurency from './getBaseCurrency';
+import { SYNONIMS, DISPLAY_NAMES, PRIORITY_CURRENCIES } from './constants';
 import { parseUnitName, buildExtract, linearConverter } from '../base/';
-
-const URL = getUrl(BASE_CURRENCY);
 
 // Hash of exchange rates
 const rates = {};
 
 // Date of fetching exchange rates
 let ratesDate = null;
+
+// Currency that was used to fetch the cache
+let ratesCurrency = null;
 
 /**
  * Get yesterday's date
@@ -20,10 +22,13 @@ function yesterday() {
 
 /**
  * Check that saved exchange rates are still valid
+ * @param {String} currency Check if cache was fetched for this base currency
  * @return {Boolean}
  */
-function cacheValid() {
-  return ratesDate && ratesDate >= yesterday();
+function cacheValid(currency) {
+  return ratesDate &&
+    currency == ratesCurrency &&
+    ratesDate >= yesterday();
 }
 
 /**
@@ -31,12 +36,16 @@ function cacheValid() {
  * @return {Promise} promise that resolves with rates JSON
  */
 function getRates() {
-  if (cacheValid()) return Promise.resolve(rates);
-  return fetch(URL)
+  const baseCurrency = getBaseCurency();
+  const url = getUrl(baseCurrency);
+  if (cacheValid(baseCurrency)) return Promise.resolve(rates);
+  return fetch(url)
     .then(resp => resp.json())
     .then(response => {
       // Save exchange rates date
       ratesDate = new Date(response.query.created);
+      // Save used base currency for cache check
+      ratesCurrency = baseCurrency;
       // Convert response array with exchange rates to hash
       response.query.results.rate.forEach(value => {
         rates[value.Name.split('/')[1].toLowerCase()] = parseFloat(value.Rate);
@@ -59,8 +68,9 @@ function toUnit(unit) {
  * @return {string}
  */
 function defaultTarget(currency) {
-  if (BASE_CURRENCY !== currency) {
-    return BASE_CURRENCY;
+  const baseCurrency = getBaseCurency();
+  if (baseCurrency !== currency) {
+    return baseCurrency;
   }
   return PRIORITY_CURRENCIES.find(cur => cur !== currency);
 }

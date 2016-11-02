@@ -1,4 +1,6 @@
-import { BrowserWindow, globalShortcut } from 'electron';
+import { BrowserWindow, globalShortcut, app } from 'electron';
+import EventEmitter from 'events';
+
 import {
   INPUT_HEIGHT,
   WINDOW_WIDTH,
@@ -7,10 +9,10 @@ import {
 } from './constants/ui';
 
 import buildMenu from './createWindow/buildMenu';
+import AppTray from './createWindow/AppTray';
+import * as config from '../lib/config';
 
-import { get } from '../lib/config';
-
-export default (url) => {
+export default (url, trayIconSrc) => {
   const mainWindow = new BrowserWindow({
     alwaysOnTop: true,
     show: false,
@@ -23,22 +25,13 @@ export default (url) => {
   });
 
   mainWindow.loadURL(url);
+  mainWindow.settingsChanges = new EventEmitter();
 
   // Get global shortcut from app settings
-  let shortCut = get('hotkey');
+  let shortcut = config.get('hotkey');
 
-  if (process.env.NODE_ENV !== 'development') {
-    // Hide window on blur in production move
-    // In development we usually use developer tools
-    mainWindow.on('blur', () => mainWindow.hide());
-  }
-
-  /**
-   * Handle global shortcut function. Show or hide main window
-   *
-   * @return {Function}
-   */
-  const handleShortcut = () => {
+  // Show or hide main window
+  const toggleWindow = () => {
     if (mainWindow.isVisible()) {
       mainWindow.hide();
     } else {
@@ -47,16 +40,46 @@ export default (url) => {
     }
   };
 
-  globalShortcut.register(shortCut, handleShortcut);
-
-  mainWindow.onUpdateSettings = (key, value) => {
-    if (key === 'hotkey' && value != shortCut) {
-      console.log('hotkey updated to', value);
-      globalShortcut.unregister(shortCut);
-      shortCut = value;
-      globalShortcut.register(shortCut, handleShortcut);
-    }
+  // Show settings in main window
+  const showSettings = () => {
+    mainWindow.show();
+    mainWindow.focus();
+    mainWindow.webContents.send('message', {
+      message: 'showTerm',
+      payload: 'Preferences'
+    });
   }
+
+  const tray = new AppTray({
+    src: trayIconSrc,
+    onToggleWindow: toggleWindow,
+    onShowSettings: showSettings,
+    onQuit: () => app.quit()
+  })
+
+  // Setup event listeners for main window
+  globalShortcut.register(shortcut, toggleWindow);
+  if (process.env.NODE_ENV !== 'development') {
+    // Hide window on blur in production move
+    // In development we usually use developer tools
+    mainWindow.on('blur', () => mainWindow.hide());
+  }
+
+  if (config.get('showInTray')) {
+    tray.show();
+  }
+
+  // Change global hotkey if it is changes in app settins
+  mainWindow.settingsChanges.on('hotkey', (value) => {
+    globalShortcut.unregister(shortcut);
+    shortcut = value;
+    globalShortcut.register(shortcut, toggleWindow);
+  });
+
+  // Show or hide menu bar icon what it is changed in setting
+  mainWindow.settingsChanges.on('showInTray', (value) => {
+    value ? tray.show() : tray.hide();
+  });
 
   buildMenu(mainWindow);
   return mainWindow;

@@ -10,19 +10,34 @@
   display: flex;
   flex-direction: row;
   width: 250px;
+  margin-top: 20px;
+  &:first-child {
+    margin-top: 0;
+  }
 }
 
 .itemValue {
   display: flex;
   flex-direction: column;
 }
+.itemValueWithoutLabel {
+  composes: itemValue;
+  margin-left: 75px;
+}
+
 .itemNotice{
   color: #999;
   font-size: .8em;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .label {
   margin-right: 15px;
   margin-top: 8px;
+  min-width: 60px;
+  max-width: 60px;
+}
+
+.checkbox {
+  margin-right: 5px;
 }

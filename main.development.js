@@ -7,7 +7,12 @@ let mainWindow;
 let backgroundWindow;
 
 app.on('ready', () => {
-  mainWindow = createMainWindow(`file://${__dirname}/main/app.html`);
+  mainWindow = createMainWindow(
+    // Main window html
+    `file://${__dirname}/main/app.html`,
+    // Fullpath for menu bar icon
+    `${__dirname}/tray_icon@2x.png`
+  );
   backgroundWindow = createBackgroundWindow(`file://${__dirname}/background/index.html`);
 
   app.dock.hide();
@@ -19,5 +24,5 @@ ipcMain.on('message', (event, payload) => {
 });
 
 ipcMain.on('updateSettings', (event, key, value) => {
-  mainWindow.onUpdateSettings(key, value);
+  mainWindow.settingsChanges.emit(key, value);
 });

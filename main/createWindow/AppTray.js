@@ -11,10 +11,17 @@ export default class AppTray {
    * @param  {Function} options.onQuit  Handle quit from application
    * @return {AppTray}
    */
-  constructor({src, onToggleWindow, onShowSettings, onQuit}){
+  constructor(options){
     this.tray = null;
-    this.src = src;
-    this._contextMenu = Menu.buildFromTemplate([
+    this.options = options;
+  }
+  /**
+   * Show application icon in menu bar
+   */
+  show() {
+    const { onToggleWindow, onShowSettings, onQuit, src } = this.options;
+    const tray =  new Tray(src);
+    const contextMenu = Menu.buildFromTemplate([
       {
         label: 'Toggle Cerebro',
         click: onToggleWindow
@@ -30,14 +37,8 @@ export default class AppTray {
         click: onQuit
       }
     ])
-  }
-  /**
-   * Show application icon in menu bar
-   */
-  show() {
-    const tray =  new Tray(this.src);
     tray.setToolTip('Cerebro')
-    tray.setContextMenu(this._contextMenu)
+    tray.setContextMenu(contextMenu)
     this.tray = tray;
   }
   /**

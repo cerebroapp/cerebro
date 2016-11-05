@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { clipboard } from 'electron';
 import styles from './styles.css';
 
 /**
@@ -8,9 +9,22 @@ import styles from './styles.css';
  * @param  {String} options.content
  * @return {Component}
  */
-export default ({label, content}) => (
-  <div className={styles.row}>
-    <div className={styles.label}>{label}</div>
-    <div className={styles.value}>{content}</div>
-  </div>
-)
+export default class Row extends Component {
+  onKeyDown(event) {
+    const {metaKey, ctrlKey, keyCode} = event;
+    if ((metaKey || ctrlKey) && keyCode === 67) {
+      // Copy value to clipboard by cmd/ctrl+c
+      clipboard.writeText(this.props.content);
+      event.preventDefault();
+    }
+  }
+  render() {
+    const { label, content } = this.props;
+    return (
+      <div className={styles.row} tabIndex={0} onKeyDown={this.onKeyDown.bind(this)}>
+        <div className={styles.label}>{label}</div>
+        <div className={styles.value}>{content}</div>
+      </div>
+    )
+  }
+}

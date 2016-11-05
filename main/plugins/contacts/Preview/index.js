@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import KeyboardNav from 'main/components/KeyboardNav';
 import Block from './Block';
 import Row from './Row';
 import styles from './styles.css';
@@ -96,15 +97,17 @@ export default class Preview extends Component {
     return (
       <div className={styles.contact}>
         {this.renderHeader()}
-        <div className={styles.details}>
-          {this.renderList(phones)}
-          {this.renderList(emails)}
-          {this.renderList(urls)}
-          {this.renderBirthday()}
-          {this.renderServices()}
-          {this.renderSocialProfiles()}
-          {this.renderAddresses()}
-        </div>
+        <KeyboardNav>
+          <div className={styles.details}>
+            {this.renderList(phones)}
+            {this.renderList(emails)}
+            {this.renderList(urls)}
+            {this.renderBirthday()}
+            {this.renderServices()}
+            {this.renderSocialProfiles()}
+            {this.renderAddresses()}
+          </div>
+        </KeyboardNav>
       </div>
     );
   }

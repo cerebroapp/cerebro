@@ -52,6 +52,14 @@
   flex-direction: row;
   flex-wrap: nowrap;
   padding: 5px 0;
+  &:focus {
+    outline: none;
+    background: #126EDB;
+    color: white;
+    .label {
+      color: #ccc;
+    }
+  }
 }
 
 .label {

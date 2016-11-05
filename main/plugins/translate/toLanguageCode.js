@@ -7,6 +7,9 @@ import { LANGS, SYNONIMS } from './constants';
  * @return {String}
  */
 export default (lang) => {
+  if (!lang) {
+    return LANGS[0];
+  }
   let result = lang;
   if (SYNONIMS[result]) {
     result = SYNONIMS[result];
@@ -20,5 +23,5 @@ export default (lang) => {
       });
     result = SYNONIMS[synonim] || result;
   }
-  return LANGS.indexOf(result) !== -1 ? result : LANGS[0];
+  return LANGS.indexOf(result) !== -1 ? result : null;
 }

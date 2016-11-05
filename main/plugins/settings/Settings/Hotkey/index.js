@@ -98,13 +98,13 @@ const charCodeToSign = ({keyCode, shiftKey}) => {
 
 export default class Hotkey extends Component {
   onKeyDown(event) {
-    event.preventDefault();
-    event.stopPropagation();
     if (!event.ctrlKey && !event.altKey && !event.metaKey) {
       // Do not allow to set global shorcut without modifier keys
       // At least one of alt, cmd or ctrl is required
       return;
     }
+    event.preventDefault();
+    event.stopPropagation();
     const key = charCodeToSign(event);
     if (!key) {
       return;
@@ -114,10 +114,8 @@ export default class Hotkey extends Component {
     if (event.altKey) keys.push('Alt');
     if (event.shiftKey) keys.push('Shift');
     if (event.metaKey) keys.push('Command');
-    if (key) {
-      keys.push(key);
-      this.props.onChange(keys.join('+'));
-    }
+    keys.push(key);
+    this.props.onChange(keys.join('+'));
   }
   render() {
     const { hotkey } = this.props;

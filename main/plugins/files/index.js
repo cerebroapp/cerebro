@@ -8,6 +8,7 @@ import { shell } from 'electron';
 
 const DIR_REGEXP = /^\/(.*\/)*(.*)/;
 const HOME_DIR_REGEXP = /^~/;
+const USER_PATH = `/Users/${process.env.USER}`;
 
 /**
  * Do not show some files in results, i.e. system files
@@ -25,8 +26,10 @@ const ignoreFile = (fileName) => (
  */
 const filesPlugin = (term, callback) => {
   let path = term;
+  let replaceHomePath = false;
   if (path.match(HOME_DIR_REGEXP)) {
-    path = path.replace(HOME_DIR_REGEXP, `/Users/${process.env.USER}`);
+    path = path.replace(HOME_DIR_REGEXP, USER_PATH);
+    replaceHomePath = true;
   }
   const match = path.match(DIR_REGEXP);
   if (match) {
@@ -38,13 +41,14 @@ const filesPlugin = (term, callback) => {
       const result = [];
       files.forEach(file => {
         if (ignoreFile(file)) return;
-        const filePath = [dir, file].join('');
+        let filePath = [dir, file].join('');
+        let autocomplete = replaceHomePath ? filePath.replace(USER_PATH, '~') : filePath;
         result.push({
           id: filePath,
           title: file,
           subtitle: filePath,
           clipboard: filePath,
-          term: filePath,
+          term: autocomplete,
           icon: filePath,
           onKeyDown: (event) => {
             if (event.metaKey && event.keyCode === 82) {

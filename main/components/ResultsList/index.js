@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import LineResponse from '../Response/LineResponse';
+import Row from './Row';
 import styles from './styles.css';
 import { VirtualScroll } from 'react-virtualized';
 import { bind } from 'lodash-decorators';
@@ -17,6 +17,7 @@ export default class ResultsList extends Component {
     visibleResults: PropTypes.number,
     onItemHover: PropTypes.func,
     onSelect: PropTypes.func,
+    mainInputFocused: PropTypes.bool,
   }
 
   @bind()
@@ -46,14 +47,18 @@ export default class ResultsList extends Component {
     if (index <= 8) {
       attrs.keycode = index + 1;
     }
-    return <LineResponse {...attrs} />;
+    return <Row {...attrs} />;
   }
   renderPreview() {
     const selected = this.props.results[this.props.selected];
     return selected.getPreview ? selected.getPreview() : null;
   }
   render() {
-    const { results, selected, visibleResults } = this.props;
+    const { results, selected, visibleResults, mainInputFocused } = this.props;
+    const classNames = [
+      styles.resultsList,
+      mainInputFocused ? styles.focused : styles.unfocused
+    ].join(' ');
     if (results.length === 0) {
       return null;
     }
@@ -61,7 +66,7 @@ export default class ResultsList extends Component {
       <div className={styles.wrapper}>
         <VirtualScroll
           ref="list"
-          className={styles.resultsList}
+          className={classNames}
           height={visibleResults * RESULT_HEIGHT}
           overscanRowCount={2}
           rowCount={results.length}
@@ -71,8 +76,10 @@ export default class ResultsList extends Component {
           scrollToIndex={selected}
           // Needed to force update of VirtualScroll
           titles={results.map(result => result.title)}
+          // Disable accesebility of VirtualScroll by tab
+          tabIndex={null}
         />
-        <div className={styles.preview}>
+        <div className={styles.preview} id='preview'>
           {this.renderPreview()}
         </div>
       </div>

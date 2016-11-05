@@ -1,8 +1,7 @@
 /**
  * TODO: colors should be moved to variables
  */
-
-.lineResponse {
+.row {
   position: relative;
   display: flex;
   flex-wrap: nowrap;
@@ -30,7 +29,7 @@
 }
 
 .selected {
-  background: #126EDB;
+  background-color: rgba(18, 110, 219, 1);
   color: white;
 }
 
@@ -40,15 +39,6 @@
   color: #cccccc;
   max-width: 100%;
   overflow-x: hidden;
-}
-
-.keycode {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translate(0, -50%);
-  font-size: .7em;
-  color: #aaa;
 }
 
 .details {
@@ -61,16 +51,4 @@
   justify-content: center;
   max-width: 225px;
   height: 90%;
-  &::after {
-    content: '';
-    background: linear-gradient(to right, transparent, white);
-    position: absolute;
-    width: 10px;
-    height: 100%;
-    top: 0;
-    right: 0px;
-    .selected & {
-      background: linear-gradient(to right, transparent, #126EDB);
-    }
-  }
 }

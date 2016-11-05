@@ -2,20 +2,18 @@ import React, { PropTypes, Component } from 'react';
 import SmartIcon from '../../SmartIcon';
 import styles from './styles.css';
 
-export default class LineResponse extends Component {
+export default class Row extends Component {
   static propTypes = {
     title: PropTypes.string,
     icon: PropTypes.string,
     selected: PropTypes.bool,
     subtitle: PropTypes.string,
-    keycode: PropTypes.number,
     onSelect: PropTypes.func,
     onMouseMove: PropTypes.func,
   }
-
   classNames() {
     return [
-      styles.lineResponse,
+      styles.row,
       this.props.selected ? styles.selected : null
     ].join(' ');
   }
@@ -29,8 +27,7 @@ export default class LineResponse extends Component {
       title,
       onSelect,
       onMouseMove,
-      subtitle,
-      keycode
+      subtitle
     } = this.props;
     return (
       <div className={this.classNames()} onClick={onSelect} onMouseMove={onMouseMove}>
@@ -39,7 +36,6 @@ export default class LineResponse extends Component {
           {title && <div className={styles.title}> {title} </div>}
           {subtitle && <div className={styles.subtitle}> {subtitle} </div>}
         </div>
-        {keycode && <div className={styles.keycode}>⌘{keycode}</div>}
       </div>
     );
   }

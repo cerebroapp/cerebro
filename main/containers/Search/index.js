@@ -8,6 +8,7 @@ import MainInput from '../../components/MainInput';
 import ResultsList from '../../components/ResultsList';
 import styles from './styles.css';
 import define from 'lib/define';
+import focusableSelector from 'lib/focusableSelector';
 import * as searchActions from '../../actions/search';
 import escapeStringRegexp from 'escape-string-regexp';
 
@@ -47,6 +48,9 @@ class Search extends Component {
   constructor(props) {
     super(props);
     currentWindow().on('hide', this.props.actions.reset);
+    this.state = {
+      mainInputFocused: false
+    }
   }
   componentDidUpdate(prevProps) {
     const { results } = this.props;
@@ -61,15 +65,15 @@ class Search extends Component {
   componentWillMount() {
     // Listen for window.resize and change default space for results to user's value
     window.addEventListener('resize', this.onWindowResize);
-    // Listen for document keydown to handle hot keys
-    document.addEventListener('keydown', this.onKeyDown);
+    // Add some global key handlers
+    window.addEventListener('keydown', this.onDocumentKeydown);
     currentWindow().on('show', () => {
       this.refs.mainInput.focus();
     });
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this.onWindowResize);
-    document.removeEventListener('keyDown', this.onKeyDown);
+    window.removeEventListener('keydown', this.onDocumentKeydown);
     currentWindow().off('show', () => {
       this.refs.mainInput.focus();
     });
@@ -91,6 +95,14 @@ class Search extends Component {
     }
   }
 
+  @bind()
+  onDocumentKeydown(event) {
+    if (event.keyCode === 27) {
+      event.preventDefault();
+      document.getElementById('main-input').focus();
+    }
+  }
+
   /**
    * Handle keyboard shortcuts
    */
@@ -98,7 +110,6 @@ class Search extends Component {
   onKeyDown(event) {
     const highlighted = this.highlightedResult();
     // TODO: go to first result on cmd+up and last result on cmd+down
-    // TODO: global shortcuts priorities
     if (highlighted && highlighted.onKeyDown) {
       highlighted.onKeyDown(event);
     }
@@ -137,8 +148,14 @@ class Search extends Component {
     }
     switch (event.keyCode) {
       case 9:
-        event.preventDefault();
-        this.autocomplete();
+        this.autocomplete(event);
+        break;
+      case 39:
+        const previewDom = document.getElementById('preview');
+        const firstFocusable = previewDom.querySelector(focusableSelector);
+        if (firstFocusable) {
+          firstFocusable.focus();
+        }
         break;
       case 40:
         this.props.actions.moveCursor(1);
@@ -159,6 +176,16 @@ class Search extends Component {
         currentWindow().hide();
         break;
     }
+  }
+
+  @bind()
+  onMainInputFocus() {
+    this.setState({mainInputFocused: true})
+  }
+
+  @bind()
+  onMainInputBlur() {
+    this.setState({mainInputFocused: false})
   }
 
   /**
@@ -184,10 +211,11 @@ class Search extends Component {
   /**
    * Autocomple search term from highlighted result
    */
-  autocomplete() {
+  autocomplete(event) {
     const { term } = this.highlightedResult();
     if (term && term != this.props.term) {
       this.props.actions.updateTerm(term);
+      event.preventDefault();
     }
   }
   /**
@@ -227,6 +255,7 @@ class Search extends Component {
     }
   }
   render() {
+    const { mainInputFocused } = this.state;
     return (
       <div className={styles.search}>
         {this.renderAutocomplete()}
@@ -235,6 +264,9 @@ class Search extends Component {
             value={this.props.term}
             ref='mainInput'
             onChange={this.props.actions.updateTerm}
+            onKeyDown={this.onKeyDown}
+            onFocus={this.onMainInputFocus}
+            onBlur={this.onMainInputBlur}
           />
         </div>
         <ResultsList
@@ -243,6 +275,7 @@ class Search extends Component {
           visibleResults={this.props.visibleResults}
           onItemHover={this.props.actions.selectElement}
           onSelect={this.selectItem}
+          mainInputFocused={mainInputFocused}
         />
       </div>
     );

@@ -5,6 +5,10 @@
   border-top: 1px solid #eee;
 }
 
+.unfocused {
+  opacity: .5;
+}
+
 .resultsList {
   overflow-y: auto;
   width: 250px;

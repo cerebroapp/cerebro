@@ -1,28 +1,31 @@
 import React, { Component, PropTypes } from 'react';
 import Loading from 'main/components/Loading';
 import Preload from 'main/components/Preload';
+import KeyboardNav from 'main/components/KeyboardNav';
+import Suggestion from './Suggestion';
 import shellCommand from 'lib/shellCommand';
 import getSuggestions from '../getSuggestions';
-import search from '../search';
 import styles from './styles.css';
 import icon from '../icon.png';
 
-export default ({query}) => {
-  const renderSuggestion = (query) => {
-    return <li className={styles.item} onClick={() => search(query)}>{query}</li>
-  }
-  const renderer = (suggestions) => {
+export default class Preview extends Component {
+  renderSuggestions(suggestions) {
     return (
       <div className={styles.wrapper}>
-        <ul className={styles.list}>
-          { suggestions.map(s => renderSuggestion(s))}
-        </ul>
+        <KeyboardNav>
+          <ul className={styles.list}>
+            { suggestions.map(s => <Suggestion query={s}/>)}
+          </ul>
+        </KeyboardNav>
       </div>
     );
   }
-  return (
-    <Preload promise={getSuggestions(query)} loader={<Loading />}>
-      { renderer }
-    </Preload>
-  );
+  render() {
+    const { query } = this.props;
+    return (
+      <Preload promise={getSuggestions(query)} loader={<Loading />}>
+        { (suggestions) => this.renderSuggestions(suggestions) }
+      </Preload>
+    );
+  }
 }

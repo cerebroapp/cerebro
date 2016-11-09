@@ -32,21 +32,19 @@ export default class ResultsList extends Component {
       onSelect: () => this.props.onSelect(result),
       // Move selection to item under cursor
       onMouseMove: (event) => {
-        if (index === this.props.selected) {
+        const { selected, mainInputFocused, onItemHover } = this.props;
+        const { movementX, movementY } = event.nativeEvent;
+        if (index === selected || !mainInputFocused) {
           return false;
         }
-        const { movementX, movementY } = event.nativeEvent;
         if (movementX || movementY) {
           // Hover item only when we had real movement of mouse
           // We should prevent changing of selection when user uses keyboard
-          this.props.onItemHover(index);
+          onItemHover(index);
         }
       },
       key: result.id,
     };
-    if (index <= 8) {
-      attrs.keycode = index + 1;
-    }
     return <Row {...attrs} />;
   }
   renderPreview() {

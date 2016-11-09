@@ -30,6 +30,33 @@ function currentWindow() {
   return remote.getCurrentWindow();
 }
 
+/**
+ * Set focus to first focusable element in preview
+ */
+const focusPreview = () => {
+  const previewDom = document.getElementById('preview');
+  const firstFocusable = previewDom.querySelector(focusableSelector);
+  if (firstFocusable) {
+    firstFocusable.focus();
+  }
+}
+
+/**
+ * Check if cursor in the end of input
+ *
+ * @param  {DOMElement} input
+ */
+const cursorInEndOfInut = ({selectionStart, selectionEnd, value}) => {
+  return selectionStart === selectionEnd &&
+    selectionStart >= value.length
+}
+
+/**
+ * Main search container
+ *
+ * TODO: Remove redux
+ * TODO: Split to more components
+ */
 class Search extends Component {
   static propTypes = {
     actions: PropTypes.shape({
@@ -151,10 +178,9 @@ class Search extends Component {
         this.autocomplete(event);
         break;
       case 39:
-        const previewDom = document.getElementById('preview');
-        const firstFocusable = previewDom.querySelector(focusableSelector);
-        if (firstFocusable) {
-          firstFocusable.focus();
+        if (cursorInEndOfInut(event.target)) {
+          focusPreview();
+          event.preventDefault();
         }
         break;
       case 40:

@@ -3,11 +3,33 @@
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][david_img]][david_site]
 
-## Screenshot
+![Cerebro](https://cloud.githubusercontent.com/assets/594298/20180624/858a483a-a75b-11e6-94a1-ef1edc4d95c3.gif)
 
-![](http://g.recordit.co/AGSI6RMmKn.gif)
 
-## Install
+## Usage
+You can download latest version of Cerebro.dmg on [releases](https://github.com/KELiON/cerebro/releases) page.
+
+After installation use default shortcut `ctrl+space` to show an app window. You can customize this shortcut by clicking on menu bar icon → preferences.
+
+
+## Plugins
+* Search & launch application, i.e. `spotify`;
+* Search in the web with google suggestions;
+* Navigate in file system with file previews (i.e. `~/Dropbox/passport.pdf`);
+* Calculator;
+* Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp`;
+* Contacts search;
+* Define in OSx built-in dictionary;
+* Search for gifs on giphy.com, i.e. `gif luck`, `how i met your mother gif`;
+* System commands: i.e. `sleep`, `lock`, `restart`;
+* Open system directory: `airdrop`, `icloud drive`, `trash`;
+
+And more geeky:
+* Kill process, i.e `kill ruby`;
+* Show your local and global IP address, just `ip`.
+
+## Development
+### Install
 
 First, clone the repo via git:
 

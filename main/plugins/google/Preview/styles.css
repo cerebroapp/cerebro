@@ -21,7 +21,7 @@
   }
   &:focus {
     outline: none;
-    background: #126EDB;
-    color: white;
+    background: var(--selected-menu-background);
+    color: var(--selected-menu-color);
   }
 }

@@ -39,5 +39,5 @@
   font-size: 1.3em;
   position: relative;
   top: 5px;
-  color: #999;
+  color: var(--secondary-font-color);
 }

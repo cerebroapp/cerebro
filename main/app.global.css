@@ -3,6 +3,15 @@
 @import "~highlight.js/styles/github-gist.css";
 @import "~react-select/dist/react-select.css";
 
+:root {
+  /** Main fonts and text colors */
+  --main-font: "Helvetica Neue";
+  --secondary-font-color: #999;
+  /* Selected menu item*/
+  --selected-menu-background: rgba(18, 110, 219, 1);
+  --selected-menu-color: white;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -10,7 +19,7 @@ html, body {
 body {
   position: relative;
   height: 100vh;
-  font-family: "Helvetica Neue";
+  font-family: var(--main-font);
   overflow-y: hidden;
 }
 

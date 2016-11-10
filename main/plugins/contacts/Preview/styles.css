@@ -39,7 +39,7 @@
 
 .job {
   font-size: .8em;
-  color: #999;
+  color: var(--secondary-font-color);
 }
 
 .block {
@@ -54,8 +54,8 @@
   padding: 5px 0;
   &:focus {
     outline: none;
-    background: #126EDB;
-    color: white;
+    background: var(--selected-menu-background);
+    color: var(--selected-menu-color);
     .label {
       color: #ccc;
     }
@@ -67,7 +67,7 @@
   width: 150px;
   text-align: right;
   margin-right: 5px;
-  color: #999;
+  color: var(--secondary-font-color);
   overflow: hidden;
   text-overflow: ellipsis;
 }

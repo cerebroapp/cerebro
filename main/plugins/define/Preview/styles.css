@@ -12,7 +12,7 @@
 
 .transcription {
   font-size: .9em;
-  color: #999;
+  color: var(--secondary-font-color);
   margin-left: 10px;
 }
 

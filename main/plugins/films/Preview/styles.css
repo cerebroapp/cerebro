@@ -47,7 +47,7 @@
     list-style: square;
     &::before {
       content: "■";
-      color: #999;
+      color: var(--secondary-font-color);
       display: block;
       padding: 0 10px;
     }
@@ -115,7 +115,7 @@
 }
 
 .imdbRating {
-  color: #999;
+  color: var(--secondary-font-color);
   font: 100 11px tahoma, verdana;
 }
 

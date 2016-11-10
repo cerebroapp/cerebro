@@ -9,7 +9,7 @@
 .fileDetails {
   margin-top: 50px;
   font-size: .8em;
-  color: #999;
+  color: var(--secondary-font-color);
   width: 100%;
 
   dt {

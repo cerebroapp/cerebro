@@ -29,8 +29,8 @@
 }
 
 .selected {
-  background-color: rgba(18, 110, 219, 1);
-  color: white;
+  background: var(--selected-menu-background);
+  color: var(--selected-menu-color);
 }
 
 .subtitle {

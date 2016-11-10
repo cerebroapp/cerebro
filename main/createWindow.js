@@ -35,6 +35,11 @@ export default (url, trayIconSrc) => {
 
   // Function to toggle main window
   const toggleMainWindow = () => toggleWindow(mainWindow);
+  // Function to show main window
+  const showMainWindow = () => {
+    mainWindow.show();
+    mainWindow.focus();
+  };
 
   const tray = new AppTray({
     src: trayIconSrc,
@@ -67,6 +72,10 @@ export default (url, trayIconSrc) => {
   mainWindow.settingsChanges.on('showInTray', (value) => {
     value ? tray.show() : tray.hide();
   });
+
+  // Show main window when user opens application, but it is already opened
+  app.on('open-file', showMainWindow);
+  app.on('activate', showMainWindow);
 
   // Save in config information, that application has been started
   config.set('firstStart', false);

@@ -7,9 +7,9 @@
 
 
 ## Usage
-You can download latest version of Cerebro.dmg on [releases](https://github.com/KELiON/cerebro/releases) page.
+Your can download dmg for the latest version on  [releases](https://github.com/KELiON/cerebro/releases) page.
 
-After installation use default shortcut `ctrl+space` to show an app window. You can customize this shortcut by clicking on menu bar icon → preferences.
+After installation use default shortcut `ctrl+space` to show an app window. You can customize this shortcut clicking on icon in menu bar → preferences.
 
 
 ## Plugins

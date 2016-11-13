@@ -120,6 +120,7 @@
     "lodash": "4.13.1",
     "lodash-decorators": "3.0.1",
     "memoizee": "0.4.1",
+    "node-machine-id": "1.1.1",
     "nodobjc": "2.1.0",
     "normalize.css": "4.1.1",
     "pdfjs-dist": "1.5.355",
@@ -136,7 +137,8 @@
     "react-virtualized": "https://registry.npmjs.org/react-virtualized/-/react-virtualized-7.11.8.tgz",
     "redux": "3.5.2",
     "redux-thunk": "2.1.0",
-    "source-map-support": "0.4.0"
+    "source-map-support": "0.4.0",
+    "universal-analytics": "0.4.6"
   },
   "devEngines": {
     "node": "4.x || 5.x || 6.x",

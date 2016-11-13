@@ -1,5 +1,6 @@
 import { BrowserWindow, globalShortcut, app } from 'electron';
 import EventEmitter from 'events';
+import trackEvent from '../lib/trackEvent';
 
 import {
   INPUT_HEIGHT,
@@ -76,6 +77,12 @@ export default (url, trayIconSrc) => {
   // Show main window when user opens application, but it is already opened
   app.on('open-file', showMainWindow);
   app.on('activate', showMainWindow);
+
+  // Track app start event
+  trackEvent({
+    category: 'App Start',
+    event: config.get('firstStart') ? 'First' : 'Secondary'
+  });
 
   // Save in config information, that application has been started
   config.set('firstStart', false);

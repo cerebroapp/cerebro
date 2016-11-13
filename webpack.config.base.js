@@ -33,5 +33,5 @@ module.exports = {
   plugins: [
 
   ],
-  externals: ['nodobjc']
+  externals: ['nodobjc', 'universal-analytics']
 };

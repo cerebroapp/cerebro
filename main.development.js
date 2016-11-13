@@ -1,10 +1,20 @@
-import { app, ipcMain } from 'electron';
+import { app, ipcMain, crashReporter } from 'electron';
 
 import createMainWindow from './main/createWindow';
 import createBackgroundWindow from './background/createWindow';
 
 let mainWindow;
 let backgroundWindow;
+
+if (process.env.NODE_ENV !== 'development') {
+  // Set up crash reporter before creating windows in production builds
+  crashReporter.start({
+    productName: 'Cerebro',
+    companyName: 'Cerebro',
+    submitURL: 'http://crashes.cerebroapp.com/post',
+    autoSubmit: true
+  });
+}
 
 app.on('ready', () => {
   mainWindow = createMainWindow(

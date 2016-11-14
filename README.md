@@ -67,6 +67,18 @@ $ npm run dev
 $ npm run package
 ```
 
+
+## Be in touch
+Follow to be notified about new releases or learn some productivity tips with Cerebro:
+
+* [Twitter](https://twitter.com/cerebro_app)
+* [Facebook](https://www.facebook.com/cerebroapp)
+* [Google+](https://plus.google.com/104292436165594177472)
+* [VK.com](https://vk.com/cerebroapp) – channel in Russian
+
+Or [subscribe to newsletter](http://eepurl.com/coiKU9) to be notified only about big releases.
+
+
 ## License
 MIT © [Alexandr Subbotin](https://github.com/KELiON)
 

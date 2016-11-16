@@ -1,5 +1,4 @@
 import React, { Component }  from 'react';
-import Loading from 'main/components/Loading';
 import styles from './styles.css';
 
 export default () => (

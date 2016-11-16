@@ -7,7 +7,7 @@ config.module = Object.assign(config.module,{
   devtool: 'cheap-module-eval-source-map',
   loaders: Array.prototype.concat.call(config.module.loaders, [
     {
-      test: /\.css$/,
+      test: /\.(css|svg|jpe?g|png)$/,
       loader: 'null-loader'
     }
   ])

@@ -13,7 +13,7 @@ const CONVERTERS = [
   temperature,
 ];
 
-const numberRegexp = /-?\d+(?:(?:\.|,)\d+)?/;
+const numberRegexp = /[-+/*\d\s,\.\( )]+/;
 const unitRegexp = /[\wa-я\$€£'"°℃]+/;
 
 const mainRegexpString = [
@@ -52,8 +52,15 @@ function eachConverter(fn) {
  */
 const converterPlugin = (term, callback) => {
   const match = term.toLowerCase().match(REGEXP);
+  console.log(match);
   if (match) {
-    const amount = parseFloat(match[1].toString().replace(',', '.'));
+    let amount;
+    try {
+      amount = parseFloat(eval(match[1].toString().replace(/,/g, '.')));
+    } catch (err) {
+      // do nothing when amount parse failed
+      return;
+    }
     eachConverter(converter => {
       const pair = converter.extract(match);
       if (!pair) {

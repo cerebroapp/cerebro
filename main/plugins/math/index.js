@@ -13,7 +13,7 @@ const mathPlugin = (term, callback) => {
   const match = term.match(MATH_REGEXP);
   if (match) {
     try {
-      let result = eval(term.replace(',', '.'));
+      let result = eval(term.replace(/,/g, '.'));
       if (result !== result) {
         // When user tries to devide 0 by 0
         callback({

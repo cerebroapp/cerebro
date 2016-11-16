@@ -33,6 +33,7 @@ const DEFAULT_OPTS = {
     '^/webpack',
     '^/lib',
     '^/npm-shrinkwrap.json',
+    '^/.*.map$',
     '^/dist/.*.map$',
     '^/TODO',
     '^/README.md',

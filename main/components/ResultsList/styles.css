@@ -3,6 +3,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   border-top: 1px solid #eee;
+  height: 100%;
 }
 
 .unfocused {

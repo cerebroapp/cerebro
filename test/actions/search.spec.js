@@ -1,23 +1,21 @@
 import expect from 'expect';
-import searchInjector from 'inject!../../app/actions/search';
+import searchInjector from 'inject!../../main/actions/search';
 
 import {
-  UPDATE_TERM,
   MOVE_CURSOR,
   SELECT_ELEMENT,
-  SHOW_RESULT,
   RESET,
-} from '../../app/constants/actionTypes';
+} from '../../main/constants/actionTypes';
 
-let testPlugin = {
+const testPlugin = {
   fn: () => {}
 };
 
-let pluginsMock = {
+const pluginsMock = {
   'test-plugin': testPlugin
-}
+};
 
-let actions = searchInjector({
+const actions = searchInjector({
   '../plugins/': pluginsMock,
 });
 

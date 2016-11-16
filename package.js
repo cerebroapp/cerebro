@@ -33,7 +33,7 @@ const DEFAULT_OPTS = {
     '^/webpack',
     '^/lib',
     '^/npm-shrinkwrap.json',
-    '^/dist/.*\.map$',
+    '^/dist/.*.map$',
     '^/TODO',
     '^/README.md',
     '^/LICENSE',
@@ -41,7 +41,7 @@ const DEFAULT_OPTS = {
     '^/mocha-webpack.opts',
     '^/main/(?!app.html)',
     '^/background/(?!index.html)',
-    '^/\.babelrc',
+    '^/.babelrc',
   ]
   .concat(devDeps.map(name => `/node_modules/${name}($|/)`))
   .concat(

@@ -1,17 +1,31 @@
 import React from 'react';
-
-import fs from 'fs';
-import { getAppsList } from 'lib/rpc/functions';
+import getAppsList from 'lib/getAppsList';
 import search from 'lib/search';
-import shellCommand from 'lib/shellCommand';
 import Preview from './Preview';
 import { shell } from 'electron';
+import memoize from 'memoizee';
+
+/**
+ * Time for apps list cache
+ * @type {Integer}
+ */
+const CACHE_TIME = 2 * 60 * 1000;
+
+/**
+ * Cache getAppsList function
+ * @type {Function}
+ */
+const cachedAppsList = memoize(getAppsList, {
+  length: false,
+  promise: 'then',
+  maxAge: CACHE_TIME,
+  preFetch: true
+});
 
 const appsPlugin = (term,  callback) => {
-  getAppsList().then(items => {
+  cachedAppsList().then(items => {
     const result = search(items, term, (file) => file.name).map(file => {
       const { path, name } = file;
-      const shellPath = path.replace(/ /g, '\\ ');
       return {
         title: name,
         term: name,
@@ -25,7 +39,7 @@ const appsPlugin = (term,  callback) => {
             event.preventDefault();
           }
         },
-        onSelect: () => shellCommand(`open ${shellPath}`),
+        onSelect: () => shell.openItem(path),
         getPreview: () => <Preview name={name} path={path} />
       };
     });
@@ -34,5 +48,13 @@ const appsPlugin = (term,  callback) => {
 };
 
 export default {
-  fn: appsPlugin
+  fn: appsPlugin,
+  initialize: () => {
+    // Cache apps cache and force cache reloading in background
+    const recache = () => {
+      cachedAppsList();
+      setTimeout(recache, CACHE_TIME * 0.75);
+    }
+    recache();
+  }
 };

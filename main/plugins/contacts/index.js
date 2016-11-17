@@ -1,7 +1,7 @@
 import React from 'react';
 import Preview from './Preview';
 import search from 'lib/search';
-import initialize from './initialize';
+import initializeAsync from './initialize';
 
 /**
  * List of all contacts from osx address book
@@ -38,7 +38,7 @@ const contactsPlugin = (term, callback) => {
 };
 
 export default {
-  initialize,
+  initializeAsync,
   name: 'Contacts',
   fn: contactsPlugin,
   onMessage: (contacts) => {

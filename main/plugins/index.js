@@ -1,18 +1,44 @@
-export { default as apps } from './apps';
-export { default as editor } from './editor';
-export { default as ip } from './ip';
-export { default as math } from './math';
-export { default as system } from './system';
-export { default as files } from './files';
-export { default as define } from './define';
-export { default as kill } from './kill';
-export { default as converter } from './converter';
-export { default as openWeb } from './openWeb';
-export { default as google } from './google';
-export { default as translate } from './translate';
-export { default as gif } from './gif';
-export { default as contacts } from './contacts';
-export { default as maps } from './maps';
-export { default as films } from './films';
-export { default as settings } from './settings';
-export { default as plugins } from './plugins';
+// Core plugins
+import apps from './apps';
+import math from './math';
+import files from './files';
+import system from './system';
+import define from './define';
+import converter from './converter';
+import openWeb from './openWeb';
+import google from './google';
+import contacts from './contacts';
+import settings from './settings';
+import films from './films';
+import maps from './maps';
+import translate from './translate';
+
+// import gif from './gif';
+import kill from './kill';
+import ip from './ip';
+import editor from './editor';
+import plugins from './plugins';
+
+import loadExternalPlugins from './loadExternalPlugins';
+
+module.exports = {
+  apps,
+  math,
+  files,
+  system,
+  define,
+  converter,
+  openWeb,
+  google,
+  contacts,
+  settings,
+  films,
+  maps,
+  translate,
+  // gif,
+  kill,
+  ip,
+  editor,
+  plugins,
+  ...loadExternalPlugins(),
+}

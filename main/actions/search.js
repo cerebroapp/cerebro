@@ -1,4 +1,4 @@
-import * as plugins from '../plugins/';
+import plugins from '../plugins/';
 import config from 'lib/config';
 import { shell, clipboard } from 'electron';
 

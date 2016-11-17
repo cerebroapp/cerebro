@@ -1,6 +1,6 @@
 import search from 'lib/search';
 
-import * as plugins from './index';
+import plugins from './index';
 
 const keywordPlugins = Object
   .keys(plugins)

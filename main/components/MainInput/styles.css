@@ -1,6 +1,8 @@
 .input {
   width: 100%;
   height: 45px;
+  background-color: var(--main-background-color);
+  color: var(--main-font-color);
   font-size: 1.5em;
   border: 0;
   outline: none;

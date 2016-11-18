@@ -31,7 +31,7 @@ const config = {
       ...baseConfig.module.loaders,
 
       {
-        test: /\.global\.css$/,
+        test: /global\.css$/,
         loaders: [
           'style-loader',
           'css-loader?sourceMap'
@@ -39,7 +39,7 @@ const config = {
       },
 
       {
-        test: /^((?!\.global).)*\.css$/,
+        test: /^((?!global).)*\.css$/,
         loaders: [
           'style-loader',
           'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
@@ -52,9 +52,6 @@ const config = {
     ...baseConfig.plugins,
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
-    })
   ],
 
   target: 'electron-renderer'

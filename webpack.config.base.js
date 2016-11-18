@@ -1,4 +1,6 @@
+const webpack = require('webpack');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   module: {
@@ -31,7 +33,12 @@ module.exports = {
     require('postcss-nested'),
   ],
   plugins: [
-
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    }),
+    new CopyWebpackPlugin([
+      { from: 'main/css/themes/*', to: '.' }
+    ]),
   ],
   externals: ['nodobjc', 'universal-analytics']
 };

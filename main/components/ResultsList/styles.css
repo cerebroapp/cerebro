@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  border-top: 1px solid #eee;
+  border-top: var(--main-border);
   height: 100%;
 }
 
@@ -32,5 +32,47 @@
   &::before, &::after {
     content: '';
     margin: auto;
+  }
+
+  input {
+    border: var(--preview-input-border);
+    background: var(--preview-input-background);
+    color: var(--preview-input-color);
+  }
+
+  :global {
+    /* Styles for react-select */
+    .Select {
+      .Select-control {
+        border: var(--preview-input-border);
+        background: var(--preview-input-background);
+        color: var(--preview-input-color);
+      }
+      .Select-menu-outer {
+        border: var(--preview-input-border);
+        background: var(--preview-input-background);
+      }
+      .Select-input input {
+        border: 0;
+      }
+      .Select-value-label {
+        color: var(--preview-input-color) !important;
+      }
+      .Select-option {
+        background: var(--preview-input-background);
+        color: var(--preview-input-color);
+        &.is-selected {
+          color: var(--selected-result-title-color);
+          background: var(--selected-result-background);
+        }
+        &.is-focused {
+          color: var(--selected-result-title-color);
+          background: var(--selected-result-background);
+          filter: opacity(50%);
+        }
+      }
+      .Select-option.is-selected {
+      }
+    }
   }
 }

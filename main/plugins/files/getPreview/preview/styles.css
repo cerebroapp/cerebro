@@ -54,7 +54,7 @@
     margin: 0 0 10px;
   }
   h1, h2, h3, h4 {
-    color: #000;
+    color: var(--main-font-color);
     margin-top: 24px;
     margin-bottom: 16px;
     font-weight: 500;
@@ -63,19 +63,20 @@
   h1 {
     padding-bottom: 0.3em;
     font-size: 2em;
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--main-border);
   }
   h2 {
     padding-bottom: 0.3em;
     font-size: 1.5em;
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--main-border);
   }
   pre {
     padding: 16px;
     overflow: auto;
     font-size: 85%;
     line-height: 1.45;
-    background-color: #f7f7f7;
+    filter: invert(10%);
+    background: var(--main-background-color);
     border-radius: 3px;
     code {
       padding: 0;
@@ -143,7 +144,7 @@
     padding: 0 5px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--main-border);
     &:last-child {
       border-bottom: 0;
     }

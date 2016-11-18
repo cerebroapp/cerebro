@@ -1,0 +1,33 @@
+:root {
+  /* Main fonts and colors */
+  --main-background-color: #3E4143;
+  --main-font: "Helvetica Neue";
+  --main-font-color: white;
+
+  /* border styles */
+  --main-border: 1px solid #686869;
+
+  /* Secondary fonts and colors */
+  --secondary-font-color: #9B9D9F;
+
+  /* results list */
+  --result-background: var(--main-background-color);
+  --result-title-color: var(--main-font-color);
+  --result-subtitle-color: #cccccc;
+
+  /* selected result */
+  --selected-result-title-color: white;
+  --selected-result-subtitle-color: var(--result-subtitle-color);
+  --selected-result-background: #1972D6;
+
+  /* inputs */
+  --preview-input-background: #2E2E2C;
+  --preview-input-color: var(--main-font-color);
+  --preview-input-border: 0;
+}
+
+
+.gm-style {
+  /* dark theme for embedded google maps */
+  -webkit-filter: invert(100%) hue-rotate(180deg) contrast(80%);
+}

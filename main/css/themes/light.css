@@ -1,0 +1,27 @@
+:root {
+  /* Main fonts and colors */
+  --main-background-color: rgba(255, 255, 255, .85);
+  --main-font: "Helvetica Neue";
+  --main-font-color: #000000;
+
+  /* border styles */
+  --main-border: 1px solid #eee;
+
+  /* Secondary fonts and colors */
+  --secondary-font-color: #999;
+
+  /* results list */
+  --result-background: var(--main-background-color);
+  --result-title-color: var(--main-font-color);
+  --result-subtitle-color: #cccccc;
+
+  /* selected result */
+  --selected-result-title-color: white;
+  --selected-result-subtitle-color: var(--result-subtitle-color);
+  --selected-result-background: rgba(18, 110, 219, 1);
+
+  /* inputs */
+  --preview-input-background: white;
+  --preview-input-color: var(--main-font-color);
+  --preview-input-border: 1px solid #ccc;;
+}

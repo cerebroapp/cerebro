@@ -26,7 +26,7 @@ const config = {
       ...baseConfig.module.loaders,
 
       {
-        test: /\.global\.css$/,
+        test: /global\.css$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
           'css-loader'
@@ -34,7 +34,7 @@ const config = {
       },
 
       {
-        test: /^((?!\.global).)*\.css$/,
+        test: /^((?!global).)*\.css$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
@@ -46,9 +46,6 @@ const config = {
   plugins: [
     ...baseConfig.plugins,
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         screw_ie8: true,

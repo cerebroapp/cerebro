@@ -32,7 +32,7 @@ node_modules
 # App packaged
 dist
 release
-main.js
-main.js.map
+/main.js
+/main.js.map
 
 .tmp/

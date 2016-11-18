@@ -39,7 +39,7 @@
   padding: 0;
   min-width: 300px;
   li {
-    border-bottom: 1px solid #eee;
+    border-bottom: var(--main-border);
     padding: 5px 0;
     display: flex;
     flex-direction: row;

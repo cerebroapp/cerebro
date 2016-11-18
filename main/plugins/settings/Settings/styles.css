@@ -19,6 +19,7 @@
 .itemValue {
   display: flex;
   flex-direction: column;
+  flex-grow: 2;
 }
 .itemValueWithoutLabel {
   composes: itemValue;
@@ -26,7 +27,7 @@
 }
 
 .itemNotice{
-  color: #999;
+  color: var(--secondary-font-color);
   font-size: .8em;
   margin-top: 5px;
 }

@@ -14,6 +14,8 @@
   height: 45px;
   padding: 3px 5px;
   align-items: center;
+  color: var(--main-font-color);
+  background: var(--result-background);
 }
 
 .icon {
@@ -26,19 +28,26 @@
   font-size: .8em;
   max-width: 100%;
   overflow-x: hidden;
+  color: var(--result-title-color);
 }
 
-.selected {
-  background: var(--selected-menu-background);
-  color: var(--selected-menu-color);
-}
 
 .subtitle {
   font-size: 0.8em;
   font-weight: 300;
-  color: #cccccc;
+  color: var(--result-subtitle-color);
   max-width: 100%;
   overflow-x: hidden;
+}
+
+.selected {
+  background: var(--selected-result-background);
+  .title {
+    color: var(--selected-result-title-color);
+  }
+  .subtitle {
+    color: var(--selected-result-subtitle-color);
+  }
 }
 
 .details {

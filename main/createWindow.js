@@ -74,6 +74,14 @@ export default (url, trayIconSrc) => {
     value ? tray.show() : tray.hide();
   });
 
+  // Change theme css file
+  mainWindow.settingsChanges.on('theme', (value) => {
+    mainWindow.webContents.send('message', {
+      message: 'updateTheme',
+      payload: value
+    });
+  });
+
   // Show main window when user opens application, but it is already opened
   app.on('open-file', showMainWindow);
   app.on('activate', showMainWindow);

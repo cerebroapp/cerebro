@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import config from 'lib/config';
 import Hotkey from './Hotkey';
 import CountrySelect from './CountrySelect';
+import Select from 'react-select';
+import loadThemes from 'lib/loadThemes';
 import styles from './styles.css';
 
 export default class Settings extends Component {
@@ -11,6 +13,7 @@ export default class Settings extends Component {
       hotkey: config.get('hotkey'),
       showInTray: config.get('showInTray'),
       country: config.get('country'),
+      theme: config.get('theme'),
     }
     this.changeConfig = this.changeConfig.bind(this);
   }
@@ -21,7 +24,7 @@ export default class Settings extends Component {
     });
   }
   render() {
-    const { hotkey, showInTray, country } = this.state;
+    const { hotkey, showInTray, country, theme } = this.state;
     return (
       <div className={styles.settings}>
         <div className={styles.item}>
@@ -47,6 +50,18 @@ export default class Settings extends Component {
             <div className={styles.itemNotice}>
               Choose your country so Cerebro can better choose currency, language, etc.
             </div>
+          </div>
+        </div>
+
+        <div className={styles.item}>
+          <label className={styles.label}>Theme:</label>
+          <div className={styles.itemValue}>
+            <Select
+              value={theme}
+              options={loadThemes()}
+              clearable={false}
+              onChange={({value}) => this.changeConfig('theme', value)}
+            />
           </div>
         </div>
 

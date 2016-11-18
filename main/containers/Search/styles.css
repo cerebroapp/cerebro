@@ -21,6 +21,6 @@
   padding: 0 10px;
   line-height: 45px;
   box-sizing: border-box;
-  color: #bbbbbb;
+  color: var(--secondary-font-color);
   white-space: pre;
 }

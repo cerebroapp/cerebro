@@ -69,6 +69,7 @@
     "chromedriver": "2.21.2",
     "co-mocha": "1.1.2",
     "concurrently": "2.1.0",
+    "copy-webpack-plugin": "4.0.1",
     "cross-env": "1.0.8",
     "css-loader": "0.23.1",
     "del": "2.2.0",

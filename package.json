@@ -117,6 +117,7 @@
     "co": "4.6.0",
     "du": "0.1.0",
     "escape-string-regexp": "1.0.5",
+    "event-stream": "3.3.4",
     "glob": "7.0.5",
     "highlight.js": "9.6.0",
     "lodash": "4.13.1",

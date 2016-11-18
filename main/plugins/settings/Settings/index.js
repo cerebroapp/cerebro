@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as config from 'lib/config';
+import config from 'lib/config';
 import Hotkey from './Hotkey';
 import CountrySelect from './CountrySelect';
 import styles from './styles.css';

@@ -13,7 +13,7 @@ import buildMenu from './createWindow/buildMenu';
 import AppTray from './createWindow/AppTray';
 import toggleWindow from './createWindow/toggleWindow'
 import showSettings from './createWindow/showSettings';
-import * as config from '../lib/config';
+import config from '../lib/config';
 
 export default (url, trayIconSrc) => {
   const mainWindow = new BrowserWindow({

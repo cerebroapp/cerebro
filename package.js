@@ -43,6 +43,12 @@ const DEFAULT_OPTS = {
     '^/main/(?!app.html)',
     '^/background/(?!index.html)',
     '^/.babelrc',
+    '^/.DS_Store',
+    '^/.editorconfig',
+    '^/.eslint.*',
+    '^/.git.*',
+    '^/.travis.yml',
+    '^/.tmp',
   ]
   .concat(devDeps.map(name => `/node_modules/${name}($|/)`))
   .concat(

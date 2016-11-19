@@ -5,9 +5,8 @@
   "description": "Extendable electron-based open-source spolight and alfred analogue",
   "main": "main.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha-webpack -w",
+    "test": "./node_modules/.bin/mocha-webpack",
     "test-watch": "npm test -- --watch",
-    "test-e2e": "cross-env NODE_ENV=test mocha --compilers js:babel-register --require ./test/setup.js --require co-mocha ./test/e2e.js",
     "lint": "eslint app test *.js",
     "hot-server": "node -r babel-register server.js",
     "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --progress --profile --colors",

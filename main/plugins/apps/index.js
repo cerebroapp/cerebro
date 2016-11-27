@@ -4,6 +4,7 @@ import search from 'lib/search';
 import Preview from './Preview';
 import { shell } from 'electron';
 import memoize from 'memoizee';
+import orderBy from 'lodash/orderBy';
 
 /**
  * Time for apps list cache
@@ -24,7 +25,14 @@ const cachedAppsList = memoize(getAppsList, {
 
 const appsPlugin = (term,  callback) => {
   cachedAppsList().then(items => {
-    const result = search(items, term, (file) => file.name).map(file => {
+    const result = orderBy(
+      search(items, term, (file) => file.name),
+      [
+        ({useCount}) => useCount ? parseInt(useCount, 10) : 0,
+        ({lastUsed}) => lastUsed ? lastUsed : '0000',
+      ],
+      ['desc', 'desc']
+    ).map(file => {
       const { path, name } = file;
       return {
         title: name,

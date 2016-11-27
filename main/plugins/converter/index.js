@@ -54,7 +54,6 @@ function eachConverter(fn) {
  */
 const converterPlugin = ({term, display}) => {
   const match = term.toLowerCase().match(REGEXP);
-  console.log(match);
   if (match) {
     let amount;
     try {

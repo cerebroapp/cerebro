@@ -14,9 +14,9 @@ export default () => {
     const pluginPath = path.join(externalPluginsPath, file);
     const isDir = fs.statSync(pluginPath).isDirectory();
     if (isDir) {
+      console.log('Load external plugin...', pluginPath);
       // Use window.require instead of webpack require because
       acc[file] = window.require(pluginPath);
-      console.log(acc, file);
     }
     return acc;
   }, {});

@@ -12,7 +12,6 @@ const order = 12;
 const definePlugin = ({term, display}) => {
   display({
     order,
-    id: `define${term}`,
     icon: '/Applications/Dictionary.app',
     title: `Define ${term}`,
     onSelect: () => shell.open(`dict://${term}`),

@@ -22,7 +22,7 @@ const mapsPlugin = ({term, actions, display, config}) => {
       const { geometry, formatted_address, place_id } = point;
       return {
         icon,
-        id: `maps${place_id}`,
+        id: place_id,
         title: formatted_address,
         term: formatted_address,
         onSelect: () => {

@@ -19,7 +19,7 @@ const gifPlugin = ({term, display}) => {
       .then(results => {
         const response = results.data.map(item => {
           return {
-            id: `gif-${item.id}`,
+            id: item.id,
             title: item.images.original.url,
             clipboard: item.images.original.url,
             getPreview: () => <Preview images={item.images} id={item.id}  />

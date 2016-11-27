@@ -18,7 +18,6 @@ const editorPlugin = ({term, display}) => {
       const result = search(items, match[1]).map(file => {
         const path = [PROJECTS_PATH, file].join('/');
         return {
-          id: path,
           term: `e ${file}`,
           title: file,
           subtitle: `Open ${path} in editor`,

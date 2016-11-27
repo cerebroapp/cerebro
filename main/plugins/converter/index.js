@@ -72,7 +72,6 @@ const converterPlugin = ({term, display}) => {
       const result = converter.convert(amount, from, to).toLocaleString();
       display({
         icon,
-        id: `converter-${from.unit}-${to.unit}`,
         title: `${amount.toLocaleString()}${from.displayName} = ${result}${to.displayName}`,
         term: `${term} = ${result}${to.displayName}`,
         clipboard: result.toString(),

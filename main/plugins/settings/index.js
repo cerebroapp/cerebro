@@ -28,7 +28,6 @@ const settingsPlugin = ({term, display, config}) => {
       icon: '/Applications/Cerebro.app',
       title: NAME,
       term: NAME,
-      id: 'settings',
       getPreview: () => {
         return <Settings
           set={(key, value) => config.set(key, value)}

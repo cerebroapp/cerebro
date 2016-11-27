@@ -37,7 +37,6 @@ const appsPlugin = ({term, actions, display}) => {
       return {
         title: name,
         term: name,
-        id: path,
         icon: path,
         subtitle: path,
         onKeyDown: (event) => {

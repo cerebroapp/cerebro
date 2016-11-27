@@ -31,14 +31,13 @@ const DEFAULT_SCOPE = {
  * @param {Function} callback Callback function that receives used search term and found results
  */
 const eachPlugin = (term, display) => {
-  const scope = {
-    ...DEFAULT_SCOPE,
-    term,
-    display
-  }
-  // TODO: set priority to plugins
+  // TODO: order results by frequency?
   Object.keys(plugins).forEach(name => {
-    plugins[name].fn(scope);
+    plugins[name].fn({
+      ...DEFAULT_SCOPE,
+      term,
+      display: (payload) => display(name, payload)
+    });
   });
 };
 
@@ -87,8 +86,13 @@ export function updateTerm(term) {
       type: UPDATE_TERM,
       payload: term,
     });
-    eachPlugin(term, (payload) => {
-      const result = Array.isArray(payload) ? payload : [payload];
+    eachPlugin(term, (plugin, payload) => {
+      let result = Array.isArray(payload) ? payload : [payload];
+      result = result.map(x => ({
+        ...x,
+        // Scope result ids with plugin name and use title if id is empty
+        id: `${plugin}-${x.id || x.title}`
+      }));
       if (result.length === 0) {
         // Do not dispatch for empty results
         return;

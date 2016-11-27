@@ -17,7 +17,6 @@ const pluginsPlugin = ({term, display}) => {
   let results = search(keywordPlugins, term, (plugin) => plugin.keyword)
     .filter(plugin => plugin.keyword !== term);
   results = results.map(res => ({
-    id: `plugin${res.name}`,
     title: res.name,
     icon: res.icon,
     term: `${res.keyword}`,

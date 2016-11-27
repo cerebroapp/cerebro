@@ -14,7 +14,6 @@ function matchedUsedUrls(term) {
 function toResult(url, open) {
   return {
     title: url,
-    id: `url-${url}`,
     subtitle: 'Open url',
     term: url,
     onSelect: () => {

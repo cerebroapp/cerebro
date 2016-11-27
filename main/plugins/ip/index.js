@@ -15,7 +15,6 @@ const ipPlugin = ({term, display}) => {
     shellCommand(LOCAL_IP_CMD).then(local => {
       display({
         icon,
-        id: 'local-ip',
         title: `Local IP: ${local}`,
         clipboard: local,
       });
@@ -23,14 +22,12 @@ const ipPlugin = ({term, display}) => {
     shellCommand(EXTERNAL_IP_CMD).then(external => {
       display({
         icon,
-        id: 'external-ip',
         title: `External IP: ${external}`,
         clipboard: external,
       });
     });
   }
 };
-
 
 export default {
   name: 'Show IP addresses',

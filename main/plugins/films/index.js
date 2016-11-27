@@ -14,7 +14,7 @@ const filmsPlugin = ({term, actions, display}) => {
   if (!match) return;
   provider.search(term).then(films => {
     const result = films.map(film => ({
-      id: `film${film.id}`,
+      id: film.id,
       title: film.title,
       subtitle: film.description,
       icon: provider.icon,

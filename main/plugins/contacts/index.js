@@ -27,10 +27,10 @@ const fullName = ({firstName, lastName}) => {
  */
 const contactsPlugin = ({term, display, actions}) => {
   const result = search(addressBook, term, fullName).map(person => ({
-    icon: '/Applications/Contacts.app',
+    id: person.id,
     title: fullName(person),
+    icon: '/Applications/Contacts.app',
     term: fullName(person),
-    id: `contacts-${person.id}`,
     getPreview: () => <Preview {...person} copyToClipboard={actions.copyToClipboard} />,
   }));
   display(result);

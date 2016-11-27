@@ -1,4 +1,6 @@
 import * as plugins from '../plugins/';
+import config from 'lib/config';
+import { shell, clipboard } from 'electron';
 
 import {
  UPDATE_TERM,
@@ -9,16 +11,34 @@ import {
  CHANGE_VISIBLE_RESULTS,
 } from '../constants/actionTypes';
 
+/**
+ * Default scope object would be first argument for plugins
+ *
+ * @type {Object}
+ */
+const DEFAULT_SCOPE = {
+  config,
+  actions: {
+    open: (q) => shell.openExternal(q),
+    reveal: (q) => shell.showItemInFolder(q),
+    copyToClipboard: (q) => clipboard.writeText(q)
+  }
+};
 
 /**
  * Pass search term to all plugins and handle their results
  * @param {String} term Search tem
  * @param {Function} callback Callback function that receives used search term and found results
  */
-const eachPlugin = (term, callback) => {
+const eachPlugin = (term, display) => {
+  const scope = {
+    ...DEFAULT_SCOPE,
+    term,
+    display
+  }
   // TODO: set priority to plugins
   Object.keys(plugins).forEach(name => {
-    plugins[name].fn(term, callback);
+    plugins[name].fn(scope);
   });
 };
 

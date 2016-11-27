@@ -7,16 +7,18 @@ const MATH_REGEXP = /^[-+/*\d\s,\.\( )]+$/;
 
 /**
  * Plugin to show result of math calculation
- * @param  {String} term
+ *
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const mathPlugin = (term, callback) => {
+const mathPlugin = ({term, display}) => {
   const match = term.match(MATH_REGEXP);
   if (match) {
     try {
       let result = eval(term.replace(/,/g, '.'));
       if (result !== result) {
         // When user tries to devide 0 by 0
-        callback({
+        display({
           title: `= indeterminate`,
           icon: '/Applications/Calculator.app',
           getPreview: () => <Preview />
@@ -24,7 +26,7 @@ const mathPlugin = (term, callback) => {
         return;
       }
       result = result.toLocaleString();
-      callback({
+      display({
         title: `= ${result}`,
         icon: '/Applications/Calculator.app',
         term: `${term} = ${result}`,

@@ -5,7 +5,6 @@ import translate from '../translate';
 import getTargetLanguage from '../getTargetLanguage';
 import { LANGS, DISPLAY_NAMES } from '../constants';
 import { bind } from 'lodash-decorators';
-import { shell } from 'electron';
 import Select from 'react-select';
 import styles from './styles.css';
 
@@ -23,6 +22,7 @@ export default class Preview extends Component {
     targetLang: PropTypes.string,
     sourceLang: PropTypes.string,
     translation: PropTypes.string,
+    openUrl: PropTypes.func,
   }
 
   constructor(props) {
@@ -64,7 +64,7 @@ export default class Preview extends Component {
    * Handle click on "Powered by..."
    */
   openYandexTranslate() {
-    shell.openExternal('http://translate.yandex.com/');
+    this.props.openUrl('http://translate.yandex.com/');
   }
   /**
    * Get handler for chaning source or target language

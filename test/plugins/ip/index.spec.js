@@ -13,19 +13,23 @@ const ipPlugin = ipInjector({
 });
 
 describe('IP plugin', () => {
+  const term = 'ip';
+
   it('shows local ip', (done) => {
-    ipPlugin.fn('ip', (result) => {
+    const display = (result) => {
       if (result.title === `Local IP: ${localIp}`) {
         done();
       }
-    });
+    };
+    ipPlugin.fn({term, display});
   });
 
   it('shows global ip', (done) => {
-    ipPlugin.fn('ip', (result) => {
+    const display = (result) => {
       if (result.title === `External IP: ${globalIp}`) {
         done();
       }
-    });
+    };
+    ipPlugin.fn({term, display});
   });
 });

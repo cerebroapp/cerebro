@@ -46,9 +46,11 @@ const COMMANDS = {
 
 /**
  * Plugin for system commands, like lock, screen saver, etc.
- * @param  {String} term
+ *
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const systemPlugin = (term, callback) => {
+const systemPlugin = ({term, display}) => {
   const commands = search(Object.keys(COMMANDS), term);
   if (commands.length > 0) {
     const result = commands.map((cmd) => ({
@@ -58,7 +60,7 @@ const systemPlugin = (term, callback) => {
       icon: COMMANDS[cmd].icon,
       onSelect: () => shellCommand(COMMANDS[cmd].command)
     }));
-    callback(result);
+    display(result);
   }
 };
 

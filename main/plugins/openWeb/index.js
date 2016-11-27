@@ -1,5 +1,4 @@
 import React from 'react';
-import { shell } from 'electron';
 import uniq from 'lodash/uniq';
 import Preview from './Preview';
 
@@ -12,7 +11,7 @@ function matchedUsedUrls(term) {
   return lastUrls.filter(url => url.replace(/^https?:\/\//, '').indexOf(term) === 0);
 }
 
-function toResult(url) {
+function toResult(url, open) {
   return {
     title: url,
     id: `url-${url}`,
@@ -20,23 +19,30 @@ function toResult(url) {
     term: url,
     onSelect: () => {
       lastUrls = uniq([url, ...lastUrls]);
-      shell.openExternal(url);
+      open(url);
     },
     getPreview: () => <Preview url={url} />
   };
 }
 
-const openWebPlugin = (term, callback) => {
+/**
+ * Plugin to open entered url in default browser
+ *
+ * @param  {String} options.term
+ * @param  {Object} options.actions
+ * @param  {Function} options.display
+ */
+const openWebPlugin = ({term, actions, display}) => {
   const match = term.match(URL_REGEXP);
   if (match) {
     let url = term;
     if (!term.match(/^https?:\/\//)) {
       url = `http://${url}`;
     }
-    callback(toResult(url));
+    display(toResult(url, actions.open));
   }
   const result = matchedUsedUrls(term).map(toResult);
-  callback(result);
+  display(result);
 };
 
 export default {

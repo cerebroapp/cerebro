@@ -7,9 +7,11 @@ const PROJECTS_PATH = `/Users/${process.env.USER}/projects`;
 
 /**
  * Plugin to open directory in editor
- * @param  {String} term
+ *
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const editorPlugin = (term, callback) => {
+const editorPlugin = ({term, display}) => {
   const match = term.match(/^e\s(.*)/);
   if (match) {
     fs.readdir(PROJECTS_PATH, (err, items) => {
@@ -23,7 +25,7 @@ const editorPlugin = (term, callback) => {
           onSelect: shellCommand.bind(null, `e ${path}`),
         };
       });
-      callback(result);
+      display(result);
     });
   }
 };

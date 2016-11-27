@@ -42,24 +42,24 @@ export default class Preview extends Component {
    */
   renderList(list) {
     const keys = Object.keys(list);
-    const rowRenderer = key => <Row label={key} content={list[key]} />;
+    const rowRenderer = key => <Row label={key} content={list[key]} copyToClipboard={this.props.copyToClipboard} />;
     return <Block rowRenderer={rowRenderer} list={keys} />
   }
   renderAddresses() {
     const rowRenderer =({label, ...address}) => (
-      <Row label={label} content={localeAddress(address)} />
+      <Row label={label} content={localeAddress(address)} copyToClipboard={this.props.copyToClipboard} />
     );
     return <Block rowRenderer={rowRenderer} list={this.props.addresses} />
   }
   renderServices() {
     const rowRenderer = ({label, serviceName, userName}) => (
-      <Row label={label} content={`${userName} (${serviceName})`} />
+      <Row label={label} content={`${userName} (${serviceName})`} copyToClipboard={this.props.copyToClipboard} />
     ) ;
     return <Block rowRenderer={rowRenderer} list={this.props.services} />
   }
   renderSocialProfiles() {
     const rowRenderer = ({url, service}) => (
-      <Row label={service} content={url} />
+      <Row label={service} content={url} copyToClipboard={this.props.copyToClipboard} />
     );
     return <Block rowRenderer={rowRenderer} list={this.props.socialProfiles} />
   }
@@ -67,7 +67,7 @@ export default class Preview extends Component {
     const { birthday } = this.props;
     if (!birthday) return null;
     const rowRenderer = (date) => (
-      <Row label={'birthday'} content={new Date(date).toLocaleDateString()} />
+      <Row label={'birthday'} content={new Date(date).toLocaleDateString()} copyToClipboard={this.props.copyToClipboard} />
     );
     return <Block rowRenderer={rowRenderer} list={[birthday]} />
   }

@@ -16,9 +16,11 @@ const KEYWORDS = [
 
 /**
  * Plugin to show app settings in results list
- * @param  {String} term
+ *
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const settingsPlugin = (term, callback) => {
+const settingsPlugin = ({term, display}) => {
   const found = search(KEYWORDS, term).length > 0;
   if (found) {
     const results = [{
@@ -29,7 +31,7 @@ const settingsPlugin = (term, callback) => {
       id: 'settings',
       getPreview: () => <Settings />
     }];
-    callback(results);
+    display(results);
   }
 }
 

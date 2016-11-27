@@ -48,9 +48,11 @@ function eachConverter(fn) {
 
 /**
  * Convert currency
- * @param  {String} term
+ *
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const converterPlugin = (term, callback) => {
+const converterPlugin = ({term, display}) => {
   const match = term.toLowerCase().match(REGEXP);
   console.log(match);
   if (match) {
@@ -68,7 +70,7 @@ const converterPlugin = (term, callback) => {
       }
       const [from, to] = pair;
       const result = converter.convert(amount, from, to).toLocaleString();
-      callback({
+      display({
         icon,
         id: `converter-${from.unit}-${to.unit}`,
         title: `${amount.toLocaleString()}${from.displayName} = ${result}${to.displayName}`,

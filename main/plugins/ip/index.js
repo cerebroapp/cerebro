@@ -6,12 +6,14 @@ const EXTERNAL_IP_CMD = 'curl --silent http://icanhazip.com';
 
 /**
  * Plugin to look and display local and external IPs
- * @param  {String} term
+ *
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const ipPlugin = (term, callback) => {
+const ipPlugin = ({term, display}) => {
   if (term.match(/^ip\s?$/i)) {
     shellCommand(LOCAL_IP_CMD).then(local => {
-      callback({
+      display({
         icon,
         id: 'local-ip',
         title: `Local IP: ${local}`,
@@ -19,7 +21,7 @@ const ipPlugin = (term, callback) => {
       });
     });
     shellCommand(EXTERNAL_IP_CMD).then(external => {
-      callback({
+      display({
         icon,
         id: 'external-ip',
         title: `External IP: ${external}`,

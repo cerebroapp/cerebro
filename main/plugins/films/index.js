@@ -1,13 +1,14 @@
 import React from 'react';
 import Preview from './Preview';
 import * as provider from './providers/kinopoisk';
-import { shell } from 'electron';
 
 /**
  * Plugin to look and display local and external IPs
- * @param  {String} term
+ * @param  {String} options.term
+ * @param  {Object} options.actions
+ * @param  {Function} options.display
  */
-const filmsPlugin = (term, callback) => {
+const filmsPlugin = ({term, actions, display}) => {
   let match = term.match(/^(kinopoisk|film|фильм)\s+(.+)/i);
   match = match || term.match(/(.+)\s(kinopoisk|film|фильм)$/i);
   if (!match) return;
@@ -17,10 +18,10 @@ const filmsPlugin = (term, callback) => {
       title: film.title,
       subtitle: film.description,
       icon: provider.icon,
-      onSelect: () => shell.openExternal(`https://www.kinopoisk.ru/film/${film.id}`),
+      onSelect: () => actions.open(`https://www.kinopoisk.ru/film/${film.id}`),
       getPreview: () => <Preview key={film.id} filmId={film.id} getFilm={provider.getFilm}/>
     }));
-    callback(result);
+    display(result);
   })
 };
 

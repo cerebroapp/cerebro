@@ -1,10 +1,7 @@
 import React from 'react';
 import fs from 'fs';
-import search from 'lib/search';
-import shellCommand from 'lib/shellCommand';
 import { readDir } from 'lib/rpc/functions';
 import getPreview from './getPreview';
-import { shell } from 'electron';
 
 const DIR_REGEXP = /^\/(.*\/)*(.*)/;
 const HOME_DIR_REGEXP = /^~/;
@@ -22,9 +19,10 @@ const ignoreFile = (fileName) => (
 
 /**
  * Plugin to look and display local and external IPs
- * @param  {String} term
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const filesPlugin = (term, callback) => {
+const filesPlugin = ({term, search, actions, display}) => {
   let path = term;
   let replaceHomePath = false;
   if (path.match(HOME_DIR_REGEXP)) {
@@ -52,15 +50,15 @@ const filesPlugin = (term, callback) => {
           icon: filePath,
           onKeyDown: (event) => {
             if (event.metaKey && event.keyCode === 82) {
-              shell.showItemInFolder(filePath);
+              actions.reveal(filePath);
               event.preventDefault();
             }
           },
-          onSelect: shellCommand.bind(null, `open ${filePath}`),
+          onSelect: () => actions.open(filePath),
           getPreview: getPreview.bind(null, filePath)
         });
       });
-      callback(result);
+      display(result);
     });
   }
 };

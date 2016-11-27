@@ -9,9 +9,11 @@ const keywordPlugins = Object
 
 /**
  * Plugin for autocomplete other plugins
- * @param  {String} term
+ *
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const pluginsPlugin = (term, callback) => {
+const pluginsPlugin = ({term, display}) => {
   let results = search(keywordPlugins, term, (plugin) => plugin.keyword)
     .filter(plugin => plugin.keyword !== term);
   results = results.map(res => ({
@@ -20,7 +22,7 @@ const pluginsPlugin = (term, callback) => {
     icon: res.icon,
     term: `${res.keyword}`,
   }));
-  callback(results);
+  display(results);
 };
 
 export default {

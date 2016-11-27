@@ -17,6 +17,8 @@ const pluginsMock = {
 
 const actions = searchInjector({
   '../plugins/': pluginsMock,
+  'electron': {},
+  'lib/config': {}
 });
 
 describe('reset', () => {

@@ -5,9 +5,11 @@ const API_KEY = 'dc6zaTOxFJmzC';
 
 /**
  * Plugin to look and display local and external IPs
- * @param  {String} term
+ *
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const gifPlugin = (term, callback) => {
+const gifPlugin = ({term, display}) => {
   let match = term.match(/^gif\s+(.+)/i);
   match = match || term.match(/(.+)\sgif$/i);
   if (match) {
@@ -23,7 +25,7 @@ const gifPlugin = (term, callback) => {
             getPreview: () => <Preview images={item.images} id={item.id}  />
           }
         });
-        callback(response);
+        display(response);
       })
   }
 };

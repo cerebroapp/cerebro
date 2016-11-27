@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { clipboard } from 'electron';
 import styles from './styles.css';
 
 /**
@@ -14,7 +13,7 @@ export default class Row extends Component {
     const {metaKey, ctrlKey, keyCode} = event;
     if ((metaKey || ctrlKey) && keyCode === 67) {
       // Copy value to clipboard by cmd/ctrl+c
-      clipboard.writeText(this.props.content);
+      this.props.copyToClipboard(this.props.content)
       event.preventDefault();
     }
   }

@@ -29,9 +29,11 @@ function getIcon(processPath) {
 
 /**
  * Plugin to look and display local and external IPs
- * @param  {String} term
+ *
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const killPlugin = (term, callback) => {
+const killPlugin = ({term, display}) => {
   const match = term.match(REGEXP);
   if (match) {
     const searchProcessName = match[1];
@@ -57,7 +59,7 @@ const killPlugin = (term, callback) => {
           subtitle: `${cpu}% CPU @ ${path}`,
           onSelect: () => shellCommand(`kill -9 ${id}`)
         }));
-      callback(results);
+      display(results);
     });
   }
 };

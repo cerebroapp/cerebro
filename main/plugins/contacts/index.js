@@ -14,7 +14,6 @@ let addressBook = [];
  *
  * @param  {String} options.firstName
  * @param  {String} options.lastName
- * @return {String}
  */
 const fullName = ({firstName, lastName}) => {
   return [firstName, lastName].filter(name => !!name).join(' ');
@@ -23,18 +22,18 @@ const fullName = ({firstName, lastName}) => {
 /**
  * Contacts plugin
  *
- * @param  {String}   term
- * @param  {Function} callback
+ * @param  {[type]} options.term
+ * @param  {[type]} options.display [description]
  */
-const contactsPlugin = (term, callback) => {
+const contactsPlugin = ({term, display, actions}) => {
   const result = search(addressBook, term, fullName).map(person => ({
     icon: '/Applications/Contacts.app',
     title: fullName(person),
     term: fullName(person),
     id: `contacts-${person.id}`,
-    getPreview: () => <Preview {...person} />,
+    getPreview: () => <Preview {...person} copyToClipboard={actions.copyToClipboard} />,
   }));
-  callback(result);
+  display(result);
 };
 
 export default {

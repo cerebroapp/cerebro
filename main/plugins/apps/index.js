@@ -1,8 +1,7 @@
 import React from 'react';
 import getAppsList from 'lib/getAppsList';
-import search from 'lib/search';
 import Preview from './Preview';
-import { shell } from 'electron';
+import search from 'lib/search';
 import memoize from 'memoizee';
 import orderBy from 'lodash/orderBy';
 
@@ -23,7 +22,7 @@ const cachedAppsList = memoize(getAppsList, {
   preFetch: true
 });
 
-const appsPlugin = (term,  callback) => {
+const appsPlugin = ({term, actions, display}) => {
   cachedAppsList().then(items => {
     const result = orderBy(
       search(items, term, (file) => file.name),
@@ -43,15 +42,15 @@ const appsPlugin = (term,  callback) => {
         onKeyDown: (event) => {
           if (event.metaKey && event.keyCode === 82) {
             // Show application in Finder by cmd+R shortcut
-            shell.showItemInFolder(path);
+            actions.reveal(path);
             event.preventDefault();
           }
         },
-        onSelect: () => shell.openItem(path),
+        onSelect: () => actions.open(path),
         getPreview: () => <Preview name={name} path={path} />
       };
     });
-    callback(result);
+    display(result);
   });
 };
 

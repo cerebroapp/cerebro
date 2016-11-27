@@ -1,8 +1,7 @@
 import React from 'react';
-import search from '../search';
 import styles from './styles.css';
 
-export default ({query}) => {
+export default ({query, search}) => {
   const onClick = () => search(query);
   const onKeyDown = ({keyCode}) => {
     if (keyCode === 13) {

@@ -6,10 +6,12 @@ const order = 12;
 
 /**
  * Look up term in OSx dictionary
- * @param  {String} term
+ *
+ * @param  {String} options.term
+ * @param  {Function} options.display
  */
-const definePlugin = (term, callback) => {
-  callback({
+const definePlugin = ({term, display}) => {
+  display({
     order,
     id: `define${term}`,
     icon: '/Applications/Dictionary.app',

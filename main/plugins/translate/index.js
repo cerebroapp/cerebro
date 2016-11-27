@@ -5,10 +5,15 @@ import detectLanguage from './detectLanguage';
 import toLanguageCode from './toLanguageCode';
 import Preview from './Preview';
 import { id, order, REGEXP } from './constants.js';
-import { shell } from 'electron';
 
-
-const translatePlugin = (term, callback) => {
+/**
+ * Plugin to translate text using yandex translate
+ *
+ * @param  {String} options.term
+ * @param  {Object} options.actions
+ * @param  {Function} options.display
+ */
+const translatePlugin = ({term, actions, display}) => {
   const match = term.match(REGEXP);
   if (match) {
     // Show translation in results list
@@ -27,15 +32,15 @@ const translatePlugin = (term, callback) => {
           targetLang,
           translation
         }
-        callback({
+        display({
           id,
           icon,
           title: `${translation}`,
           onSelect: () => {
             const q = encodeURIComponent(text);
-            shell.openExternal(`https://translate.yandex.ru/?text=${q}&lang=${lang}`);
+            actions.open(`https://translate.yandex.ru/?text=${q}&lang=${lang}`);
           },
-          getPreview: () => <Preview {...options} />
+          getPreview: () => <Preview {...options} openUrl={actions.open} />
         });
       });
       return;
@@ -43,7 +48,7 @@ const translatePlugin = (term, callback) => {
   }
 
   // Fallback result with lower priority for every request
-  callback({
+  display({
     id,
     icon,
     // Low priority for fallback result
@@ -51,9 +56,9 @@ const translatePlugin = (term, callback) => {
     title: `Translate ${term}`,
     onSelect: () => {
       const q = encodeURIComponent(term);
-      shell.openExternal(`https://translate.yandex.ru/?text=${q}`);
+      actions.open(`https://translate.yandex.ru/?text=${q}`);
     },
-    getPreview: () => <Preview text={term} />
+    getPreview: () => <Preview text={term} openUrl={actions.open} />
   });
 };
 

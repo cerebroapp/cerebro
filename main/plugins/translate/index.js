@@ -47,7 +47,7 @@ const translatePlugin = (term, callback) => {
     id,
     icon,
     // Low priority for fallback result
-    order: 3,
+    order: 13,
     title: `Translate ${term}`,
     onSelect: () => {
       const q = encodeURIComponent(term);

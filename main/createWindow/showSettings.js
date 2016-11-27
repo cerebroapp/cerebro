@@ -7,6 +7,6 @@ export default (appWindow) => {
   appWindow.focus();
   appWindow.webContents.send('message', {
     message: 'showTerm',
-    payload: 'Preferences'
+    payload: 'Settings'
   });
 }

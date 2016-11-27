@@ -2,7 +2,7 @@ import React from 'react';
 import define from 'lib/define';
 import Preview from './Preview';
 
-const order = 2;
+const order = 12;
 
 /**
  * Look up term in OSx dictionary

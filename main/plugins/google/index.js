@@ -8,7 +8,7 @@ import styles from './styles.css';
 
 
 const id = 'search-web';
-const order = 1;
+const order = 11;
 
 const googlePlugin = (term, callback) => {
   let match = term.match(/^g(?:oogle)?\s+(.+)$/);

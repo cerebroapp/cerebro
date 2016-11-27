@@ -34,6 +34,8 @@ export default (url, trayIconSrc) => {
   // Get global shortcut from app settings
   let shortcut = config.get('hotkey');
 
+  const isDev = process.env.NODE_ENV === 'development' || config.get('developerMode');
+
   // Function to toggle main window
   const toggleMainWindow = () => toggleWindow(mainWindow);
   // Function to show main window
@@ -51,7 +53,7 @@ export default (url, trayIconSrc) => {
 
   // Setup event listeners for main window
   globalShortcut.register(shortcut, toggleMainWindow);
-  if (process.env.NODE_ENV !== 'development') {
+  if (!isDev) {
     // Hide window on blur in production
     // In development we usually use developer tools that can blur a window
     mainWindow.on('blur', () => mainWindow.hide());
@@ -95,6 +97,6 @@ export default (url, trayIconSrc) => {
   // Save in config information, that application has been started
   config.set('firstStart', false);
 
-  buildMenu(mainWindow);
+  buildMenu(mainWindow, isDev);
   return mainWindow;
 }

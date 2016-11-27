@@ -1,6 +1,6 @@
 import { Menu, shell, app } from 'electron';
 
-export default (mainWindow) => {
+export default (mainWindow, showDevOptions = false) => {
   const template = [{
     label: 'Electron',
     submenu: [{
@@ -64,7 +64,7 @@ export default (mainWindow) => {
     }]
   }, {
     label: 'View',
-    submenu: (process.env.NODE_ENV === 'development') ? [{
+    submenu: (showDevOptions) ? [{
       label: 'Reload',
       accelerator: 'Ctrl+R',
       click() {

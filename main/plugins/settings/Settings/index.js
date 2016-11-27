@@ -14,6 +14,7 @@ export default class Settings extends Component {
       showInTray: get('showInTray'),
       country: get('country'),
       theme: get('theme'),
+      developerMode: get('developerMode'),
     }
     this.changeConfig = this.changeConfig.bind(this);
   }
@@ -24,7 +25,7 @@ export default class Settings extends Component {
     });
   }
   render() {
-    const { hotkey, showInTray, country, theme } = this.state;
+    const { hotkey, showInTray, country, theme, developerMode } = this.state;
     return (
       <div className={styles.settings}>
         <div className={styles.item}>
@@ -75,6 +76,20 @@ export default class Settings extends Component {
                 className={styles.checkbox}
               />
               Show in menu bar
+            </label>
+          </div>
+        </div>
+
+        <div className={styles.item}>
+          <div className={styles.itemValueWithoutLabel}>
+            <label>
+              <input
+                type='checkbox'
+                checked={developerMode}
+                onChange={({target}) => this.changeConfig('developerMode', target.checked)}
+                className={styles.checkbox}
+              />
+              Developer Mode
             </label>
           </div>
         </div>

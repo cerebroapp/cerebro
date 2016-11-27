@@ -1,5 +1,4 @@
 import { LANGS } from './constants';
-import config from 'lib/config';
 
 /**
  * Get default target language by source language
@@ -7,8 +6,7 @@ import config from 'lib/config';
  * @param  {String} lang
  * @return {String}
  */
-export default (lang) => {
-  const userLang = config.get('lang');
+export default (lang, userLang) => {
   if (lang !== userLang) {
     return userLang;
   }

@@ -1,4 +1,4 @@
-import mdfind from 'lib/mdfind';
+import mdfind from './mdfind';
 
 
 /**

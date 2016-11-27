@@ -13,8 +13,9 @@ import { id, order, REGEXP } from './constants.js';
  * @param  {Object} options.actions
  * @param  {Function} options.display
  */
-const translatePlugin = ({term, actions, display}) => {
+const translatePlugin = ({term, actions, display, config}) => {
   const match = term.match(REGEXP);
+  const userLang = config.get('lang');
   if (match) {
     // Show translation in results list
     // TODO: check why using const here throws undefined variable text in production build
@@ -30,7 +31,8 @@ const translatePlugin = ({term, actions, display}) => {
           text,
           sourceLang,
           targetLang,
-          translation
+          translation,
+          userLang
         }
         display({
           id,
@@ -58,7 +60,7 @@ const translatePlugin = ({term, actions, display}) => {
       const q = encodeURIComponent(term);
       actions.open(`https://translate.yandex.ru/?text=${q}`);
     },
-    getPreview: () => <Preview text={term} openUrl={actions.open} />
+    getPreview: () => <Preview text={term} openUrl={actions.open} userLang={userLang} />
   });
 };
 

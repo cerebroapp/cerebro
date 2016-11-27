@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import config from 'lib/config';
 import Hotkey from './Hotkey';
 import CountrySelect from './CountrySelect';
 import Select from 'react-select';
@@ -9,16 +8,17 @@ import styles from './styles.css';
 export default class Settings extends Component {
   constructor(props) {
     super(props);
+    const { get } = this.props;
     this.state = {
-      hotkey: config.get('hotkey'),
-      showInTray: config.get('showInTray'),
-      country: config.get('country'),
-      theme: config.get('theme'),
+      hotkey: get('hotkey'),
+      showInTray: get('showInTray'),
+      country: get('country'),
+      theme: get('theme'),
     }
     this.changeConfig = this.changeConfig.bind(this);
   }
   changeConfig(key, value) {
-    config.set(key, value);
+    this.props.set(key, value);
     this.setState({
       [key]: value
     });

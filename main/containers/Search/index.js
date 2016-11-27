@@ -7,7 +7,6 @@ import { clipboard, remote } from 'electron';
 import MainInput from '../../components/MainInput';
 import ResultsList from '../../components/ResultsList';
 import styles from './styles.css';
-import define from 'lib/define';
 import focusableSelector from 'lib/focusableSelector';
 import * as searchActions from '../../actions/search';
 import escapeStringRegexp from 'escape-string-regexp';
@@ -144,12 +143,6 @@ class Search extends Component {
       return;
     }
     if (event.metaKey) {
-      if (event.keyCode === 68) {
-        // define word on cmd+d
-        define(this.props.term);
-        event.preventDefault();
-        return;
-      }
       if (event.keyCode === 8) {
         // Clean search term on cmd+backspace
         this.props.actions.reset();

@@ -20,7 +20,7 @@ const KEYWORDS = [
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const settingsPlugin = ({term, display}) => {
+const settingsPlugin = ({term, display, config}) => {
   const found = search(KEYWORDS, term).length > 0;
   if (found) {
     const results = [{
@@ -29,7 +29,12 @@ const settingsPlugin = ({term, display}) => {
       title: NAME,
       term: NAME,
       id: 'settings',
-      getPreview: () => <Settings />
+      getPreview: () => {
+        return <Settings
+          set={(key, value) => config.set(key, value)}
+          get={(key) => config.get(key)}
+          />
+      }
     }];
     display(results);
   }

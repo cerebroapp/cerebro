@@ -1,9 +1,10 @@
 import React from 'react';
-import getAppsList from 'lib/getAppsList';
 import Preview from './Preview';
-import search from 'lib/search';
 import memoize from 'memoizee';
 import orderBy from 'lodash/orderBy';
+
+import getAppsList from './lib/getAppsList';
+import search from 'lib/search';
 
 /**
  * Time for apps list cache

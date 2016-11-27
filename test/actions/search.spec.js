@@ -16,8 +16,8 @@ const pluginsMock = {
 };
 
 const actions = searchInjector({
+  electron: {},
   '../plugins/': pluginsMock,
-  'electron': {},
   'lib/config': {}
 });
 

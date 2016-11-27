@@ -10,8 +10,8 @@ describe('Math plugin', () => {
       assert(result.title === '= 11');
       assert(result.term === '5 + 6 = 11');
       done();
-    }
-    math.fn({term, display});
+    };
+    math.fn({ term, display });
   });
 
   it('formats infinity', (done) => {
@@ -22,7 +22,7 @@ describe('Math plugin', () => {
       assert(result.term === '1 / 0 = ∞');
       done();
     };
-    math.fn({term, display});
+    math.fn({ term, display });
   });
 
   it('shows indeterminate', (done) => {
@@ -32,7 +32,7 @@ describe('Math plugin', () => {
       assert(!!result.getPreview);
       done();
     };
-    math.fn({term, display});
+    math.fn({ term, display });
   });
 
   context('calculates with complex expressions: ', () => {
@@ -42,7 +42,7 @@ describe('Math plugin', () => {
         assert(result.title === '= 20');
         done();
       };
-      math.fn({term, display});
+      math.fn({ term, display });
     });
 
     it('brackets', (done) => {
@@ -51,7 +51,7 @@ describe('Math plugin', () => {
         assert(result.title === '= -20');
         done();
       };
-      math.fn({term, display});
+      math.fn({ term, display });
     });
 
     it('floats', (done) => {
@@ -60,7 +60,7 @@ describe('Math plugin', () => {
         assert(result.title === '= 4.3');
         done();
       };
-      math.fn({term, display});
+      math.fn({ term, display });
     });
 
     it('floats with commas', (done) => {
@@ -69,7 +69,7 @@ describe('Math plugin', () => {
         assert(result.title === '= 4.3');
         done();
       };
-      math.fn({term, display});
+      math.fn({ term, display });
     });
 
     it('negatives', (done) => {
@@ -78,7 +78,7 @@ describe('Math plugin', () => {
         assert(result.title === '= 50');
         done();
       };
-      math.fn({term, display});
+      math.fn({ term, display });
     });
   });
 });

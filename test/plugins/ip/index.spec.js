@@ -21,7 +21,7 @@ describe('IP plugin', () => {
         done();
       }
     };
-    ipPlugin.fn({term, display});
+    ipPlugin.fn({ term, display });
   });
 
   it('shows global ip', (done) => {
@@ -30,6 +30,6 @@ describe('IP plugin', () => {
         done();
       }
     };
-    ipPlugin.fn({term, display});
+    ipPlugin.fn({ term, display });
   });
 });

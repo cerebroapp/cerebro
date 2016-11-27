@@ -49,7 +49,15 @@ export default class ResultsList extends Component {
   }
   renderPreview() {
     const selected = this.props.results[this.props.selected];
-    return selected.getPreview ? selected.getPreview() : null;
+    if (!selected.getPreview) {
+      return null;
+    }
+    const preview = selected.getPreview();
+    if (typeof preview === 'string') {
+      // Fallback for html previews intead of react component
+      return <div dangerouslySetInnerHTML={{__html: preview}}/>;
+    }
+    return preview;
   }
   render() {
     const { results, selected, visibleResults, mainInputFocused } = this.props;

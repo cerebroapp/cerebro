@@ -54,7 +54,7 @@ const filesPlugin = ({term, search, actions, display}) => {
               event.preventDefault();
             }
           },
-          onSelect: () => actions.open(filePath),
+          onSelect: () => actions.open(`file://${filePath}`),
           getPreview: getPreview.bind(null, filePath)
         });
       });

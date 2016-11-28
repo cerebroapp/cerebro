@@ -46,7 +46,7 @@ const appsPlugin = ({term, actions, display}) => {
             event.preventDefault();
           }
         },
-        onSelect: () => actions.open(path),
+        onSelect: () => actions.open(`file://${path}`),
         getPreview: () => <Preview name={name} path={path} />
       };
     });

@@ -19,13 +19,13 @@ export default class FileDetails extends Component {
     getFileDetails(path).then(details => this.setState({ details }));
   }
   render() {
-    const { path, skipSize } = this.props;
+    const { path, skipSize, skipName } = this.props;
     const { details, size } = this.state
     const { ctime, mtime, atime } = details;
     const name = path.match(/.*\/([^\/]+)$/i)[1];
     return (
       <div className={styles.fileDetails}>
-        <h3 className={styles.fileName}>{name}</h3>
+        {!skipName && <h3 className={styles.fileName}>{name}</h3>}
         <dl>
           <dt>Last opened:</dt>
           <dd>{atime && new Date(atime).toLocaleString()}</dd>

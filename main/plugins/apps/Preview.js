@@ -9,14 +9,14 @@ export default class Preview extends Component {
     name: PropTypes.string,
   }
   render() {
-    const { path } = this.props;
+    const { path, name } = this.props;
     return (
       <div>
         <div className={styles.previewIcon}>
           <FileIcon path={path} />
         </div>
         <div className={styles.previewName}>{name}</div>
-        <FileDetails path={path} key={path} />
+        <FileDetails path={path} key={path} skipName={true} />
       </div>
     )
   }

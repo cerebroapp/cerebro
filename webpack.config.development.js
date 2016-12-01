@@ -7,7 +7,7 @@ const config = {
 
   debug: true,
 
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
 
   entry: {
     background: [

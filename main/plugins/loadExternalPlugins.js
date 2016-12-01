@@ -3,10 +3,10 @@ import fs from 'fs';
 import path from 'path';
 
 const electronApp = remote ? remote.app : app;
-const externalPluginsPath = electronApp.getPath('userData') + '/plugins';
+const externalPluginsPath = electronApp.getPath('userData') + '/plugins/node_modules';
 
 /**
- * Validate plugin module
+ * Validate plugin module signature
  *
  * @param  {[type]} plugin [description]
  * @return {[type]}        [description]

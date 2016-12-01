@@ -13,7 +13,7 @@ import films from './films';
 import maps from './maps';
 import translate from './translate';
 
-// import gif from './gif';
+// TODO: move to external plugins
 import kill from './kill';
 import ip from './ip';
 import editor from './editor';
@@ -35,7 +35,6 @@ module.exports = {
   films,
   maps,
   translate,
-  // gif,
   kill,
   ip,
   editor,

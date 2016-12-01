@@ -1,7 +1,7 @@
 import React from 'react';
 import Preload from './Preload';
 import { getFileIcon } from 'lib/rpc/functions';
-import memoize from 'memoizee';
+import { memoize } from 'cerebro-tools';
 
 /**
  * Render icon for provided path.

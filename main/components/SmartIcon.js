@@ -1,6 +1,6 @@
 import React from 'react';
 import FileIcon from './FileIcon';
-import memoize from 'memoizee';
+import { memoize } from 'cerebro-tools';
 
 /**
  * Check if provided string is an image src

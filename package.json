@@ -113,6 +113,7 @@
     "webpack-hot-middleware": "2.10.0"
   },
   "dependencies": {
+    "cerebro-tools": "^0.1.0",
     "co": "4.6.0",
     "du": "0.1.0",
     "escape-string-regexp": "1.0.5",
@@ -121,7 +122,6 @@
     "highlight.js": "9.6.0",
     "lodash": "4.13.1",
     "lodash-decorators": "3.0.1",
-    "memoizee": "0.4.1",
     "node-machine-id": "1.1.1",
     "nodobjc": "2.1.0",
     "normalize.css": "4.1.1",

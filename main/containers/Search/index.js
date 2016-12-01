@@ -223,8 +223,11 @@ class Search extends Component {
   @bind()
   selectItem(item) {
     this.props.actions.reset();
-    item.onSelect();
-    currentWindow().hide();
+    const event = new CustomEvent('select-item', {cancelable: true});
+    item.onSelect(event);
+    if (!event.defaultPrevented) {
+      currentWindow().hide();
+    }
   }
 
   /**

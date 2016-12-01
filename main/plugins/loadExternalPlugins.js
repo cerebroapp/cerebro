@@ -1,6 +1,7 @@
 import { app, remote } from 'electron';
 import fs from 'fs';
 import path from 'path';
+import { memoize } from 'cerebro-tools';
 
 const electronApp = remote ? remote.app : app;
 const externalPluginsPath = electronApp.getPath('userData') + '/plugins/node_modules';
@@ -19,7 +20,7 @@ const validatePlugin = (plugin) => (
     plugin.fn.length <= 1
 );
 
-export default () => {
+export default memoize(() => {
   if (!fs.existsSync(externalPluginsPath)) {
     fs.mkdirSync(externalPluginsPath);
   }
@@ -44,4 +45,4 @@ export default () => {
     }
     return acc;
   }, {});
-}
+});

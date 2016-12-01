@@ -1,6 +1,7 @@
 import plugins from '../plugins/';
 import config from 'lib/config';
 import { shell, clipboard } from 'electron';
+import store from '../store';
 
 import {
  UPDATE_TERM,
@@ -21,7 +22,8 @@ const DEFAULT_SCOPE = {
   actions: {
     open: (q) => shell.openExternal(q),
     reveal: (q) => shell.showItemInFolder(q),
-    copyToClipboard: (q) => clipboard.writeText(q)
+    copyToClipboard: (q) => clipboard.writeText(q),
+    replaceTerm: (term) => store.dispatch(updateTerm(term)),
   }
 };
 

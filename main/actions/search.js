@@ -35,11 +35,16 @@ const DEFAULT_SCOPE = {
 const eachPlugin = (term, display) => {
   // TODO: order results by frequency?
   Object.keys(plugins).forEach(name => {
-    plugins[name].fn({
-      ...DEFAULT_SCOPE,
-      term,
-      display: (payload) => display(name, payload)
-    });
+    try {
+      plugins[name].fn({
+        ...DEFAULT_SCOPE,
+        term,
+        display: (payload) => display(name, payload)
+      });
+    } catch(error) {
+      // Do not fail on plugin errors, just log them to console
+      console.log('Error running plugin', error);
+    }
   });
 };
 

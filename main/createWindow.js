@@ -12,7 +12,7 @@ import {
 import buildMenu from './createWindow/buildMenu';
 import AppTray from './createWindow/AppTray';
 import toggleWindow from './createWindow/toggleWindow'
-import showSettings from './createWindow/showSettings';
+import showWindowWithTerm from './createWindow/showWindowWithTerm';
 import config from '../lib/config';
 
 export default (url, trayIconSrc) => {
@@ -47,7 +47,8 @@ export default (url, trayIconSrc) => {
   const tray = new AppTray({
     src: trayIconSrc,
     onToggleWindow: toggleMainWindow,
-    onShowSettings: () => showSettings(mainWindow),
+    onShowSettings: () => showWindowWithTerm(mainWindow, 'settings'),
+    onListPlugins: () => showWindowWithTerm(mainWindow, 'plugins'),
     onQuit: () => app.quit()
   });
 

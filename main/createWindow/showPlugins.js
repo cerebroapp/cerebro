@@ -1,5 +1,5 @@
 /**
- * Show settings in main window
+ * Show list of plugins in main window
  * @return {BrowserWindow} appWindow
  */
 export default (appWindow) => {
@@ -7,6 +7,6 @@ export default (appWindow) => {
   appWindow.focus();
   appWindow.webContents.send('message', {
     message: 'showTerm',
-    payload: 'Settings'
+    payload: 'plugins'
   });
 }

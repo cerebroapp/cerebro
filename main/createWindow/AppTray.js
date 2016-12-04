@@ -19,7 +19,9 @@ export default class AppTray {
    * Show application icon in menu bar
    */
   show() {
-    const { onToggleWindow, onShowSettings, onQuit, src } = this.options;
+    const {
+      onToggleWindow, onShowSettings, onListPlugins, onQuit, src
+    } = this.options;
     const tray =  new Tray(src);
     const contextMenu = Menu.buildFromTemplate([
       {
@@ -28,7 +30,12 @@ export default class AppTray {
       },
       { type: 'separator' },
       {
-        label: 'Preferences',
+        label: 'Plugins',
+        click: onListPlugins
+      },
+      { type: 'separator' },
+      {
+        label: 'Preferences...',
         click: onShowSettings
       },
       { type: 'separator' },

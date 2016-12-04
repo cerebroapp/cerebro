@@ -10,7 +10,7 @@ export const CURRENCIES = [
   'huf', 'idr', 'ils', 'inr', 'jpy', 'krw',
   'mxn', 'myr', 'nok', 'nzd', 'php', 'pln',
   'ron', 'rub', 'sek', 'sgd', 'thb', 'try',
-  'usd', 'zar'
+  'usd', 'zar', 'btc'
 ];
 
 /**
@@ -157,6 +157,9 @@ export const SYNONIMS = {
 
   'юан*': 'cny',
   'yuan': 'cny',
+
+  'bitc*': 'btc',
+  'битко*': 'btc'
 };
 
 /**
@@ -170,5 +173,5 @@ export const DISPLAY_NAMES = {
   'rub': '₽',
   'ils': '₪',
   'chf': '₣',
-  'thb': '฿',
+  'thb': '฿'
 };

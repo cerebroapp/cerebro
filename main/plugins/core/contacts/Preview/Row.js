@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import KeyboardNavItem from 'main/components/KeyboardNavItem';
 import styles from './styles.css';
 
 /**
@@ -9,6 +10,10 @@ import styles from './styles.css';
  * @return {Component}
  */
 export default class Row extends Component {
+  constructor(props) {
+    super(props);
+    this.onKeyDown = this.onKeyDown.bind(this);
+  }
   onKeyDown(event) {
     const {metaKey, ctrlKey, keyCode} = event;
     if ((metaKey || ctrlKey) && keyCode === 67) {
@@ -18,12 +23,12 @@ export default class Row extends Component {
     }
   }
   render() {
-    const { label, content } = this.props;
+    const { label, content, copyToClipboard } = this.props;
     return (
-      <div className={styles.row} tabIndex={0} onKeyDown={this.onKeyDown.bind(this)}>
+      <KeyboardNavItem onSelect={() => copyToClipboard(content)} onKeyDown={this.onKeyDown}>
         <div className={styles.label}>{label}</div>
         <div className={styles.value}>{content}</div>
-      </div>
+      </KeyboardNavItem>
     )
   }
 }

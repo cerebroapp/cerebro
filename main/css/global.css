@@ -9,31 +9,12 @@ html, body {
   background-color: var(--main-background-color);
   color: var(--main-font-color);
 }
+
 body {
   position: relative;
   height: 100vh;
   font-family: var(--main-font);
   overflow-y: hidden;
-}
-
-p {
-  font-size: 24px;
-}
-
-li {
-  list-style: none;
-}
-
-a {
-  color: white;
-  opacity: .75;
-  text-decoration: none;
-}
-
-a:hover {
-  opacity: 1;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 #root {

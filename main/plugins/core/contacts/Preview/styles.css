@@ -47,21 +47,6 @@
   border-bottom: var(--main-border);
 }
 
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  padding: 5px 0;
-  &:focus {
-    outline: none;
-    background: var(--selected-result-background);
-    color: var(--selected-result-color);
-    .label {
-      color: var(--secondary-font-color);
-    }
-  }
-}
-
 .label {
   min-width: 150px;
   width: 150px;

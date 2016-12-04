@@ -1,18 +1,15 @@
-import { app, remote } from 'electron';
 import fs from 'fs';
 import path from 'path';
 import { memoize } from 'cerebro-tools';
-
-const electronApp = remote ? remote.app : app;
-const externalPluginsPath = electronApp.getPath('userData') + '/plugins/node_modules';
+import { modulesDirectory, ensureFiles } from 'lib/plugins';
 
 /**
  * Validate plugin module signature
  *
- * @param  {[type]} plugin [description]
- * @return {[type]}        [description]
+ * @param  {Object} plugin
+ * @return {Boolean}
  */
-const validatePlugin = (plugin) => (
+const isPluginValid = (plugin) => (
   plugin &&
     // Check existing of main plugin function
     typeof plugin.fn === 'function' &&
@@ -21,22 +18,22 @@ const validatePlugin = (plugin) => (
 );
 
 export default memoize(() => {
-  if (!fs.existsSync(externalPluginsPath)) {
-    fs.mkdirSync(externalPluginsPath);
-  }
-  const files = fs.readdirSync(externalPluginsPath);
+  ensureFiles();
+
+  const files = fs.readdirSync(modulesDirectory);
   return files.reduce((acc, file) => {
-    const pluginPath = path.join(externalPluginsPath, file);
+    const pluginPath = path.join(modulesDirectory, file);
     const isDir = fs.statSync(pluginPath).isDirectory();
     if (isDir) {
       try {
-        console.log('Loading external plugin ', pluginPath);
+        console.log(`Loading external plugin ${pluginPath}...`);
         const plugin = window.require(pluginPath);
-        if (!validatePlugin(plugin)) {
+        if (!isPluginValid(plugin)) {
           console.log('External plugin is not valid');
           return;
         }
         acc[file] = plugin;
+        console.log('External plugin loaded.')
       } catch(error) {
         // catch all errors from plugin loading
         console.log('Error loading external plugin');

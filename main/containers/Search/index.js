@@ -87,6 +87,7 @@ class Search extends Component {
   }
   componentDidMount() {
     this.refs.mainInput.focus();
+    this.updateElectronWindow();
   }
   componentWillMount() {
     // Listen for window.resize and change default space for results to user's value

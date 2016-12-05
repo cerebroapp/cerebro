@@ -31,6 +31,8 @@ const contactsPlugin = ({term, display, actions}) => {
     title: fullName(person),
     icon: '/Applications/Contacts.app',
     term: fullName(person),
+    // TODO: hackish way to move contacts under other results
+    order: 9,
     getPreview: () => <Preview {...person} copyToClipboard={actions.copyToClipboard} />,
   }));
   display(result);

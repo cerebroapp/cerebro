@@ -24,10 +24,7 @@
   --preview-input-background: #2E2E2C;
   --preview-input-color: var(--main-font-color);
   --preview-input-border: 0;
-}
 
-
-.gm-style {
   /* dark theme for embedded google maps */
-  -webkit-filter: invert(100%) hue-rotate(180deg) contrast(80%);
+  --map-filter: invert(100%) hue-rotate(180deg) contrast(80%);;
 }

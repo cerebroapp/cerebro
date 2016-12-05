@@ -1,3 +1,9 @@
+:global {
+  .gm-style {
+    filter: var(--map-filter);
+  }
+}
+
 .previewIcon {
   text-align: center;
 

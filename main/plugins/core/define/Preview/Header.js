@@ -1,9 +1,9 @@
-import React from 'react';
-import styles from './styles.css';
+import React, { PropTypes } from 'react'
+import styles from './styles.css'
 
 
-export default ({ header }) => {
-  const { word, transcription, rest } = header;
+const Header = ({ header }) => {
+  const { word, transcription, rest } = header
   return (
     <div className={styles.header}>
       <span className={styles.word}>{word}</span>
@@ -12,3 +12,14 @@ export default ({ header }) => {
     </div>
   )
 }
+
+Header.propTypes = {
+  header: PropTypes.shape({
+    word: PropTypes.string,
+    transcription: PropTypes.string,
+    rest: PropTypes.string,
+  }).isRequired
+}
+
+
+export default Header

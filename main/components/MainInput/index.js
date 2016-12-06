@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import styles from './styles.css';
+import React, { Component, PropTypes } from 'react'
+import styles from './styles.css'
 
 export default class MainInput extends Component {
   static propTypes = {
@@ -10,14 +10,14 @@ export default class MainInput extends Component {
     onBlur: PropTypes.func,
   }
   focus() {
-    this.refs.input.focus();
+    this.refs.input.focus()
   }
   render() {
     return (
       <input
         placeholder="Search..."
         type="text"
-        id='main-input'
+        id="main-input"
         ref="input"
         value={this.props.value}
         className={styles.input}
@@ -26,6 +26,6 @@ export default class MainInput extends Component {
         onFocus={this.props.onFocus}
         onBlur={this.props.onBlur}
       />
-    );
+    )
   }
 }

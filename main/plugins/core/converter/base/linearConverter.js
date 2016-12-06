@@ -5,4 +5,4 @@
  */
 export default (rates) => (amount, from, to) => (
   Math.round(amount / rates[from.unit] * rates[to.unit] * 100) / 100
-);
+)

@@ -25,6 +25,6 @@
   --preview-input-color: var(--main-font-color);
   --preview-input-border: 0;
 
-  /* dark theme for embedded google maps */
-  --map-filter: invert(100%) hue-rotate(180deg) contrast(80%);;
+  /* filter for previews */
+  --preview-filter: invert(100%) hue-rotate(180deg) contrast(80%);;
 }

@@ -1,18 +1,18 @@
-import React from 'react';
-import { search } from 'cerebro-tools';
-import Settings from './Settings';
+import React from 'react'
+import { search } from 'cerebro-tools'
+import Settings from './Settings'
 
 // Settings plugin name
-const NAME = 'Cerebro Settings';
+const NAME = 'Cerebro Settings'
 
 // Settings plugins in the end of list
-const order = 9;
+const order = 9
 
 // Phrases that used to find settings plugins
 const KEYWORDS = [
   NAME,
   'Cerebro Preferences'
-];
+]
 
 /**
  * Plugin to show app settings in results list
@@ -20,22 +20,22 @@ const KEYWORDS = [
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const settingsPlugin = ({term, display, config}) => {
-  const found = search(KEYWORDS, term).length > 0;
+const settingsPlugin = ({ term, display, config }) => {
+  const found = search(KEYWORDS, term).length > 0
   if (found) {
     const results = [{
       order,
       icon: '/Applications/Cerebro.app',
       title: NAME,
       term: NAME,
-      getPreview: () => {
-        return <Settings
+      getPreview: () => (
+        <Settings
           set={(key, value) => config.set(key, value)}
           get={(key) => config.get(key)}
-          />
-      }
-    }];
-    display(results);
+        />
+      )
+    }]
+    display(results)
   }
 }
 
@@ -43,4 +43,4 @@ export default {
   name: NAME,
   keyword: 'settings',
   fn: settingsPlugin
-};
+}

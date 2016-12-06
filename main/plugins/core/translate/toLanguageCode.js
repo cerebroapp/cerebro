@@ -1,4 +1,4 @@
-import { LANGS, SYNONIMS } from './constants';
+import { LANGS, SYNONIMS } from './constants'
 
 /**
  * Convert user-entered language name to language code
@@ -8,20 +8,20 @@ import { LANGS, SYNONIMS } from './constants';
  */
 export default (lang) => {
   if (!lang) {
-    return LANGS[0];
+    return LANGS[0]
   }
-  let result = lang;
+  let result = lang
   if (SYNONIMS[result]) {
-    result = SYNONIMS[result];
+    result = SYNONIMS[result]
   } else {
     const synonim = Object
       .keys(SYNONIMS)
       .filter(key => key.indexOf('*') !== -1)
       .find(key => {
-        const regexp = new RegExp(key.replace(/\*/g, '.*'));
-        return result.match(regexp);
-      });
-    result = SYNONIMS[synonim] || result;
+        const regexp = new RegExp(key.replace(/\*/g, '.*'))
+        return result.match(regexp)
+      })
+    result = SYNONIMS[synonim] || result
   }
-  return LANGS.indexOf(result) !== -1 ? result : null;
+  return LANGS.indexOf(result) !== -1 ? result : null
 }

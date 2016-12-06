@@ -1,7 +1,7 @@
-import React from 'react';
-import Preview from './Preview';
+import React from 'react'
+import Preview from './Preview'
 
-const order = 12;
+const order = 12
 
 /**
  * Look up term in OSx dictionary
@@ -9,17 +9,16 @@ const order = 12;
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const definePlugin = ({term, display}) => {
+const definePlugin = ({ term, actions, display }) => {
   display({
     order,
     icon: '/Applications/Dictionary.app',
     title: `Define ${term}`,
-    onSelect: () => shell.open(`dict://${term}`),
+    onSelect: () => actions.open(`dict://${term}`),
     getPreview: () => <Preview word={term} />,
-    order,
-  });
-};
+  })
+}
 
 export default {
   fn: definePlugin,
-};
+}

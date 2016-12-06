@@ -1,7 +1,7 @@
-import plugins from '../plugins/';
-import config from 'lib/config';
-import { shell, clipboard } from 'electron';
-import store from '../store';
+import plugins from '../plugins/'
+import config from 'lib/config'
+import { shell, clipboard } from 'electron'
+import store from '../store'
 
 import {
  UPDATE_TERM,
@@ -10,7 +10,7 @@ import {
  SHOW_RESULT,
  RESET,
  CHANGE_VISIBLE_RESULTS,
-} from '../constants/actionTypes';
+} from '../constants/actionTypes'
 
 /**
  * Default scope object would be first argument for plugins
@@ -25,7 +25,7 @@ const DEFAULT_SCOPE = {
     copyToClipboard: (q) => clipboard.writeText(q),
     replaceTerm: (term) => store.dispatch(updateTerm(term)),
   }
-};
+}
 
 /**
  * Pass search term to all plugins and handle their results
@@ -40,13 +40,13 @@ const eachPlugin = (term, display) => {
         ...DEFAULT_SCOPE,
         term,
         display: (payload) => display(name, payload)
-      });
-    } catch(error) {
+      })
+    } catch (error) {
       // Do not fail on plugin errors, just log them to console
-      console.log('Error running plugin', error);
+      console.log('Error running plugin', error)
     }
-  });
-};
+  })
+}
 
 
 /**
@@ -63,7 +63,7 @@ function onResultFound(term, result) {
       result,
       term,
     }
-  };
+  }
 }
 
 
@@ -75,7 +75,7 @@ function onResultFound(term, result) {
 export function reset() {
   return {
     type: RESET,
-  };
+  }
 }
 
 /**
@@ -86,27 +86,27 @@ export function reset() {
  */
 export function updateTerm(term) {
   if (term === '') {
-    return reset();
+    return reset()
   }
   return (dispatch) => {
     dispatch({
       type: UPDATE_TERM,
       payload: term,
-    });
+    })
     eachPlugin(term, (plugin, payload) => {
-      let result = Array.isArray(payload) ? payload : [payload];
+      let result = Array.isArray(payload) ? payload : [payload]
       result = result.map(x => ({
         ...x,
         // Scope result ids with plugin name and use title if id is empty
         id: `${plugin}-${x.id || x.title}`
-      }));
+      }))
       if (result.length === 0) {
         // Do not dispatch for empty results
-        return;
+        return
       }
-      dispatch(onResultFound(term, result));
-    });
-  };
+      dispatch(onResultFound(term, result))
+    })
+  }
 }
 
 /**
@@ -118,7 +118,7 @@ export function moveCursor(diff) {
   return {
     type: MOVE_CURSOR,
     payload: diff
-  };
+  }
 }
 
 /**
@@ -130,7 +130,7 @@ export function selectElement(index) {
   return {
     type: SELECT_ELEMENT,
     payload: index
-  };
+  }
 }
 
 /**
@@ -140,5 +140,5 @@ export function changeVisibleResults(count) {
   return {
     type: CHANGE_VISIBLE_RESULTS,
     payload: count,
-  };
+  }
 }

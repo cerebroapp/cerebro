@@ -27,6 +27,11 @@ const config = {
 
   module: {
     ...baseConfig.module,
+    preLoaders: [{
+      test: /\.jsx?$/,
+      loaders: ['eslint-loader'],
+      exclude: /node_modules/
+    }],
     loaders: [
       ...baseConfig.module.loaders,
 

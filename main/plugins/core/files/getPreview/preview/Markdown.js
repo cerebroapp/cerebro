@@ -1,11 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-import WithFetchedFile from './WithFetchedFile';
-import ReactMarkdown from 'react-markdown';
-import styles from './styles.css';
+import WithFetchedFile from './WithFetchedFile'
+import ReactMarkdown from 'react-markdown'
+import styles from './styles.css'
 
-export default ({path}) => (
+const Markdown = ({ path }) => (
   <WithFetchedFile path={path}>
-    { (source) => <ReactMarkdown source={source} className={styles.previewText}/> }
+    {(source) => <ReactMarkdown source={source} className={styles.previewText} />}
   </WithFetchedFile>
 )
+
+Markdown.propTypes = {
+  path: React.PropTypes.string.isRequired
+}
+
+export default Markdown

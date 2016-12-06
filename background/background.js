@@ -1,5 +1,3 @@
-import initializeRpc from './rpc/initialize';
+import initializeRpc from './rpc/initialize'
 
-window.onload = () => {
-  initializeRpc();
-};
+window.addEventListener('load', initializeRpc)

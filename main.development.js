@@ -1,10 +1,10 @@
-import { app, ipcMain, crashReporter } from 'electron';
+import { app, ipcMain, crashReporter } from 'electron'
 
-import createMainWindow from './main/createWindow';
-import createBackgroundWindow from './background/createWindow';
+import createMainWindow from './main/createWindow'
+import createBackgroundWindow from './background/createWindow'
 
-let mainWindow;
-let backgroundWindow;
+let mainWindow
+let backgroundWindow
 
 if (process.env.NODE_ENV !== 'development') {
   // Set up crash reporter before creating windows in production builds
@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== 'development') {
     companyName: 'Cerebro',
     submitURL: 'http://crashes.cerebroapp.com/post',
     autoSubmit: true
-  });
+  })
 }
 
 app.on('ready', () => {
@@ -22,17 +22,17 @@ app.on('ready', () => {
     `file://${__dirname}/main/app.html`,
     // Fullpath for menu bar icon
     `${__dirname}/tray_icon@2x.png`
-  );
-  backgroundWindow = createBackgroundWindow(`file://${__dirname}/background/index.html`);
+  )
+  backgroundWindow = createBackgroundWindow(`file://${__dirname}/background/index.html`)
 
-  app.dock.hide();
-});
+  app.dock.hide()
+})
 
 ipcMain.on('message', (event, payload) => {
-  const toWindow = event.sender === mainWindow.webContents ? backgroundWindow : mainWindow;
-  toWindow.webContents.send('message', payload);
-});
+  const toWindow = event.sender === mainWindow.webContents ? backgroundWindow : mainWindow
+  toWindow.webContents.send('message', payload)
+})
 
 ipcMain.on('updateSettings', (event, key, value) => {
-  mainWindow.settingsChanges.emit(key, value);
-});
+  mainWindow.settingsChanges.emit(key, value)
+})

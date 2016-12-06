@@ -1,5 +1,5 @@
-import parseABMultiValue from './parseABMultiValue';
-import { phoneLabels } from './labelMappings';
+import parseABMultiValue from './parseABMultiValue'
+import { phoneLabels } from './labelMappings'
 
 /**
  * Get list of user phones
@@ -8,6 +8,6 @@ import { phoneLabels } from './labelMappings';
  * @return {Object}
  */
 export default function getPhones(macOS, person) {
-  const macPhones = person('valueForProperty', macOS.kABPhoneProperty);
-  return parseABMultiValue(macOS, macPhones, phoneLabels);
+  const macPhones = person('valueForProperty', macOS.kABPhoneProperty)
+  return parseABMultiValue(macOS, macPhones, phoneLabels)
 }

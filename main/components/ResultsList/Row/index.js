@@ -1,6 +1,6 @@
-import React, { PropTypes, Component } from 'react';
-import SmartIcon from '../../SmartIcon';
-import styles from './styles.css';
+import React, { PropTypes, Component } from 'react'
+import SmartIcon from '../../SmartIcon'
+import styles from './styles.css'
 
 export default class Row extends Component {
   static propTypes = {
@@ -15,12 +15,12 @@ export default class Row extends Component {
     return [
       styles.row,
       this.props.selected ? styles.selected : null
-    ].join(' ');
+    ].join(' ')
   }
   renderIcon() {
-    const { icon } = this.props;
-    if (!icon) return null;
-    return <SmartIcon path={icon} className={styles.icon} />;
+    const { icon } = this.props
+    if (!icon) return null
+    return <SmartIcon path={icon} className={styles.icon} />
   }
   render() {
     const {
@@ -28,7 +28,7 @@ export default class Row extends Component {
       onSelect,
       onMouseMove,
       subtitle
-    } = this.props;
+    } = this.props
     return (
       <div className={this.classNames()} onClick={onSelect} onMouseMove={onMouseMove}>
         {this.renderIcon()}
@@ -37,6 +37,6 @@ export default class Row extends Component {
           {subtitle && <div className={styles.subtitle}> {subtitle} </div>}
         </div>
       </div>
-    );
+    )
   }
 }

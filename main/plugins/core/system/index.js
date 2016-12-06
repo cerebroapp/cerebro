@@ -1,11 +1,11 @@
 /* eslint max-len: [0] */
 
-import { search, shellCommand } from 'cerebro-tools';
-import airdropCommand from 'raw!./run-airdrop';
+import { search, shellCommand } from 'cerebro-tools'
+import airdropCommand from 'raw!./run-airdrop'
 
 // Load icons
-import airdropIcon from './airdrop.png';
-import icloudDriveIcon from './icloud_drive.png';
+import airdropIcon from './airdrop.png'
+import icloudDriveIcon from './icloud_drive.png'
 
 const COMMANDS = {
   Restart: {
@@ -26,7 +26,7 @@ const COMMANDS = {
   'Screen Saver': {
     command: 'open -a ScreenSaverEngine',
   },
-  'Airdrop': {
+  Airdrop: {
     command: `osascript -e '${airdropCommand}'`,
     icon: airdropIcon,
     subtitle: 'Open Airdrop in Finder'
@@ -36,12 +36,12 @@ const COMMANDS = {
     icon: icloudDriveIcon,
     subtitle: 'Open iCloud Drive in Finder'
   },
-  'Trash': {
+  Trash: {
     command: `open /Users/${process.env.USER}/.Trash`,
     icon: '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/TrashIcon.icns',
     subtitle: 'Show trash'
   }
-};
+}
 
 /**
  * Plugin for system commands, like lock, screen saver, etc.
@@ -49,8 +49,8 @@ const COMMANDS = {
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const systemPlugin = ({term, display}) => {
-  const commands = search(Object.keys(COMMANDS), term);
+const systemPlugin = ({ term, display }) => {
+  const commands = search(Object.keys(COMMANDS), term)
   if (commands.length > 0) {
     const result = commands.map((cmd) => ({
       title: cmd,
@@ -58,11 +58,11 @@ const systemPlugin = ({term, display}) => {
       term: cmd,
       icon: COMMANDS[cmd].icon,
       onSelect: () => shellCommand(COMMANDS[cmd].command)
-    }));
-    display(result);
+    }))
+    display(result)
   }
-};
+}
 
 export default {
   fn: systemPlugin,
-};
+}

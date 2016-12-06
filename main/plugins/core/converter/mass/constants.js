@@ -16,7 +16,7 @@ export const SYNONIMS = {
 
   'карат*': 'ct',
   'carat*': 'ct',
-};
+}
 
 export const UNITS = {
   'kg': 1,
@@ -25,4 +25,4 @@ export const UNITS = {
   'lb': 2.2,
   'oz': 35.27,
   'ct': 5000,
-};
+}

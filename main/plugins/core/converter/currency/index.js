@@ -1,23 +1,23 @@
-import getUrl from './getUrl';
-import getBaseCurency from './getBaseCurrency';
-import { SYNONIMS, DISPLAY_NAMES, PRIORITY_CURRENCIES } from './constants';
-import { parseUnitName, buildExtract, linearConverter } from '../base/';
+import getUrl from './getUrl'
+import getBaseCurency from './getBaseCurrency'
+import { SYNONIMS, DISPLAY_NAMES, PRIORITY_CURRENCIES } from './constants'
+import { parseUnitName, buildExtract, linearConverter } from '../base/'
 
 // Hash of exchange rates
-const rates = {};
+const rates = {}
 
 // Date of fetching exchange rates
-let ratesDate = null;
+let ratesDate = null
 
 // Currency that was used to fetch the cache
-let ratesCurrency = null;
+let ratesCurrency = null
 
 /**
  * Get yesterday's date
  * @return {Date}
  */
 function yesterday() {
-  return new Date(Date.now() - 24 * 3600 * 1000);
+  return new Date(Date.now() - 24 * 3600 * 1000)
 }
 
 /**
@@ -27,8 +27,8 @@ function yesterday() {
  */
 function cacheValid(currency) {
   return ratesDate &&
-    currency == ratesCurrency &&
-    ratesDate >= yesterday();
+    currency === ratesCurrency &&
+    ratesDate >= yesterday()
 }
 
 /**
@@ -36,21 +36,21 @@ function cacheValid(currency) {
  * @return {Promise} promise that resolves with rates JSON
  */
 function getRates() {
-  const baseCurrency = getBaseCurency();
-  const url = getUrl(baseCurrency);
-  if (cacheValid(baseCurrency)) return Promise.resolve(rates);
+  const baseCurrency = getBaseCurency()
+  const url = getUrl(baseCurrency)
+  if (cacheValid(baseCurrency)) return Promise.resolve(rates)
   return fetch(url)
     .then(resp => resp.json())
     .then(response => {
       // Save exchange rates date
-      ratesDate = new Date(response.query.created);
+      ratesDate = new Date(response.query.created)
       // Save used base currency for cache check
-      ratesCurrency = baseCurrency;
+      ratesCurrency = baseCurrency
       // Convert response array with exchange rates to hash
       response.query.results.rate.forEach(value => {
-        rates[value.Name.split('/')[1].toLowerCase()] = parseFloat(value.Rate);
-      });
-    });
+        rates[value.Name.split('/')[1].toLowerCase()] = parseFloat(value.Rate)
+      })
+    })
 }
 
 /**
@@ -59,7 +59,7 @@ function getRates() {
  * @return {String}
  */
 function toUnit(unit) {
-  return parseUnitName(SYNONIMS, rates, unit);
+  return parseUnitName(SYNONIMS, rates, unit)
 }
 
 /**
@@ -68,11 +68,11 @@ function toUnit(unit) {
  * @return {string}
  */
 function defaultTarget(currency) {
-  const baseCurrency = getBaseCurency();
+  const baseCurrency = getBaseCurency()
   if (baseCurrency !== currency) {
-    return baseCurrency;
+    return baseCurrency
   }
-  return PRIORITY_CURRENCIES.find(cur => cur !== currency);
+  return PRIORITY_CURRENCIES.find(cur => cur !== currency)
 }
 
 /**
@@ -81,18 +81,18 @@ function defaultTarget(currency) {
  * @return {String}
  */
 function displayName(currency) {
-  return DISPLAY_NAMES[currency] || currency;
+  return DISPLAY_NAMES[currency] || currency
 }
 
 function toUnitStruct(unit) {
   return {
     unit,
     displayName: displayName(unit),
-  };
+  }
 }
 
 export default {
   getRates,
   extract: buildExtract(toUnit, toUnitStruct, defaultTarget),
   convert: linearConverter(rates),
-};
+}

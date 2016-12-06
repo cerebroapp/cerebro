@@ -1,24 +1,23 @@
 /* eslint default-case: 0 */
 
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { clipboard, remote } from 'electron';
-import MainInput from '../../components/MainInput';
-import ResultsList from '../../components/ResultsList';
-import styles from './styles.css';
-import focusableSelector from 'lib/focusableSelector';
-import * as searchActions from '../../actions/search';
-import escapeStringRegexp from 'escape-string-regexp';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { clipboard, remote } from 'electron'
+import MainInput from '../../components/MainInput'
+import ResultsList from '../../components/ResultsList'
+import styles from './styles.css'
+import focusableSelector from 'lib/focusableSelector'
+import * as searchActions from '../../actions/search'
+import escapeStringRegexp from 'escape-string-regexp'
 
-import { debounce, bind } from 'lodash-decorators';
+import { debounce, bind } from 'lodash-decorators'
 
 import {
   INPUT_HEIGHT,
   RESULT_HEIGHT,
-  WINDOW_WIDTH,
   MIN_VISIBLE_RESULTS,
-} from '../../constants/ui';
+} from '../../constants/ui'
 
 /**
  * Get current electron window
@@ -26,17 +25,17 @@ import {
  * @return {BrowserWindow}
  */
 function currentWindow() {
-  return remote.getCurrentWindow();
+  return remote.getCurrentWindow()
 }
 
 /**
  * Set focus to first focusable element in preview
  */
 const focusPreview = () => {
-  const previewDom = document.getElementById('preview');
-  const firstFocusable = previewDom.querySelector(focusableSelector);
+  const previewDom = document.getElementById('preview')
+  const firstFocusable = previewDom.querySelector(focusableSelector)
   if (firstFocusable) {
-    firstFocusable.focus();
+    firstFocusable.focus()
   }
 }
 
@@ -45,10 +44,9 @@ const focusPreview = () => {
  *
  * @param  {DOMElement} input
  */
-const cursorInEndOfInut = ({selectionStart, selectionEnd, value}) => {
-  return selectionStart === selectionEnd &&
-    selectionStart >= value.length
-}
+const cursorInEndOfInut = ({ selectionStart, selectionEnd, value }) => (
+  selectionStart === selectionEnd && selectionStart >= value.length
+)
 
 /**
  * Main search container
@@ -72,38 +70,38 @@ class Search extends Component {
     prevTerm: PropTypes.string,
   }
   constructor(props) {
-    super(props);
-    currentWindow().on('hide', this.props.actions.reset);
+    super(props)
+    currentWindow().on('hide', this.props.actions.reset)
     this.state = {
       mainInputFocused: false
     }
   }
-  componentDidUpdate(prevProps) {
-    const { results } = this.props;
-    if (results.length !== prevProps.results.length) {
-      // Resize electron window when results count changed
-      this.updateElectronWindow();
-    }
-  }
-  componentDidMount() {
-    this.refs.mainInput.focus();
-    this.updateElectronWindow();
-  }
   componentWillMount() {
     // Listen for window.resize and change default space for results to user's value
-    window.addEventListener('resize', this.onWindowResize);
+    window.addEventListener('resize', this.onWindowResize)
     // Add some global key handlers
-    window.addEventListener('keydown', this.onDocumentKeydown);
+    window.addEventListener('keydown', this.onDocumentKeydown)
     currentWindow().on('show', () => {
-      this.refs.mainInput.focus();
-    });
+      this.refs.mainInput.focus()
+    })
+  }
+  componentDidMount() {
+    this.refs.mainInput.focus()
+    this.updateElectronWindow()
+  }
+  componentDidUpdate(prevProps) {
+    const { results } = this.props
+    if (results.length !== prevProps.results.length) {
+      // Resize electron window when results count changed
+      this.updateElectronWindow()
+    }
   }
   componentWillUnmount() {
-    window.removeEventListener('resize', this.onWindowResize);
-    window.removeEventListener('keydown', this.onDocumentKeydown);
+    window.removeEventListener('resize', this.onWindowResize)
+    window.removeEventListener('keydown', this.onDocumentKeydown)
     currentWindow().off('show', () => {
-      this.refs.mainInput.focus();
-    });
+      this.refs.mainInput.focus()
+    })
   }
 
   /**
@@ -113,20 +111,20 @@ class Search extends Component {
   @debounce(100)
   onWindowResize() {
     if (this.props.results.length <= MIN_VISIBLE_RESULTS) {
-      return false;
+      return false
     }
-    let visibleResults = Math.floor((window.outerHeight - INPUT_HEIGHT) / RESULT_HEIGHT);
-    visibleResults = Math.max(MIN_VISIBLE_RESULTS, visibleResults);
+    let visibleResults = Math.floor((window.outerHeight - INPUT_HEIGHT) / RESULT_HEIGHT)
+    visibleResults = Math.max(MIN_VISIBLE_RESULTS, visibleResults)
     if (visibleResults !== this.props.visibleResults) {
-      this.props.actions.changeVisibleResults(visibleResults);
+      this.props.actions.changeVisibleResults(visibleResults)
     }
   }
 
   @bind()
   onDocumentKeydown(event) {
     if (event.keyCode === 27) {
-      event.preventDefault();
-      document.getElementById('main-input').focus();
+      event.preventDefault()
+      document.getElementById('main-input').focus()
     }
   }
 
@@ -135,77 +133,77 @@ class Search extends Component {
    */
   @bind()
   onKeyDown(event) {
-    const highlighted = this.highlightedResult();
+    const highlighted = this.highlightedResult()
     // TODO: go to first result on cmd+up and last result on cmd+down
     if (highlighted && highlighted.onKeyDown) {
-      highlighted.onKeyDown(event);
+      highlighted.onKeyDown(event)
     }
     if (event.defaultPrevented) {
-      return;
+      return
     }
     if (event.metaKey) {
       if (event.keyCode === 8) {
         // Clean search term on cmd+backspace
-        this.props.actions.reset();
+        this.props.actions.reset()
       }
       if (event.keyCode === 67) {
         // Copy to clipboard on cmd+c
-        const text = this.highlightedResult().clipboard;
+        const text = this.highlightedResult().clipboard
         if (text) {
-          clipboard.writeText(text);
-          this.props.actions.reset();
-          event.preventDefault();
+          clipboard.writeText(text)
+          this.props.actions.reset()
+          event.preventDefault()
         }
-        return;
+        return
       }
       if (event.keyCode >= 49 && event.keyCode <= 57) {
         // Select element by number
-        const number = Math.abs(49 - event.keyCode);
-        const result = this.props.results[number];
+        const number = Math.abs(49 - event.keyCode)
+        const result = this.props.results[number]
         if (result) {
-          return this.selectItem(result);
+          return this.selectItem(result)
         }
       }
     }
     switch (event.keyCode) {
       case 9:
-        this.autocomplete(event);
-        break;
+        this.autocomplete(event)
+        break
       case 39:
         if (cursorInEndOfInut(event.target)) {
-          focusPreview();
-          event.preventDefault();
+          focusPreview()
+          event.preventDefault()
         }
-        break;
+        break
       case 40:
-        this.props.actions.moveCursor(1);
-        event.preventDefault();
-        break;
+        this.props.actions.moveCursor(1)
+        event.preventDefault()
+        break
       case 38:
         if (this.props.results.length > 0) {
-          this.props.actions.moveCursor(-1);
+          this.props.actions.moveCursor(-1)
         } else if (this.props.prevTerm) {
-          this.props.actions.updateTerm(this.props.prevTerm);
+          this.props.actions.updateTerm(this.props.prevTerm)
         }
-        event.preventDefault();
-        break;
+        event.preventDefault()
+        break
       case 13:
-        this.selectCurrent();
-        break;
+        this.selectCurrent()
+        break
       case 27:
-        currentWindow().hide();
-        break;
+        currentWindow().hide()
+        break
     }
   }
 
   @bind()
   onMainInputFocus() {
-    this.setState({mainInputFocused: true})
+    this.setState({ mainInputFocused: true })
   }
 
   @bind()
   onMainInputBlur() {
-    this.setState({mainInputFocused: false})
+    this.setState({ mainInputFocused: false })
   }
 
   /**
@@ -213,7 +211,7 @@ class Search extends Component {
    * @return {Object}
    */
   highlightedResult() {
-    return this.props.results[this.props.selected];
+    return this.props.results[this.props.selected]
   }
 
   /**
@@ -223,11 +221,11 @@ class Search extends Component {
    */
   @bind()
   selectItem(item) {
-    this.props.actions.reset();
-    const event = new CustomEvent('select-item', {cancelable: true});
-    item.onSelect(event);
+    this.props.actions.reset()
+    const event = new CustomEvent('select-item', { cancelable: true })
+    item.onSelect(event)
     if (!event.defaultPrevented) {
-      currentWindow().hide();
+      currentWindow().hide()
     }
   }
 
@@ -235,17 +233,17 @@ class Search extends Component {
    * Autocomple search term from highlighted result
    */
   autocomplete(event) {
-    const { term } = this.highlightedResult();
-    if (term && term != this.props.term) {
-      this.props.actions.updateTerm(term);
-      event.preventDefault();
+    const { term } = this.highlightedResult()
+    if (term && term !== this.props.term) {
+      this.props.actions.updateTerm(term)
+      event.preventDefault()
     }
   }
   /**
    * Select highlighted element
    */
   selectCurrent() {
-    this.selectItem(this.highlightedResult());
+    this.selectItem(this.highlightedResult())
   }
 
   /**
@@ -253,39 +251,40 @@ class Search extends Component {
    */
   @debounce(16)
   updateElectronWindow() {
-    const { results, visibleResults } = this.props;
-    const { length } = results;
-    const height = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS) * RESULT_HEIGHT + INPUT_HEIGHT;
-    const electronWindow = currentWindow();
+    const { results, visibleResults } = this.props
+    const { length } = results
+    const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
+    const height = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
+    const electronWindow = currentWindow()
     // When results list is empty window is not resizable
-    electronWindow.setResizable(length !== 0);
-    const [width] = electronWindow.getSize();
-    electronWindow.setSize(width, length === 0 ? INPUT_HEIGHT : height);
+    electronWindow.setResizable(length !== 0)
+    const [width] = electronWindow.getSize()
+    electronWindow.setSize(width, length === 0 ? INPUT_HEIGHT : height)
   }
   /**
    * Render autocomplete suggestion from selected item
    * @return {React}
    */
   renderAutocomplete() {
-    const selected = this.highlightedResult();
+    const selected = this.highlightedResult()
     if (selected && selected.term) {
-      const regexp = new RegExp(`^${escapeStringRegexp(this.props.term)}`, 'i');
+      const regexp = new RegExp(`^${escapeStringRegexp(this.props.term)}`, 'i')
       if (selected.term.match(regexp)) {
         // We should show suggestion in the same case
-        const term = selected.term.replace(regexp, this.props.term);
-        return <div className={styles.autocomplete}>{term}</div>;
+        const term = selected.term.replace(regexp, this.props.term)
+        return <div className={styles.autocomplete}>{term}</div>
       }
     }
   }
   render() {
-    const { mainInputFocused } = this.state;
+    const { mainInputFocused } = this.state
     return (
       <div className={styles.search}>
         {this.renderAutocomplete()}
         <div className={styles.inputWrapper}>
           <MainInput
             value={this.props.term}
-            ref='mainInput'
+            ref="mainInput"
             onChange={this.props.actions.updateTerm}
             onKeyDown={this.onKeyDown}
             onFocus={this.onMainInputFocus}
@@ -301,7 +300,7 @@ class Search extends Component {
           mainInputFocused={mainInputFocused}
         />
       </div>
-    );
+    )
   }
 }
 
@@ -312,13 +311,13 @@ function mapStateToProps(state) {
     term: state.search.term,
     prevTerm: state.search.prevTerm,
     visibleResults: state.search.visibleResults,
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(searchActions, dispatch),
-  };
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search)

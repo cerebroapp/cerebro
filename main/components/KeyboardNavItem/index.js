@@ -1,17 +1,17 @@
-import React from 'react';
-import styles from './styles.css';
+import React, { PropTypes } from 'react'
+import styles from './styles.css'
 
-export default (props) => {
-  let className = styles.item;
-  className += props.className ? ` ${props.className}` : '';
-  const onSelect = props.onSelect || (() => {});
-  const onClick = onSelect;
+const KeyboardNavItem = (props) => {
+  let className = styles.item
+  className += props.className ? ` ${props.className}` : ''
+  const onSelect = props.onSelect || (() => {})
+  const onClick = onSelect
   const onKeyDown = (event) => {
     if (props.onKeyDown) {
       props.onKeyDown(event)
     }
     if (!event.defaultPrevented && event.keyCode === 13) {
-      onSelect();
+      onSelect()
     }
   }
   const itemProps = {
@@ -19,9 +19,18 @@ export default (props) => {
     onClick,
     onKeyDown,
     tabIndex: 0,
-  };
-  const TagName = props.tagName ? props.tagName : 'div';
+  }
+  const TagName = props.tagName ? props.tagName : 'div'
   return (
     <TagName {...props} {...itemProps} />
   )
-};
+}
+
+KeyboardNavItem.propTypes = {
+  className: PropTypes.string,
+  tagName: PropTypes.string,
+  onSelect: PropTypes.func,
+  onKeyDown: PropTypes.func,
+}
+
+export default KeyboardNavItem

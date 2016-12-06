@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import styles from './styles.css';
+import React, { PropTypes, Component } from 'react'
+import styles from './styles.css'
 
 const ASCII = {
   188: '44',
@@ -18,28 +18,28 @@ const ASCII = {
 }
 
 const SHIFT_UPS = {
-  96: "~",
-  49: "!",
-  50: "@",
-  51: "#",
-  52: "$",
-  53: "%",
-  54: "^",
-  55: "&",
-  56: "*",
-  57: "(",
-  48: ")",
-  45: "_",
-  61: "+",
-  91: "{",
-  93: "}",
-  92: "|",
-  59: ":",
-  39: "\"",
-  44: "<",
-  46: ">",
-  47: "?"
-};
+  96: '~',
+  49: '!',
+  50: '@',
+  51: '#',
+  52: '$',
+  53: '%',
+  54: '^',
+  55: '&',
+  56: '*',
+  57: '(',
+  48: ')',
+  45: '_',
+  61: '+',
+  91: '{',
+  93: '}',
+  92: '|',
+  59: ':',
+  39: '"',
+  44: '<',
+  46: '>',
+  47: '?'
+}
 
 const KEYCODES = {
   8: 'Backspace',
@@ -63,67 +63,76 @@ const KEYCODES = {
   121: 'F10',
   122: 'F11',
   123: 'F12',
-};
+}
 
 
-const keyToSign = (key) => {
-  return key
-    .replace(/control/i, '⌃')
+const keyToSign = (key) => (
+  key.replace(/control/i, '⌃')
     .replace(/alt/i, '⌥')
     .replace(/shift/i, '⇧')
     .replace(/command/i, '⌘')
     .replace(/enter/i, '')
-    .replace(/backspace/i, '↩');
-}
+    .replace(/backspace/i, '↩')
+)
 
-const charCodeToSign = ({keyCode, shiftKey}) => {
-  let code = ASCII[keyCode] ? ASCII[keyCode] : keyCode;
+const charCodeToSign = ({ keyCode, shiftKey }) => {
+  const code = ASCII[keyCode] ? ASCII[keyCode] : keyCode
   if (!shiftKey && (code >= 65 && code <= 90)) {
-    return String.fromCharCode(code + 32);
+    return String.fromCharCode(code + 32)
   }
   if (shiftKey && SHIFT_UPS[code]) {
-    return SHIFT_UPS[code];
+    return SHIFT_UPS[code]
   }
   if (KEYCODES[code]) {
-    return KEYCODES[code];
+    return KEYCODES[code]
   }
   const valid =
-    (code > 47 && code < 58)   || // number keys
-    (code > 64 && code < 91)   || // letter keys
-    (code > 95 && code < 112)  || // numpad keys
+    (code > 47 && code < 58) || // number keys
+    (code > 64 && code < 91) || // letter keys
+    (code > 95 && code < 112) || // numpad keys
     (code > 185 && code < 193) || // ;=,-./` (in order)
-    (code > 218 && code < 223);   // [\]' (in order)
-  return valid ? String.fromCharCode(code) : null;
+    (code > 218 && code < 223)   // [\]' (in order)
+  return valid ? String.fromCharCode(code) : null
 }
 
 export default class Hotkey extends Component {
+  static propTypes = {
+    hotkey: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+  }
   onKeyDown(event) {
     if (!event.ctrlKey && !event.altKey && !event.metaKey) {
       // Do not allow to set global shorcut without modifier keys
       // At least one of alt, cmd or ctrl is required
-      return;
+      return
     }
-    event.preventDefault();
-    event.stopPropagation();
-    const key = charCodeToSign(event);
+    event.preventDefault()
+    event.stopPropagation()
+    const key = charCodeToSign(event)
     if (!key) {
-      return;
+      return
     }
-    let keys = [];
-    if (event.ctrlKey) keys.push('Control');
-    if (event.altKey) keys.push('Alt');
-    if (event.shiftKey) keys.push('Shift');
-    if (event.metaKey) keys.push('Command');
-    keys.push(key);
-    this.props.onChange(keys.join('+'));
+    const keys = []
+    if (event.ctrlKey) keys.push('Control')
+    if (event.altKey) keys.push('Alt')
+    if (event.shiftKey) keys.push('Shift')
+    if (event.metaKey) keys.push('Command')
+    keys.push(key)
+    this.props.onChange(keys.join('+'))
   }
   render() {
-    const { hotkey } = this.props;
+    const { hotkey } = this.props
     const keys = hotkey.split('+').map(keyToSign).join('')
     return (
       <div className={styles.hotkey}>
-        <input className={styles.hotkeyInput} readonly={true} type='text' value={keys} onKeyDown={this.onKeyDown.bind(this)} />
+        <input
+          className={styles.hotkeyInput}
+          readOnly
+          type="text"
+          value={keys}
+          onKeyDown={this.onKeyDown.bind(this)}
+        />
       </div>
-    );
+    )
   }
 }

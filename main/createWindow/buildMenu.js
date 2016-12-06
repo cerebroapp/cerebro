@@ -1,4 +1,4 @@
-import { Menu, shell, app } from 'electron';
+import { Menu, shell, app } from 'electron'
 
 export default (mainWindow, showDevOptions = false) => {
   const template = [{
@@ -30,7 +30,7 @@ export default (mainWindow, showDevOptions = false) => {
       label: 'Quit',
       accelerator: 'Command+Q',
       click() {
-        app.quit();
+        app.quit()
       }
     }]
   }, {
@@ -68,25 +68,25 @@ export default (mainWindow, showDevOptions = false) => {
       label: 'Reload',
       accelerator: 'Ctrl+R',
       click() {
-        mainWindow.webContents.reload();
+        mainWindow.webContents.reload()
       }
     }, {
       label: 'Toggle Full Screen',
       accelerator: 'Ctrl+Command+F',
       click() {
-        mainWindow.setFullScreen(!mainWindow.isFullScreen());
+        mainWindow.setFullScreen(!mainWindow.isFullScreen())
       }
     }, {
       label: 'Toggle Developer Tools',
       accelerator: 'Alt+Command+I',
       click() {
-        mainWindow.toggleDevTools();
+        mainWindow.toggleDevTools()
       }
     }] : [{
       label: 'Toggle Full Screen',
       accelerator: 'Ctrl+Command+F',
       click() {
-        mainWindow.setFullScreen(!mainWindow.isFullScreen());
+        mainWindow.setFullScreen(!mainWindow.isFullScreen())
       }
     }]
   }, {
@@ -110,26 +110,26 @@ export default (mainWindow, showDevOptions = false) => {
     submenu: [{
       label: 'Learn More',
       click() {
-        shell.openExternal('http://electron.atom.io');
+        shell.openExternal('http://electron.atom.io')
       }
     }, {
       label: 'Documentation',
       click() {
-        shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme');
+        shell.openExternal('https://github.com/atom/electron/tree/master/docs#readme')
       }
     }, {
       label: 'Community Discussions',
       click() {
-        shell.openExternal('https://discuss.atom.io/c/electron');
+        shell.openExternal('https://discuss.atom.io/c/electron')
       }
     }, {
       label: 'Search Issues',
       click() {
-        shell.openExternal('https://github.com/atom/electron/issues');
+        shell.openExternal('https://github.com/atom/electron/issues')
       }
     }]
-  }];
+  }]
 
-  const menu = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(menu);
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
 }

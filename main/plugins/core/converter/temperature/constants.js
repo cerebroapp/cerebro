@@ -12,12 +12,12 @@ export const SYNONIMS = {
 
   'фаренгейт*': '°f',
   'f': '°f',
-};
+}
 
 export const UNITS = {
   '°f': true,
   '°c': true,
   'k': true,
-};
+}
 
-export const KELVIN = 273.15;
+export const KELVIN = 273.15

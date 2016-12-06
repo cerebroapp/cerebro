@@ -1,4 +1,4 @@
-import { Menu, Tray } from 'electron';
+import { Menu, Tray } from 'electron'
 
 /**
  * Class that controls state of icon in menu bar
@@ -11,9 +11,9 @@ export default class AppTray {
    * @param  {Function} options.onQuit  Handle quit from application
    * @return {AppTray}
    */
-  constructor(options){
-    this.tray = null;
-    this.options = options;
+  constructor(options) {
+    this.tray = null
+    this.options = options
   }
   /**
    * Show application icon in menu bar
@@ -21,8 +21,8 @@ export default class AppTray {
   show() {
     const {
       onToggleWindow, onShowSettings, onListPlugins, onQuit, src
-    } = this.options;
-    const tray =  new Tray(src);
+    } = this.options
+    const tray = new Tray(src)
     const contextMenu = Menu.buildFromTemplate([
       {
         label: 'Toggle Cerebro',
@@ -46,15 +46,15 @@ export default class AppTray {
     ])
     tray.setToolTip('Cerebro')
     tray.setContextMenu(contextMenu)
-    this.tray = tray;
+    this.tray = tray
   }
   /**
    * Hide icon in menu bar
    */
   hide() {
     if (this.tray) {
-      this.tray.destroy();
-      this.tray = null;
+      this.tray.destroy()
+      this.tray = null
     }
   }
 }

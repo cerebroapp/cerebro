@@ -11,7 +11,7 @@
 const defaultLabels = {
   other: 'kABOtherLabel',
   mobileme: 'kABMobileMeLabel',
-};
+}
 
 /**
  * Mapping of mac url labels to js object keys
@@ -20,7 +20,7 @@ const defaultLabels = {
 export const urlLabels = {
   ...defaultLabels,
   homepage: 'kABHomePageLabel',
-};
+}
 
 /**
  * Mapping of mac messaging services constants to js keys
@@ -61,7 +61,7 @@ export const serviceLabels = {
   ...defaultLabels,
   work: 'kABAIMWorkLabel',
   home: 'kABAIMHomeLabel'
-};
+}
 
 /**
  * Mapping of mac address keys to js object keys
@@ -94,7 +94,7 @@ export const emailLabels = {
   ...defaultLabels,
   work: 'kABEmailWorkLabel',
   home: 'kABEmailHomeLabel'
-};
+}
 
 /**
  * Mapping of mac phone labels to js object keys
@@ -110,4 +110,4 @@ export const phoneLabels = {
   home_fax: 'kABPhoneHomeFAXLabel',
   work_fax: 'kABPhoneWorkFAXLabel',
   pager: 'kABPhonePagerLabel'
-};
+}

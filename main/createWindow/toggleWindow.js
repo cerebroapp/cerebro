@@ -4,9 +4,9 @@
  */
 export default (appWindow) => {
   if (appWindow.isVisible()) {
-    appWindow.hide();
+    appWindow.hide()
   } else {
-    appWindow.show();
-    appWindow.focus();
+    appWindow.show()
+    appWindow.focus()
   }
-};
+}

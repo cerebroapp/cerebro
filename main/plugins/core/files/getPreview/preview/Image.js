@@ -1,10 +1,16 @@
-import React from 'react';
-import FileDetails from 'main/components/FileDetails';
-import styles from './styles.css';
+import React from 'react'
+import FileDetails from 'main/components/FileDetails'
+import styles from './styles.css'
 
-export default ({ path }) => (
+const Image = ({ path }) => (
   <div className={styles.previewImage}>
-    <img src={path} />
+    <img src={path} alt={path} />
     <FileDetails path={path} />
   </div>
 )
+
+Image.propTypes = {
+  path: React.PropTypes.string.isRequired
+}
+
+export default Image

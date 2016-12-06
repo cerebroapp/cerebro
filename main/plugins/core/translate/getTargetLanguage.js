@@ -1,16 +1,16 @@
-import { LANGS } from './constants';
+import { LANGS } from './constants'
 
 /**
  * Get default target language by source language
  *
- * @param  {String} lang
+ * @param  {String} language
  * @return {String}
  */
-export default (lang, userLang) => {
-  if (lang !== userLang) {
-    return userLang;
+export default (language, userLang) => {
+  if (language !== userLang) {
+    return userLang
   }
   // We suppose that LANGS sorted by priority so we just return first language
   // that is not from locale
-  return LANGS.find(lang => lang !== userLang);
+  return LANGS.find(lang => lang !== userLang)
 }

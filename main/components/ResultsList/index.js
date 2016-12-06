@@ -1,14 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import Row from './Row';
-import styles from './styles.css';
-import { VirtualScroll } from 'react-virtualized';
-import { bind } from 'lodash-decorators';
+import React, { Component, PropTypes } from 'react'
+import Row from './Row'
+import styles from './styles.css'
+import { VirtualScroll } from 'react-virtualized'
+import { bind } from 'lodash-decorators'
 
 import {
   RESULT_HEIGHT,
-  RESULT_WIDTH,
-  WINDOW_WIDTH,
-} from '../../constants/ui';
+  RESULT_WIDTH
+} from '../../constants/ui'
 
 export default class ResultsList extends Component {
   static propTypes = {
@@ -22,7 +21,7 @@ export default class ResultsList extends Component {
 
   @bind()
   rowRenderer({ index }) {
-    const result = this.props.results[index];
+    const result = this.props.results[index]
     const attrs = {
       ...result,
       // TODO: think about events
@@ -32,41 +31,41 @@ export default class ResultsList extends Component {
       onSelect: () => this.props.onSelect(result),
       // Move selection to item under cursor
       onMouseMove: (event) => {
-        const { selected, mainInputFocused, onItemHover } = this.props;
-        const { movementX, movementY } = event.nativeEvent;
+        const { selected, mainInputFocused, onItemHover } = this.props
+        const { movementX, movementY } = event.nativeEvent
         if (index === selected || !mainInputFocused) {
-          return false;
+          return false
         }
         if (movementX || movementY) {
           // Hover item only when we had real movement of mouse
           // We should prevent changing of selection when user uses keyboard
-          onItemHover(index);
+          onItemHover(index)
         }
       },
       key: result.id,
-    };
-    return <Row {...attrs} />;
+    }
+    return <Row {...attrs} />
   }
   renderPreview() {
-    const selected = this.props.results[this.props.selected];
+    const selected = this.props.results[this.props.selected]
     if (!selected.getPreview) {
-      return null;
+      return null
     }
-    const preview = selected.getPreview();
+    const preview = selected.getPreview()
     if (typeof preview === 'string') {
       // Fallback for html previews intead of react component
-      return <div dangerouslySetInnerHTML={{__html: preview}}/>;
+      return <div dangerouslySetInnerHTML={{ __html: preview }} />
     }
-    return preview;
+    return preview
   }
   render() {
-    const { results, selected, visibleResults, mainInputFocused } = this.props;
+    const { results, selected, visibleResults, mainInputFocused } = this.props
     const classNames = [
       styles.resultsList,
       mainInputFocused ? styles.focused : styles.unfocused
-    ].join(' ');
+    ].join(' ')
     if (results.length === 0) {
-      return null;
+      return null
     }
     return (
       <div className={styles.wrapper}>
@@ -85,10 +84,10 @@ export default class ResultsList extends Component {
           // Disable accesebility of VirtualScroll by tab
           tabIndex={null}
         />
-        <div className={styles.preview} id='preview'>
+        <div className={styles.preview} id="preview">
           {this.renderPreview()}
         </div>
       </div>
-    );
+    )
   }
 }

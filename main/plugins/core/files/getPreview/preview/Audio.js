@@ -1,6 +1,12 @@
-import React from 'react';
+import React from 'react'
 import styles from './styles.css'
 
-export default ({path}) => (
-  <audio src={path} className={styles.previewAudio} controls='true' />
+const Audio = ({ path }) => (
+  <audio src={path} className={styles.previewAudio} controls="true" />
 )
+
+Audio.propTypes = {
+  path: React.PropTypes.string.isRequired,
+}
+
+export default Audio

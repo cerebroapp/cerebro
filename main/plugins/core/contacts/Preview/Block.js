@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './styles.css';
+import React, { PropTypes } from 'react'
+import styles from './styles.css'
 
 /**
  * Render list of user properties of one type, i.e. phones or emails
@@ -8,11 +8,18 @@ import styles from './styles.css';
  * @param  {Function} options.rowRenderer Renderer function for list element
  * @return {Component}
  */
-export default ({list, rowRenderer}) => {
-  if (!list.length) return null;
+const Block = ({ list, rowRenderer }) => {
+  if (!list.length) return null
   return (
     <div className={styles.block}>
-      { list.map(rowRenderer) }
+      {list.map(rowRenderer)}
     </div>
-  );
+  )
 }
+
+Block.propTypes = {
+  list: PropTypes.array.isRequired,
+  rowRenderer: PropTypes.func.isRequired
+}
+
+export default Block

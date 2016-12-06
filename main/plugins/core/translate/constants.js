@@ -1,8 +1,9 @@
+/* eslint max-len:0 */
 /**
  * Yandex translate API key:
  * @type {String}
  */
-export const API_KEY = 'trnsl.1.1.20160805T150627Z.ae65df04cc8d53ee.aa50e499437fd517837eabb12220e8e61e99217a';
+export const API_KEY = 'trnsl.1.1.20160805T150627Z.ae65df04cc8d53ee.aa50e499437fd517837eabb12220e8e61e99217a'
 
 /**
  * List of synonims for languages
@@ -28,7 +29,7 @@ export const SYNONIMS = {
 
   'fra*': 'fr',
   'фра*': 'fr',
-};
+}
 
 
 /**
@@ -38,23 +39,23 @@ export const SYNONIMS = {
  * @type {Object}
  */
 export const DISPLAY_NAMES = {
-  'en': 'English',
-  'ru': 'Russian',
-  'es': 'Spanish',
-  'it': 'Italian',
-  'de': 'German',
-  'fr': 'French'
-};
+  en: 'English',
+  ru: 'Russian',
+  es: 'Spanish',
+  it: 'Italian',
+  de: 'German',
+  fr: 'French'
+}
 
 /**
  * List of supported languages
  * @type {Array}
  */
-export const LANGS = Object.keys(DISPLAY_NAMES);
+export const LANGS = Object.keys(DISPLAY_NAMES)
 
 // Main regexp parts
-const textRegexp = /.+/;
-const langRegexp = /[\W\wа-яА-Я]+/;
+const textRegexp = /.+/
+const langRegexp = /[\W\wа-яА-Я]+/
 
 const mainRegexpString = [
   // Start of line
@@ -67,11 +68,11 @@ const mainRegexpString = [
   `(${langRegexp.source})`,
   // End of line
   '$'
-].join('');
+].join('')
 
 // Main regexp to match translation
-export const REGEXP = new RegExp(mainRegexpString, 'i');
+export const REGEXP = new RegExp(mainRegexpString, 'i')
 
 
 // Id for item in results list
-export const id = 'web-translate';
+export const id = 'web-translate'

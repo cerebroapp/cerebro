@@ -1,11 +1,17 @@
-import React from 'react';
-import styles from './styles.css';
+import React, { PropTypes } from 'react'
+import styles from './styles.css'
 
-export default ({ block }) => {
-  const lines = block.split('\n');
+const Block = ({ block }) => {
+  const lines = block.split('\n')
   return (
     <div className={styles.definition}>
-      {lines.map(line => <p>{line}</p>)}
+      {lines.map(line => <p key={line}>{line}</p>)}
     </div>
-  );
+  )
 }
+
+Block.propTypes = {
+  block: PropTypes.string.isRequired
+}
+
+export default Block

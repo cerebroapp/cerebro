@@ -1,4 +1,4 @@
-import toString from './toString';
+import toString from './toString'
 
 /**
  * Convert mac label or key to js key
@@ -9,9 +9,9 @@ import toString from './toString';
  * @return {String}
  */
 export default (macOS, macKey, mapping) => {
-  const finder = label => toString(macOS[mapping[label]]) === macKey;
+  const finder = label => toString(macOS[mapping[label]]) === macKey
   const label = Object
     .keys(mapping)
-    .find(finder);
-  return label || macKey;
+    .find(finder)
+  return label || macKey
 }

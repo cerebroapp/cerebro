@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-import WithFetchedFile from './WithFetchedFile';
-import styles from './styles.css';
+import WithFetchedFile from './WithFetchedFile'
+import styles from './styles.css'
 
-export default ({ path }) => (
+const Text = ({ path }) => (
   <WithFetchedFile path={path}>
-    { (source) => <pre className={styles.previewText}>{source}</pre> }
+    {(source) => <pre className={styles.previewText}>{source}</pre>}
   </WithFetchedFile>
 )
+
+Text.propTypes = {
+  path: React.PropTypes.string.isRequired,
+}
+
+export default Text

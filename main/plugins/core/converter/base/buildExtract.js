@@ -10,14 +10,14 @@
  */
 export default function (toUnit, toUnitStruct, defaultTarget) {
   return function extract(match) {
-    const from = toUnit(match[2]);
-    const to = match[3] ? toUnit(match[3]) : defaultTarget(from);
+    const from = toUnit(match[2])
+    const to = match[3] ? toUnit(match[3]) : defaultTarget(from)
     if (!from || !to) {
-      return false;
+      return false
     }
     return [
       toUnitStruct(from),
       toUnitStruct(to)
-    ];
-  };
+    ]
+  }
 }

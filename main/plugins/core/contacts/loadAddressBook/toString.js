@@ -6,5 +6,5 @@
  * @return {Maybe<String>}
  */
 export default function toString(value) {
-  return value ? value.toString() : null;
+  return value ? value.toString() : null
 }

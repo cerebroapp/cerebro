@@ -1,6 +1,6 @@
-import React from 'react';
-import FileIcon from './FileIcon';
-import { memoize } from 'cerebro-tools';
+import React, { PropTypes } from 'react'
+import FileIcon from './FileIcon'
+import { memoize } from 'cerebro-tools'
 
 /**
  * Check if provided string is an image src
@@ -9,9 +9,7 @@ import { memoize } from 'cerebro-tools';
  * @param  {String} path
  * @return {Boolean}
  */
-const isImage = (path) => {
-  return !!path.match(/(^data:)|(\.(png|jpe?g|svg)$)/);
-}
+const isImage = (path) => !!path.match(/(^data:)|(\.(png|jpe?g|svg)$)/)
 
 /**
  * This component renders:
@@ -22,10 +20,15 @@ const isImage = (path) => {
  * @param  {String} options.path
  * @return {Function}
  */
-const SmartIcon = ({className, path}) => {
-  return isImage(path) ?
-    <img src={path} className={className} /> :
+const SmartIcon = ({ className, path }) => (
+  isImage(path) ?
+    <img src={path} alt={path} className={className} /> :
     <FileIcon path={path} className={className} />
+)
+
+SmartIcon.propTypes = {
+  path: PropTypes.string.isRequired,
+  className: PropTypes.string,
 }
 
-export default memoize(SmartIcon);
+export default memoize(SmartIcon)

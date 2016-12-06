@@ -1,6 +1,6 @@
 :global {
   .gm-style {
-    filter: var(--map-filter);
+    filter: var(--preview-filter);
   }
 }
 

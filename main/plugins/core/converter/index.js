@@ -1,9 +1,11 @@
-import distance from './distance';
-import mass from './mass';
-import currency from './currency';
-import temperature from './temperature';
+/* eslint no-eval: 0 */
 
-const icon = '/Applications/Calculator.app';
+import distance from './distance'
+import mass from './mass'
+import currency from './currency'
+import temperature from './temperature'
+
+const icon = '/Applications/Calculator.app'
 
 // Array of all available converters
 const CONVERTERS = [
@@ -11,10 +13,10 @@ const CONVERTERS = [
   mass,
   currency,
   temperature,
-];
+]
 
-const numberRegexp = /[-+/*\d\s,\.\( )]+/;
-const unitRegexp = /[\wa-я\$€£'"°℃]+/;
+const numberRegexp = /[-+/*\d\s,\.\( )]+/
+const unitRegexp = /[\wa-я\$€£'"°℃]+/
 
 const mainRegexpString = [
   // Start of line
@@ -31,10 +33,10 @@ const mainRegexpString = [
   `(${unitRegexp.source})?`,
   // End of line
   '$'
-].join('');
+].join('')
 
 // Main regexp to match conversation strings
-const REGEXP = new RegExp(mainRegexpString, 'i');
+const REGEXP = new RegExp(mainRegexpString, 'i')
 
 /**
  * Get rates for all units
@@ -42,8 +44,8 @@ const REGEXP = new RegExp(mainRegexpString, 'i');
  */
 function eachConverter(fn) {
   CONVERTERS.forEach(converter => {
-    converter.getRates().then(() => fn(converter));
-  });
+    converter.getRates().then(() => fn(converter))
+  })
 }
 
 /**
@@ -52,34 +54,34 @@ function eachConverter(fn) {
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const converterPlugin = ({term, display}) => {
-  const match = term.toLowerCase().match(REGEXP);
+const converterPlugin = ({ term, display }) => {
+  const match = term.toLowerCase().match(REGEXP)
   if (match) {
-    let amount;
+    let amount
     try {
-      amount = parseFloat(eval(match[1].toString().replace(/,/g, '.')));
+      amount = parseFloat(eval(match[1].toString().replace(/,/g, '.')))
     } catch (err) {
       // do nothing when amount parse failed
-      return;
+      return
     }
     eachConverter(converter => {
-      const pair = converter.extract(match);
+      const pair = converter.extract(match)
       if (!pair) {
-        return;
+        return
       }
-      const [from, to] = pair;
-      const result = converter.convert(amount, from, to).toLocaleString();
+      const [from, to] = pair
+      const result = converter.convert(amount, from, to).toLocaleString()
       display({
         icon,
         title: `${amount.toLocaleString()}${from.displayName} = ${result}${to.displayName}`,
         term: `${term} = ${result}${to.displayName}`,
         clipboard: result.toString(),
-      });
-    });
+      })
+    })
   }
-};
+}
 
 export default {
   name: 'Convert',
   fn: converterPlugin,
-};
+}

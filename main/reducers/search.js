@@ -7,12 +7,12 @@ import {
   SHOW_RESULT,
   RESET,
   CHANGE_VISIBLE_RESULTS
-} from '../constants/actionTypes';
+} from '../constants/actionTypes'
 
-import { MIN_VISIBLE_RESULTS } from '../constants/ui';
+import { MIN_VISIBLE_RESULTS } from '../constants/ui'
 
-import uniq from 'lodash/uniq';
-import orderBy from 'lodash/orderBy';
+import uniq from 'lodash/uniq'
+import orderBy from 'lodash/orderBy'
 
 const initialState = {
   // Search term in main input
@@ -26,7 +26,7 @@ const initialState = {
   selected: 0,
   // Count of visible results
   visibleResults: MIN_VISIBLE_RESULTS
-};
+}
 
 
 /**
@@ -38,12 +38,12 @@ const initialState = {
  * @return {Integer} normalized index
  */
 function normalizeSelection(index, length) {
-  const normalizedIndex = index % length;
-  return normalizedIndex < 0 ? length + normalizedIndex : normalizedIndex;
+  const normalizedIndex = index % length
+  return normalizedIndex < 0 ? length + normalizedIndex : normalizedIndex
 }
 
 // Function that does nothing
-const noon = () => {};
+const noon = () => {}
 
 function normalizeResult(result) {
   return {
@@ -51,7 +51,7 @@ function normalizeResult(result) {
     onFocus: result.onFocus || noon,
     onBlur: result.onFocus || noon,
     onSelect: result.onSelect || noon,
-  };
+  }
 }
 
 export default function search(state = initialState, { type, payload }) {
@@ -62,52 +62,52 @@ export default function search(state = initialState, { type, payload }) {
         term: payload,
         resultIds: [],
         selected: 0
-      };
+      }
     }
     case MOVE_CURSOR: {
-      let selected = state.selected;
-      const resultIds = state.resultIds;
-      selected += payload;
-      selected = normalizeSelection(selected, resultIds.length);
+      let selected = state.selected
+      const resultIds = state.resultIds
+      selected += payload
+      selected = normalizeSelection(selected, resultIds.length)
       return {
         ...state,
         selected,
-      };
+      }
     }
     case SELECT_ELEMENT: {
-      const selected = normalizeSelection(payload, state.resultIds.length);
+      const selected = normalizeSelection(payload, state.resultIds.length)
       return {
         ...state,
         selected,
-      };
+      }
     }
     case SHOW_RESULT: {
-      const { term, result } = payload;
+      const { term, result } = payload
       if (term !== state.term) {
         // Do not show this result if term was changed
-        return state;
+        return state
       }
-      let { resultsById, resultIds } = state;
+      let { resultsById, resultIds } = state
 
       result.forEach(res => {
         resultsById = {
           ...resultsById,
           [res.id]: normalizeResult(res)
-        };
-        resultIds = [...resultIds, res.id];
-      });
+        }
+        resultIds = [...resultIds, res.id]
+      })
 
       return {
         ...state,
         resultsById,
         resultIds: orderBy(uniq(resultIds), id => resultsById[id].order || 0)
-      };
+      }
     }
     case CHANGE_VISIBLE_RESULTS: {
       return {
         ...state,
         visibleResults: payload,
-      };
+      }
     }
     case RESET: {
       return {
@@ -118,9 +118,9 @@ export default function search(state = initialState, { type, payload }) {
         resultIds: [],
         term: '',
         selected: 0,
-      };
+      }
     }
     default:
-      return state;
+      return state
   }
 }

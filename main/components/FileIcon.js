@@ -1,7 +1,7 @@
-import React from 'react';
-import Preload from './Preload';
-import { getFileIcon } from 'lib/rpc/functions';
-import { memoize } from 'cerebro-tools';
+import React, { PropTypes } from 'react'
+import Preload from './Preload'
+import { getFileIcon } from 'lib/rpc/functions'
+import { memoize } from 'cerebro-tools'
 
 /**
  * Render icon for provided path.
@@ -11,12 +11,15 @@ import { memoize } from 'cerebro-tools';
  * @param  {String} options.path
  * @return {Function}
  */
-const FileIcon = ({className, path}) => {
-  return (
-    <Preload promise={getFileIcon(path)} key={path}>
-      {(src) =>  <img src={src} alt="" className={className} />}
-    </Preload>
-  );
+const FileIcon = ({ className, path }) => (
+  <Preload promise={getFileIcon(path)} key={path}>
+    {(src) => <img src={src} alt="" className={className} />}
+  </Preload>
+)
+
+FileIcon.propTypes = {
+  className: PropTypes.string,
+  path: PropTypes.string.isRequired
 }
 
-export default memoize(FileIcon);
+export default memoize(FileIcon)

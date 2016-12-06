@@ -5,6 +5,7 @@
 .previewImage {
   max-width: 100%;
   text-align: center;
+  align-self: flex-start;
   img {
     max-width: 100%;
   }
@@ -22,6 +23,7 @@
   min-width: 100%;
   font-size: .8em;
   align-self: flex-start;
+  filter: var(--preview-filter);
 }
 
 .previewPdf {

@@ -1,5 +1,5 @@
-import parseABMultiValue from './parseABMultiValue';
-import { urlLabels } from './labelMappings';
+import parseABMultiValue from './parseABMultiValue'
+import { urlLabels } from './labelMappings'
 
 /**
  * Get list of user urls
@@ -8,6 +8,6 @@ import { urlLabels } from './labelMappings';
  * @return {Object}
  */
 export default function getUrls(macOS, person) {
-  const macUrls = person('valueForProperty', macOS.kABURLsProperty);
-  return parseABMultiValue(macOS, macUrls, urlLabels);
+  const macUrls = person('valueForProperty', macOS.kABURLsProperty)
+  return parseABMultiValue(macOS, macUrls, urlLabels)
 }

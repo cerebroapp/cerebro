@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import KeyboardNav from 'main/components/KeyboardNav';
-import Block from './Block';
-import Row from './Row';
-import styles from './styles.css';
+import React, { PropTypes, Component } from 'react'
+import KeyboardNav from 'main/components/KeyboardNav'
+import Block from './Block'
+import Row from './Row'
+import styles from './styles.css'
 
 /**
  * Convert address object to string
@@ -10,14 +10,15 @@ import styles from './styles.css';
  * @param {Object} address
  * @return {String}
  */
-function localeAddress({street, city, state, zip, country, countryCode}) {
-  let address = '';
+function localeAddress({ street, city, state, zip, country, countryCode }) {
+  let address = ''
   if (street) address += `${street}, `
-  if (zip) address += `${zip} `;
-  if (city) address += `${city}`;
+  if (city) address += `${city}`
+  if (state) address += `, ${state}`
+  if (zip) address += ` ${zip} `
   if (country) address += `, ${country}`
-  if (countryCode) address += ` (${countryCode})`;
-  return address;
+  if (countryCode) address += ` (${countryCode})`
+  return address
 }
 
 /**
@@ -29,10 +30,24 @@ function localeAddress({street, city, state, zip, country, countryCode}) {
 function abbreviation({ firstName, lastName }) {
   return [firstName, lastName].filter(name => !!name).map(
     name => name.toUpperCase()[0]
-  ).join('');
+  ).join('')
 }
 
 export default class Preview extends Component {
+  static propTypes = {
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    addresses: PropTypes.array,
+    services: PropTypes.array,
+    socialProfiles: PropTypes.array,
+    phones: PropTypes.object,
+    emails: PropTypes.object,
+    urls: PropTypes.object,
+    copyToClipboard: PropTypes.func.isRequired,
+    organization: PropTypes.string,
+    jobTitle: PropTypes.string,
+    birthday: PropTypes.string,
+  }
   /**
    * Render list of label => value dictionary
    * Like phones, emails or urls
@@ -41,38 +56,65 @@ export default class Preview extends Component {
    * @return {Component}
    */
   renderList(list) {
-    const keys = Object.keys(list);
-    const rowRenderer = key => <Row label={key} content={list[key]} copyToClipboard={this.props.copyToClipboard} />;
+    const keys = Object.keys(list)
+    const rowRenderer = key => (
+      <Row
+        key={key}
+        label={key}
+        content={list[key]}
+        copyToClipboard={this.props.copyToClipboard}
+      />
+    )
     return <Block rowRenderer={rowRenderer} list={keys} />
   }
   renderAddresses() {
-    const rowRenderer =({label, ...address}) => (
-      <Row label={label} content={localeAddress(address)} copyToClipboard={this.props.copyToClipboard} />
-    );
+    const rowRenderer = ({ label, ...address }) => (
+      <Row
+        key={label}
+        label={label}
+        content={localeAddress(address)}
+        copyToClipboard={this.props.copyToClipboard}
+      />
+    )
     return <Block rowRenderer={rowRenderer} list={this.props.addresses} />
   }
   renderServices() {
-    const rowRenderer = ({label, serviceName, userName}) => (
-      <Row label={label} content={`${userName} (${serviceName})`} copyToClipboard={this.props.copyToClipboard} />
-    ) ;
+    const rowRenderer = ({ label, serviceName, userName }) => (
+      <Row
+        key={label}
+        label={label}
+        content={`${userName} (${serviceName})`}
+        copyToClipboard={this.props.copyToClipboard}
+      />
+    )
     return <Block rowRenderer={rowRenderer} list={this.props.services} />
   }
   renderSocialProfiles() {
-    const rowRenderer = ({url, service}) => (
-      <Row label={service} content={url} copyToClipboard={this.props.copyToClipboard} />
-    );
+    const rowRenderer = ({ url, service }) => (
+      <Row
+        key={service}
+        label={service}
+        content={url}
+        copyToClipboard={this.props.copyToClipboard}
+      />
+    )
     return <Block rowRenderer={rowRenderer} list={this.props.socialProfiles} />
   }
   renderBirthday() {
-    const { birthday } = this.props;
-    if (!birthday) return null;
+    const { birthday } = this.props
+    if (!birthday) return null
     const rowRenderer = (date) => (
-      <Row label={'birthday'} content={new Date(date).toLocaleDateString()} copyToClipboard={this.props.copyToClipboard} />
-    );
+      <Row
+        key={'birthday'}
+        label={'birthday'}
+        content={new Date(date).toLocaleDateString()}
+        copyToClipboard={this.props.copyToClipboard}
+      />
+    )
     return <Block rowRenderer={rowRenderer} list={[birthday]} />
   }
   renderHeader() {
-    const { firstName, lastName, organization, jobTitle } = this.props;
+    const { firstName, lastName, organization, jobTitle } = this.props
     return (
       <div className={styles.header}>
         <div className={styles.imageWrapper}>
@@ -90,10 +132,10 @@ export default class Preview extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
   render() {
-    const { phones, emails, urls } = this.props;
+    const { phones, emails, urls } = this.props
     return (
       <div className={styles.contact}>
         {this.renderHeader()}
@@ -109,6 +151,6 @@ export default class Preview extends Component {
           </div>
         </KeyboardNav>
       </div>
-    );
+    )
   }
 }

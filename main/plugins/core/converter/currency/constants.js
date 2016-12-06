@@ -11,7 +11,7 @@ export const CURRENCIES = [
   'mxn', 'myr', 'nok', 'nzd', 'php', 'pln',
   'ron', 'rub', 'sek', 'sgd', 'thb', 'try',
   'usd', 'zar', 'btc'
-];
+]
 
 /**
  * Array of prioritized currencies
@@ -21,7 +21,7 @@ export const PRIORITY_CURRENCIES = [
   'rub',
   'usd',
   'eur'
-];
+]
 
 /**
  * Hash of currencies by locale countries
@@ -160,7 +160,7 @@ export const SYNONIMS = {
 
   'bitc*': 'btc',
   'битко*': 'btc'
-};
+}
 
 /**
  * Hash of special display names for some currencies. Default name of currency displayed
@@ -174,4 +174,4 @@ export const DISPLAY_NAMES = {
   'ils': '₪',
   'chf': '₣',
   'thb': '฿'
-};
+}

@@ -1,5 +1,5 @@
 import { API_KEY } from './constants.js'
-import { memoize } from 'cerebro-tools';
+import { memoize } from 'cerebro-tools'
 
 /**
  * Translate text using Yandex.Translate api
@@ -11,15 +11,15 @@ import { memoize } from 'cerebro-tools';
  * @return {Promise}
  */
 const translate = (text, direction) => {
-  const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${API_KEY}&text=${encodeURIComponent(text)}&lang=${direction}`;
+  const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${API_KEY}&text=${encodeURIComponent(text)}&lang=${direction}`
   return fetch(url)
     .then(response => response.json())
     .then(response => {
       if (response.code !== 200) {
-        throw response.message;
+        throw response.message
       }
-      return response;
-    });
+      return response
+    })
 }
 
 export default memoize(translate, {

@@ -1,5 +1,6 @@
-import React, { Component }  from 'react';
-import styles from './styles.css';
+/* eslint max-len: 0 */
+import React from 'react'
+import styles from './styles.css'
 
 export default () => (
   <div className={styles.wrapper}>
@@ -14,4 +15,4 @@ export default () => (
       <p>So any <span className={styles.math}>x</span> and <span className={styles.math}>y</span> could be an anwer.</p>
     </div>
   </div>
-);
+)

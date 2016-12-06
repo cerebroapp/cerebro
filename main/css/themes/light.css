@@ -25,6 +25,6 @@
   --preview-input-color: var(--main-font-color);
   --preview-input-border: 1px solid #ccc;
 
-  /* filter for google map plugin */
-  --map-filter: none;
+  /* filter for previews */
+  --preview-filter: none;
 }

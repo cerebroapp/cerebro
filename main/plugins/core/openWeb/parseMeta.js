@@ -1,7 +1,7 @@
-import { memoize } from 'cerebro-tools';
+import { memoize } from 'cerebro-tools'
 
 // Expire sites meta informaiton in 30 minutes
-const EXPIRATION = 30 * 60 * 1000;
+const EXPIRATION = 30 * 60 * 1000
 
 /**
  * Get key and content of meta tag
@@ -10,15 +10,15 @@ const EXPIRATION = 30 * 60 * 1000;
  * @return {Object}
  */
 function parseMetaTag(tag) {
-  const key = tag.match(/(?:property|name)=["'](.+?)["']/)[1];
-  const content = tag.match(/content=["'](.+?)["']/)[1];
-  return { key, content };
+  const key = tag.match(/(?:property|name)=["'](.+?)["']/)[1]
+  const content = tag.match(/content=["'](.+?)["']/)[1]
+  return { key, content }
 }
 
 function parseTitle(html) {
-  const match = html.match(/<title>(.+?)<\/title>/i);
+  const match = html.match(/<title>(.+?)<\/title>/i)
   if (match) {
-    return match[1];
+    return match[1]
   }
 }
 
@@ -31,18 +31,18 @@ function parseTitle(html) {
 function getAllMetas(html) {
   const result = {
     title: parseTitle(html)
-  };
-  const match = html.match(/<meta(.*)property=["'](.+?)["'](.*)>/gi);
+  }
+  const match = html.match(/<meta(.*)property=["'](.+?)["'](.*)>/gi)
   if (!match) {
-    return result;
+    return result
   }
   return match.reduce((acc, meta) => {
-    const { key, content } = parseMetaTag(meta);
+    const { key, content } = parseMetaTag(meta)
     return {
       ...acc,
       [key]: content
-    };
-  }, {});
+    }
+  }, {})
 }
 
 /**
@@ -68,10 +68,10 @@ function processMetaTags(metas) {
 function parseMeta(url) {
   return fetch(url)
     .then(response => response.text())
-    .then(response => processMetaTags(getAllMetas(response)));
+    .then(response => processMetaTags(getAllMetas(response)))
 }
 
 export default memoize(parseMeta, {
   maxAge: EXPIRATION,
   promise: 'then'
-});
+})

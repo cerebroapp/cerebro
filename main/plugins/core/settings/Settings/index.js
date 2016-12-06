@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
-import Hotkey from './Hotkey';
-import CountrySelect from './CountrySelect';
-import Select from 'react-select';
-import loadThemes from 'lib/loadThemes';
-import styles from './styles.css';
+import React, { PropTypes, Component } from 'react'
+import Hotkey from './Hotkey'
+import CountrySelect from './CountrySelect'
+import Select from 'react-select'
+import loadThemes from 'lib/loadThemes'
+import styles from './styles.css'
 
 export default class Settings extends Component {
+  static propTypes = {
+    get: PropTypes.func.isRequired,
+    set: PropTypes.func.isRequired
+  }
   constructor(props) {
-    super(props);
-    const { get } = this.props;
+    super(props)
+    const { get } = this.props
     this.state = {
       hotkey: get('hotkey'),
       showInTray: get('showInTray'),
@@ -16,16 +20,16 @@ export default class Settings extends Component {
       theme: get('theme'),
       developerMode: get('developerMode'),
     }
-    this.changeConfig = this.changeConfig.bind(this);
+    this.changeConfig = this.changeConfig.bind(this)
   }
   changeConfig(key, value) {
-    this.props.set(key, value);
+    this.props.set(key, value)
     this.setState({
       [key]: value
-    });
+    })
   }
   render() {
-    const { hotkey, showInTray, country, theme, developerMode } = this.state;
+    const { hotkey, showInTray, country, theme, developerMode } = this.state
     return (
       <div className={styles.settings}>
         <div className={styles.item}>
@@ -46,7 +50,7 @@ export default class Settings extends Component {
           <div className={styles.itemValue}>
             <CountrySelect
               value={country}
-              onChange={({value}) => this.changeConfig('country', value)}
+              onChange={({ value }) => this.changeConfig('country', value)}
             />
             <div className={styles.itemNotice}>
               Choose your country so Cerebro can better choose currency, language, etc.
@@ -61,7 +65,7 @@ export default class Settings extends Component {
               value={theme}
               options={loadThemes()}
               clearable={false}
-              onChange={({value}) => this.changeConfig('theme', value)}
+              onChange={({ value }) => this.changeConfig('theme', value)}
             />
           </div>
         </div>
@@ -70,9 +74,9 @@ export default class Settings extends Component {
           <div className={styles.itemValueWithoutLabel}>
             <label>
               <input
-                type='checkbox'
+                type="checkbox"
                 checked={showInTray}
-                onChange={({target}) => this.changeConfig('showInTray', target.checked)}
+                onChange={({ target }) => this.changeConfig('showInTray', target.checked)}
                 className={styles.checkbox}
               />
               Show in menu bar
@@ -84,9 +88,9 @@ export default class Settings extends Component {
           <div className={styles.itemValueWithoutLabel}>
             <label>
               <input
-                type='checkbox'
+                type="checkbox"
                 checked={developerMode}
-                onChange={({target}) => this.changeConfig('developerMode', target.checked)}
+                onChange={({ target }) => this.changeConfig('developerMode', target.checked)}
                 className={styles.checkbox}
               />
               Developer Mode
@@ -94,6 +98,6 @@ export default class Settings extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }

@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-import WithFetchedFile from './WithFetchedFile';
-import Highlight from 'react-highlight';
-import styles from './styles.css';
+import WithFetchedFile from './WithFetchedFile'
+import Highlight from 'react-highlight'
+import styles from './styles.css'
 
-export default ({path}) => {
-  const language = path.match(/\.(.+)$/)[1];
+const Code = ({ path }) => {
+  const language = path.match(/\.(.+)$/)[1]
   return (
     <WithFetchedFile path={path}>
       {
@@ -19,4 +19,10 @@ export default ({path}) => {
       }
     </WithFetchedFile>
   )
-};
+}
+
+Code.propTypes = {
+  path: React.PropTypes.string.isRequired
+}
+
+export default Code

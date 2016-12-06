@@ -1,4 +1,4 @@
-import { memoize } from 'cerebro-tools';
+import { memoize } from 'cerebro-tools'
 
 /**
  * Get google suggestions for entered query
@@ -6,7 +6,7 @@ import { memoize } from 'cerebro-tools';
  * @return {Promise}
  */
 const getSuggestions = (query) => {
-  const url = `http://suggestqueries.google.com/complete/search?client=firefox&q=${query}`;
+  const url = `http://suggestqueries.google.com/complete/search?client=firefox&q=${query}`
   return fetch(url)
     .then(response => response.json())
     .then(response => response[1])

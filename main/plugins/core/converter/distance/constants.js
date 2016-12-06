@@ -24,7 +24,7 @@ export const SYNONIMS = {
 
   'yard*': 'yard',
   'ярд*': 'yard',
-};
+}
 
 export const UNITS = {
   'm': 1,
@@ -34,4 +34,4 @@ export const UNITS = {
   'yard': 1.09,
   'km': 0.001,
   'mile': 0.00062,
-};
+}

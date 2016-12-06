@@ -1,11 +1,11 @@
-import _ from 'lodash';
-import { spawn } from 'child_process';
-import { map, split, through } from 'event-stream';
+import _ from 'lodash'
+import { spawn } from 'child_process'
+import { map, split, through } from 'event-stream'
 
 const REAL_KEYS = {
-  'kMDItemDisplayName': 'name',
-  'kMDItemLastUsedDate': 'lastUsed',
-  'kMDItemUseCount': 'useCount'
+  kMDItemDisplayName: 'name',
+  kMDItemLastUsedDate: 'lastUsed',
+  kMDItemUseCount: 'useCount'
 }
 
 /**
@@ -15,50 +15,64 @@ const REAL_KEYS = {
  * @return {Object}
  */
 function parseLine(line) {
-  const attrs = line.split('   ');
+  const attrs = line.split('   ')
   const result = {
     // First attr is always full path to the item
     path: attrs.shift()
   }
   attrs.forEach(attr => {
-    const [key, value] = attr.split(' = ');
-    result[REAL_KEYS[key] || key] = getValue(value);
-  });
-  this.emit('data', result);
+    const [key, value] = attr.split(' = ')
+    result[REAL_KEYS[key] || key] = getValue(value)
+  })
+  this.emit('data', result)
 }
 
 const getValue = (item) => {
   if (item === '(null)') {
-    return null;
+    return null
   } else if (_.startsWith(item, '(\n    "') && _.endsWith(item, '"\n)')) {
-    const actual = item.slice(7, -3);
-    const lines = actual.split('",\n    "');
-    return lines;
-  } else {
-    return item;
+    const actual = item.slice(7, -3)
+    const lines = actual.split('",\n    "')
+    return lines
   }
+  return item
 }
 
 const filterEmpty = (data, done) => {
   if (data === '') {
-    done();
+    done()
   } else {
-    done(null, data);
+    done(null, data)
   }
 }
 
-const makeArgs = (array, argName) => {
-  return _.flatten(array.map(item => [argName, item]));
-}
+const makeArgs = (array, argName) => (
+  _.flatten(array.map(item => [argName, item]))
+)
 
-export default function mdfind ({query, attributes = Object.keys(REAL_KEYS), names = [], directories = [], live = false, interpret = false, limit} = {}) {
+export default function mdfind({
+  query,
+  attributes = Object.keys(REAL_KEYS),
+  names = [],
+  directories = [],
+  live = false,
+  interpret = false,
+  limit
+} = {}) {
   const dirArgs = makeArgs(directories, '-onlyin')
   const nameArgs = makeArgs(names, '-name')
   const attrArgs = makeArgs(attributes, '-attr')
   const interpretArgs = interpret ? ['-interpret'] : []
   const queryArgs = query ? [query] : []
 
-  const args = ['-0'].concat(dirArgs, nameArgs, attrArgs, interpretArgs, live ? ['-live', '-reprint'] : [], queryArgs)
+  const args = ['-0'].concat(
+    dirArgs,
+    nameArgs,
+    attrArgs,
+    interpretArgs,
+    live ? ['-live', '-reprint'] : [],
+    queryArgs
+  )
 
   const child = spawn('mdfind', args)
 
@@ -68,6 +82,7 @@ export default function mdfind ({query, attributes = Object.keys(REAL_KEYS), nam
     output: child.stdout
       .pipe(split('\0'))
       .pipe(map(filterEmpty))
+      // eslint-disable-next-line func-names
       .pipe(through(function (data) {
         times++
         if (limit && times === limit) child.kill()

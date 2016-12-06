@@ -144,7 +144,7 @@
     "universal-analytics": "0.4.6"
   },
   "devEngines": {
-    "node": "4.x || 5.x || 6.x",
-    "npm": "2.x || 3.x"
+    "node": "6.x",
+    "npm": "3.x"
   }
 }

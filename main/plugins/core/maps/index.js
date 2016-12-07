@@ -12,7 +12,7 @@ import icon from './icon.png'
  * @param  {Object} options.actions
  * @param  {Function} options.display
  */
-const mapsPlugin = ({ term, actions, display, config }) => {
+const fn = ({ term, actions, display, config }) => {
   let match = term.match(/^(?:show\s)?(?:on\s)?maps?\s+(.+)/i)
   match = match || term.match(/(.+)\s(?:show\s)?(?:on\s)?maps?$/i)
   if (!match) return
@@ -38,5 +38,8 @@ const mapsPlugin = ({ term, actions, display, config }) => {
 }
 
 export default {
-  fn: mapsPlugin,
+  icon,
+  fn,
+  name: 'Search on google maps',
+  keyword: 'map',
 }

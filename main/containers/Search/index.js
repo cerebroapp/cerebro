@@ -214,7 +214,6 @@ class Search extends Component {
 
   @bind()
   cleanup() {
-    console.log('cleanup events')
     window.removeEventListener('resize', this.onWindowResize)
     window.removeEventListener('keydown', this.onDocumentKeydown)
     window.removeEventListener('beforeunload', this.cleanup)

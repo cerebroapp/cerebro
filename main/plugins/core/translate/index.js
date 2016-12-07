@@ -21,6 +21,11 @@ const translatePlugin = ({ term, actions, display, config }) => {
     // TODO: check why using const here throws undefined variable text in production build
     const enteredText = match[1]
     const enteredTargetLang = toLanguageCode(match[2])
+    display({
+      icon,
+      id,
+      title: 'Translating...'
+    })
     if (enteredTargetLang) {
       detectLanguage(enteredText).then(sourceLang =>
         translate(enteredText, `${sourceLang}-${enteredTargetLang}`)

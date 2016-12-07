@@ -36,7 +36,7 @@ export default class Preview extends Component {
     const { query, search } = this.props
     return (
       <Preload promise={getSuggestions(query)} loader={<Loading />}>
-        {(suggestions) => this.renderSuggestions(suggestions, search)}
+        {(suggestions) => this.renderSuggestions(suggestions || [], search)}
       </Preload>
     )
   }

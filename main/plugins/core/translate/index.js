@@ -4,6 +4,7 @@ import translate from './translate'
 import detectLanguage from './detectLanguage'
 import toLanguageCode from './toLanguageCode'
 import Preview from './Preview'
+import Loading from 'main/components/Loading'
 import { id, REGEXP } from './constants.js'
 
 /**
@@ -24,7 +25,8 @@ const translatePlugin = ({ term, actions, display, config }) => {
     display({
       icon,
       id,
-      title: 'Translating...'
+      title: 'Translating...',
+      getPreview: () => <Loading />
     })
     if (enteredTargetLang) {
       detectLanguage(enteredText).then(sourceLang =>

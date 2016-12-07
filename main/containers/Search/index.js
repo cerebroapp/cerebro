@@ -71,22 +71,25 @@ class Search extends Component {
   }
   constructor(props) {
     super(props)
-    currentWindow().on('hide', this.props.actions.reset)
+    this.electronWindow = remote.getCurrentWindow()
     this.state = {
       mainInputFocused: false
     }
   }
+
   componentWillMount() {
     // Listen for window.resize and change default space for results to user's value
     window.addEventListener('resize', this.onWindowResize)
     // Add some global key handlers
     window.addEventListener('keydown', this.onDocumentKeydown)
-    currentWindow().on('show', () => {
-      this.refs.mainInput.focus()
-    })
+    // Cleanup event listeners on unload
+    // NOTE: when page refreshed (location.reload) componentWillUnmount is not called
+    window.addEventListener('beforeunload', this.cleanup)
+    this.electronWindow.on('hide', this.props.actions.reset)
+    this.electronWindow.on('show', this.focusMainInput)
   }
   componentDidMount() {
-    this.refs.mainInput.focus()
+    this.focusMainInput()
     this.updateElectronWindow()
   }
   componentDidUpdate(prevProps) {
@@ -97,11 +100,7 @@ class Search extends Component {
     }
   }
   componentWillUnmount() {
-    window.removeEventListener('resize', this.onWindowResize)
-    window.removeEventListener('keydown', this.onDocumentKeydown)
-    currentWindow().off('show', () => {
-      this.refs.mainInput.focus()
-    })
+    this.cleanup()
   }
 
   /**
@@ -191,7 +190,7 @@ class Search extends Component {
         this.selectCurrent()
         break
       case 27:
-        currentWindow().hide()
+        this.electronWindow.hide()
         break
     }
   }
@@ -204,6 +203,21 @@ class Search extends Component {
   @bind()
   onMainInputBlur() {
     this.setState({ mainInputFocused: false })
+  }
+
+  @bind()
+  cleanup() {
+    console.log('cleanup events')
+    window.removeEventListener('resize', this.onWindowResize)
+    window.removeEventListener('keydown', this.onDocumentKeydown)
+    window.removeEventListener('beforeunload', this.cleanup)
+    this.electronWindow.removeListener('hide', this.props.actions.reset)
+    this.electronWindow.removeListener('show', this.focusMainInput)
+  }
+
+  @bind()
+  focusMainInput() {
+    this.refs.mainInput.focus()
   }
 
   /**
@@ -225,7 +239,7 @@ class Search extends Component {
     const event = new CustomEvent('select-item', { cancelable: true })
     item.onSelect(event)
     if (!event.defaultPrevented) {
-      currentWindow().hide()
+      this.electronWindow.hide()
     }
   }
 
@@ -255,11 +269,10 @@ class Search extends Component {
     const { length } = results
     const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
     const height = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
-    const electronWindow = currentWindow()
     // When results list is empty window is not resizable
-    electronWindow.setResizable(length !== 0)
-    const [width] = electronWindow.getSize()
-    electronWindow.setSize(width, length === 0 ? INPUT_HEIGHT : height)
+    this.electronWindow.setResizable(length !== 0)
+    const [width] = this.electronWindow.getSize()
+    this.electronWindow.setSize(width, length === 0 ? INPUT_HEIGHT : height)
   }
   /**
    * Render autocomplete suggestion from selected item

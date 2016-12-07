@@ -20,12 +20,19 @@ import {
 } from '../../constants/ui'
 
 /**
- * Get current electron window
+ * Wrap click or mousedown event to custom `select-item` event,
+ * that includes only information about clicked keys (alt, shift, ctrl and meta)
  *
- * @return {BrowserWindow}
+ * @param  {Event} realEvent
+ * @return {CustomEvent}
  */
-function currentWindow() {
-  return remote.getCurrentWindow()
+const wrapEvent = (realEvent) => {
+  const event = new CustomEvent('select-item', { cancelable: true })
+  event.altKey = realEvent.altKey
+  event.shiftKey = realEvent.shiftKey
+  event.ctrlKey = realEvent.ctrlKey
+  event.metaKey = realEvent.metaKey
+  return event
 }
 
 /**
@@ -187,7 +194,7 @@ class Search extends Component {
         event.preventDefault()
         break
       case 13:
-        this.selectCurrent()
+        this.selectCurrent(event)
         break
       case 27:
         this.electronWindow.hide()
@@ -234,9 +241,9 @@ class Search extends Component {
    * @return {[type]}      [description]
    */
   @bind()
-  selectItem(item) {
+  selectItem(item, realEvent) {
     this.props.actions.reset()
-    const event = new CustomEvent('select-item', { cancelable: true })
+    const event = wrapEvent(realEvent)
     item.onSelect(event)
     if (!event.defaultPrevented) {
       this.electronWindow.hide()
@@ -256,8 +263,8 @@ class Search extends Component {
   /**
    * Select highlighted element
    */
-  selectCurrent() {
-    this.selectItem(this.highlightedResult())
+  selectCurrent(event) {
+    this.selectItem(this.highlightedResult(), event)
   }
 
   /**

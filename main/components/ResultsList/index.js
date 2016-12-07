@@ -28,7 +28,7 @@ export default class ResultsList extends Component {
       // In some cases action should be executed and window should be closed
       // In some cases we should autocomplete value
       selected: index === this.props.selected,
-      onSelect: () => this.props.onSelect(result),
+      onSelect: (event) => this.props.onSelect(result, event),
       // Move selection to item under cursor
       onMouseMove: (event) => {
         const { selected, mainInputFocused, onItemHover } = this.props

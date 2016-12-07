@@ -8,6 +8,7 @@ import {
  MOVE_CURSOR,
  SELECT_ELEMENT,
  SHOW_RESULT,
+ HIDE_RESULT,
  RESET,
  CHANGE_VISIBLE_RESULTS,
 } from '../constants/actionTypes'
@@ -39,6 +40,7 @@ const eachPlugin = (term, display) => {
       plugins[name].fn({
         ...DEFAULT_SCOPE,
         term,
+        hide: (id) => store.dispatch(hideElement(`${name}-${id}`)),
         display: (payload) => display(name, payload)
       })
     } catch (error) {
@@ -130,6 +132,18 @@ export function selectElement(index) {
   return {
     type: SELECT_ELEMENT,
     payload: index
+  }
+}
+
+/**
+ * Action to remove element from results list by id
+ * @param  {String} id
+ * @return {Object}  redux action
+ */
+export function hideElement(id) {
+  return {
+    type: HIDE_RESULT,
+    payload: { id }
   }
 }
 

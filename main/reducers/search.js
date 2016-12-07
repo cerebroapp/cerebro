@@ -5,6 +5,7 @@ import {
   MOVE_CURSOR,
   SELECT_ELEMENT,
   SHOW_RESULT,
+  HIDE_RESULT,
   RESET,
   CHANGE_VISIBLE_RESULTS
 } from '../constants/actionTypes'
@@ -79,6 +80,22 @@ export default function search(state = initialState, { type, payload }) {
       return {
         ...state,
         selected,
+      }
+    }
+    case HIDE_RESULT: {
+      const { id } = payload
+      let { resultsById, resultIds } = state
+      resultIds = resultIds.filter(resultId => resultId !== id)
+
+      resultsById = resultIds.reduce((acc, resultId) => ({
+        ...acc,
+        [resultId]: resultsById[resultId]
+      }), {})
+
+      return {
+        ...state,
+        resultsById,
+        resultIds
       }
     }
     case SHOW_RESULT: {

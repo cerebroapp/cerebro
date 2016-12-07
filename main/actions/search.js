@@ -45,7 +45,7 @@ const eachPlugin = (term, display) => {
       })
     } catch (error) {
       // Do not fail on plugin errors, just log them to console
-      console.log('Error running plugin', error)
+      console.log('Error running plugin', name, error)
     }
   })
 }

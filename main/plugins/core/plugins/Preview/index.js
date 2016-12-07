@@ -18,12 +18,10 @@ const urlTransform = (repo, src) => {
 
 export default class Preview extends Component {
   static propTypes = {
-    plugin: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      version: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      repo: PropTypes.string,
-    }),
+    name: PropTypes.string.isRequired,
+    version: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    repo: PropTypes.string,
     installed: PropTypes.bool.isRequired,
   }
 
@@ -36,7 +34,7 @@ export default class Preview extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.plugin !== this.props.plugin) {
+    if (nextProps.name !== this.props.name) {
       this.setState({ showDescription: false })
     }
   }
@@ -66,8 +64,13 @@ export default class Preview extends Component {
   }
 
   render() {
-    const { plugin, installed } = this.props
-    const { name, version, description, repo } = plugin
+    const {
+      name,
+      version,
+      description,
+      repo,
+      installed
+    } = this.props
     const match = repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
     return (
       <div className={styles.preview} key={name}>

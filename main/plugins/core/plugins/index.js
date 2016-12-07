@@ -9,10 +9,14 @@ const getInstalledPlugins = memoize(() => (
   installedPlugins().then(plugins => Object.keys(plugins))
 ))
 
-const fn = ({ term, display }) => {
+const fn = ({ term, display, hide }) => {
   const match = term.match(/^plugins?\s*(.+)?$/i)
   if (match) {
     const pluginSearch = match[1]
+    display({
+      id: 'loading',
+      title: 'Looking for plugins...'
+    })
     Promise.all([
       getAvailablePlugins(),
       getInstalledPlugins()
@@ -28,6 +32,7 @@ const fn = ({ term, display }) => {
         subtitle: plugin.description,
         getPreview: () => <Preview plugin={plugin} installed={installed.includes(plugin.name)} />
       }))
+      hide('loading')
       display(results)
     })
   }

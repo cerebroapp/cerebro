@@ -6,6 +6,7 @@ import ActionButton from './ActionButton.js'
 import getReadme from '../getReadme'
 import ReactMarkdown from 'react-markdown'
 import styles from './styles.css'
+import trackEvent from 'lib/trackEvent'
 import { client } from 'lib/plugins'
 
 const isRelative = (src) => !src.match(/^(https?:|data:)/)
@@ -44,6 +45,11 @@ export default class Preview extends Component {
   }
 
   pluginAction(plugin, action) {
+    trackEvent({
+      category: 'Plugins',
+      event: action,
+      label: plugin
+    })
     return () => client[action](plugin)
   }
 

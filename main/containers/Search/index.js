@@ -13,11 +13,26 @@ import escapeStringRegexp from 'escape-string-regexp'
 
 import { debounce, bind } from 'lodash-decorators'
 
+import trackEvent from 'lib/trackEvent'
+
 import {
   INPUT_HEIGHT,
   RESULT_HEIGHT,
   MIN_VISIBLE_RESULTS,
 } from '../../constants/ui'
+
+const SHOW_EVENT = {
+  category: 'Window',
+  event: 'show'
+}
+
+const SELECT_EVENT = {
+  category: 'Plugins',
+  event: 'select'
+}
+
+const trackShowWindow = () => trackEvent(SHOW_EVENT)
+const trackSelectItem = (label) => trackEvent({ ...SELECT_EVENT, label })
 
 /**
  * Wrap click or mousedown event to custom `select-item` event,
@@ -94,6 +109,7 @@ class Search extends Component {
     window.addEventListener('beforeunload', this.cleanup)
     this.electronWindow.on('hide', this.props.actions.reset)
     this.electronWindow.on('show', this.focusMainInput)
+    this.electronWindow.on('show', trackShowWindow)
   }
   componentDidMount() {
     this.focusMainInput()
@@ -219,6 +235,7 @@ class Search extends Component {
     window.removeEventListener('beforeunload', this.cleanup)
     this.electronWindow.removeListener('hide', this.props.actions.reset)
     this.electronWindow.removeListener('show', this.focusMainInput)
+    this.electronWindow.removeListener('show', trackShowWindow)
   }
 
   @bind()
@@ -242,6 +259,7 @@ class Search extends Component {
   @bind()
   selectItem(item, realEvent) {
     this.props.actions.reset()
+    trackSelectItem(item.plugin)
     const event = wrapEvent(realEvent)
     item.onSelect(event)
     if (!event.defaultPrevented) {

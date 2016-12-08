@@ -99,6 +99,7 @@ export function updateTerm(term) {
       let result = Array.isArray(payload) ? payload : [payload]
       result = result.map(x => ({
         ...x,
+        plugin,
         // Scope result ids with plugin name and use title if id is empty
         id: `${plugin}-${x.id || x.title}`
       }))

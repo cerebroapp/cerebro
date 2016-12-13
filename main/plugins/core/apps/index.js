@@ -21,10 +21,12 @@ const cachedAppsList = memoize(getAppsList, {
   preFetch: true
 })
 
+const toString = (app) => `${app.name} ${app.filename}`
+
 const appsPlugin = ({ term, actions, display }) => {
   cachedAppsList().then(items => {
     const result = orderBy(
-      search(items, term, (file) => file.name),
+      search(items, term, toString),
       [
         ({ useCount }) => useCount ? parseInt(useCount, 10) : 0,
         ({ lastUsed = '0000' }) => lastUsed,

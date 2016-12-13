@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { spawn } from 'child_process'
+import path from 'path'
 import { map, split, through } from 'event-stream'
 
 const REAL_KEYS = {
@@ -16,9 +17,11 @@ const REAL_KEYS = {
  */
 function parseLine(line) {
   const attrs = line.split('   ')
+  // First attr is always full path to the item
+  const filePath = attrs.shift()
   const result = {
-    // First attr is always full path to the item
-    path: attrs.shift()
+    path: filePath,
+    filename: path.basename(filePath).replace(/\.app$/, '')
   }
   attrs.forEach(attr => {
     const [key, value] = attr.split(' = ')

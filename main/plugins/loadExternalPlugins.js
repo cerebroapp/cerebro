@@ -25,22 +25,25 @@ export default memoize(() => {
     const pluginPath = path.join(modulesDirectory, file)
     const isDir = fs.statSync(pluginPath).isDirectory()
     if (isDir) {
+      console.group('Load plugin', file)
       try {
-        console.log(`Loading external plugin ${pluginPath}...`)
+        console.log(`Path: ${pluginPath}...`)
         const plugin = window.require(pluginPath)
         if (isPluginValid(plugin)) {
-          console.log('External plugin loaded.')
+          console.log('Loaded.')
+          console.groupEnd()
           return {
             ...acc,
             [file]: plugin
           }
         }
-        console.log('External plugin is not valid, skipped')
+        console.log('Plugin is not valid, skipped')
       } catch (error) {
         // catch all errors from plugin loading
-        console.log('Error loading external plugin')
+        console.log('Error loading')
         console.log(error)
       }
+      console.groupEnd()
     }
     return acc
   }, {})

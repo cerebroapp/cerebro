@@ -193,8 +193,13 @@ class Search extends Component {
         break
       case 39:
         if (cursorInEndOfInut(event.target)) {
-          focusPreview()
-          event.preventDefault()
+          if (this.autocompleteValue()) {
+            // Autocomplete by arrow right only if autocomple value is shown
+            this.autocomplete(event)
+          } else {
+            focusPreview()
+            event.preventDefault()
+          }
         }
         break
       case 40:
@@ -298,19 +303,25 @@ class Search extends Component {
     const [width] = this.electronWindow.getSize()
     this.electronWindow.setSize(width, length === 0 ? INPUT_HEIGHT : height)
   }
+
+  autocompleteValue() {
+    const selected = this.highlightedResult()
+    if (selected && selected.term) {
+      const regexp = new RegExp(`^${escapeStringRegexp(this.props.term)}`, 'i')
+      if (selected.term.match(regexp)) {
+        return selected.term.replace(regexp, this.props.term)
+      }
+    }
+    return ''
+  }
   /**
    * Render autocomplete suggestion from selected item
    * @return {React}
    */
   renderAutocomplete() {
-    const selected = this.highlightedResult()
-    if (selected && selected.term) {
-      const regexp = new RegExp(`^${escapeStringRegexp(this.props.term)}`, 'i')
-      if (selected.term.match(regexp)) {
-        // We should show suggestion in the same case
-        const term = selected.term.replace(regexp, this.props.term)
-        return <div className={styles.autocomplete}>{term}</div>
-      }
+    const term = this.autocompleteValue()
+    if (term) {
+      return <div className={styles.autocomplete}>{term}</div>
     }
   }
   render() {

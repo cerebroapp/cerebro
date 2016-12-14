@@ -13,8 +13,8 @@ import icon from './icon.png'
  * @param  {Function} options.display
  */
 const fn = ({ term, actions, display, config }) => {
-  let match = term.match(/^(?:show\s)?(?:on\s)?maps?\s+(.+)/i)
-  match = match || term.match(/(.+)\s(?:show\s)?(?:on\s)?maps?$/i)
+  let match = term.match(/^(?:maps?|карт(?:а|ы))\s+(.+)/i)
+  match = match || term.match(/(.+)\s(?:maps?|карт(?:а|ы))$/i)
   if (!match) return
   const address = match[1]
   const userLang = config.get('lang')

@@ -16,6 +16,7 @@ import { debounce, bind } from 'lodash-decorators'
 import trackEvent from 'lib/trackEvent'
 
 import {
+  WINDOW_WIDTH,
   INPUT_HEIGHT,
   RESULT_HEIGHT,
   MIN_VISIBLE_RESULTS,
@@ -296,12 +297,20 @@ class Search extends Component {
   updateElectronWindow() {
     const { results, visibleResults } = this.props
     const { length } = results
+    const win = this.electronWindow
+    const [width] = win.getSize()
+    // When results list is empty window is not resizable
+    win.setResizable(length !== 0)
+    if (length === 0) {
+      win.setMinimumSize(WINDOW_WIDTH, INPUT_HEIGHT)
+      win.setSize(width, INPUT_HEIGHT)
+      return
+    }
     const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
     const height = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
-    // When results list is empty window is not resizable
-    this.electronWindow.setResizable(length !== 0)
-    const [width] = this.electronWindow.getSize()
-    this.electronWindow.setSize(width, length === 0 ? INPUT_HEIGHT : height)
+    const minHeight = INPUT_HEIGHT + RESULT_HEIGHT * MIN_VISIBLE_RESULTS
+    win.setMinimumSize(WINDOW_WIDTH, minHeight)
+    win.setSize(width, height)
   }
 
   autocompleteValue() {

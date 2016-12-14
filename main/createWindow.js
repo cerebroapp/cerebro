@@ -21,11 +21,10 @@ export default (url, trayIconSrc) => {
     width: WINDOW_WIDTH,
     minWidth: WINDOW_WIDTH,
     height: INPUT_HEIGHT,
-    minHeight: INPUT_HEIGHT + RESULT_HEIGHT * MIN_VISIBLE_RESULTS,
     frame: false,
     resizable: false,
     // Show main window on launch only when application started for the first time
-    show: config.get('firstStart'),
+    show: config.get('firstStart')
   })
 
   mainWindow.loadURL(url)

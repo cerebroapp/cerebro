@@ -6,6 +6,7 @@ import {
   SELECT_ELEMENT,
   SHOW_RESULT,
   HIDE_RESULT,
+  UPDATE_RESULT,
   RESET,
   CHANGE_VISIBLE_RESULTS
 } from '../constants/actionTypes'
@@ -80,6 +81,21 @@ export default function search(state = initialState, { type, payload }) {
       return {
         ...state,
         selected,
+      }
+    }
+    case UPDATE_RESULT: {
+      const { id, result } = payload
+      const { resultsById } = state
+      const newResult = {
+        ...resultsById[id],
+        ...result
+      }
+      return {
+        ...state,
+        resultsById: {
+          ...resultsById,
+          [id]: newResult
+        }
       }
     }
     case HIDE_RESULT: {

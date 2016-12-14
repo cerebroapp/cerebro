@@ -4,6 +4,8 @@ import searchInjector from 'inject!../../main/actions/search'
 import {
   MOVE_CURSOR,
   SELECT_ELEMENT,
+  UPDATE_RESULT,
+  HIDE_RESULT,
   RESET,
 } from '../../main/constants/actionTypes'
 
@@ -60,6 +62,27 @@ describe('updateTerm', () => {
       expect(actions.updateTerm('')).toEqual({
         type: RESET,
       })
+    })
+  })
+})
+
+describe('updateElement', () => {
+  it('returns valid action', () => {
+    const id = 1
+    const result = { title: 'updated' }
+    expect(actions.updateElement(id, result)).toEqual({
+      type: UPDATE_RESULT,
+      payload: { id, result }
+    })
+  })
+})
+
+describe('hideElement', () => {
+  it('returns valid action', () => {
+    const id = 1
+    expect(actions.hideElement(id)).toEqual({
+      type: HIDE_RESULT,
+      payload: { id }
     })
   })
 })

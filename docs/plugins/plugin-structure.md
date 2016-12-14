@@ -11,7 +11,8 @@ module.exports = {
 This plugin will write to console all changes in your search field of Cerebro app. So, `fn` key is a heart of your plugin: this function receives `scope` object and your can send results back to Cerebro. Scope object is:
 
 * `term` – `String`, entered by Cerebro user;
-* `display` – `Function(result: Object | Array<object>)`, display your result (or 
+* `display` – `Function(result: Object | Array<object>)`, display your result
+* `update` – `Function(id: String, result: Object)`, update your previously displayed result. This action updates only passed fields, so if you displayed result `{id: 1, title: 'Result'}` and call `update(1, {subtitle: 'Subtitle'})`, you will have merged result: `{id: 1, title: 'Result', subtitle: 'Subtitle'}`;
 * `hide` – `Function(id: String)`, hide result from results list by id. You can use it to remove temporar results, like "loading..." placeholder;
 * `actions` – object with main actions, provided for cerebro plugins:
   * `open` – `Function(path: String)`, open external URL in browser or open local file;

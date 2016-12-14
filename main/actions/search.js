@@ -9,6 +9,7 @@ import {
  SELECT_ELEMENT,
  SHOW_RESULT,
  HIDE_RESULT,
+ UPDATE_RESULT,
  RESET,
  CHANGE_VISIBLE_RESULTS,
 } from '../constants/actionTypes'
@@ -41,6 +42,7 @@ const eachPlugin = (term, display) => {
         ...DEFAULT_SCOPE,
         term,
         hide: (id) => store.dispatch(hideElement(`${name}-${id}`)),
+        update: (id, result) => store.dispatch(updateElement(`${name}-${id}`, result)),
         display: (payload) => display(name, payload)
       })
     } catch (error) {
@@ -145,6 +147,18 @@ export function hideElement(id) {
   return {
     type: HIDE_RESULT,
     payload: { id }
+  }
+}
+
+/**
+ * Action to update displayed element with new result
+ * @param  {String} id
+ * @return {Object}  redux action
+ */
+export function updateElement(id, result) {
+  return {
+    type: UPDATE_RESULT,
+    payload: { id, result }
   }
 }
 

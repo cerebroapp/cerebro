@@ -11,7 +11,7 @@
   --secondary-font-color: #999;
 
   /* results list */
-  --result-background: var(--main-background-color);
+  --result-background: transparent;
   --result-title-color: var(--main-font-color);
   --result-subtitle-color: #cccccc;
 

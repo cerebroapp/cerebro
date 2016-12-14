@@ -1,6 +1,6 @@
 :root {
   /* Main fonts and colors */
-  --main-background-color: #3E4143;
+  --main-background-color: rgba(62, 65, 67, 1);
   --main-font: "Helvetica Neue";
   --main-font-color: white;
 
@@ -11,7 +11,7 @@
   --secondary-font-color: #9B9D9F;
 
   /* results list */
-  --result-background: var(--main-background-color);
+  --result-background: transparent;
   --result-title-color: var(--main-font-color);
   --result-subtitle-color: #cccccc;
 

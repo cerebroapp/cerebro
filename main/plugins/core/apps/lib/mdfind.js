@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import flatten from 'lodash/flatten'
 import { spawn } from 'child_process'
 import path from 'path'
 import { map, split, through } from 'event-stream'
@@ -33,7 +33,7 @@ function parseLine(line) {
 const getValue = (item) => {
   if (item === '(null)') {
     return null
-  } else if (_.startsWith(item, '(\n    "') && _.endsWith(item, '"\n)')) {
+  } else if (item.startsWith('(\n    "') && item.endsWith('"\n)')) {
     const actual = item.slice(7, -3)
     const lines = actual.split('",\n    "')
     return lines
@@ -50,7 +50,7 @@ const filterEmpty = (data, done) => {
 }
 
 const makeArgs = (array, argName) => (
-  _.flatten(array.map(item => [argName, item]))
+  flatten(array.map(item => [argName, item]))
 )
 
 export default function mdfind({

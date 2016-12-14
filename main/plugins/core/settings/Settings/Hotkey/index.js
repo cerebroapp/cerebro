@@ -71,8 +71,8 @@ const keyToSign = (key) => (
     .replace(/alt/i, '⌥')
     .replace(/shift/i, '⇧')
     .replace(/command/i, '⌘')
-    .replace(/enter/i, '')
-    .replace(/backspace/i, '↩')
+    .replace(/enter/i, '↩')
+    .replace(/backspace/i, '⌫')
 )
 
 const charCodeToSign = ({ keyCode, shiftKey }) => {
@@ -127,7 +127,6 @@ export default class Hotkey extends Component {
       <div className={styles.hotkey}>
         <input
           className={styles.hotkeyInput}
-          readOnly
           type="text"
           value={keys}
           onKeyDown={this.onKeyDown.bind(this)}

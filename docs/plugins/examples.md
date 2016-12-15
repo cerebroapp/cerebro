@@ -7,7 +7,7 @@ You always can check out source code of existing plugins, like:
 * [cerebro-ip](https://github.com/KELiON/cerebro-ip)
 
 
-Or any of [core](../../main/plugins/core) plugins.
+Or any of [core](../../app/main/plugins/core) plugins.
 
 ### Using `id`
 ```js

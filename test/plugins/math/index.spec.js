@@ -1,4 +1,4 @@
-import math from '../../../main/plugins/core/math'
+import math from '../../../app/main/plugins/core/math'
 import assert from 'assert'
 
 describe('Math plugin', () => {

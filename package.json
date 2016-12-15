@@ -2,21 +2,62 @@
   "name": "cerebro",
   "productName": "Cerebro",
   "version": "0.0.1",
-  "description": "Extendable electron-based open-source spolight and alfred analogue",
+  "description": "Extendable electron-based open-source Spolight and Alfred analogue",
   "main": "main.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha-webpack",
     "test-watch": "npm test -- --watch",
-    "lint": "eslint background lib main test *.js",
+    "lint": "eslint app/background app/lib app/main test *.js",
     "hot-server": "node -r babel-register server.js",
     "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --progress --profile --colors",
     "build-renderer": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.production.js --progress --profile --colors",
     "build": "npm run build-main && npm run build-renderer",
-    "start": "cross-env NODE_ENV=production electron ./",
-    "start-hot": "cross-env HOT=1 NODE_ENV=development electron -r babel-register ./main.development",
-    "package": "cross-env NODE_ENV=production node -r babel-register package.js",
-    "package-all": "npm run package -- --all",
-    "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\""
+    "start": "cross-env NODE_ENV=production electron ./app",
+    "start-hot": "cd ./app && cross-env HOT=1 NODE_ENV=development ../node_modules/.bin/electron -r babel-register ./main.development",
+    "package": "npm run build && build --publish never",
+    "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
+    "postinstall": "concurrently \"cd ./app && npm install\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\""
+  },
+  "build": {
+    "productName": "Cerebro",
+    "homepage": "https://cerebroapp.com",
+    "appId": "com.cerebroapp.Cerebro",
+    "category": "public.app-category.productivity",
+    "dmg": {
+      "contents": [
+        {
+          "x": 410,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 130,
+          "y": 150,
+          "type": "file"
+        }
+      ]
+    },
+    "files": [
+      "dist/",
+      "main/index.html",
+      "main/css,",
+      "background/index.html",
+      "tray_icon@2x.png",
+      "node_modules/",
+      "main.js",
+      "main.js.map",
+      "package.json",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme,test,__tests__,tests,powered-test,example,examples,*.d.ts}",
+      "!**/node_modules/.bin",
+      "!**/*.{o,hprof,orig,pyc,pyo,rbc}",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.editorconfig,.flowconfig,.yarn-metadata.json,.idea,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}"
+    ]
+  },
+  "directories": {
+    "app": "./app",
+    "buildResources": "resources",
+    "output": "release"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -40,7 +81,7 @@
     "alfred",
     "spotight"
   ],
-  "homepage": "https://github.com/KELiON/cerebro#readme",
+  "homepage": "https://cerebroapp.com",
   "devDependencies": {
     "asar": "0.11.0",
     "autoprefixer": "6.3.7",
@@ -50,9 +91,9 @@
     "babel-plugin-add-module-exports": "0.2.1",
     "babel-plugin-dev-expression": "0.2.1",
     "babel-plugin-lodash": "3.2.0",
-    "babel-plugin-transform-class-properties": "^6.11.5",
+    "babel-plugin-transform-class-properties": "6.11.5",
     "babel-plugin-transform-decorators-legacy": "1.3.4",
-    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-plugin-transform-object-rest-spread": "6.8.0",
     "babel-plugin-transform-remove-console": "6.8.0",
     "babel-plugin-transform-remove-debugger": "6.8.0",
     "babel-plugin-webpack-loaders": "0.5.0",
@@ -73,14 +114,13 @@
     "css-loader": "0.23.1",
     "del": "2.2.0",
     "devtron": "1.2.0",
-    "electron-packager": "8.3.0",
+    "electron-builder": "10.8.1",
     "electron-prebuilt": "1.4.12",
     "electron-rebuild": "1.4.0",
     "eslint": "2.10.2",
     "eslint-config-airbnb": "9.0.1",
     "eslint-import-resolver-webpack": "0.3.0",
-    "eslint-loader": "^1.6.1",
-    "eslint-plugin-import": "1.8.1",
+    "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "1.2.2",
     "eslint-plugin-react": "5.1.1",
     "expect": "1.20.2",
@@ -95,7 +135,7 @@
     "mocha": "2.5.3",
     "mocha-webpack": "0.4.0",
     "node-libs-browser": "1.0.0",
-    "null-loader": "^0.1.1",
+    "null-loader": "0.1.1",
     "optimize-js-plugin": "0.0.4",
     "postcss-loader": "0.9.1",
     "postcss-nested": "1.0.0",
@@ -114,7 +154,7 @@
     "webpack-hot-middleware": "2.10.0"
   },
   "dependencies": {
-    "cerebro-tools": "^0.1.0",
+    "cerebro-tools": "0.1.2",
     "co": "4.6.0",
     "du": "0.1.0",
     "escape-string-regexp": "1.0.5",
@@ -124,7 +164,6 @@
     "lodash": "4.13.1",
     "lodash-decorators": "3.0.1",
     "node-machine-id": "1.1.1",
-    "nodobjc": "2.1.0",
     "normalize.css": "4.1.1",
     "pdfjs-dist": "1.5.355",
     "postcss": "5.0.21",
@@ -140,8 +179,7 @@
     "react-virtualized": "https://registry.npmjs.org/react-virtualized/-/react-virtualized-7.11.8.tgz",
     "redux": "3.5.2",
     "redux-thunk": "2.1.0",
-    "source-map-support": "0.4.0",
-    "universal-analytics": "0.4.6"
+    "source-map-support": "0.4.0"
   },
   "devEngines": {
     "node": "6.x",

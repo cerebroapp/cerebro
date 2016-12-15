@@ -21,6 +21,7 @@
     <script>
       (function() {
         const script = document.createElement('script');
+        script.async = true;
         script.src = (process.env.HOT) ? 'http://localhost:3000/dist/main.bundle.js' : '../dist/main.bundle.js';
         document.write(script.outerHTML);
       }());

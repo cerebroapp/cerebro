@@ -12,8 +12,13 @@ export default class Preview extends Component {
     search: PropTypes.func.isRequired
   }
   renderSuggestions(suggestions, searchFn) {
+    const isStarWars = this.props.query.toLowerCase().includes('star wars')
+    const className = [
+      styles.wrapper,
+      isStarWars ? styles.starwars : ''
+    ].join(' ')
     return (
-      <div className={styles.wrapper}>
+      <div className={className}>
         <KeyboardNav>
           <ul className={styles.list}>
             {
@@ -21,6 +26,7 @@ export default class Preview extends Component {
                 <KeyboardNavItem
                   key={s}
                   tagName={'li'}
+                  onKeyDown={event => event.preventDefault()}
                   onSelect={() => searchFn(s)}
                 >
                   {s}

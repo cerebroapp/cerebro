@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import OptimizeJsPlugin from 'optimize-js-plugin';
@@ -9,13 +10,13 @@ const config = {
   devtool: 'source-map',
 
   entry: {
-    main: './main/main',
-    background: './background/background'
+    main: './app/main/main',
+    background: './app/background/background'
   },
 
   output: {
     ...baseConfig.output,
-
+    path: path.join(__dirname, 'app/dist'),
     publicPath: '../dist/'
   },
 
@@ -46,17 +47,10 @@ const config = {
   plugins: [
     ...baseConfig.plugins,
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        screw_ie8: true,
-        warnings: false
-      },
-      sourceMap: false
-    }),
     new ExtractTextPlugin('style.css', { allChunks: true }),
     new OptimizeJsPlugin({
       sourceMap: false
-    })
+    }),
   ],
 
   target: 'electron-renderer'

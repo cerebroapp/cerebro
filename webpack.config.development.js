@@ -12,11 +12,11 @@ const config = {
   entry: {
     background: [
       'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
-      './background/background',
+      './app/background/background',
     ],
     main: [
       'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
-      './main/main',
+      './app/main/main',
     ]
   },
 
@@ -27,11 +27,6 @@ const config = {
 
   module: {
     ...baseConfig.module,
-    preLoaders: [{
-      test: /\.jsx?$/,
-      loaders: ['eslint-loader'],
-      exclude: /node_modules/
-    }],
     loaders: [
       ...baseConfig.module.loaders,
 

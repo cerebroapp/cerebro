@@ -1,0 +1,22 @@
+@import "../../../node_modules/normalize.css/normalize.css";
+@import "../../../node_modules/react-virtualized/styles.css";
+@import "../../../node_modules/highlight.js/styles/github-gist.css";
+@import "../../../node_modules/react-select/dist/react-select.css";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--main-background-color);
+  color: var(--main-font-color);
+}
+
+body {
+  position: relative;
+  height: 100vh;
+  font-family: var(--main-font);
+  overflow-y: hidden;
+}
+
+#root {
+  height: 100%;
+}

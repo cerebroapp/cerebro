@@ -1,5 +1,5 @@
 import expect from 'expect'
-import searchInjector from 'inject!../../main/actions/search'
+import searchInjector from 'inject!../../app/main/actions/search'
 
 import {
   MOVE_CURSOR,
@@ -7,7 +7,7 @@ import {
   UPDATE_RESULT,
   HIDE_RESULT,
   RESET,
-} from '../../main/constants/actionTypes'
+} from '../../app/main/constants/actionTypes'
 
 const testPlugin = {
   fn: () => {}

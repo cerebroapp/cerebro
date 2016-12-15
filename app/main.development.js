@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== 'development') {
 app.on('ready', () => {
   mainWindow = createMainWindow(
     // Main window html
-    `file://${__dirname}/main/app.html`,
+    `file://${__dirname}/main/index.html`,
     // Fullpath for menu bar icon
     `${__dirname}/tray_icon@2x.png`
   )

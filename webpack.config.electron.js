@@ -5,12 +5,6 @@ import baseConfig from './webpack.config.base';
 const isProduction = process.env.NODE_ENV === 'production';
 
 const plugins = [
-  new webpack.optimize.UglifyJsPlugin({
-    sourceMap: !isProduction,
-    compressor: {
-      warnings: false
-    }
-  }),
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
@@ -40,12 +34,12 @@ export default {
   externals,
 
   devtool: 'source-map',
-  entry: './main.development',
+  entry: './app/main.development',
 
   output: {
     ...baseConfig.output,
     path: __dirname,
-    filename: './main.js'
+    filename: './app/main.js'
   },
 
   target: 'electron-main',

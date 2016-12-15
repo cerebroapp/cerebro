@@ -4,9 +4,7 @@ import trackEvent from '../lib/trackEvent'
 
 import {
   INPUT_HEIGHT,
-  WINDOW_WIDTH,
-  RESULT_HEIGHT,
-  MIN_VISIBLE_RESULTS
+  WINDOW_WIDTH
 } from './constants/ui'
 
 import buildMenu from './createWindow/buildMenu'

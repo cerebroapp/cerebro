@@ -6,14 +6,23 @@ import KeyboardNavItem from 'main/components/KeyboardNavItem'
 import getSuggestions from '../getSuggestions'
 import styles from './styles.css'
 
+const isStarWars = (query) => {
+  const str = query.toLowerCase()
+  return ['star wars', 'звёздные войны', 'звездные войны'].some(x => str.includes(x))
+}
+
 export default class Preview extends Component {
   static propTypes = {
     query: PropTypes.string.isRequired,
     search: PropTypes.func.isRequired
   }
   renderSuggestions(suggestions, searchFn) {
+    const className = [
+      styles.wrapper,
+      isStarWars(this.props.query) ? styles.starwars : ''
+    ].join(' ')
     return (
-      <div className={styles.wrapper}>
+      <div className={className}>
         <KeyboardNav>
           <ul className={styles.list}>
             {

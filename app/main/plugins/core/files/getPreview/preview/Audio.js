@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './styles.css'
+import styles from './styles/index.css'
 
 const Audio = ({ path }) => (
   <audio src={path} className={styles.previewAudio} controls="true" />

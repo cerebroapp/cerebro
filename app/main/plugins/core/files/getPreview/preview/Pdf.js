@@ -7,7 +7,7 @@ if (typeof window !== 'undefined') {
   require('pdfjs-dist/web/compatibility') // eslint-disable-line global-require
 }
 
-import styles from './styles.css'
+import styles from './styles/index.css'
 
 
 export default class Pdf extends Component {

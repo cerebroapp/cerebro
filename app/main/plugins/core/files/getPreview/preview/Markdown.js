@@ -2,7 +2,7 @@ import React from 'react'
 
 import WithFetchedFile from './WithFetchedFile'
 import ReactMarkdown from 'react-markdown'
-import styles from './styles.css'
+import styles from './styles/index.css'
 
 const Markdown = ({ path }) => (
   <WithFetchedFile path={path}>

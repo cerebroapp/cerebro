@@ -1,6 +1,5 @@
 @import "../../../node_modules/normalize.css/normalize.css";
 @import "../../../node_modules/react-virtualized/styles.css";
-@import "../../../node_modules/highlight.js/styles/github-gist.css";
 @import "../../../node_modules/react-select/dist/react-select.css";
 
 html, body {

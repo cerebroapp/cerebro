@@ -1,7 +1,7 @@
 import React from 'react'
 
 import WithFetchedFile from './WithFetchedFile'
-import styles from './styles.css'
+import styles from './styles/index.css'
 
 const Text = ({ path }) => (
   <WithFetchedFile path={path}>

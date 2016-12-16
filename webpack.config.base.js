@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 // all dependecies from app/package.json will be included in build/node_modules
 const externals = require('./app/package.json').dependencies;
@@ -36,6 +37,7 @@ module.exports = {
     require('postcss-nested'),
   ],
   plugins: [
+    new LodashModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),

@@ -11,9 +11,10 @@
     "hot-server": "node -r babel-register server.js",
     "build-main": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --progress --profile --colors",
     "build-renderer": "cross-env NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.production.js --progress --profile --colors",
+    "bundle-analyze": "cross-env ANALYZE=true NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.production.js --progress --profile --colors && open ./app/dist/stats.html",
     "build": "npm run build-main && npm run build-renderer",
     "start": "cross-env NODE_ENV=production electron ./app",
-    "start-hot": "cd ./app && cross-env HOT=1 NODE_ENV=development ../node_modules/.bin/electron -r babel-register ./main.development",
+    "start-hot": "cross-env HOT=1 NODE_ENV=development ./node_modules/.bin/electron -r babel-register ./app/main.development",
     "package": "npm run build && build --publish never",
     "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
     "postinstall": "concurrently \"cd ./app && npm install\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\""
@@ -131,6 +132,7 @@
     "inject-loader": "2.0.1",
     "jsdom": "9.2.0",
     "json-loader": "0.5.4",
+    "lodash-webpack-plugin": "0.10.6",
     "minimist": "1.2.0",
     "mocha": "2.5.3",
     "mocha-webpack": "0.4.0",
@@ -151,7 +153,8 @@
     "url-loader": "https://registry.npmjs.org/url-loader/-/url-loader-0.5.7.tgz",
     "webpack": "1.13.2",
     "webpack-dev-middleware": "1.6.1",
-    "webpack-hot-middleware": "2.10.0"
+    "webpack-hot-middleware": "2.10.0",
+    "webpack-visualizer-plugin": "0.1.5"
   },
   "dependencies": {
     "cerebro-tools": "0.1.2",

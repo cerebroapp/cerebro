@@ -40,7 +40,7 @@ const openWebPlugin = ({ term, actions, display }) => {
     }
     display(toResult(url, actions.open))
   }
-  const result = matchedUsedUrls(term).map(toResult)
+  const result = matchedUsedUrls(term).map(url => toResult(url, actions.open))
   display(result)
 }
 

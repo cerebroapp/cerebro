@@ -21,11 +21,12 @@ export default memoize(() => {
   ensureFiles()
 
   const files = fs.readdirSync(modulesDirectory)
-  return files.reduce((acc, file) => {
+  console.group('Load external plugins')
+  const plugins = files.reduce((acc, file) => {
     const pluginPath = path.join(modulesDirectory, file)
     const isDir = fs.statSync(pluginPath).isDirectory()
     if (isDir) {
-      console.group('Load plugin', file)
+      console.group(`Plugin: ${file}`)
       try {
         console.log(`Path: ${pluginPath}...`)
         const plugin = window.require(pluginPath)
@@ -47,4 +48,6 @@ export default memoize(() => {
     }
     return acc
   }, {})
+  console.groupEnd()
+  return plugins
 })

@@ -25,13 +25,13 @@ Highlight.propTypes = {
 }
 
 const Code = ({ path }) => {
-  const language = path.match(/\.(.+)$/)[1]
+  const lang = path.match(/\.([^\.]+)$/)[1]
   return (
     <WithFetchedFile path={path}>
       {
         (source) => (
           <div className={styles.previewCode}>
-            <Highlight source={source} lang={language} />
+            <Highlight source={source} lang={lang} />
           </div>
         )
       }

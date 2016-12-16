@@ -3,6 +3,7 @@ import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import baseConfig from './webpack.config.base';
 import OptimizeJsPlugin from 'optimize-js-plugin';
+import Visualizer from 'webpack-visualizer-plugin';
 
 const config = {
   ...baseConfig,
@@ -55,5 +56,9 @@ const config = {
 
   target: 'electron-renderer'
 };
+
+if (process.env.ANALYZE) {
+  config.plugins.push(new Visualizer())
+}
 
 export default config;

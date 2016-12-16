@@ -1,3 +1,5 @@
+@include './prism.css'
+
 .previewIframe {
   align-self: flex-start;
 }

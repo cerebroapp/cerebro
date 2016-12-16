@@ -1,6 +1,6 @@
 import React from 'react'
 import FileDetails from 'main/components/FileDetails'
-import styles from './styles.css'
+import styles from './styles/index.css'
 
 const Image = ({ path }) => (
   <div className={styles.previewImage}>

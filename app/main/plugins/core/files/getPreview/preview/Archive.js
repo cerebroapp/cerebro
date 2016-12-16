@@ -4,7 +4,7 @@ import FileIcon from 'main/components/FileIcon'
 import FileDetails from 'main/components/FileDetails'
 import Loading from 'main/components/Loading'
 import Preload from 'main/components/Preload'
-import styles from './styles.css'
+import styles from './styles/index.css'
 
 const Archive = ({ path }) => {
   const renderer = (list, error) => {

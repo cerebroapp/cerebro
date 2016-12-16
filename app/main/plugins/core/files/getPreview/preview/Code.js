@@ -1,8 +1,28 @@
 import React from 'react'
 
 import WithFetchedFile from './WithFetchedFile'
-import Highlight from 'react-highlight'
-import styles from './styles.css'
+import Prism from 'prismjs'
+import styles from './styles/index.css'
+
+const Highlight = ({ source, lang }) => {
+  const prismLang = Prism.languages[lang] || Prism.languages.markup
+  const innerHtml = {
+    __html: Prism.highlight(source, prismLang)
+  }
+  return (
+    <pre className={`language-${lang}`}>
+      <code
+        className={`language-${lang}`}
+        dangerouslySetInnerHTML={innerHtml}
+      />
+    </pre>
+  )
+}
+
+Highlight.propTypes = {
+  source: React.PropTypes.string.isRequired,
+  lang: React.PropTypes.string,
+}
 
 const Code = ({ path }) => {
   const language = path.match(/\.(.+)$/)[1]
@@ -11,9 +31,7 @@ const Code = ({ path }) => {
       {
         (source) => (
           <div className={styles.previewCode}>
-            <Highlight className={language}>
-              {source}
-            </Highlight>
+            <Highlight source={source} lang={language} />
           </div>
         )
       }

@@ -17,7 +17,7 @@
     "start-hot": "cross-env HOT=1 NODE_ENV=development ./node_modules/.bin/electron -r babel-register ./app/main.development",
     "package": "npm run build && build --publish never",
     "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
-    "postinstall": "concurrently \"cd ./app && npm install\" \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\""
+    "postinstall": "concurrently \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\""
   },
   "build": {
     "productName": "Cerebro",

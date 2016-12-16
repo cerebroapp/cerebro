@@ -52,6 +52,7 @@ const config = {
     new OptimizeJsPlugin({
       sourceMap: false
     }),
+    new webpack.optimize.DedupePlugin()
   ],
 
   target: 'electron-renderer'

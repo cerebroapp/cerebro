@@ -57,14 +57,15 @@ export default (path) => {
      * Install npm package
      *
      * @param  {String} name Name of package in npm registry
-     * @param  {String} version Version of npm package. Default is latest version
+     * @param  {String} @version [version] Version of npm package. Default is latest version
      * @return {Promise}
      */
     install(name, version = null) {
+      let versionToInstall
       return fetch(`${API_BASE}${name}`)
         .then(response => response.json())
         .then(json => {
-          const versionToInstall = version || json['dist-tags'].latest
+          versionToInstall = version || json['dist-tags'].latest
           const tar = json.versions[versionToInstall].dist.tarball
           return fetchTarball(tar)
         })
@@ -80,7 +81,7 @@ export default (path) => {
         })
         .then(() => {
           const json = getConfig()
-          json.dependencies[name] = `^${version}`
+          json.dependencies[name] = `^${versionToInstall}`
           setConfig(json)
         })
     },

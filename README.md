@@ -28,10 +28,12 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 ### Custom plugins
 Use built-in `plugins` command to search and manage custom plugins.
 
-* [cerebro-kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
-* [cerebro-ip](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
-* [cerebro-gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;
-* [cerebro-emoj](https://github.com/KELiON/cerebro-emoj) – search for relevant emoji, like `emoj this is awesome`
+* [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
+* [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
+* [Gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;
+* [Emoj](https://github.com/KELiON/cerebro-emoj) – search for relevant emoji, like `emoj this is awesome`;
+* [IMDB](https://github.com/KELiON/cerebro-imdb) – search for films on imdb.com with rating and details, like `imdb star wars`;
+* [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
 
 ## Development
 ### Create plugin

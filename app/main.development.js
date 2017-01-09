@@ -25,7 +25,7 @@ app.on('ready', () => {
   )
   backgroundWindow = createBackgroundWindow(`file://${__dirname}/background/index.html`)
 
-  app.dock.hide()
+  app.dock && app.dock.hide()
 })
 
 ipcMain.on('message', (event, payload) => {

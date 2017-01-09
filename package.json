@@ -181,7 +181,8 @@
     "react-virtualized": "https://registry.npmjs.org/react-virtualized/-/react-virtualized-7.11.8.tgz",
     "redux": "3.5.2",
     "redux-thunk": "2.1.0",
-    "source-map-support": "0.4.0"
+    "source-map-support": "0.4.0",
+    "universal-analytics": "^0.4.8"
   },
   "devEngines": {
     "node": "6.x",

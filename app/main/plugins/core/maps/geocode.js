@@ -7,5 +7,4 @@ const geocode = (term, userLang) => {
     .then(json => json.results)
 }
 
-
 export default memoize(geocode)

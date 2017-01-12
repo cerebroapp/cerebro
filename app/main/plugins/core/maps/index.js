@@ -2,8 +2,23 @@
 import React from 'react'
 import Preview from './Preview'
 import geocode from './geocode'
+import getPlaces from './getPlaces'
+import getUserLocation from './getUserLocation'
 
 import icon from './icon.png'
+
+const toResultFn = (address, openUrl) => ({ name, geometry, formatted_address, place_id }) => ({
+  icon,
+  id: place_id,
+  title: name,
+  subtitle: formatted_address,
+  term: formatted_address,
+  onSelect: () => {
+    const q = encodeURIComponent(address)
+    openUrl(`https://maps.google.com/?q=${q}`)
+  },
+  getPreview: () => <Preview geometry={geometry} name={formatted_address} />
+})
 
 /**
  * Plugin to search & display google maps
@@ -17,22 +32,20 @@ const fn = ({ term, actions, display, config }) => {
   match = match || term.match(/(.+)\s(?:maps?|карт(?:а|ы))$/i)
   if (!match) return
   const address = match[1]
-  const userLang = config.get('lang')
-  geocode(address, userLang).then(points => {
-    const result = points.map(point => {
-      const { geometry, formatted_address, place_id } = point
-      return {
-        icon,
-        id: place_id,
-        title: formatted_address,
-        term: formatted_address,
-        onSelect: () => {
-          const q = encodeURIComponent(address)
-          actions.open(`https://maps.google.com/?q=${q}`)
-        },
-        getPreview: () => <Preview geometry={geometry} name={formatted_address} />
-      }
+  const lang = config.get('lang')
+  const toResult = toResultFn(address, actions.open)
+  getUserLocation().then(location => (
+    getPlaces({
+      location,
+      lang,
+      keyword: address
     })
+  )).then(points => {
+    const result = points.map(toResult)
+    display(result)
+  })
+  geocode(address, lang).then(points => {
+    const result = points.map(toResult)
     display(result)
   })
 }

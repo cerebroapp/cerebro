@@ -3,12 +3,30 @@ import Preview from './Preview'
 import { memoize, search } from 'cerebro-tools'
 import orderBy from 'lodash/orderBy'
 import getAppsList from './lib/getAppsList'
+import fs from 'fs'
+
+/**
+ * Directories to watch.
+ * Updates in these directories lead to force recache of apps
+ * @type {Array}
+ */
+const WATCH_DIRECTORIES = [
+  '/Applications/',
+]
+
+/**
+ * Options for WATCH_DIRECTORIES fs.watch
+ * @type {Object}
+ */
+const WATCH_OPTIONS = {
+  recursive: true
+}
 
 /**
  * Time for apps list cache
  * @type {Integer}
  */
-const CACHE_TIME = 2 * 60 * 1000
+const CACHE_TIME = 30 * 60 * 1000
 
 /**
  * Cache getAppsList function
@@ -59,9 +77,16 @@ export default {
   initialize: () => {
     // Cache apps cache and force cache reloading in background
     const recache = () => {
+      cachedAppsList.clear()
       cachedAppsList()
-      setTimeout(recache, CACHE_TIME * 0.75)
     }
+    // Force recache before expiration
+    setInterval(recache, CACHE_TIME * 0.95)
     recache()
+
+    // recache apps when apps directories changed
+    WATCH_DIRECTORIES.forEach(dir => {
+      fs.watch(dir, WATCH_OPTIONS, recache)
+    })
   }
 }

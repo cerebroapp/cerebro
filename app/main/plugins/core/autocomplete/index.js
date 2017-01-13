@@ -4,7 +4,7 @@ import plugins from '../../index'
 const getPluginsWithKeyword = memoize(() => (
   Object.keys(plugins)
     .map(name => plugins[name])
-    .filter(plugin => !!plugin.keyword)
+    .filter(plugin => !!plugin && !!plugin.keyword)
 ))
 
 const toString = plugin => plugin.keyword

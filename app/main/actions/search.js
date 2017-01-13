@@ -38,7 +38,7 @@ const eachPlugin = (term, display) => {
   // TODO: order results by frequency?
   Object.keys(plugins).forEach(name => {
     try {
-      plugins[name].fn({
+      plugins[name] && plugins[name].fn({
         ...DEFAULT_SCOPE,
         term,
         hide: (id) => store.dispatch(hideElement(`${name}-${id}`)),

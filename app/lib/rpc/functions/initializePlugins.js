@@ -10,10 +10,16 @@ const initializePlugins = () => {
 
   // Call foreground initializers
   Object.keys(plugins).forEach(name => {
+    if (!plugins[name])
+      return;
     const { initialize } = plugins[name]
     if (initialize) {
       // Sync plugin initialization
-      initialize()
+      try {
+        initialize()
+      } catch (e) {
+        console.error(`Failed to initialize plugin: ${name}`, e);
+      }
     }
   })
 }

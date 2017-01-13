@@ -4,10 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 // all dependecies from app/package.json will be included in build/node_modules
-const externals = Object.keys(require('./app/package.json').dependencies || {});
-if (process.platform !== "darwin") {
-  var index = externals.indexOf("nodobjc");
-}
+const externals = require('./app/package.json').dependencies;
 
 module.exports = {
   module: {
@@ -48,5 +45,5 @@ module.exports = {
       { from: 'app/main/css/themes/*', to: './main/css/themes/[name].[ext]' }
     ])
   ],
-  externals: externals
+  externals: Object.keys(externals || {})
 };

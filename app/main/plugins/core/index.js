@@ -1,7 +1,7 @@
 // Core plugins
 export { default as apps } from './apps'
 export { default as autocomplete } from './autocomplete'
-export { default as contacts } from './contacts'
+export let contacts;
 export { default as converter } from './converter'
 export { default as define } from './define'
 export { default as files } from './files'
@@ -13,3 +13,6 @@ export { default as plugins } from './plugins'
 export { default as settings } from './settings'
 export { default as system } from './system'
 export { default as translate } from './translate'
+
+if (process.platform === "darwin")
+    contacts = require('./contacts').default;

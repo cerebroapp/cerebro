@@ -22,12 +22,12 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 * Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp`;
 * Contacts search;
 * Define in OSx built-in dictionary;
-* System commands: i.e. `sleep`, `lock`, `restart`;
 * Open system directory: `airdrop`, `icloud drive`, `trash`;
 
 ### Custom plugins
 Use built-in `plugins` command to search and manage custom plugins.
 
+* [OSx System](https://github.com/KELiON/cerebro-osx-system) – system commands: i.e. `sleep`, `lock`, `restart`, `empty trash`;
 * [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
 * [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
 * [Gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;

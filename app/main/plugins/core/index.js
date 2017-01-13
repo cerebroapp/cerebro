@@ -19,7 +19,6 @@ if (process.platform === 'darwin') {
   plugins.apps = require('./apps')
   plugins.contacts = require('./contacts')
   plugins.define = require('./define')
-  plugins.system = require('./system')
 }
 
 module.exports = plugins

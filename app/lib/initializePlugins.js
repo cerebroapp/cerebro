@@ -4,8 +4,7 @@ import { send } from 'lib/rpc/events'
 export default () => {
   // Run plugin initializers only when main window is loaded
   Object.keys(plugins).forEach(name => {
-    if (!plugins[name])
-      return;
+    if (!plugins[name]) return
     const { initializeAsync } = plugins[name]
     if (!initializeAsync) return
     initializeAsync(data => {

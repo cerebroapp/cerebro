@@ -38,13 +38,15 @@ const eachPlugin = (term, display) => {
   // TODO: order results by frequency?
   Object.keys(plugins).forEach(name => {
     try {
-      plugins[name] && plugins[name].fn({
-        ...DEFAULT_SCOPE,
-        term,
-        hide: (id) => store.dispatch(hideElement(`${name}-${id}`)),
-        update: (id, result) => store.dispatch(updateElement(`${name}-${id}`, result)),
-        display: (payload) => display(name, payload)
-      })
+      if (plugins[name]) {
+        plugins[name].fn({
+          ...DEFAULT_SCOPE,
+          term,
+          hide: (id) => store.dispatch(hideElement(`${name}-${id}`)),
+          update: (id, result) => store.dispatch(updateElement(`${name}-${id}`, result)),
+          display: (payload) => display(name, payload)
+        })
+      }
     } catch (error) {
       // Do not fail on plugin errors, just log them to console
       console.log('Error running plugin', name, error)

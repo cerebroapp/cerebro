@@ -15,4 +15,4 @@ export { default as system } from './system'
 export { default as translate } from './translate'
 
 if (process.platform === "darwin")
-    contacts = require('./contacts').default;
+    contacts = require('./contacts');

@@ -1,5 +1,5 @@
-import * as core from './core'
-import loadExternalPlugins from './loadExternalPlugins'
+const core = require('./core')
+const loadExternalPlugins = require('./loadExternalPlugins')
 
 export default {
   ...core,

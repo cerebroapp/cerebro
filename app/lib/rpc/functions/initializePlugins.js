@@ -13,7 +13,11 @@ const initializePlugins = () => {
     const { initialize } = plugins[name]
     if (initialize) {
       // Sync plugin initialization
-      initialize()
+      try {
+        initialize()
+      } catch (e) {
+        console.error(`Failed to initialize plugin: ${name}`, e)
+      }
     }
   })
 }

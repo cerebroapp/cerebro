@@ -40,3 +40,6 @@ on('showTerm', (term) => {
 
 // Handle `updateTheme` rpc event and change current theme
 on('updateTheme', changeTheme);
+
+// Handle `reload` rpc event and reload window
+on('reload', () => location.reload())

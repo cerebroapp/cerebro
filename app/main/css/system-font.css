@@ -1,0 +1,57 @@
+/*! system-font.css v1.1.0 | CC0-1.0 License | github.com/jonathantneal/system-font-face */
+
+@font-face {
+  font-family: system;
+  font-style: normal;
+  font-weight: 300;
+  src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Ubuntu Light"), local("Segoe UI Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system;
+  font-style: italic;
+  font-weight: 300;
+  src: local(".SFNSText-LightItalic"), local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"), local("Ubuntu Light Italic"), local("Segoe UI Light Italic"), local("Roboto-LightItalic"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system;
+  font-style: normal;
+  font-weight: 400;
+  src: local(".SFNSText-Regular"), local(".HelveticaNeueDeskInterface-Regular"), local(".LucidaGrandeUI"), local("Ubuntu"), local("Segoe UI"), local("Roboto-Regular"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system;
+  font-style: italic;
+  font-weight: 400;
+  src: local(".SFNSText-Italic"), local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"), local("Ubuntu Italic"), local("Segoe UI Italic"), local("Roboto-Italic"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+  font-family: system;
+  font-style: normal;
+  font-weight: 500;
+  src: local(".SFNSText-Medium"), local(".HelveticaNeueDeskInterface-MediumP4"), local(".LucidaGrandeUI"), local("Ubuntu Medium"), local("Segoe UI Semibold"), local("Roboto-Medium"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+  font-family: system;
+  font-style: italic;
+  font-weight: 500;
+  src: local(".SFNSText-MediumItalic"), local(".HelveticaNeueDeskInterface-MediumItalicP4"), local(".LucidaGrandeUI"), local("Ubuntu Medium Italic"), local("Segoe UI Semibold Italic"), local("Roboto-MediumItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+  font-family: system;
+  font-style: normal;
+  font-weight: 700;
+  src: local(".SFNSText-Bold"), local(".HelveticaNeueDeskInterface-Bold"), local(".LucidaGrandeUI"), local("Ubuntu Bold"), local("Roboto-Bold"), local("DroidSans-Bold"), local("Segoe UI Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+  font-family: system;
+  font-style: italic;
+  font-weight: 700;
+  src: local(".SFNSText-BoldItalic"), local(".HelveticaNeueDeskInterface-BoldItalic"), local(".LucidaGrandeUI"), local("Ubuntu Bold Italic"), local("Roboto-BoldItalic"), local("DroidSans-Bold"), local("Segoe UI Bold Italic"), local("Tahoma Bold");
+}

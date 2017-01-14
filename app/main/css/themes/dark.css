@@ -1,7 +1,7 @@
 :root {
   /* Main fonts and colors */
   --main-background-color: rgba(62, 65, 67, 1);
-  --main-font: "Helvetica Neue";
+  --main-font: system;
   --main-font-color: white;
 
   /* border styles */

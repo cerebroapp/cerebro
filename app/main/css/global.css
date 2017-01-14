@@ -1,3 +1,4 @@
+@import "system-font.css";
 @import "../../../node_modules/normalize.css/normalize.css";
 @import "../../../node_modules/react-virtualized/styles.css";
 @import "../../../node_modules/react-select/dist/react-select.css";

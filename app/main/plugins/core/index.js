@@ -17,7 +17,6 @@ const plugins = {
 if (process.platform === 'darwin') {
   // Add osx-only plugins
   plugins.apps = require('./apps')
-  plugins.contacts = require('./contacts')
 }
 
 module.exports = plugins

@@ -44,22 +44,30 @@ Check out [plugins documentation](./docs/plugins.md).
 First, clone the repo via git:
 
 ```bash
-git clone https://github.com/KELiON/cerebro.git your-project-name
+git clone https://github.com/KELiON/cerebro.git cerebro
 ```
 
 And then install dependencies.
 
 ```bash
-$ cd your-project-name && npm install
+$ cd cerebro && npm install && cd ./app && npm install && cd ../
 ```
-
 
 ### Run
 ```bash
 $ npm run dev
 ```
 
-*Note: requires a node version >= 6 and an npm version >= 3.*
+> Note: requires a node version 6.* and an npm version 3.*
+
+### Resolve common issues
+1. `AssertionError: Current node version is not supported for development` on npm postinstall.
+After `npm install` postinstall script checks node & npm to match required versions. If you see this error you have to check node and npm version in `package.json` `devEngines` section and install proper ones.
+
+2. `Uncaught Error: Module version mismatch. Exepcted 50, got ...`
+This error means that node modules with native extensions build with wrong node version (your local node version != node version, included to electron). To fix this issue run `cd ./app && npm run rebuild`
+
+
 
 ### Package
 Use this command to build `.app` file:

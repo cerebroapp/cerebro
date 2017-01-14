@@ -1,10 +1,11 @@
+import { remote } from 'electron'
 import getPreview from './getPreview'
 import { readDir } from 'lib/rpc/functions'
 import { search } from 'cerebro-tools'
 
 const DIR_REGEXP = /^\/(.*\/)*(.*)/
 const HOME_DIR_REGEXP = /^~/
-const USER_PATH = `/Users/${process.env.USER}`
+const USER_PATH = remote.app.getPath('home')
 
 /**
  * Do not show some files in results, i.e. system files

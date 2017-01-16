@@ -18,7 +18,8 @@ This plugin will write to console all changes in your search field of Cerebro ap
   * `open` – `Function(path: String)`, open external URL in browser or open local file;
   * `reveal` – `Function(path: String)`, reveal file in finder;
   * `copyToClipboard` – `Function(text: String)`, copy text to clipboard;
-  * `replaceTerm` – `Function(text: String)`, replace text in main Cerebro input.
+  * `replaceTerm` – `Function(text: String)`, replace text in main Cerebro input;
+  * `hideWindow` – `Function()`, hide main Cerebro window.
 
 
 Let's show something in results list:

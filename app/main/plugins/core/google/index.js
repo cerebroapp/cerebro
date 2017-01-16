@@ -21,6 +21,7 @@ const googlePlugin = ({ term, actions, display }) => {
   const search = (searchTerm) => {
     const q = encodeURIComponent(searchTerm)
     actions.open(`https://google.com/?q=${q}#newwindow=1&q=${q}`)
+    actions.hideWindow()
   }
 
   display({

@@ -1,6 +1,6 @@
 import plugins from '../plugins/'
 import config from 'lib/config'
-import { shell, clipboard } from 'electron'
+import { shell, clipboard, remote } from 'electron'
 import store from '../store'
 
 import {
@@ -26,6 +26,7 @@ const DEFAULT_SCOPE = {
     reveal: (q) => shell.showItemInFolder(q),
     copyToClipboard: (q) => clipboard.writeText(q),
     replaceTerm: (term) => store.dispatch(updateTerm(term)),
+    hideWindow: () => remote.getCurrentWindow().hide()
   }
 }
 

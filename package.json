@@ -24,6 +24,16 @@
     "homepage": "https://cerebroapp.com",
     "appId": "com.cerebroapp.Cerebro",
     "category": "public.app-category.productivity",
+    "linux": {
+      "arch": [
+        "ia32",
+        "x64"
+      ],
+      "target": [
+        "deb",
+        "AppImage"
+      ]
+    },
     "dmg": {
       "contents": [
         {

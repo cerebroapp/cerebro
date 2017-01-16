@@ -4,8 +4,7 @@ import distance from './distance'
 import mass from './mass'
 import currency from './currency'
 import temperature from './temperature'
-
-const icon = '/Applications/Calculator.app'
+import icon from './icon.png'
 
 // Array of all available converters
 const CONVERTERS = [

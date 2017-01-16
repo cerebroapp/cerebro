@@ -1,6 +1,7 @@
 import React from 'react'
 import { search } from 'cerebro-tools'
 import Settings from './Settings'
+import icon from './icon.png'
 
 // Settings plugin name
 const NAME = 'Cerebro Settings'
@@ -25,7 +26,7 @@ const settingsPlugin = ({ term, display, config }) => {
   if (found) {
     const results = [{
       order,
-      icon: '/Applications/Cerebro.app',
+      icon,
       title: NAME,
       term: NAME,
       getPreview: () => (

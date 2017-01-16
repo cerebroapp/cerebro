@@ -5,7 +5,6 @@ describe('Math plugin', () => {
   it('callback called with correct object', (done) => {
     const term = '5 + 6'
     const display = (result) => {
-      assert(result.icon === '/Applications/Calculator.app')
       assert(result.clipboard === '11')
       assert(result.title === '= 11')
       assert(result.term === '5 + 6 = 11')

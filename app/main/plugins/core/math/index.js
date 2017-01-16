@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Preview from './Preview'
+import icon from './icon.png'
 
 const MATH_REGEXP = /^[-+/*\d\s,\.\( )]+$/
 
@@ -19,16 +20,16 @@ const mathPlugin = ({ term, display }) => {
       if (Number.isNaN(result)) {
         // When user tries to devide 0 by 0
         display({
+          icon,
           title: '= indeterminate',
-          icon: '/Applications/Calculator.app',
           getPreview: () => <Preview />
         })
         return
       }
       result = result.toLocaleString()
       display({
+        icon,
         title: `= ${result}`,
-        icon: '/Applications/Calculator.app',
         term: `${term} = ${result}`,
         clipboard: result,
       })

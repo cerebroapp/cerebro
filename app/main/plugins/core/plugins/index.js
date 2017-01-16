@@ -3,9 +3,7 @@ import Preview from './Preview'
 import { search, memoize } from 'cerebro-tools'
 import availablePlugins from './getAvailablePlugins'
 import installedPlugins from './getInstalledPlugins'
-
-// Show cerebro icon for plugins result
-const icon = '/Applications/Cerebro.app'
+import icon from './icon.png'
 
 const getAvailablePlugins = memoize(availablePlugins)
 const getInstalledPlugins = memoize(() => (

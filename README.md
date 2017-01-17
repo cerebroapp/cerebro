@@ -6,7 +6,7 @@
 ![Cerebro](https://cloud.githubusercontent.com/assets/594298/20180624/858a483a-a75b-11e6-94a1-ef1edc4d95c3.gif)
 
 ## Usage
-Your can download .dmg for the latest version on  [releases](https://github.com/KELiON/cerebro/releases) page.
+Your can download the latest version on  [releases](https://github.com/KELiON/cerebro/releases) page.
 
 After installation use default shortcut `ctrl+space` to show an app window. You can customize this shortcut clicking on icon in menu bar → preferences.
 

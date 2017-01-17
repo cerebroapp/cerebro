@@ -42,12 +42,21 @@ export default (url, trayIconSrc) => {
     mainWindow.focus()
   }
 
+  let devMenu
+  if (isDev) {
+    devMenu = [{
+      label: 'Show Developer Tools',
+      click: () => mainWindow.webContents.openDevTools()
+    }]
+  }
+
   const tray = new AppTray({
     src: trayIconSrc,
     onToggleWindow: toggleMainWindow,
     onShowSettings: () => showWindowWithTerm(mainWindow, 'settings'),
     onListPlugins: () => showWindowWithTerm(mainWindow, 'plugins'),
-    onQuit: () => app.quit()
+    onQuit: () => app.quit(),
+    template: devMenu
   })
 
   // Setup event listeners for main window

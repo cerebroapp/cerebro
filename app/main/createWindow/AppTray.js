@@ -9,6 +9,7 @@ export default class AppTray {
    * @param  {Function} options.onToggleWindow Handle toggle main window
    * @param  {Function} options.onShowSettings Handle show settings
    * @param  {Function} options.onQuit  Handle quit from application
+   * @param  {Array} options.template Another menu template to include
    * @return {AppTray}
    */
   constructor(options) {
@@ -23,7 +24,8 @@ export default class AppTray {
       onToggleWindow, onShowSettings, onListPlugins, onQuit, src
     } = this.options
     const tray = new Tray(src)
-    const contextMenu = Menu.buildFromTemplate([
+
+    let template = [
       {
         label: 'Toggle Cerebro',
         click: onToggleWindow
@@ -43,7 +45,14 @@ export default class AppTray {
         label: 'Quit Cerebro',
         click: onQuit
       }
-    ])
+    ]
+
+    if (this.options.template) {
+      template.push({ type: 'separator' })
+      template = template.concat(this.options.template)
+    }
+
+    const contextMenu = Menu.buildFromTemplate(template)
     tray.setToolTip('Cerebro')
     tray.setContextMenu(contextMenu)
     this.tray = tray

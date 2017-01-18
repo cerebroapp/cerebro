@@ -22,6 +22,8 @@ app.on('ready', () => {
     `file://${__dirname}/main/index.html`,
     // Fullpath for menu bar icon
     `${__dirname}/tray_iconTemplate@2x.png`
+    // Function to open background window dev tools
+    () => backgroundWindow.webContents.openDevTools()
   )
   backgroundWindow = createBackgroundWindow(`file://${__dirname}/background/index.html`)
 

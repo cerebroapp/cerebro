@@ -14,7 +14,7 @@ import showWindowWithTerm from './createWindow/showWindowWithTerm'
 import handleUrl from './createWindow/handleUrl'
 import config from '../lib/config'
 
-export default (url, trayIconSrc) => {
+export default (url, trayIconSrc, showBackgroundDevTools) => {
   const mainWindow = new BrowserWindow({
     alwaysOnTop: true,
     width: WINDOW_WIDTH,
@@ -45,8 +45,17 @@ export default (url, trayIconSrc) => {
   let devMenu
   if (isDev) {
     devMenu = [{
-      label: 'Show Developer Tools',
-      click: () => mainWindow.webContents.openDevTools()
+      label: 'Development',
+      submenu: [{
+        label: 'DevTools (main)',
+        click: () => mainWindow.webContents.openDevTools()
+      }, {
+        label: 'DevTools (background)',
+        click: showBackgroundDevTools
+      }, {
+        label: 'Reload',
+        click: () => mainWindow.reload()
+      }]
     }]
   }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { search } from 'cerebro-tools'
 import Settings from './Settings'
-import icon from './icon.png'
+import icon from '../icon.png'
 
 // Settings plugin name
 const NAME = 'Cerebro Settings'
@@ -21,7 +21,7 @@ const KEYWORDS = [
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const settingsPlugin = ({ term, display, config }) => {
+const settingsPlugin = ({ term, display, config, actions }) => {
   const found = search(KEYWORDS, term).length > 0
   if (found) {
     const results = [{
@@ -34,7 +34,11 @@ const settingsPlugin = ({ term, display, config }) => {
           set={(key, value) => config.set(key, value)}
           get={(key) => config.get(key)}
         />
-      )
+      ),
+      onSelect: (event) => {
+        event.preventDefault()
+        actions.replaceTerm(NAME)
+      }
     }]
     display(results)
   }
@@ -42,6 +46,5 @@ const settingsPlugin = ({ term, display, config }) => {
 
 export default {
   name: NAME,
-  keyword: 'settings',
   fn: settingsPlugin
 }

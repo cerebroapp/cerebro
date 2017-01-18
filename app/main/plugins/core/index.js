@@ -2,15 +2,13 @@
 
 // Core plugins
 const plugins = {
-  autocomplete: require('./autocomplete'),
+  ...require('./cerebro'),
   converter: require('./converter'),
   files: require('./files'),
   google: require('./google'),
   maps: require('./maps'),
   math: require('./math'),
   openWeb: require('./openWeb'),
-  plugins: require('./plugins'),
-  settings: require('./settings'),
   translate: require('./translate')
 }
 

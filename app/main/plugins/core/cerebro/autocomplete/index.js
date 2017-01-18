@@ -1,5 +1,5 @@
 import { search, memoize } from 'cerebro-tools'
-import plugins from '../../index'
+import plugins from '../../../index'
 
 const getPluginsWithKeyword = memoize(() => (
   Object.keys(plugins)

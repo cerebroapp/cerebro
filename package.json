@@ -24,6 +24,11 @@
     "homepage": "https://cerebroapp.com",
     "appId": "com.cerebroapp.Cerebro",
     "category": "public.app-category.productivity",
+    "protocols" : {
+      "name": "Cerebro URLs",
+      "role": "Viewer",
+      "schemes": ["cerebro"]
+    },
     "linux": {
       "arch": [
         "ia32",
@@ -49,6 +54,13 @@
         }
       ]
     },
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "include": "build/installer.nsh",
+      "perMachine": true
+    },
     "files": [
       "dist/",
       "main/index.html",
@@ -67,7 +79,6 @@
   },
   "directories": {
     "app": "./app",
-    "buildResources": "resources",
     "output": "release"
   },
   "bin": {

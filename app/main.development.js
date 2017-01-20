@@ -21,7 +21,7 @@ app.on('ready', () => {
     // Main window html
     `file://${__dirname}/main/index.html`,
     // Fullpath for menu bar icon
-    `${__dirname}/tray_icon@2x.png`
+    `${__dirname}/tray_iconTemplate@2x.png`
   )
   backgroundWindow = createBackgroundWindow(`file://${__dirname}/background/index.html`)
 

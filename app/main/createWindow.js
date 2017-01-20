@@ -11,6 +11,7 @@ import buildMenu from './createWindow/buildMenu'
 import AppTray from './createWindow/AppTray'
 import toggleWindow from './createWindow/toggleWindow'
 import showWindowWithTerm from './createWindow/showWindowWithTerm'
+import handleUrl from './createWindow/handleUrl'
 import config from '../lib/config'
 
 export default (url, trayIconSrc) => {
@@ -83,7 +84,8 @@ export default (url, trayIconSrc) => {
   })
 
   // Show main window when user opens application, but it is already opened
-  app.on('open-file', showMainWindow)
+  app.on('open-file', (event, path) => handleUrl(mainWindow, path))
+  app.on('open-url', (event, path) => handleUrl(mainWindow, path))
   app.on('activate', showMainWindow)
 
   // Track app start event

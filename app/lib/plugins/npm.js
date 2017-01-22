@@ -9,17 +9,7 @@ import targz from 'tar.gz'
  * @return {Promise}
  */
 const removeDir = (dir) => new Promise((resolve, reject) => {
-  rmdir(dir, err => err ? reject() : resolve())
-})
-
-/**
- * Promise-wrapper for tar.Extract
- * @param  {String} tarPath
- * @param  {String} dest
- * @return {Promise}
- */
-const untar = (tarPath, dest) => new Promise((resolve, reject) => {
-  targz().extract(tarPath, dest, err => err ? reject() : resolve())
+  rmdir(dir, err => err ? reject(err) : resolve())
 })
 
 /**
@@ -53,10 +43,20 @@ const unarchiveTarball = (tarPath, packagePath) => {
     removeDir(packagePath) :
     Promise.resolve()
   return prepare.then(() => {
+    console.group('Unarchive', tarPath)
+    console.log('Create temp directory', packagePath)
     fs.mkdirSync(packagePath)
-    return untar(tarPath, packagePath)
+    console.log(`Unarchive ${tarPath} to ${packagePath}`)
+    return targz().extract(tarPath, packagePath)
       .then(() => removeDir(tarPath))
-      .then(() => packagePath)
+      .then(() => {
+        console.groupEnd()
+        return packagePath
+      })
+      .catch(err => {
+        console.log('Error', err)
+        console.groupEnd()
+      })
   })
 }
 
@@ -83,27 +83,42 @@ export default (dir) => {
      */
     install(name, version = null) {
       let versionToInstall
+      console.group('[npm] Install package', name)
       return fetch(`${API_BASE}${name}`)
         .then(response => response.json())
         .then(json => {
           versionToInstall = version || json['dist-tags'].latest
+          console.log('Version:', versionToInstall)
           const tar = json.versions[versionToInstall].dist.tarball
+          console.log('Found tgz:', tar)
           return fetchTarball(tar)
         })
         .then(body => {
           const tarPath = path.join(dir, `${name}.tgz`)
           const tmpPath = path.join(dir, `${name}-tmp`)
+          console.log('Save tgz to', tarPath)
           fs.writeFileSync(tarPath, body)
           return unarchiveTarball(tarPath, tmpPath)
         })
-        .then((tmpPath) => {
-          fs.renameSync(path.join(tmpPath, 'package'), path.join(dir, 'node_modules', name))
+        .then(tmpPath => {
+          const oldName = path.join(tmpPath, 'package')
+          const newName = path.join(dir, 'node_modules', name)
+          console.log(`Rename ${oldName} -> ${newName}`)
+          fs.renameSync(oldName, newName)
+          console.log('Remove', tmpPath)
           return removeDir(tmpPath)
         })
         .then(() => {
           const json = getConfig()
           json.dependencies[name] = `^${versionToInstall}`
+          console.log('Add package to dependencies')
           setConfig(json)
+          console.groupEnd()
+        })
+        .catch(err => {
+          console.log('Error in package installation');
+          console.log(err)
+          console.groupEnd()
         })
     },
     /**
@@ -114,9 +129,12 @@ export default (dir) => {
      */
     uninstall(name) {
       const modulePath = path.join(dir, 'node_modules', name)
+      console.group('[npm] Uninstall package', name)
+      console.log('Remove package directory ', modulePath);
       return removeDir(modulePath)
         .then(() => {
           const json = getConfig()
+          console.log('Update package.json');
           json.dependencies = Object
             .keys(json.dependencies || {})
             .reduce((acc, key) => {
@@ -128,8 +146,15 @@ export default (dir) => {
               }
               return acc
             }, {})
+          console.log('Rewrite package.json');
           setConfig(json)
+          console.groupEnd()
           return true
+        })
+        .catch(err => {
+          console.log('Error in package uninstallation');
+          console.log(err)
+          console.groupEnd()
         })
     }
   }

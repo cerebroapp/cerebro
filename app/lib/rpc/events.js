@@ -11,7 +11,7 @@ const CHANNEL = 'message'
 
 // Start listening for rpc channel
 ipcRenderer.on(CHANNEL, (_, { message, payload }) => {
-  console.log(`emit ${message}`)
+  console.log(`[rpc] emit ${message}`)
   emitter.emit(message, payload)
 })
 
@@ -21,7 +21,7 @@ ipcRenderer.on(CHANNEL, (_, { message, payload }) => {
  * @param  {<any>} payload
  */
 export const send = (message, payload) => {
-  console.log(`send ${message}`)
+  console.log(`[rpc] send ${message}`)
   ipcRenderer.send(CHANNEL, {
     message,
     payload

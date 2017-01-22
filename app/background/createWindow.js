@@ -1,9 +1,9 @@
 import { BrowserWindow } from 'electron'
 
-export default (url) => {
+export default ({ src }) => {
   const backgroundWindow = new BrowserWindow({
     show: false,
   })
-  backgroundWindow.loadURL(url)
+  backgroundWindow.loadURL(src)
   return backgroundWindow
 }

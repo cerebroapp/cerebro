@@ -56,7 +56,7 @@ const set = (key, value) => {
     ...JSON.parse(fs.readFileSync(CONFIG_FILE).toString())
   }
   config[key] = value
-  fs.writeFile(CONFIG_FILE, JSON.stringify(config))
+  fs.writeFileSync(CONFIG_FILE, JSON.stringify(config))
   // Track settings changes
   trackEvent({
     category: 'Settings',

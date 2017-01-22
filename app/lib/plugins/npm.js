@@ -116,7 +116,7 @@ export default (dir) => {
           console.groupEnd()
         })
         .catch(err => {
-          console.log('Error in package installation');
+          console.log('Error in package installation')
           console.log(err)
           console.groupEnd()
         })
@@ -130,11 +130,11 @@ export default (dir) => {
     uninstall(name) {
       const modulePath = path.join(dir, 'node_modules', name)
       console.group('[npm] Uninstall package', name)
-      console.log('Remove package directory ', modulePath);
+      console.log('Remove package directory ', modulePath)
       return removeDir(modulePath)
         .then(() => {
           const json = getConfig()
-          console.log('Update package.json');
+          console.log('Update package.json')
           json.dependencies = Object
             .keys(json.dependencies || {})
             .reduce((acc, key) => {
@@ -146,13 +146,13 @@ export default (dir) => {
               }
               return acc
             }, {})
-          console.log('Rewrite package.json');
+          console.log('Rewrite package.json')
           setConfig(json)
           console.groupEnd()
           return true
         })
         .catch(err => {
-          console.log('Error in package uninstallation');
+          console.log('Error in package uninstallation')
           console.log(err)
           console.groupEnd()
         })

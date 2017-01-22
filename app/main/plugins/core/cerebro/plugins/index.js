@@ -4,13 +4,16 @@ import { search, memoize } from 'cerebro-tools'
 import availablePlugins from './getAvailablePlugins'
 import installedPlugins from './getInstalledPlugins'
 import icon from '../icon.png'
+import semver from 'semver'
 
 const getAvailablePlugins = memoize(availablePlugins)
-const getInstalledPlugins = memoize(() => (
-  installedPlugins().then(plugins => Object.keys(plugins))
-))
+const getInstalledPlugins = memoize(installedPlugins)
 
 const toString = ({ name, description }) => [name, description].join(' ')
+
+const parseVersion = (version) => (
+  semver.valid((version || '').replace(/^\^/, '')) || '0.0.0'
+)
 
 const fn = ({ term, display, hide, actions }) => {
   const match = term.match(/^plugins?\s*(.+)?$/i)
@@ -26,14 +29,28 @@ const fn = ({ term, display, hide, actions }) => {
       getInstalledPlugins()
     ]).then(plugins => {
       const [available, installed] = plugins
-      let results = search(available, pluginSearch, toString)
-      results = results.map(plugin => ({
-        icon,
-        title: `${plugin.name} (${plugin.version})`,
-        subtitle: plugin.description,
-        onSelect: () => actions.open(plugin.repo),
-        getPreview: () => <Preview {...plugin} installed={installed.includes(plugin.name)} />
-      }))
+      const results = search(available, pluginSearch, toString).map(plugin => {
+        const installedVersion = parseVersion(installed[plugin.name])
+        const isInstalled = !!installed[plugin.name]
+        const isUpdateAvailable = isInstalled && semver.gt(plugin.version, installedVersion)
+        const displayVersion = isUpdateAvailable ?
+          `${installedVersion} → ${plugin.version}` :
+          plugin.version
+        return {
+          icon,
+          title: `${plugin.name} (${displayVersion})`,
+          subtitle: plugin.description,
+          onSelect: () => actions.open(plugin.repo),
+          getPreview: () => (
+            <Preview
+              {...plugin}
+              installedVersion={installedVersion}
+              isInstalled={isInstalled}
+              isUpdateAvailable={isUpdateAvailable}
+            />
+          )
+        }
+      })
       hide('loading')
       display(results)
     })

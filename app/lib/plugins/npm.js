@@ -110,7 +110,7 @@ export default (dir) => {
         })
         .then(() => {
           const json = getConfig()
-          json.dependencies[name] = `^${versionToInstall}`
+          json.dependencies[name] = versionToInstall
           console.log('Add package to dependencies')
           setConfig(json)
           console.groupEnd()
@@ -120,6 +120,9 @@ export default (dir) => {
           console.log(err)
           console.groupEnd()
         })
+    },
+    update(name) {
+      return this.uninstall(name).then(this.install(name))
     },
     /**
      * Uninstall npm package

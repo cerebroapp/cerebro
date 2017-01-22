@@ -23,7 +23,9 @@ export default class Preview extends Component {
     version: PropTypes.string.isRequired,
     description: PropTypes.string,
     repo: PropTypes.string,
-    installed: PropTypes.bool.isRequired,
+    installedVersion: PropTypes.string,
+    isInstalled: PropTypes.bool.isRequired,
+    isUpdateAvailable: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -75,7 +77,9 @@ export default class Preview extends Component {
       version,
       description,
       repo,
-      installed
+      isInstalled,
+      installedVersion,
+      isUpdateAvailable
     } = this.props
     const match = repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
     return (
@@ -85,7 +89,7 @@ export default class Preview extends Component {
         <KeyboardNav>
           <div className={styles.header}>
             {
-              !installed &&
+              !isInstalled &&
                 <ActionButton
                   action={this.pluginAction(name, 'install')}
                   text="Install"
@@ -93,11 +97,19 @@ export default class Preview extends Component {
                 />
             }
             {
-              installed &&
+              isInstalled &&
                 <ActionButton
                   action={this.pluginAction(name, 'uninstall')}
                   text="Uninstall"
                   loadingText="Uninstalling"
+                />
+            }
+            {
+              isUpdateAvailable &&
+                <ActionButton
+                  action={this.pluginAction(name, 'update')}
+                  text={`Update (${installedVersion} → ${version})`}
+                  loadingText="Updating"
                 />
             }
             {

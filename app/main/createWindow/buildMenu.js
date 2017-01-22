@@ -1,6 +1,6 @@
 import { Menu, shell, app } from 'electron'
 
-export default (mainWindow, showDevOptions = false) => {
+export default (mainWindow) => {
   const template = [{
     label: 'Electron',
     submenu: [{
@@ -64,25 +64,7 @@ export default (mainWindow, showDevOptions = false) => {
     }]
   }, {
     label: 'View',
-    submenu: (showDevOptions) ? [{
-      label: 'Reload',
-      accelerator: 'Ctrl+R',
-      click() {
-        mainWindow.webContents.reload()
-      }
-    }, {
-      label: 'Toggle Full Screen',
-      accelerator: 'Ctrl+Command+F',
-      click() {
-        mainWindow.setFullScreen(!mainWindow.isFullScreen())
-      }
-    }, {
-      label: 'Toggle Developer Tools',
-      accelerator: 'Alt+Command+I',
-      click() {
-        mainWindow.toggleDevTools()
-      }
-    }] : [{
+    submenu: [{
       label: 'Toggle Full Screen',
       accelerator: 'Ctrl+Command+F',
       click() {

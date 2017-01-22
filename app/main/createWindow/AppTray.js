@@ -1,4 +1,6 @@
-import { Menu, Tray } from 'electron'
+import { Menu, Tray, app } from 'electron'
+import showWindowWithTerm from './showWindowWithTerm'
+import toggleWindow from './toggleWindow'
 
 /**
  * Class that controls state of icon in menu bar
@@ -6,10 +8,9 @@ import { Menu, Tray } from 'electron'
 export default class AppTray {
   /**
    * @param  {String} options.src Absolute path for tray icon
-   * @param  {Function} options.onToggleWindow Handle toggle main window
-   * @param  {Function} options.onShowSettings Handle show settings
-   * @param  {Function} options.onQuit  Handle quit from application
-   * @param  {Array} options.template Another menu template to include
+   * @param  {Function} options.isDev Development mode or not
+   * @param  {BrowserWindow} options.mainWindow
+   * @param  {BrowserWindow} options.backgroundWindow
    * @return {AppTray}
    */
   constructor(options) {
@@ -20,42 +21,63 @@ export default class AppTray {
    * Show application icon in menu bar
    */
   show() {
-    const {
-      onToggleWindow, onShowSettings, onListPlugins, onQuit, src
-    } = this.options
-    const tray = new Tray(src)
+    const tray = new Tray(this.options.src)
+    tray.setToolTip('Cerebro')
+    tray.setContextMenu(this.buildMenu())
+    this.tray = tray
+  }
+  setIsDev(isDev) {
+    this.options.isDev = isDev
+    this.tray.setContextMenu(this.buildMenu())
+  }
+  buildMenu() {
+    const { mainWindow, backgroundWindow, isDev } = this.options
+    const separator = { type: 'separator' }
 
-    let template = [
+    const template = [
       {
         label: 'Toggle Cerebro',
-        click: onToggleWindow
+        click: () => toggleWindow(mainWindow)
       },
-      { type: 'separator' },
+      separator,
       {
         label: 'Plugins',
-        click: onListPlugins
+        click: () => showWindowWithTerm(mainWindow, 'plugins'),
       },
-      { type: 'separator' },
+      separator,
       {
         label: 'Preferences...',
-        click: onShowSettings
-      },
-      { type: 'separator' },
-      {
-        label: 'Quit Cerebro',
-        click: onQuit
+        click: () => showWindowWithTerm(mainWindow, 'settings'),
       }
     ]
 
-    if (this.options.template) {
-      template.push({ type: 'separator' })
-      template = template.concat(this.options.template)
+    if (isDev) {
+      template.push(separator)
+      template.push({
+        label: 'Development',
+        submenu: [{
+          label: 'DevTools (main)',
+          click: () => mainWindow.webContents.openDevTools()
+        }, {
+          label: 'DevTools (background)',
+          click: () => backgroundWindow.webContents.openDevTools()
+        }, {
+          label: 'Reload',
+          click: () => {
+            mainWindow.reload()
+            backgroundWindow.reload()
+            backgroundWindow.hide()
+          }
+        }]
+      })
     }
 
-    const contextMenu = Menu.buildFromTemplate(template)
-    tray.setToolTip('Cerebro')
-    tray.setContextMenu(contextMenu)
-    this.tray = tray
+    template.push(separator)
+    template.push({
+      label: 'Quit Cerebro',
+      click: () => app.quit()
+    })
+    return Menu.buildFromTemplate(template)
   }
   /**
    * Hide icon in menu bar

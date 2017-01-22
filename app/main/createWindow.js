@@ -8,13 +8,11 @@ import {
 } from './constants/ui'
 
 import buildMenu from './createWindow/buildMenu'
-import AppTray from './createWindow/AppTray'
 import toggleWindow from './createWindow/toggleWindow'
-import showWindowWithTerm from './createWindow/showWindowWithTerm'
 import handleUrl from './createWindow/handleUrl'
 import config from '../lib/config'
 
-export default (url, trayIconSrc, showBackgroundDevTools) => {
+export default ({ src, isDev }) => {
   const mainWindow = new BrowserWindow({
     alwaysOnTop: true,
     width: WINDOW_WIDTH,
@@ -26,13 +24,11 @@ export default (url, trayIconSrc, showBackgroundDevTools) => {
     show: config.get('firstStart')
   })
 
-  mainWindow.loadURL(url)
+  mainWindow.loadURL(src)
   mainWindow.settingsChanges = new EventEmitter()
 
   // Get global shortcut from app settings
   let shortcut = config.get('hotkey')
-
-  const isDev = process.env.NODE_ENV === 'development' || config.get('developerMode')
 
   // Function to toggle main window
   const toggleMainWindow = () => toggleWindow(mainWindow)
@@ -42,44 +38,16 @@ export default (url, trayIconSrc, showBackgroundDevTools) => {
     mainWindow.focus()
   }
 
-  let devMenu
-  if (isDev) {
-    devMenu = [{
-      label: 'Development',
-      submenu: [{
-        label: 'DevTools (main)',
-        click: () => mainWindow.webContents.openDevTools()
-      }, {
-        label: 'DevTools (background)',
-        click: showBackgroundDevTools
-      }, {
-        label: 'Reload',
-        click: () => mainWindow.reload()
-      }]
-    }]
-  }
-
-  const tray = new AppTray({
-    src: trayIconSrc,
-    onToggleWindow: toggleMainWindow,
-    onShowSettings: () => showWindowWithTerm(mainWindow, 'settings'),
-    onListPlugins: () => showWindowWithTerm(mainWindow, 'plugins'),
-    onQuit: () => app.quit(),
-    template: devMenu
-  })
-
   // Setup event listeners for main window
   globalShortcut.register(shortcut, toggleMainWindow)
-  if (!isDev) {
-    // Hide window on blur in production
-    // In development we usually use developer tools that can blur a window
-    mainWindow.on('blur', () => mainWindow.hide())
-  }
 
-  // Show tray icon if it is set in configuration
-  if (config.get('showInTray')) {
-    tray.show()
-  }
+  mainWindow.on('blur', () => {
+    if (!isDev()) {
+      // Hide window on blur in production
+      // In development we usually use developer tools that can blur a window
+      mainWindow.hide()
+    }
+  })
 
   // Change global hotkey if it is changed in app settings
   mainWindow.settingsChanges.on('hotkey', (value) => {
@@ -87,11 +55,6 @@ export default (url, trayIconSrc, showBackgroundDevTools) => {
     shortcut = value
     globalShortcut.register(shortcut, toggleMainWindow)
   })
-
-  // Show or hide menu bar icon when it is changed in setting
-  mainWindow.settingsChanges.on('showInTray', (value) => (
-    value ? tray.show() : tray.hide()
-  ))
 
   // Change theme css file
   mainWindow.settingsChanges.on('theme', (value) => {
@@ -115,6 +78,6 @@ export default (url, trayIconSrc, showBackgroundDevTools) => {
   // Save in config information, that application has been started
   config.set('firstStart', false)
 
-  buildMenu(mainWindow, isDev)
+  buildMenu(mainWindow)
   return mainWindow
 }

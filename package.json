@@ -16,6 +16,7 @@
     "start": "cross-env NODE_ENV=production electron ./app",
     "start-hot": "cross-env HOT=1 NODE_ENV=development ./node_modules/.bin/electron -r babel-register ./app/main.development",
     "package": "npm run build && build --publish never",
+    "release": "build -mwl --draft",
     "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
     "postinstall": "concurrently \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\""
   },
@@ -24,10 +25,16 @@
     "homepage": "https://cerebroapp.com",
     "appId": "com.cerebroapp.Cerebro",
     "category": "public.app-category.productivity",
-    "protocols" : {
+    "protocols": {
       "name": "Cerebro URLs",
       "role": "Viewer",
-      "schemes": ["cerebro"]
+      "schemes": [
+        "cerebro"
+      ]
+    },
+    "directories": {
+      "app": "./app",
+      "output": "release"
     },
     "linux": {
       "arch": [
@@ -75,11 +82,14 @@
       "!**/node_modules/.bin",
       "!**/*.{o,hprof,orig,pyc,pyo,rbc}",
       "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.editorconfig,.flowconfig,.yarn-metadata.json,.idea,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}"
-    ]
-  },
-  "directories": {
-    "app": "./app",
-    "output": "release"
+    ],
+    "squirrelWindows": {
+      "iconUrl": "https://raw.githubusercontent.com/KELiON/cerebro/master/build/icon.ico"
+    },
+    "publish": {
+      "provider": "github",
+      "vPrefixedTagName": false
+    }
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
@@ -136,7 +146,7 @@
     "css-loader": "0.23.1",
     "del": "2.2.0",
     "devtron": "1.2.0",
-    "electron-builder": "10.8.1",
+    "electron-builder": "11.5.1",
     "electron-prebuilt": "1.4.12",
     "electron-rebuild": "1.4.0",
     "eslint": "2.10.2",

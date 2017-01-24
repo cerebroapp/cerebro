@@ -24,6 +24,14 @@ const defaultSettings = memoize(() => {
   }
 })
 
+const readConfig = () => {
+  try {
+    return JSON.parse(fs.readFileSync(CONFIG_FILE).toString())
+  } catch (err) {
+    return defaultSettings()
+  }
+}
+
 /**
  * Get a value from global configuration
  * @param  {String} key
@@ -36,7 +44,7 @@ const get = (key) => {
     config = defaultSettings()
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(config))
   } else {
-    config = JSON.parse(fs.readFileSync(CONFIG_FILE).toString())
+    config = readConfig()
   }
   return config[key]
 }
@@ -53,7 +61,7 @@ const set = (key, value) => {
     // If after app update some keys were added to config
     // we use default values for that keys
     ...defaultSettings(),
-    ...JSON.parse(fs.readFileSync(CONFIG_FILE).toString())
+    ...readConfig()
   }
   config[key] = value
   fs.writeFileSync(CONFIG_FILE, JSON.stringify(config))

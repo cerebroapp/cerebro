@@ -1,6 +1,7 @@
 import { Menu, Tray, app } from 'electron'
 import showWindowWithTerm from './showWindowWithTerm'
 import toggleWindow from './toggleWindow'
+import checkForUpdates from './checkForUpdates'
 
 /**
  * Class that controls state of icon in menu bar
@@ -44,10 +45,14 @@ export default class AppTray {
         label: 'Plugins',
         click: () => showWindowWithTerm(mainWindow, 'plugins'),
       },
-      separator,
       {
         label: 'Preferences...',
         click: () => showWindowWithTerm(mainWindow, 'settings'),
+      },
+      separator,
+      {
+        label: 'Check for updates',
+        click: () => checkForUpdates(),
       }
     ]
 

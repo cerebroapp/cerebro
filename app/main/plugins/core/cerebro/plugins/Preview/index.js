@@ -81,7 +81,7 @@ export default class Preview extends Component {
       installedVersion,
       isUpdateAvailable
     } = this.props
-    const match = repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
+    const match = repo && repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
     return (
       <div className={styles.preview} key={name}>
         <h2>{name} ({version})</h2>

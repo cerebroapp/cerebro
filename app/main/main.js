@@ -38,6 +38,13 @@ on('showTerm', (term) => {
   store.dispatch(updateTerm(term));
 });
 
+on('update-downloaded', (payload) => {
+  new Notification('Cerebro: update is ready to install', {
+    body: 'New version is downloaded and will be automatically installed on quit'
+  })
+});
+
+
 // Handle `updateTheme` rpc event and change current theme
 on('updateTheme', changeTheme);
 

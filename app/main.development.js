@@ -4,6 +4,7 @@ import createMainWindow from './main/createWindow'
 import createBackgroundWindow from './background/createWindow'
 import config from './lib/config'
 import AppTray from './main/createWindow/AppTray'
+import AppUpdater from './AppUpdater'
 
 const trayIconSrc = `${__dirname}/tray_iconTemplate@2x.png`
 const isDev = () => (
@@ -12,6 +13,7 @@ const isDev = () => (
 let mainWindow
 let backgroundWindow
 let tray
+let appUpdater
 
 if (process.env.NODE_ENV !== 'development') {
   // Set up crash reporter before creating windows in production builds
@@ -38,13 +40,15 @@ app.on('ready', () => {
     src: trayIconSrc,
     isDev: isDev(),
     mainWindow,
-    backgroundWindow
+    backgroundWindow,
   })
 
   // Show tray icon if it is set in configuration
   if (config.get('showInTray')) {
     tray.show()
   }
+
+  appUpdater = new AppUpdater(mainWindow)
 
   app.dock && app.dock.hide()
 })

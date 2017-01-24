@@ -1,10 +1,27 @@
+sudo: required
+dist: trusty
+
+language: node_js
+
+matrix:
+  include:
+    - os: linux
+      node_js: 6
+      env: CC=clang CXX=clang++ npm_config_clang=1
+      compiler: clang
+
+addons:
+  apt:
+    packages:
+      - libgnome-keyring-dev
+      - libicns
+      - graphicsmagick
+      - xz-utils
+      - rpm
+      - bsdtar
+
 before_install:
   - npm install -g npm@3.10.8
-
-sudo: false
-language: node_js
-node_js:
-  - "6"
 
 cache:
   directories:
@@ -30,4 +47,4 @@ before_script:
 script:
 - npm run lint
 - npm run test
-- npm run build
+- npm run package

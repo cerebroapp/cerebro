@@ -15,7 +15,7 @@ export default class MainInput extends Component {
   render() {
     return (
       <input
-        placeholder="Search..."
+        placeholder="Cerebro Search"
         type="text"
         id="main-input"
         ref="input"

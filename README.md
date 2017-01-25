@@ -1,15 +1,16 @@
 # Cerebro
 
+<img src="./build/icons/128x128.png" align="right"/>
+
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][david_img]][david_site]
-
-![Cerebro](https://cloud.githubusercontent.com/assets/594298/20180624/858a483a-a75b-11e6-94a1-ef1edc4d95c3.gif)
 
 ## Usage
 Your can download the latest version on  [releases](https://github.com/KELiON/cerebro/releases) page.
 
 After installation use default shortcut `ctrl+space` to show an app window. You can customize this shortcut clicking on icon in menu bar → preferences.
 
+![Cerebro](https://cloud.githubusercontent.com/assets/594298/20180624/858a483a-a75b-11e6-94a1-ef1edc4d95c3.gif)
 
 ## Plugins
 ### Core plugins
@@ -28,11 +29,12 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [OSx Contacts](https://github.com/KELiON/cerebro-osx-contacts) – search in contacts.app;
 
 #### Plugins for all platforms
-* [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
-* [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
 * [Gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;
 * [Emoj](https://github.com/KELiON/cerebro-emoj) – search for relevant emoji, like `emoj this is awesome`;
 * [IMDB](https://github.com/KELiON/cerebro-imdb) – search for films on imdb.com with rating and details, like `imdb star wars`;
+* [Caniuse](https://github.com/KELiON/cerebro-caniuse) – quick access to [caniuse.com](http://caniuse.com) database;
+* [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
+* [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
 * [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
 
 ## Development

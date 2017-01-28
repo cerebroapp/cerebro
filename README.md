@@ -36,6 +36,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
 * [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
 * [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
+* [Google Knowledge Graph](https://github.com/Kageetai/cerebro-gkg) – Get info from the [Google Knowledge Graph](https://www.google.com/intl/bn/insidesearch/features/search/knowledge.html) for your query;
 
 ## Development
 ### Create plugin

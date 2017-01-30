@@ -53,10 +53,12 @@ const appsPlugin = ({ term, actions, display }) => {
     ).map(file => {
       const { path, name } = file
       return {
+        id: path,
         title: name,
         term: name,
         icon: path,
         subtitle: path,
+        clipboard: path,
         onKeyDown: (event) => {
           if (event.metaKey && event.keyCode === 82) {
             // Show application in Finder by cmd+R shortcut

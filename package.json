@@ -188,7 +188,7 @@
     "webpack-visualizer-plugin": "0.1.5"
   },
   "dependencies": {
-    "cerebro-tools": "0.1.7",
+    "cerebro-tools": "0.1.8",
     "co": "4.6.0",
     "du": "0.1.0",
     "escape-string-regexp": "1.0.5",

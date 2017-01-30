@@ -26,8 +26,13 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-# OSX
+# Folder view configuration files
 .DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
 
 # App packaged
 dist
@@ -36,3 +41,6 @@ release
 /app/main.js.map
 
 .tmp/
+
+# IDEs
+.idea

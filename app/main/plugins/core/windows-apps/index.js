@@ -1,4 +1,6 @@
-import { memoize, search } from 'cerebro-tools'
+import React from 'react'
+import Preview from './Preview'
+import { search } from 'cerebro-tools'
 import uniq from 'lodash/uniq'
 import initializeAsync from './initializeAsync'
 import { shell } from 'electron'
@@ -24,6 +26,7 @@ const fn = ({ term, actions, display }) => {
         }
       },
       onSelect: () => shell.openItem(path),
+      getPreview: () => <Preview name={name} path={path} />
     }
   })
   display(result)

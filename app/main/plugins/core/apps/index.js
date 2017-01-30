@@ -53,6 +53,7 @@ const appsPlugin = ({ term, actions, display }) => {
     ).map(file => {
       const { path, name } = file
       return {
+        id: path,
         title: name,
         term: name,
         icon: path,

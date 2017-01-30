@@ -32,4 +32,13 @@ describe('OSx apps plugin', () => {
     }
     apps.fn({ term, display })
   })
+
+  it('result includes clipboard key with full path', (done) => {
+    const term = 'App'
+    const display = (results) => {
+      assert(results[0].clipboard === appsList[0].path)
+      done()
+    }
+    apps.fn({ term, display })
+  })
 })

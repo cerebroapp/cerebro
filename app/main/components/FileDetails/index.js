@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react'
 
 import bytesToSize from './bytesToSize'
 import styles from './styles.css'
+import nodePath from 'path'
 
 import { getFileSize, getFileDetails } from 'lib/rpc/functions'
 
@@ -27,7 +28,7 @@ export default class FileDetails extends Component {
     const { path, skipSize, skipName } = this.props
     const { details, size } = this.state
     const { ctime, mtime, atime } = details
-    const name = path.match(/.*\/([^\/]+)$/i)[1]
+    const name = nodePath.basename(path)
     return (
       <div className={styles.fileDetails}>
         {!skipName && <h3 className={styles.fileName}>{name}</h3>}

@@ -2,6 +2,7 @@ import { remote } from 'electron'
 import path from 'path'
 import fs from 'fs'
 import uniq from 'lodash/uniq'
+import { shellCommand } from 'cerebro-tools'
 
 let appDirs = [
   path.join(remote.app.getPath('home'), '.local', 'share')
@@ -22,6 +23,8 @@ export const DIRECTORIES = uniq([
 ]).filter(dir => fs.existsSync(dir))
 
 export const EXTENSIONS = ['desktop']
+
+export const openApp = (app) => shellCommand(app.exec)
 
 const parseDesktopFile = (filePath, mapping) => {
   const content = fs.readFileSync(filePath, 'utf-8')

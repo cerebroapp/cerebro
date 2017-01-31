@@ -3,15 +3,18 @@ import Preview from './Preview'
 import { search } from 'cerebro-tools'
 import uniq from 'lodash/uniq'
 import initializeAsync from './initializeAsync'
-import { shell } from 'electron'
+
+const { openApp } = process.platform === 'win32'
+  ? require('./windows')
+  : require('./linux')
 
 let appsList = []
 
 const toString = (app) => `${app.name} ${app.filename}`
 
 const fn = ({ term, actions, display }) => {
-  const result = search(appsList, term, toString).map(file => {
-    const { path, name, description } = file
+  const result = search(appsList, term, toString).map(app => {
+    const { path, name, description } = app
     return {
       id: path,
       title: name,
@@ -25,7 +28,7 @@ const fn = ({ term, actions, display }) => {
           event.preventDefault()
         }
       },
-      onSelect: () => shell.openItem(path),
+      onSelect: () => openApp(app),
       getPreview: () => <Preview name={name} path={path} />
     }
   })

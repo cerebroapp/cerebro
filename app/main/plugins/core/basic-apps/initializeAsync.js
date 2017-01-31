@@ -36,7 +36,7 @@ export default (callback) => {
   })
 
   const searchApps = () => getAppsList().then(apps => {
-    const json = JSON.stringify(process.env.NODE_ENV)
+    const json = JSON.stringify(apps)
     fs.writeFile(CACHE_FILE, json, cacheOptions)
     callback(apps)
   })

@@ -6,11 +6,11 @@ import { shellCommand } from 'cerebro-tools'
 
 let appDirs = [
   path.join(remote.app.getPath('home'), '.local', 'share'),
-  path.join('usr', 'share'),
-  path.join('usr', 'share', 'ubuntu'),
-  path.join('usr', 'share', 'gnome'),
-  path.join('usr', 'local', 'share'),
-  path.join('var', 'lib', 'snapd', 'desktop')
+  path.join('/usr', 'share'),
+  path.join('/usr', 'share', 'ubuntu'),
+  path.join('/usr', 'share', 'gnome'),
+  path.join('/usr', 'local', 'share'),
+  path.join('/var', 'lib', 'snapd', 'desktop')
 ]
 
 if (!!process.env.XDG_DATA_DIRS) {

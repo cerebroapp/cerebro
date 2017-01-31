@@ -5,7 +5,12 @@ import uniq from 'lodash/uniq'
 import { shellCommand } from 'cerebro-tools'
 
 let appDirs = [
-  path.join(remote.app.getPath('home'), '.local', 'share')
+  path.join(remote.app.getPath('home'), '.local', 'share'),
+  path.join('usr', 'share'),
+  path.join('usr', 'share', 'ubuntu'),
+  path.join('usr', 'share', 'gnome'),
+  path.join('usr', 'local', 'share'),
+  path.join('var', 'lib', 'snapd', 'desktop')
 ]
 
 if (!!process.env.XDG_DATA_DIRS) {
@@ -42,6 +47,13 @@ const parseDesktopFile = (filePath, mapping) => {
   }, {})
 }
 
+const getId = (filePath) => {
+  const match = filePath.match(/\/applications\/(.+)$/)
+  return match ? match[1] : filePath
+}
+
+export const toString = (app) => app.name
+
 export const formatPath = (filePath) => {
   const parsedData = parseDesktopFile(filePath, {
     name: 'Name',
@@ -52,6 +64,7 @@ export const formatPath = (filePath) => {
   return {
     ...parsedData,
     filename,
+    id: getId(filePath),
     name: parsedData.name || filename.replace(/\.(desktop)/, ''),
     path: filePath
   }

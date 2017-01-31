@@ -27,6 +27,8 @@ export const EXTENSIONS = ['lnk', 'exe']
 
 export const openApp = (appPath) => shell.openItem(appPath)
 
+export const toString = (app) => `${app.name} ${app.filename}`
+
 export const formatPath = (filePath) => ({
   ...parseFile(filePath),
   filename: path.basename(filePath),

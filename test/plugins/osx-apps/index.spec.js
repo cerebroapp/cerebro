@@ -1,4 +1,4 @@
-import appsInjector from 'inject!../../../app/main/plugins/core/apps'
+import appsInjector from 'inject!../../../app/main/plugins/core/osx-apps'
 import assert from 'assert'
 import uniq from 'lodash/uniq'
 

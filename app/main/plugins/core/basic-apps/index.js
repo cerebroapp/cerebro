@@ -11,12 +11,12 @@ const toString = (app) => `${app.name} ${app.filename}`
 
 const fn = ({ term, actions, display }) => {
   const result = search(appsList, term, toString).map(file => {
-    const { path, name } = file
+    const { path, name, description } = file
     return {
       id: path,
       title: name,
       term: name,
-      subtitle: path,
+      subtitle: description || path,
       clipboard: path,
       onKeyDown: (event) => {
         if (event.ctrlKey && event.keyCode === 82) {

@@ -13,13 +13,9 @@ const plugins = {
 }
 
 if (process.platform === 'darwin') {
-  // Add osx-only plugins
-  plugins.apps = require('./apps')
-}
-
-if (process.platform === 'win32') {
-  // Add windows-only plugins
-  plugins.apps = require('./windows-apps')
+  plugins.apps = require('./osx-apps')
+} else {
+  plugins.apps = require('./basic-apps')
 }
 
 module.exports = plugins

@@ -17,8 +17,7 @@
     "start-hot": "cross-env HOT=1 NODE_ENV=development ./node_modules/.bin/electron -r babel-register ./app/main.development",
     "package": "npm run build && build --publish never",
     "release": "build -mwl --draft",
-    "dev": "concurrently --kill-others \"npm run hot-server\" \"npm run start-hot\"",
-    "postinstall": "concurrently \"node node_modules/fbjs-scripts/node/check-dev-engines.js package.json\""
+    "dev": "concurrently --kill-others \"yarn run hot-server\" \"yarn run start-hot\""
   },
   "build": {
     "productName": "Cerebro",

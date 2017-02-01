@@ -1,11 +1,11 @@
 :root {
   /* Main fonts and colors */
-  --main-background-color: rgba(255, 255, 255, .85);
-  --main-font: system;
+  --main-background-color: rgba(0, 0, 0, 0);
+  --main-font: system, -apple-system, BlinkMacSystemFont;
   --main-font-color: #000000;
 
   /* border styles */
-  --main-border: 1px solid #eee;
+  --main-border: 1px solid rgba(0, 0, 0, 0);
 
   /* Secondary fonts and colors */
   --secondary-font-color: #999;

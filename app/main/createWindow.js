@@ -4,13 +4,23 @@ import trackEvent from '../lib/trackEvent'
 
 import {
   INPUT_HEIGHT,
-  WINDOW_WIDTH
+  WINDOW_WIDTH,
+  THEME
 } from './constants/ui'
 
 import buildMenu from './createWindow/buildMenu'
 import toggleWindow from './createWindow/toggleWindow'
 import handleUrl from './createWindow/handleUrl'
 import config from '../lib/config'
+
+const themeMode = (src) => {
+  let mode = 'light'
+
+  if (src.indexOf('dark') >= 0) {
+    mode = 'ultra-dark'
+  }
+  return mode
+}
 
 export default ({ src, isDev }) => {
   const mainWindow = new BrowserWindow({
@@ -20,6 +30,7 @@ export default ({ src, isDev }) => {
     height: INPUT_HEIGHT,
     frame: false,
     resizable: false,
+    vibrancy: THEME,
     // Show main window on launch only when application started for the first time
     show: config.get('firstStart')
   })
@@ -41,6 +52,9 @@ export default ({ src, isDev }) => {
   // Setup event listeners for main window
   globalShortcut.register(shortcut, toggleMainWindow)
 
+  // Set the theme vibrancy from config
+  mainWindow.setVibrancy(themeMode(config.get('theme')))
+
   mainWindow.on('blur', () => {
     if (!isDev()) {
       // Hide window on blur in production
@@ -58,6 +72,7 @@ export default ({ src, isDev }) => {
 
   // Change theme css file
   mainWindow.settingsChanges.on('theme', (value) => {
+    mainWindow.setVibrancy(themeMode(value))
     mainWindow.webContents.send('message', {
       message: 'updateTheme',
       payload: value

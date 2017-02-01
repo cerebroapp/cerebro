@@ -1,16 +1,17 @@
 .input {
   width: 100%;
-  height: 45px;
+  height: 55px;
   background-color: var(--main-background-color);
   color: var(--main-font-color);
   font-size: 1.5em;
   border: 0;
   outline: none;
-  padding: 0 10px;
-  line-height: 60px;
+  padding: 0 15px;
+  line-height: 70px;
   box-sizing: border-box;
   background: transparent;
   white-space: nowrap;
+  letter-spacing: -1px;
   -webkit-app-region: drag;
   -webkit-user-select: none;
 }

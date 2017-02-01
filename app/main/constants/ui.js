@@ -1,8 +1,8 @@
 // Height of main input
-export const INPUT_HEIGHT = 45
+export const INPUT_HEIGHT = 55
 
 // Heigth of default result line
-export const RESULT_HEIGHT = 45
+export const RESULT_HEIGHT = 55
 
 // Heigth of default result line
 export const RESULT_WIDTH = 250
@@ -15,3 +15,6 @@ export const MAX_RESULTS = 25
 
 // Results view shows this count of resutls without scrollbar
 export const MIN_VISIBLE_RESULTS = 10
+
+// Default theme color
+export const THEME = 'light'

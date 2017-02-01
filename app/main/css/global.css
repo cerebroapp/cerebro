@@ -15,6 +15,7 @@ body {
   height: 100vh;
   font-family: var(--main-font);
   overflow-y: hidden;
+  font-weight: 300;
 }
 
 #root {

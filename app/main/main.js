@@ -16,6 +16,7 @@ import config from '../lib/config';
  * @param  {String} src Absolute path to new theme css file
  */
 const changeTheme = (src) => {
+  console.log("changeTheme")
   document.getElementById('cerebro-theme').href = src;
 };
 

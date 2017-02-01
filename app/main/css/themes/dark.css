@@ -1,22 +1,22 @@
 :root {
   /* Main fonts and colors */
-  --main-background-color: rgba(62, 65, 67, 1);
-  --main-font: system;
-  --main-font-color: white;
+  --main-background-color: rgba(0, 0, 0, 0);
+  --main-font: system, -apple-system, BlinkMacSystemFont;
+  --main-font-color: rgba(255, 255, 255, 0.95);
 
   /* border styles */
-  --main-border: 1px solid #686869;
+  --main-border: 1px solid rgba(255, 255, 255, 0.1);
 
   /* Secondary fonts and colors */
-  --secondary-font-color: #9B9D9F;
+  --secondary-font-color: rgba(255, 255, 255, 0.35);
 
   /* results list */
   --result-background: transparent;
   --result-title-color: var(--main-font-color);
-  --result-subtitle-color: #cccccc;
+  --result-subtitle-color: rgba(255, 255, 255, 0.85);
 
   /* selected result */
-  --selected-result-title-color: white;
+  --selected-result-title-color: rgba(255, 255, 255, 0.95);
   --selected-result-subtitle-color: var(--result-subtitle-color);
   --selected-result-background: #1972D6;
 

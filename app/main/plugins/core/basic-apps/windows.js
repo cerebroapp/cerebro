@@ -31,6 +31,8 @@ export const toString = (app) => `${app.name} ${app.filename}`
 
 export const formatPath = (filePath) => ({
   ...parseFile(filePath),
+  // TODO: check if file is hidden or not
+  hidden: false,
   filename: path.basename(filePath),
   name: path.basename(filePath).replace(/\.(exe|lnk)/, ''),
 })

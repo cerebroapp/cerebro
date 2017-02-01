@@ -23,7 +23,7 @@ const getAppsList = () => {
     })
   ))
   return Promise.all(promises).then(apps => (
-    uniq(flatten(apps)).map(formatPath)
+    uniq(flatten(apps)).map(formatPath).filter(app => !app.hidden)
   ))
 }
 

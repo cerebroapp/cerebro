@@ -2,28 +2,28 @@
   /* Main fonts and colors */
   --main-background-color: rgba(0, 0, 0, 0);
   --main-font: system, -apple-system, BlinkMacSystemFont;
-  --main-font-color: #000000;
+  --main-font-color: rgba(0, 0, 0, 0.95);
 
   /* border styles */
-  --main-border: 1px solid rgba(0, 0, 0, 0);
+  --main-border: 1px solid rgba(0, 0, 0, 0.1);
 
   /* Secondary fonts and colors */
-  --secondary-font-color: #999;
+  --secondary-font-color: rgba(0, 0, 0, 0.45);
 
   /* results list */
   --result-background: transparent;
   --result-title-color: var(--main-font-color);
-  --result-subtitle-color: #cccccc;
+  --result-subtitle-color: rgba(0, 0, 0, 0.85);
 
   /* selected result */
-  --selected-result-title-color: white;
+  --selected-result-title-color: rgba(0, 0, 0, 0.95);
   --selected-result-subtitle-color: var(--result-subtitle-color);
   --selected-result-background: rgba(18, 110, 219, 1);
 
   /* inputs */
-  --preview-input-background: white;
+  --preview-input-background: #fff;
   --preview-input-color: var(--main-font-color);
-  --preview-input-border: 1px solid #ccc;
+  --preview-input-border: 0;
 
   /* filter for previews */
   --preview-filter: none;

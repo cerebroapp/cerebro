@@ -21,12 +21,28 @@ if (!!process.env.XDG_DATA_DIRS) {
   ]
 }
 
-appDirs = appDirs.map(dir => path.join(dir, 'applications'))
+// Icon resolutions in priority of checking
+const iconResolutions = [
+  '128x128',
+  '96x96',
+  '64x64',
+  '256x256',
+  '512x512'
+]
+
+// Directories when we are trying to find an icon
+const iconDirs = uniq(flatten([
+  ...iconResolutions.map(resolution => (
+    appDirs.map(dir => path.join(dir, 'icons', 'hicolor', resolution, 'apps'))
+  )),
+  path.join('/usr', 'share', 'pixmaps'),
+  path.join('/usr', 'share', 'app-install', 'icons')
+])).filter(fs.existsSync)
 
 export const DIRECTORIES = uniq([
-  ...appDirs,
+  ...appDirs.map(dir => path.join(dir, 'applications')),
   path.join('usr', 'share', 'app-install', 'desktop')
-]).filter(dir => fs.existsSync(dir))
+]).filter(fs.existsSync)
 
 export const EXTENSIONS = ['desktop']
 
@@ -60,6 +76,13 @@ const getId = (filePath) => {
   return match ? match[1] : filePath
 }
 
+const findIcon = (icon) => {
+  if (path.isAbsolute(icon)) {
+    return icon
+  }
+  return iconDirs.map(dir => path.join(dir, `${icon}.png`)).find(fs.existsSync)
+}
+
 export const toString = (app) => app.name
 
 export const formatPath = (filePath) => {
@@ -75,7 +98,7 @@ export const formatPath = (filePath) => {
     ...parsedData,
     filename,
     icon: findIcon(parsedData.icon),
-    hidden: !!parsedData.hidden,
+    hidden: !!parsedData.hidden || !parsedData.exec,
     id: getId(filePath),
     name: parsedData.name || filename.replace(/\.(desktop)/, ''),
     path: filePath

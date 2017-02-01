@@ -12,8 +12,9 @@ let appsList = []
 
 const fn = ({ term, actions, display }) => {
   const result = search(appsList, term, toString).map(app => {
-    const { id, path, name, description } = app
+    const { id, path, name, description, icon } = app
     return {
+      icon,
       id: id || path,
       title: name,
       term: name,
@@ -27,7 +28,7 @@ const fn = ({ term, actions, display }) => {
         }
       },
       onSelect: () => openApp(app),
-      getPreview: () => <Preview name={name} path={path} />
+      getPreview: () => <Preview name={name} path={path} icon={icon} />
     }
   })
   display(result)

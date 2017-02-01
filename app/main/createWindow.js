@@ -1,4 +1,4 @@
-import { BrowserWindow, globalShortcut, app } from 'electron'
+import { BrowserWindow, globalShortcut, app, shell } from 'electron'
 import EventEmitter from 'events'
 import trackEvent from '../lib/trackEvent'
 
@@ -47,6 +47,16 @@ export default ({ src, isDev }) => {
       // In development we usually use developer tools that can blur a window
       mainWindow.hide()
     }
+  })
+
+  mainWindow.webContents.on('new-window', (event, url) => {
+    shell.openExternal(url)
+    event.preventDefault()
+  })
+
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    shell.openExternal(url)
+    event.preventDefault()
   })
 
   // Change global hotkey if it is changed in app settings

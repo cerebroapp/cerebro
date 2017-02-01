@@ -215,7 +215,6 @@
     "source-map-support": "0.4.0"
   },
   "devEngines": {
-    "node": "6.x",
-    "npm": "3.x"
+    "node": ">=6.x"
   }
 }

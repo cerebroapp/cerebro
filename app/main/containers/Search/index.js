@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { clipboard, remote } from 'electron'
+import { clipboard, remote, screen } from 'electron'
 import MainInput from '../../components/MainInput'
 import ResultsList from '../../components/ResultsList'
 import styles from './styles.css'
@@ -109,6 +109,7 @@ class Search extends Component {
     // NOTE: when page refreshed (location.reload) componentWillUnmount is not called
     window.addEventListener('beforeunload', this.cleanup)
     this.electronWindow.on('show', this.focusMainInput)
+    this.electronWindow.on('show', this.updateElectronWindow)
     this.electronWindow.on('show', trackShowWindow)
   }
   componentDidMount() {
@@ -292,24 +293,33 @@ class Search extends Component {
   /**
    * Set resizable and size for main electron window when results count is changed
    */
+  @bind()
   @debounce(16)
   updateElectronWindow() {
     const { results, visibleResults } = this.props
     const { length } = results
     const win = this.electronWindow
     const [width] = win.getSize()
+    const display = screen.getPrimaryDisplay()
+
     // When results list is empty window is not resizable
     win.setResizable(length !== 0)
+
+    let height = INPUT_HEIGHT
     if (length === 0) {
-      win.setMinimumSize(WINDOW_WIDTH, INPUT_HEIGHT)
-      win.setSize(width, INPUT_HEIGHT)
-      return
+      win.setMinimumSize(WINDOW_WIDTH, height)
+      win.setSize(width, height)
+    } else {
+      const minHeight = INPUT_HEIGHT + RESULT_HEIGHT * MIN_VISIBLE_RESULTS
+      const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
+      height = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
+      win.setMinimumSize(WINDOW_WIDTH, minHeight)
+      win.setSize(width, height)
     }
-    const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
-    const height = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
-    const minHeight = INPUT_HEIGHT + RESULT_HEIGHT * MIN_VISIBLE_RESULTS
-    win.setMinimumSize(WINDOW_WIDTH, minHeight)
-    win.setSize(width, height)
+
+    const x = parseInt(display.bounds.x + (display.workAreaSize.width - width) / 2, 10)
+    const y = parseInt(display.bounds.y + (display.workAreaSize.height - height) / 2, 10)
+    this.electronWindow.setPosition(x, y)
   }
 
   autocompleteValue() {

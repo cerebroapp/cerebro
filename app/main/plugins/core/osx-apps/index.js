@@ -3,6 +3,7 @@ import Preview from './Preview'
 import { memoize, search } from 'cerebro-tools'
 import orderBy from 'lodash/orderBy'
 import getAppsList from './lib/getAppsList'
+import getAbbr from 'lib/getAbbr'
 import fs from 'fs'
 
 /**
@@ -39,7 +40,9 @@ const cachedAppsList = memoize(getAppsList, {
   preFetch: true
 })
 
-const toString = (app) => `${app.name} ${app.filename}`
+const toString = (app) => (
+  `${app.name} ${app.filename.replace(/\.app$/, '')} ${getAbbr(app.name)}`
+)
 
 const appsPlugin = ({ term, actions, display }) => {
   cachedAppsList().then(items => {

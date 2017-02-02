@@ -55,8 +55,10 @@ export default ({ src, isDev }) => {
   })
 
   mainWindow.webContents.on('will-navigate', (event, url) => {
-    shell.openExternal(url)
-    event.preventDefault()
+    if (url !== mainWindow.webContents.getURL()) {
+      shell.openExternal(url)
+      event.preventDefault()
+    }
   })
 
   // Change global hotkey if it is changed in app settings

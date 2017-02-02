@@ -164,7 +164,7 @@ class Search extends Component {
     if (event.defaultPrevented) {
       return
     }
-    if (event.metaKey) {
+    if (event.metaKey || event.ctrlKey) {
       if (event.keyCode === 8) {
         // Clean search term on cmd+backspace
         this.props.actions.reset()

@@ -97,11 +97,11 @@ Type: `Function`
 
 Arguments: `event: Event`
 
-Handle keyboard events when your result is focused, so you can do custom actions, i.e. reveal file in finder by <kbd>cmd+r</kbd>:
+Handle keyboard events when your result is focused, so you can do custom actions, i.e. reveal file in finder by <kbd>cmd+r</kbd> (or <kbd>ctrl+r</kbd> on windows and linux):
 
 ```js
 onKeyDown: (event) => {
-  if (event.metaKey && event.keyCode === 82) {
+  if ((event.metaKey || event.ctrlKey) && event.keyCode === 82) {
     actions.reveal(path);
     event.preventDefault();
   }

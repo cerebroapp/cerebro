@@ -65,15 +65,19 @@ const KEYCODES = {
   123: 'F12',
 }
 
+const osKeyDelimiter = process.platform === 'darwin' ? '' : '+'
 
-const keyToSign = (key) => (
-  key.replace(/control/i, '⌃')
-    .replace(/alt/i, '⌥')
-    .replace(/shift/i, '⇧')
-    .replace(/command/i, '⌘')
-    .replace(/enter/i, '↩')
-    .replace(/backspace/i, '⌫')
-)
+const keyToSign = (key) => {
+  if (process.platform === 'darwin') {
+    return key.replace(/control/i, '⌃')
+      .replace(/alt/i, '⌥')
+      .replace(/shift/i, '⇧')
+      .replace(/command/i, '⌘')
+      .replace(/enter/i, '↩')
+      .replace(/backspace/i, '⌫')
+  }
+  return key
+}
 
 const charCodeToSign = ({ keyCode, shiftKey }) => {
   const code = ASCII[keyCode] ? ASCII[keyCode] : keyCode
@@ -122,7 +126,7 @@ export default class Hotkey extends Component {
   }
   render() {
     const { hotkey } = this.props
-    const keys = hotkey.split('+').map(keyToSign).join('')
+    const keys = hotkey.split('+').map(keyToSign).join(osKeyDelimiter)
     return (
       <div className={styles.hotkey}>
         <input

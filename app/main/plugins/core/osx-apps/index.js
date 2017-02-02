@@ -60,7 +60,7 @@ const appsPlugin = ({ term, actions, display }) => {
         subtitle: path,
         clipboard: path,
         onKeyDown: (event) => {
-          if (event.metaKey && event.keyCode === 82) {
+          if ((event.metaKey || event.ctrlKey) && event.keyCode === 82) {
             // Show application in Finder by cmd+R shortcut
             actions.reveal(path)
             event.preventDefault()

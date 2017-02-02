@@ -3,6 +3,7 @@ import path from 'path'
 import fs from 'fs'
 import uniq from 'lodash/uniq'
 import flatten from 'lodash/flatten'
+import getAbbr from 'lib/getAbbr'
 import { shellCommand } from 'cerebro-tools'
 
 let appDirs = [
@@ -102,7 +103,7 @@ const findIcon = (icon) => {
   )).find(fs.existsSync)
 }
 
-export const toString = (app) => app.name
+export const toString = ({ name }) => `${name} ${getAbbr(name)}`
 
 export const formatPath = (filePath) => {
   const parsedData = parseDesktopFile(filePath, {

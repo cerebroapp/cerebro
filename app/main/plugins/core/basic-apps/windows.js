@@ -1,4 +1,5 @@
 import path from 'path'
+import getAbbr from 'lib/getAbbr'
 import { shell } from 'electron'
 
 const { APPDATA, ProgramData, USERPROFILE } = process.env
@@ -27,7 +28,7 @@ export const EXTENSIONS = ['lnk', 'exe']
 
 export const openApp = (appPath) => shell.openItem(appPath)
 
-export const toString = (app) => `${app.name} ${app.filename}`
+export const toString = (app) => `${app.name} ${app.filename} ${getAbbr(app.name)}`
 
 export const formatPath = (filePath) => ({
   ...parseFile(filePath),

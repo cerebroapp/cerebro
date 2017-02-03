@@ -29,6 +29,89 @@ export const SYNONIMS = {
 
   'fra*': 'fr',
   'фра*': 'fr',
+
+  'голлан*': 'nl',
+  'dutc*': 'nl',
+
+  'pers*': 'fa',
+  'перс*': 'fa',
+
+  'укра*': 'uk',
+  'ukra*': 'uk',
+
+  'catal*': 'ca',
+  'катал*': 'ca',
+
+  'chin*': 'zh',
+  'кита*': 'zh',
+
+  'arab*': 'ar',
+  'араб*': 'ar',
+
+  'belarus*': 'be',
+  'белорус*': 'be',
+
+  'hungar*': 'hu',
+  'венгер*': 'hu',
+
+  'viet*': 'vi',
+  'вьет*': 'vi',
+
+  'дастк*': 'da',
+
+  'hebr*': 'he',
+  'иври*': 'he',
+
+  'идиш*': 'yi',
+  'yidd*': 'yi',
+
+  'indones*': 'id',
+  'индонез*': 'id',
+
+  'ирлан*': 'ga',
+
+  'icela*': 'is',
+  'ислан*': 'is',
+
+  'казах*': 'kz',
+  'киргиз*': 'ky',
+
+  'корей*': 'ko',
+  'korea*': 'ko',
+
+  'latv*': 'lv',
+  'латв*': 'lv',
+
+  'lith*': 'lt',
+  'литов*': 'lt',
+
+  'norw*': 'no',
+  'норв*': 'no',
+
+  'польск*': 'pl',
+
+  'portug*': 'pt',
+  'португ*': 'pt',
+
+  'румын*': 'ro',
+
+  'словац*': 'sk',
+
+  'sloven*': 'sl',
+  'словен*': 'sl',
+
+  'тай*': 'th',
+  'турец*': 'tr',
+
+  'finni*': 'fi',
+  'финск*': 'fi',
+
+  'чешс*': 'cs',
+  'шведс*': 'sv',
+
+  'эстон*': 'et',
+  'эсперан*': 'eo',
+  'япон*': 'ja'
 }
 
 
@@ -44,7 +127,42 @@ export const DISPLAY_NAMES = {
   es: 'Spanish',
   it: 'Italian',
   de: 'German',
-  fr: 'French'
+  fr: 'French',
+  nl: 'Dutch',
+  fa: 'Persian',
+  uk: 'Ukrainian',
+  ca: 'Catalan',
+  zh: 'Chinese',
+  ar: 'Arab',
+  be: 'Belarusian',
+  hu: 'Hungarian',
+  vi: 'Vietnamese',
+  da: 'Danish',
+  he: 'Hebrew',
+  yi: 'Yiddish',
+  id: 'Indonesian',
+  ga: 'Irish',
+  is: 'Icelandic',
+  kk: 'Kazakh',
+  ky: 'Kyrgyz',
+  ko: 'Korean',
+  lv: 'Latvian',
+  lt: 'Lithuanian',
+  no: 'Norwegian',
+  pl: 'Polish',
+  pt: 'Portuguese',
+  ro: 'Romanian',
+  sk: 'Slovak',
+  sl: 'Slovenian',
+  th: 'Thai',
+  tr: 'Turkish',
+  fi: 'Finnish',
+  hi: 'Hindi',
+  cs: 'Czech',
+  sv: 'Swedish',
+  et: 'Estonian',
+  eo: 'Esperanto',
+  ja: 'Japanese'
 }
 
 /**

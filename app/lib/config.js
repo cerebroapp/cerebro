@@ -20,7 +20,8 @@ const defaultSettings = memoize(() => {
     hotkey: 'Control+Space',
     showInTray: true,
     firstStart: true,
-    developerMode: false
+    developerMode: false,
+    cleanOnHide: true
   }
 })
 

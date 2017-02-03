@@ -76,6 +76,30 @@ export default ({ src, isDev }) => {
     })
   })
 
+  // Handle window.hide: if cleanOnHide value in preferences is true
+  // we clear all results and show empty window every time
+  const resetResults = () => {
+    mainWindow.webContents.send('message', {
+      message: 'showTerm',
+      payload: ''
+    })
+  }
+
+  // Handle change of cleanOnHide value in settins
+  const handleCleanOnHideChange = (value) => {
+    if (value) {
+      mainWindow.on('hide', resetResults)
+    } else {
+      mainWindow.removeListener('hide', resetResults)
+    }
+  }
+
+  // Set or remove handler when settings changed
+  mainWindow.settingsChanges.on('cleanOnHide', handleCleanOnHideChange)
+
+  // Set initial handler if it is needed
+  handleCleanOnHideChange(config.get('cleanOnHide'))
+
   // Show main window when user opens application, but it is already opened
   app.on('open-file', (event, path) => handleUrl(mainWindow, path))
   app.on('open-url', (event, path) => handleUrl(mainWindow, path))

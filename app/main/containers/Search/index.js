@@ -108,7 +108,6 @@ class Search extends Component {
     // Cleanup event listeners on unload
     // NOTE: when page refreshed (location.reload) componentWillUnmount is not called
     window.addEventListener('beforeunload', this.cleanup)
-    this.electronWindow.on('hide', this.props.actions.reset)
     this.electronWindow.on('show', this.focusMainInput)
     this.electronWindow.on('show', trackShowWindow)
   }
@@ -219,6 +218,7 @@ class Search extends Component {
         this.selectCurrent(event)
         break
       case 27:
+        this.props.actions.reset()
         this.electronWindow.hide()
         break
     }
@@ -239,7 +239,6 @@ class Search extends Component {
     window.removeEventListener('resize', this.onWindowResize)
     window.removeEventListener('keydown', this.onDocumentKeydown)
     window.removeEventListener('beforeunload', this.cleanup)
-    this.electronWindow.removeListener('hide', this.props.actions.reset)
     this.electronWindow.removeListener('show', this.focusMainInput)
     this.electronWindow.removeListener('show', trackShowWindow)
   }

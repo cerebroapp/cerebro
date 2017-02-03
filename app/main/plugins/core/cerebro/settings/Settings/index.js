@@ -19,6 +19,7 @@ export default class Settings extends Component {
       country: get('country'),
       theme: get('theme'),
       developerMode: get('developerMode'),
+      cleanOnHide: get('cleanOnHide')
     }
     this.changeConfig = this.changeConfig.bind(this)
   }
@@ -29,7 +30,9 @@ export default class Settings extends Component {
     })
   }
   render() {
-    const { hotkey, showInTray, country, theme, developerMode } = this.state
+    const {
+      hotkey, showInTray, country, theme, developerMode, cleanOnHide
+    } = this.state
     return (
       <div className={styles.settings}>
         <div className={styles.item}>
@@ -94,6 +97,20 @@ export default class Settings extends Component {
                 className={styles.checkbox}
               />
               Developer Mode
+            </label>
+          </div>
+        </div>
+
+        <div className={styles.item}>
+          <div className={styles.itemValueWithoutLabel}>
+            <label>
+              <input
+                type="checkbox"
+                checked={cleanOnHide}
+                onChange={({ target }) => this.changeConfig('cleanOnHide', target.checked)}
+                className={styles.checkbox}
+              />
+              Clean results on hide
             </label>
           </div>
         </div>

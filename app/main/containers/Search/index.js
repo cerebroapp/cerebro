@@ -305,20 +305,21 @@ class Search extends Component {
     // When results list is empty window is not resizable
     win.setResizable(length !== 0)
 
-    let height = INPUT_HEIGHT
+    const winResultMinHeight = INPUT_HEIGHT + RESULT_HEIGHT * MIN_VISIBLE_RESULTS
+    let winResultHeight = winResultMinHeight
+
     if (length === 0) {
-      win.setMinimumSize(WINDOW_WIDTH, height)
-      win.setSize(width, height)
+      win.setMinimumSize(WINDOW_WIDTH, INPUT_HEIGHT)
+      win.setSize(width, INPUT_HEIGHT)
     } else {
-      const minHeight = INPUT_HEIGHT + RESULT_HEIGHT * MIN_VISIBLE_RESULTS
       const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
-      height = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
-      win.setMinimumSize(WINDOW_WIDTH, minHeight)
-      win.setSize(width, height)
+      winResultHeight = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
+      win.setMinimumSize(WINDOW_WIDTH, winResultMinHeight)
+      win.setSize(width, winResultHeight)
     }
 
     const x = parseInt(display.bounds.x + (display.workAreaSize.width - width) / 2, 10)
-    const y = parseInt(display.bounds.y + (display.workAreaSize.height - height) / 2, 10)
+    const y = parseInt(display.bounds.y + (display.workAreaSize.height - winResultHeight) / 2, 10)
     this.electronWindow.setPosition(x, y)
   }
 

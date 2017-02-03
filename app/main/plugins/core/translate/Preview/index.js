@@ -5,11 +5,12 @@ import translate from '../translate'
 import getTargetLanguage from '../getTargetLanguage'
 import { LANGS, DISPLAY_NAMES } from '../constants'
 import { bind } from 'lodash-decorators'
+import sortBy from 'lodash/sortBy'
 import Select from 'react-select'
 import styles from './styles.css'
 
 
-const OPTIONS = LANGS.map(lang => ({
+const OPTIONS = sortBy(LANGS, lang => DISPLAY_NAMES[lang]).map(lang => ({
   value: lang,
   label: DISPLAY_NAMES[lang]
 }))

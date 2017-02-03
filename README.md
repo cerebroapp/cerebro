@@ -4,7 +4,7 @@
 
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][david_img]][david_site]
-[![OpenCollective](https://opencollective.com/cerebro/backers/badge.svg)](#backers) 
+[![OpenCollective](https://opencollective.com/cerebro/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/cerebro/sponsors/badge.svg)](#sponsors)
 
 ## Usage
@@ -38,6 +38,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
 * [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
 * [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
+* [Linux Commands](https://github.com/mckennajones/cerebro-linux-commands) - System commands in Linux i.e. `sleep`, `restart`, `empty trash`, `shut down`
 
 ## Development
 ### Create plugin

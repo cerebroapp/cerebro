@@ -3,7 +3,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { clipboard, remote, screen } from 'electron'
+import { clipboard, remote } from 'electron'
 import MainInput from '../../components/MainInput'
 import ResultsList from '../../components/ResultsList'
 import styles from './styles.css'
@@ -14,7 +14,7 @@ import escapeStringRegexp from 'escape-string-regexp'
 import { debounce, bind } from 'lodash-decorators'
 
 import trackEvent from 'lib/trackEvent'
-import config from 'lib/config'
+import getWindowPosition from 'lib/getWindowPosition'
 
 import {
   WINDOW_WIDTH,
@@ -112,7 +112,6 @@ class Search extends Component {
     this.electronWindow.on('show', this.focusMainInput)
     this.electronWindow.on('show', this.updateElectronWindow)
     this.electronWindow.on('show', trackShowWindow)
-    this.electronWindow.on('move', this.moveElectronWindow)
   }
   componentDidMount() {
     this.focusMainInput()
@@ -302,72 +301,23 @@ class Search extends Component {
     const { length } = results
     const win = this.electronWindow
     const [width] = win.getSize()
-    const display = screen.getPrimaryDisplay()
 
     // When results list is empty window is not resizable
     win.setResizable(length !== 0)
 
-    const minHeightWithResults = INPUT_HEIGHT + RESULT_HEIGHT * MIN_VISIBLE_RESULTS
-    let heightWithResults = minHeightWithResults
-    let height = INPUT_HEIGHT
-
     if (length === 0) {
-      win.setMinimumSize(WINDOW_WIDTH, height)
-      win.setSize(width, height)
-    } else {
-      const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
-      height = heightWithResults = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
-      win.setMinimumSize(WINDOW_WIDTH, minHeightWithResults)
-      win.setSize(width, height)
+      win.setMinimumSize(WINDOW_WIDTH, INPUT_HEIGHT)
+      win.setSize(width, INPUT_HEIGHT)
+      win.setPosition(...getWindowPosition({ width }))
+      return
     }
 
-    const positions = config.get('positions') || {}
-    if (display.id in positions) {
-      const [x, y] = positions[display.id]
-      const windowBounds = { x, y, width, height }
-      const isWindowVisible = (disp) => this.isVisible(windowBounds, disp.bounds)
-
-      if (isWindowVisible(display)) {
-        this.electronWindow.setPosition(x, y)
-        return
-      }
-
-      // The window was moved from the primary screen to a different one.
-      // We have to check that the window will be visible somewhere among the attached displays.
-      const displays = screen.getAllDisplays()
-      const isVisibleSomewhere = displays.some(isWindowVisible)
-
-      if (isVisibleSomewhere) {
-        this.electronWindow.setPosition(x, y)
-        return
-      }
-    }
-
-    const x = parseInt(display.bounds.x + (display.workAreaSize.width - width) / 2, 10)
-    const y = parseInt(display.bounds.y + (display.workAreaSize.height - heightWithResults) / 2, 10)
-    this.electronWindow.setPosition(x, y)
-  }
-
-  /**
-   * Returns true if a window is at least partially visible on the display
-   */
-  isVisible(windowBounds, displayBounds) {
-    return !(windowBounds.x > displayBounds.x + displayBounds.width ||
-             windowBounds.x + windowBounds.width < displayBounds.x ||
-             windowBounds.y > displayBounds.y + displayBounds.height ||
-             windowBounds.y + windowBounds.height < displayBounds.y)
-  }
-
-  /**
-   * Saves window position when it is being moved
-   */
-  @bind()
-  @debounce(100)
-  moveElectronWindow() {
-    const display = screen.getPrimaryDisplay()
-    const positions = config.get('positions') || {}
-    positions[display.id] = this.electronWindow.getPosition()
-    config.set('positions', positions)
+    const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
+    const heightWithResults = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
+    const minHeightWithResults = MIN_VISIBLE_RESULTS * RESULT_HEIGHT + INPUT_HEIGHT
+    win.setMinimumSize(WINDOW_WIDTH, minHeightWithResults)
+    win.setSize(width, heightWithResults)
+    win.setPosition(...getWindowPosition({ width, heightWithResults }))
   }
 
   autocompleteValue() {

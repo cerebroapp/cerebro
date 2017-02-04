@@ -14,6 +14,7 @@ import escapeStringRegexp from 'escape-string-regexp'
 import { debounce, bind } from 'lodash-decorators'
 
 import trackEvent from 'lib/trackEvent'
+import getWindowPosition from 'lib/getWindowPosition'
 
 import {
   WINDOW_WIDTH,
@@ -109,6 +110,7 @@ class Search extends Component {
     // NOTE: when page refreshed (location.reload) componentWillUnmount is not called
     window.addEventListener('beforeunload', this.cleanup)
     this.electronWindow.on('show', this.focusMainInput)
+    this.electronWindow.on('show', this.updateElectronWindow)
     this.electronWindow.on('show', trackShowWindow)
   }
   componentDidMount() {
@@ -292,24 +294,30 @@ class Search extends Component {
   /**
    * Set resizable and size for main electron window when results count is changed
    */
+  @bind()
   @debounce(16)
   updateElectronWindow() {
     const { results, visibleResults } = this.props
     const { length } = results
     const win = this.electronWindow
     const [width] = win.getSize()
+
     // When results list is empty window is not resizable
     win.setResizable(length !== 0)
+
     if (length === 0) {
       win.setMinimumSize(WINDOW_WIDTH, INPUT_HEIGHT)
       win.setSize(width, INPUT_HEIGHT)
+      win.setPosition(...getWindowPosition({ width }))
       return
     }
+
     const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
-    const height = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
-    const minHeight = INPUT_HEIGHT + RESULT_HEIGHT * MIN_VISIBLE_RESULTS
-    win.setMinimumSize(WINDOW_WIDTH, minHeight)
-    win.setSize(width, height)
+    const heightWithResults = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
+    const minHeightWithResults = MIN_VISIBLE_RESULTS * RESULT_HEIGHT + INPUT_HEIGHT
+    win.setMinimumSize(WINDOW_WIDTH, minHeightWithResults)
+    win.setSize(width, heightWithResults)
+    win.setPosition(...getWindowPosition({ width, heightWithResults }))
   }
 
   autocompleteValue() {

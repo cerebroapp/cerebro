@@ -1,4 +1,5 @@
-import { BrowserWindow, globalShortcut, app, shell } from 'electron'
+import { BrowserWindow, globalShortcut, app, screen, shell } from 'electron'
+import debounce from 'lodash/debounce'
 import EventEmitter from 'events'
 import trackEvent from '../lib/trackEvent'
 
@@ -11,13 +12,18 @@ import buildMenu from './createWindow/buildMenu'
 import toggleWindow from './createWindow/toggleWindow'
 import handleUrl from './createWindow/handleUrl'
 import config from '../lib/config'
+import getWindowPosition from '../lib/getWindowPosition'
 
 export default ({ src, isDev }) => {
+  const [x, y] = getWindowPosition({})
+
   const mainWindow = new BrowserWindow({
     alwaysOnTop: true,
     width: WINDOW_WIDTH,
     minWidth: WINDOW_WIDTH,
     height: INPUT_HEIGHT,
+    x,
+    y,
     frame: false,
     resizable: false,
     // Show main window on launch only when application started for the first time
@@ -48,6 +54,14 @@ export default ({ src, isDev }) => {
       mainWindow.hide()
     }
   })
+
+  // Save window position when it is being moved
+  mainWindow.on('move', debounce(() => {
+    const display = screen.getPrimaryDisplay()
+    const positions = config.get('positions') || {}
+    positions[display.id] = mainWindow.getPosition()
+    config.set('positions', positions)
+  }, 100))
 
   mainWindow.webContents.on('new-window', (event, url) => {
     shell.openExternal(url)

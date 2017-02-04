@@ -6,10 +6,17 @@ import config from './lib/config'
 import AppTray from './main/createWindow/AppTray'
 import AppUpdater from './AppUpdater'
 
-const trayIconSrc = `${__dirname}/tray_iconTemplate@2x.png`
+let trayIconSrc = `${__dirname}/tray_icon.png`
+if (process.platform === 'darwin') {
+  trayIconSrc = `${__dirname}/tray_iconTemplate@2x.png`
+} else if (process.platform === 'win32') {
+  trayIconSrc = `${__dirname}/tray_icon.ico`
+}
+
 const isDev = () => (
   process.env.NODE_ENV === 'development' || config.get('developerMode')
 )
+
 let mainWindow
 let backgroundWindow
 let tray

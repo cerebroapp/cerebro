@@ -10,7 +10,7 @@ export const CURRENCIES = [
   'huf', 'idr', 'ils', 'inr', 'jpy', 'krw',
   'mxn', 'myr', 'nok', 'nzd', 'php', 'pln',
   'ron', 'rub', 'sek', 'sgd', 'thb', 'try',
-  'usd', 'zar', 'btc'
+  'uah', 'usd', 'zar', 'btc'
 ]
 
 /**
@@ -41,6 +41,7 @@ export const CURRENCY_BY_COUNTRY = {
   'PH': 'php',
   'RU': 'rub',
   'SG': 'sgd',
+  'UA': 'uah',
   'ZA': 'zar',
   'AD': 'eur',
   'AT': 'eur',
@@ -133,6 +134,10 @@ export const SYNONIMS = {
   'zlot*': 'pln',
   'злот*': 'pln',
 
+  '₴': 'uah',
+  'грн': 'uah',
+  'грив*': 'uah',
+
   'bucks': 'usd',
   '$': 'usd',
   'dollar*': 'usd',
@@ -171,6 +176,7 @@ export const DISPLAY_NAMES = {
   'eur': '€',
   'gbp': '£',
   'rub': '₽',
+  'uah': '₴',
   'ils': '₪',
   'chf': '₣',
   'thb': '฿'

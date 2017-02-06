@@ -242,6 +242,7 @@ class Search extends Component {
     window.removeEventListener('keydown', this.onDocumentKeydown)
     window.removeEventListener('beforeunload', this.cleanup)
     this.electronWindow.removeListener('show', this.focusMainInput)
+    this.electronWindow.removeListener('show', this.updateElectronWindow)
     this.electronWindow.removeListener('show', trackShowWindow)
   }
 

@@ -26,7 +26,7 @@ export const DIRECTORIES = [
 
 export const EXTENSIONS = ['lnk', 'exe']
 
-export const openApp = (appPath) => shell.openItem(appPath)
+export const openApp = (app) => shell.openItem(app.path)
 
 export const toString = (app) => `${app.name} ${app.filename} ${getAbbr(app.name)}`
 

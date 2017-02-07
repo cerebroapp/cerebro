@@ -18,7 +18,7 @@
     "nodobjc": "^2.1.0",
     "rmdir": "^1.2.0",
     "semver": "^5.3.0",
-    "tar.gz": "^1.0.2",
+    "tar.gz": "1.0.2",
     "universal-analytics": "^0.4.8"
   },
   "devDependencies": {}

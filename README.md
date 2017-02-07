@@ -25,10 +25,10 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 ### Custom plugins
 Use built-in `plugins` command to search and manage custom plugins.
 
-#### OSx only plugins
-* [OSx System](https://github.com/KELiON/cerebro-osx-system) – system commands: i.e. `sleep`, `lock`, `restart`, `empty trash` or open system directories, like `trash` or `airdrop`;
-* [OSx Define](https://github.com/KELiON/cerebro-osx-define) – define in OSx built-in dictionary;
-* [OSx Contacts](https://github.com/KELiON/cerebro-osx-contacts) – search in contacts.app;
+#### macOS only plugins
+* [macOS System](https://github.com/KELiON/cerebro-osx-system) – system commands: i.e. `sleep`, `lock`, `restart`, `empty trash` or open system directories, like `trash` or `airdrop`;
+* [macOS Define](https://github.com/KELiON/cerebro-osx-define) – define in OSx built-in dictionary;
+* [macOS Contacts](https://github.com/KELiON/cerebro-osx-contacts) – search in contacts.app;
 
 #### Plugins for all platforms
 * [Gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;

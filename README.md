@@ -29,6 +29,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [macOS System](https://github.com/KELiON/cerebro-osx-system) – system commands: i.e. `sleep`, `lock`, `restart`, `empty trash` or open system directories, like `trash` or `airdrop`;
 * [macOS Define](https://github.com/KELiON/cerebro-osx-define) – define in OSx built-in dictionary;
 * [macOS Contacts](https://github.com/KELiON/cerebro-osx-contacts) – search in contacts.app;
+* [macOS Eject](https://github.com/codingmatty/cerebro-plugin-osx-eject) – safely eject mounted volume drives;
 
 #### Plugins for all platforms
 * [Gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;
@@ -38,6 +39,8 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
 * [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
 * [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
+* [Hash](https://github.com/codingmatty/cerebro-plugin-hash) – hash input text with popular hash algorithms (i.e. md5, sha1, etc);
+* [Lipsum](https://github.com/codingmatty/cerebro-plugin-lipsum) – generate lorem ipsum text from [lipsum.com](http://www.lipsum.com);
 
 ## Development
 ### Create plugin

@@ -4,6 +4,7 @@
   flex-wrap: nowrap;
   border-top: var(--main-border);
   height: 100%;
+  position: relative;
 }
 
 .unfocused {
@@ -12,17 +13,22 @@
 
 .resultsList {
   overflow-y: auto;
-  width: 250px;
+  width: 100%;
   min-width: 250px;
 }
 
 .preview {
   flex-grow: 2;
   padding: 10px 10px 20px 10px;
+  background-color: var(--main-background-color);
   align-items: center;
   display: flex;
   max-height: 100%;
-  position: relative;
+  position: absolute;
+  left: 250px;
+  top: 0;
+  bottom: 0;
+  right: 0;
   overflow: auto;
   /*
     Instead of using `justify-content: center` we have to use this hack.
@@ -32,6 +38,10 @@
   &::before, &::after {
     content: '';
     margin: auto;
+  }
+
+  &:empty {
+    display: none;
   }
 
   input {

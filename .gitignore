@@ -16,6 +16,9 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
+# Tern-js work files
+.tern-port
+
 # node-waf configuration
 .lock-wscript
 

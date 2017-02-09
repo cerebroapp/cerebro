@@ -3,6 +3,7 @@ import Preview from './Preview'
 import { memoize, search } from 'cerebro-tools'
 import orderBy from 'lodash/orderBy'
 import getAppsList from './lib/getAppsList'
+import getAbbr from 'lib/getAbbr'
 import fs from 'fs'
 
 /**
@@ -39,7 +40,9 @@ const cachedAppsList = memoize(getAppsList, {
   preFetch: true
 })
 
-const toString = (app) => `${app.name} ${app.filename}`
+const toString = (app) => (
+  `${app.name} ${app.filename.replace(/\.app$/, '')} ${getAbbr(app.name)}`
+)
 
 const appsPlugin = ({ term, actions, display }) => {
   cachedAppsList().then(items => {
@@ -60,7 +63,7 @@ const appsPlugin = ({ term, actions, display }) => {
         subtitle: path,
         clipboard: path,
         onKeyDown: (event) => {
-          if (event.metaKey && event.keyCode === 82) {
+          if ((event.metaKey || event.ctrlKey) && event.keyCode === 82) {
             // Show application in Finder by cmd+R shortcut
             actions.reveal(path)
             event.preventDefault()

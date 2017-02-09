@@ -1,4 +1,5 @@
-import { BrowserWindow, globalShortcut, app } from 'electron'
+import { BrowserWindow, globalShortcut, app, screen, shell } from 'electron'
+import debounce from 'lodash/debounce'
 import EventEmitter from 'events'
 import trackEvent from '../lib/trackEvent'
 
@@ -11,13 +12,18 @@ import buildMenu from './createWindow/buildMenu'
 import toggleWindow from './createWindow/toggleWindow'
 import handleUrl from './createWindow/handleUrl'
 import config from '../lib/config'
+import getWindowPosition from '../lib/getWindowPosition'
 
 export default ({ src, isDev }) => {
+  const [x, y] = getWindowPosition({})
+
   const mainWindow = new BrowserWindow({
     alwaysOnTop: true,
     width: WINDOW_WIDTH,
     minWidth: WINDOW_WIDTH,
     height: INPUT_HEIGHT,
+    x,
+    y,
     frame: false,
     resizable: false,
     // Show main window on launch only when application started for the first time
@@ -49,6 +55,26 @@ export default ({ src, isDev }) => {
     }
   })
 
+  // Save window position when it is being moved
+  mainWindow.on('move', debounce(() => {
+    const display = screen.getPrimaryDisplay()
+    const positions = config.get('positions') || {}
+    positions[display.id] = mainWindow.getPosition()
+    config.set('positions', positions)
+  }, 100))
+
+  mainWindow.webContents.on('new-window', (event, url) => {
+    shell.openExternal(url)
+    event.preventDefault()
+  })
+
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    if (url !== mainWindow.webContents.getURL()) {
+      shell.openExternal(url)
+      event.preventDefault()
+    }
+  })
+
   // Change global hotkey if it is changed in app settings
   mainWindow.settingsChanges.on('hotkey', (value) => {
     globalShortcut.unregister(shortcut)
@@ -63,6 +89,30 @@ export default ({ src, isDev }) => {
       payload: value
     })
   })
+
+  // Handle window.hide: if cleanOnHide value in preferences is true
+  // we clear all results and show empty window every time
+  const resetResults = () => {
+    mainWindow.webContents.send('message', {
+      message: 'showTerm',
+      payload: ''
+    })
+  }
+
+  // Handle change of cleanOnHide value in settins
+  const handleCleanOnHideChange = (value) => {
+    if (value) {
+      mainWindow.on('hide', resetResults)
+    } else {
+      mainWindow.removeListener('hide', resetResults)
+    }
+  }
+
+  // Set or remove handler when settings changed
+  mainWindow.settingsChanges.on('cleanOnHide', handleCleanOnHideChange)
+
+  // Set initial handler if it is needed
+  handleCleanOnHideChange(config.get('cleanOnHide'))
 
   // Show main window when user opens application, but it is already opened
   app.on('open-file', (event, path) => handleUrl(mainWindow, path))

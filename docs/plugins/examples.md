@@ -29,6 +29,23 @@ module.exports = {
 }
 ```
 
+### Using `icon`
+```js
+const icon = require('[path-to-icon]/icon.png');
+
+const plugin = ({display}) => {
+  display({
+    icon,
+    title: 'Title',
+	subtitle: 'Subtitle'
+  });
+}
+
+module.exports = {
+  fn: plugin,
+}
+```
+
 ### Using `keyword` and `name`
 ```js
 const plugin = (scope) => {

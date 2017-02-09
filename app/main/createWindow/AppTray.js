@@ -62,10 +62,10 @@ export default class AppTray {
         label: 'Development',
         submenu: [{
           label: 'DevTools (main)',
-          click: () => mainWindow.webContents.openDevTools()
+          click: () => mainWindow.webContents.openDevTools({ mode: 'detach' })
         }, {
           label: 'DevTools (background)',
-          click: () => backgroundWindow.webContents.openDevTools()
+          click: () => backgroundWindow.webContents.openDevTools({ mode: 'detach' })
         }, {
           label: 'Reload',
           click: () => {

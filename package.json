@@ -1,7 +1,7 @@
 {
   "name": "cerebro",
   "productName": "Cerebro",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "description": "Extendable electron-based open-source Spolight and Alfred analogue",
   "main": "main.js",
   "scripts": {
@@ -73,6 +73,8 @@
       "main/index.html",
       "main/css,",
       "background/index.html",
+      "tray_icon.png",
+      "tray_icon.ico",
       "tray_iconTemplate@2x.png",
       "node_modules/",
       "main.js",
@@ -196,7 +198,7 @@
     "glob": "7.0.5",
     "lodash": "4.13.1",
     "lodash-decorators": "3.0.1",
-    "node-machine-id": "1.1.1",
+    "node-machine-id": "1.1.4",
     "normalize.css": "4.1.1",
     "pdfjs-dist": "1.5.355",
     "postcss": "5.0.21",

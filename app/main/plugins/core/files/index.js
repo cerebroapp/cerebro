@@ -49,7 +49,7 @@ const filesPlugin = ({ term, actions, display }) => {
           term: autocomplete,
           icon: filePath,
           onKeyDown: (event) => {
-            if (event.metaKey && event.keyCode === 82) {
+            if ((event.metaKey || event.ctrlKey) && event.keyCode === 82) {
               actions.reveal(filePath)
               event.preventDefault()
             }

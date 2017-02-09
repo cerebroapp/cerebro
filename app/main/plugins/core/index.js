@@ -13,8 +13,9 @@ const plugins = {
 }
 
 if (process.platform === 'darwin') {
-  // Add osx-only plugins
-  plugins.apps = require('./apps')
+  plugins.apps = require('./osx-apps')
+} else {
+  plugins.apps = require('./basic-apps')
 }
 
 module.exports = plugins

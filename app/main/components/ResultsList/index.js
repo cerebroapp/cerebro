@@ -4,10 +4,7 @@ import styles from './styles.css'
 import { VirtualScroll } from 'react-virtualized'
 import { bind } from 'lodash-decorators'
 
-import {
-  RESULT_HEIGHT,
-  RESULT_WIDTH
-} from '../../constants/ui'
+import { RESULT_HEIGHT } from '../../constants/ui'
 
 export default class ResultsList extends Component {
   static propTypes = {
@@ -77,7 +74,7 @@ export default class ResultsList extends Component {
           rowCount={results.length}
           rowHeight={RESULT_HEIGHT}
           rowRenderer={this.rowRenderer}
-          width={RESULT_WIDTH}
+          width={10000}
           scrollToIndex={selected}
           // Needed to force update of VirtualScroll
           titles={results.map(result => result.title)}

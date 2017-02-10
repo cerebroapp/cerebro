@@ -42,6 +42,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [Google Knowledge Graph](https://github.com/Kageetai/cerebro-gkg) – Get info from the [Google Knowledge Graph](https://www.google.com/intl/bn/insidesearch/features/search/knowledge.html) for your query;
 * [Hash](https://github.com/codingmatty/cerebro-plugin-hash) – hash input text with popular hash algorithms (i.e. md5, sha1, etc);
 * [Lipsum](https://github.com/codingmatty/cerebro-plugin-lipsum) – generate lorem ipsum text from [lipsum.com](http://www.lipsum.com);
+* [Stackoverflow](https://github.com/BrainMaestro/cerebro-stackoverflow) – search for answers to questions on stackoverflow;
 
 ## Development
 ### Create plugin

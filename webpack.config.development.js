@@ -12,10 +12,12 @@ const config = {
   entry: {
     background: [
       'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
+      'fix-path',
       './app/background/background',
     ],
     main: [
       'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
+      'fix-path',
       './app/main/main',
     ]
   },

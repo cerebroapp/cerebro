@@ -1,7 +1,9 @@
 import fs from 'fs'
 import rmdir from 'rmdir'
 import path from 'path'
-import targz from 'tar.gz'
+import tar from 'tar-fs'
+import zlib from 'zlib'
+import https from 'https'
 
 /**
  * Promise-wrapper for rmdir
@@ -20,43 +22,30 @@ const removeDir = (dir) => new Promise((resolve, reject) => {
 const API_BASE = 'http://registry.npmjs.org/'
 
 /**
- * Download .tgz file for npm package
+ * Format name of file from package archive.
+ * Just remove `./package`prefix from name
  *
- * @param  {String} path Url for package .tgz file
- * @return {Promise<Buffer>}
+ * @param  {Object} header
+ * @return {Object}
  */
-const fetchTarball = (tarBall) => (
-  fetch(tarBall)
-    .then(response => response.arrayBuffer())
-    .then(content => new Buffer(content))
-)
+const formatPackageFile = (header) => ({
+  ...header,
+  name: header.name.replace(/^package\//, '')
+})
 
-/**
- * Unarchive downloaded tar archive
- *
- * @param  {String} tarPath
- * @param  {String} packagePath
- * @return {Promise<String>}
- */
-const unarchiveTarball = (tarPath, packagePath) => {
-  const prepare = fs.existsSync(packagePath) ?
-    removeDir(packagePath) :
-    Promise.resolve()
-  return prepare.then(() => {
-    console.group('Unarchive', tarPath)
-    console.log('Create temp directory', packagePath)
-    fs.mkdirSync(packagePath)
-    console.log(`Unarchive ${tarPath} to ${packagePath}`)
-    return targz().extract(tarPath, packagePath)
-      .then(() => removeDir(tarPath))
-      .then(() => {
-        console.groupEnd()
-        return packagePath
-      })
-      .catch(err => {
-        console.log('Error', err)
-        console.groupEnd()
-      })
+const installPackage = (tarPath, destination) => {
+  console.log(`Extract ${tarPath} to ${destination}`)
+  return new Promise((resolve, reject) => {
+    https.get(tarPath, stream => {
+      const result = stream
+        // eslint-disable-next-line new-cap
+        .pipe(zlib.Unzip())
+        .pipe(tar.extract(destination, {
+          map: formatPackageFile
+        }))
+      result.on('error', reject)
+      result.on('finish', resolve)
+    })
   })
 }
 
@@ -89,24 +78,10 @@ export default (dir) => {
         .then(json => {
           versionToInstall = version || json['dist-tags'].latest
           console.log('Version:', versionToInstall)
-          const tar = json.versions[versionToInstall].dist.tarball
-          console.log('Found tgz:', tar)
-          return fetchTarball(tar)
-        })
-        .then(body => {
-          const tarPath = path.join(dir, `${name}.tgz`)
-          const tmpPath = path.join(dir, `${name}-tmp`)
-          console.log('Save tgz to', tarPath)
-          fs.writeFileSync(tarPath, body)
-          return unarchiveTarball(tarPath, tmpPath)
-        })
-        .then(tmpPath => {
-          const oldName = path.join(tmpPath, 'package')
-          const newName = path.join(dir, 'node_modules', name)
-          console.log(`Rename ${oldName} -> ${newName}`)
-          fs.renameSync(oldName, newName)
-          console.log('Remove', tmpPath)
-          return removeDir(tmpPath)
+          return installPackage(
+            json.versions[versionToInstall].dist.tarball,
+            path.join(dir, 'node_modules', name)
+          )
         })
         .then(() => {
           const json = getConfig()

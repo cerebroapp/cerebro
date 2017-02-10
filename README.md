@@ -33,6 +33,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 
 #### Plugins for all platforms
 * [Caniuse](https://github.com/KELiON/cerebro-caniuse) – quick access to [caniuse.com](http://caniuse.com) database;
+* [Devdocs](https://github.com/KELiON/cerebro-devdocs) – search in dev. documentations provided by [devdocs.io](http://devdocs.io)
 * [Emoj](https://github.com/KELiON/cerebro-emoj) – search for relevant emoji, like `emoj this is awesome`;
 * [Gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;
 * [Google Knowledge Graph](https://github.com/Kageetai/cerebro-gkg) – Get info from the [Google Knowledge Graph](https://www.google.com/intl/bn/insidesearch/features/search/knowledge.html) for your query;

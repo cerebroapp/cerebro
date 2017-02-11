@@ -29,7 +29,9 @@ export default class AppTray {
   }
   setIsDev(isDev) {
     this.options.isDev = isDev
-    this.tray.setContextMenu(this.buildMenu())
+    if (this.tray) {
+      this.tray.setContextMenu(this.buildMenu())
+    }
   }
   buildMenu() {
     const { mainWindow, backgroundWindow, isDev } = this.options

@@ -26,22 +26,23 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 Use built-in `plugins` command to search and manage custom plugins.
 
 #### macOS only plugins
-* [macOS System](https://github.com/KELiON/cerebro-osx-system) – system commands: i.e. `sleep`, `lock`, `restart`, `empty trash` or open system directories, like `trash` or `airdrop`;
-* [macOS Define](https://github.com/KELiON/cerebro-osx-define) – define in OSx built-in dictionary;
 * [macOS Contacts](https://github.com/KELiON/cerebro-osx-contacts) – search in contacts.app;
+* [macOS Define](https://github.com/KELiON/cerebro-osx-define) – define in OSx built-in dictionary;
 * [macOS Eject](https://github.com/codingmatty/cerebro-plugin-osx-eject) – safely eject mounted volume drives;
+* [macOS System](https://github.com/KELiON/cerebro-osx-system) – system commands: i.e. `sleep`, `lock`, `restart`, `empty trash` or open system directories, like `trash` or `airdrop`;
 
 #### Plugins for all platforms
-* [Gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;
-* [Emoj](https://github.com/KELiON/cerebro-emoj) – search for relevant emoji, like `emoj this is awesome`;
-* [IMDB](https://github.com/KELiON/cerebro-imdb) – search for films on imdb.com with rating and details, like `imdb star wars`;
 * [Caniuse](https://github.com/KELiON/cerebro-caniuse) – quick access to [caniuse.com](http://caniuse.com) database;
-* [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
-* [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
-* [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
+* [Devdocs](https://github.com/KELiON/cerebro-devdocs) – search in dev. documentations provided by [devdocs.io](http://devdocs.io)
+* [Emoj](https://github.com/KELiON/cerebro-emoj) – search for relevant emoji, like `emoj this is awesome`;
+* [Gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;
 * [Google Knowledge Graph](https://github.com/Kageetai/cerebro-gkg) – Get info from the [Google Knowledge Graph](https://www.google.com/intl/bn/insidesearch/features/search/knowledge.html) for your query;
 * [Hash](https://github.com/codingmatty/cerebro-plugin-hash) – hash input text with popular hash algorithms (i.e. md5, sha1, etc);
+* [IMDB](https://github.com/KELiON/cerebro-imdb) – search for films on imdb.com with rating and details, like `imdb star wars`;
+* [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
+* [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
 * [Lipsum](https://github.com/codingmatty/cerebro-plugin-lipsum) – generate lorem ipsum text from [lipsum.com](http://www.lipsum.com);
+* [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
 
 ## Development
 ### Create plugin

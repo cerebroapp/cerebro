@@ -5,6 +5,7 @@ import availablePlugins from './getAvailablePlugins'
 import installedPlugins from './getInstalledPlugins'
 import icon from '../icon.png'
 import semver from 'semver'
+import * as format from './format'
 
 const getAvailablePlugins = memoize(availablePlugins)
 const getInstalledPlugins = memoize(installedPlugins)
@@ -38,8 +39,8 @@ const fn = ({ term, display, hide, actions }) => {
           plugin.version
         return {
           icon,
-          title: `${plugin.name} (${displayVersion})`,
-          subtitle: plugin.description,
+          title: `${format.name(plugin.name)} (${displayVersion})`,
+          subtitle: format.description(plugin.description),
           onSelect: () => actions.open(plugin.repo),
           getPreview: () => (
             <Preview

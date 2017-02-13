@@ -7,6 +7,7 @@ import getReadme from '../getReadme'
 import ReactMarkdown from 'react-markdown'
 import styles from './styles.css'
 import trackEvent from 'lib/trackEvent'
+import * as format from '../format'
 import { client } from 'lib/plugins'
 
 const isRelative = (src) => !src.match(/^(https?:|data:)/)
@@ -84,8 +85,8 @@ export default class Preview extends Component {
     const match = repo && repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
     return (
       <div className={styles.preview} key={name}>
-        <h2>{name} ({version})</h2>
-        <p>{description}</p>
+        <h2>{format.name(name)} ({version})</h2>
+        <p>{format.description(description)}</p>
         <KeyboardNav>
           <div className={styles.header}>
             {

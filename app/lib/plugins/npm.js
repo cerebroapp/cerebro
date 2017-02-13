@@ -1,4 +1,5 @@
 import fs from 'fs'
+import os from 'os'
 import rmdir from 'rmdir'
 import path from 'path'
 import tar from 'tar-fs'
@@ -36,15 +37,18 @@ const formatPackageFile = (header) => ({
 const installPackage = (tarPath, destination) => {
   console.log(`Extract ${tarPath} to ${destination}`)
   return new Promise((resolve, reject) => {
+    const tempPath = os.tmpdir()
     https.get(tarPath, stream => {
       const result = stream
         // eslint-disable-next-line new-cap
         .pipe(zlib.Unzip())
-        .pipe(tar.extract(destination, {
+        .pipe(tar.extract(tempPath, {
           map: formatPackageFile
         }))
       result.on('error', reject)
-      result.on('finish', resolve)
+      result.on('finish', () => {
+        fs.rename(tempPath, destination, resolve)
+      })
     })
   })
 }

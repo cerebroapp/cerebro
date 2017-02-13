@@ -1,16 +1,21 @@
-import { search, memoize } from 'cerebro-tools'
+import { search } from 'cerebro-tools'
 import plugins from '../../../index'
-
-const getPluginsWithKeyword = memoize(() => (
-  Object.keys(plugins)
-    .map(name => plugins[name])
-    .filter(plugin => !!plugin.keyword)
-))
+import { flow, filter, map, partialRight, values } from 'lodash/fp'
 
 const toString = plugin => plugin.keyword
 const notMatch = term => plugin => (
   plugin.keyword !== term && `${plugin.keyword} ` !== term
 )
+
+const pluginToResult = actions => res => ({
+  title: res.name,
+  icon: res.icon,
+  term: `${res.keyword} `,
+  onSelect: (event) => {
+    event.preventDefault()
+    actions.replaceTerm(`${res.keyword} `)
+  }
+})
 
 /**
  * Plugin for autocomplete other plugins
@@ -18,20 +23,14 @@ const notMatch = term => plugin => (
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const fn = ({ term, display, actions }) => {
-  const results = search(getPluginsWithKeyword(), term, toString)
-    .filter(notMatch(term))
-    .map(res => ({
-      title: res.name,
-      icon: res.icon,
-      term: `${res.keyword} `,
-      onSelect: (event) => {
-        event.preventDefault()
-        actions.replaceTerm(`${res.keyword} `)
-      }
-    }))
-  display(results)
-}
+const fn = ({ term, display, actions }) => flow(
+  values,
+  filter(plugin => !!plugin.keyword),
+  partialRight(search, [term, toString]),
+  filter(notMatch(term)),
+  map(pluginToResult(actions)),
+  display
+)(plugins)
 
 export default {
   fn,

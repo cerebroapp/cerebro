@@ -1,13 +1,5 @@
 import React, { PropTypes, Component } from 'react'
 import KeyboardNavItem from 'main/components/KeyboardNavItem'
-import { send } from 'lib/rpc/events'
-
-const reload = () => {
-  // Send message to reload background windows
-  send('reload')
-  // And reload current window
-  location.reload()
-}
 
 export default class ActionButton extends Component {
   static propTypes = {
@@ -31,8 +23,7 @@ export default class ActionButton extends Component {
       timeout
     ]).then(() => {
       this.setState({ loading: false })
-      // TODO: reload plugins without reloading window?
-      reload()
+      console.log('DONE')
     })
   }
   render() {

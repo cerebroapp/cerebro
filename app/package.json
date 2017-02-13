@@ -14,6 +14,7 @@
     "rebuild": "npm rebuild --runtime=electron --target=1.4.12 --disturl=https://atom.io/download/electron --abi=50"
   },
   "dependencies": {
+    "chokidar": "^1.6.1",
     "electron-updater": "^1.1.1",
     "nodobjc": "^2.1.0",
     "rmdir": "^1.2.0",

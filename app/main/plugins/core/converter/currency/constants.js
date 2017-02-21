@@ -75,7 +75,8 @@ export const CURRENCY_BY_COUNTRY = {
   'TF': 'eur',
   'VA': 'eur',
   'YT': 'eur',
-  'IL': 'ils'
+  'IL': 'ils',
+  'IN': 'inr'
 }
 
 /**
@@ -116,6 +117,10 @@ export const SYNONIMS = {
 
   'форинт*': 'huf',
   'forint*': 'huf',
+
+  '₹': 'inr',
+  'rs': 'inr',
+  'rupee*': 'inr',
 
   'ringgit*': 'myr',
   'ринггит*': 'myr',
@@ -179,5 +184,6 @@ export const DISPLAY_NAMES = {
   'uah': '₴',
   'ils': '₪',
   'chf': '₣',
-  'thb': '฿'
+  'thb': '฿',
+  'inr': '₹'
 }

@@ -77,6 +77,14 @@ After `npm install` postinstall script checks node & npm to match required versi
 2. `Uncaught Error: Module version mismatch. Exepcted 50, got ...`
 This error means that node modules with native extensions build with wrong node version (your local node version != node version, included to electron). To fix this issue run `cd ./app && npm run rebuild`
 
+#### Config file path
+
+
+*WINDOWS*: `%APPDATA%/Cerebro/config.json`
+
+*Linux*: `$XDG_CONFIG_HOME/Cerebro/config.json`  or `~/.config/Cerebro/config.json`
+
+*Mac OS* `~/Library/Application Support/Cerebro/config.json`
 
 
 ### Package

@@ -32,6 +32,7 @@ export const toString = (app) => `${app.name} ${app.filename} ${getAbbr(app.name
 
 export const formatPath = (filePath) => ({
   ...parseFile(filePath),
+  id: filePath,
   source: filePath,
   // TODO: check if file is hidden or not
   hidden: false,

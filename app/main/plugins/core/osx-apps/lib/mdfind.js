@@ -31,7 +31,7 @@ function parseLine(line) {
 }
 
 const getValue = (item) => {
-  if (item === '(null)') {
+  if (!item || item === '(null)') {
     return null
   } else if (item.startsWith('(\n    "') && item.endsWith('"\n)')) {
     const actual = item.slice(7, -3)

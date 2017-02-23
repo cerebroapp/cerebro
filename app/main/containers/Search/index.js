@@ -166,10 +166,6 @@ class Search extends Component {
       return
     }
     if (event.metaKey || event.ctrlKey) {
-      if (event.keyCode === 8) {
-        // Clean search term on cmd+backspace
-        this.props.actions.reset()
-      }
       if (event.keyCode === 67) {
         // Copy to clipboard on cmd+c
         const text = this.highlightedResult().clipboard

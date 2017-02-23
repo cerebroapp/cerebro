@@ -26,12 +26,13 @@ export const DIRECTORIES = [
 
 export const EXTENSIONS = ['lnk', 'exe']
 
-export const openApp = (app) => shell.openItem(app.path)
+export const openApp = (app) => shell.openItem(app.source)
 
 export const toString = (app) => `${app.name} ${app.filename} ${getAbbr(app.name)}`
 
 export const formatPath = (filePath) => ({
   ...parseFile(filePath),
+  source: filePath,
   // TODO: check if file is hidden or not
   hidden: false,
   filename: path.basename(filePath),

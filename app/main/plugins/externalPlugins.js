@@ -33,16 +33,16 @@ const plugins = {}
 const pluginsWatcher = chokidar.watch(modulesDirectory, { depth: 0 })
 
 pluginsWatcher.on('unlinkDir', (pluginPath) => {
-  const file = path.parse(pluginPath).base
+  const name = path.parse(pluginPath).base
   const requirePath = window.require.resolve(pluginPath)
-  console.log(`[${file}] Plugin removed`)
+  console.log(`[${name}] Plugin removed`)
   delete window.require.cache[requirePath]
-  delete plugins[file]
+  delete plugins[name]
 })
 
 pluginsWatcher.on('addDir', (pluginPath) => {
-  const file = path.parse(pluginPath).base
-  console.group(`Load plugin: ${file}`)
+  const name = path.parse(pluginPath).base
+  console.group(`Load plugin: ${name}`)
   console.log(`Path: ${pluginPath}...`)
   const plugin = requirePlugin(pluginPath)
   if (!isPluginValid(plugin)) {
@@ -54,13 +54,13 @@ pluginsWatcher.on('addDir', (pluginPath) => {
   const requirePath = window.require.resolve(pluginPath)
   const watcher = chokidar.watch(requirePath, { depth: 0 })
   watcher.on('change', () => {
-    console.log(`[${file}] Update plugin`)
+    console.log(`[${name}] Update plugin`)
     delete window.require.cache[requirePath]
-    plugins[file] = window.require(pluginPath)
-    console.log(`[${file}] Plugin updated`)
+    plugins[name] = window.require(pluginPath)
+    console.log(`[${name}] Plugin updated`)
   })
   console.groupEnd()
-  plugins[file] = plugin
+  plugins[name] = plugin
 })
 
 export default plugins

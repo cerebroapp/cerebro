@@ -23,9 +23,7 @@ addons:
 before_install:
   - npm install -g npm@3.10.8
 
-cache:
-  directories:
-    - node_modules
+cache: yarn
 
 addons:
   apt:

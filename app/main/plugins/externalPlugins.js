@@ -42,6 +42,9 @@ pluginsWatcher.on('unlinkDir', (pluginPath) => {
 
 pluginsWatcher.on('addDir', (pluginPath) => {
   const name = path.parse(pluginPath).base
+  if (name === 'node_modules') {
+    return
+  }
   console.group(`Load plugin: ${name}`)
   console.log(`Path: ${pluginPath}...`)
   const plugin = requirePlugin(pluginPath)

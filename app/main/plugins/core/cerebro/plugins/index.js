@@ -10,38 +10,44 @@ import initializeAsync from './initializeAsync'
 
 const toString = ({ name, description }) => [name, description].join(' ')
 
-const pluginToResult = plugin => {
-  const displayVersion = plugin.isUpdateAvailable ?
-    `${plugin.installedVersion} → ${plugin.version}` :
-    plugin.version
+const updatePlugin = (update, name) => {
+  loadPlugins().then(plugins => {
+    const updatedPlugin = plugins.find(plugin => plugin.name === name)
+    update(name, {
+      title: `${format.name(updatedPlugin.name)} (${format.version(updatedPlugin)})`,
+      getPreview: () => (
+        <Preview
+          {...updatedPlugin}
+          key={Math.random()}
+          onComplete={() => updatePlugin(update, name)}
+        />
+      )
+    })
+  })
+}
+
+const pluginToResult = update => plugin => {
   return {
     icon,
-    title: `${format.name(plugin.name)} (${displayVersion})`,
+    id: plugin.name,
+    title: `${format.name(plugin.name)} (${format.version(plugin)})`,
     subtitle: format.description(plugin.description),
     onSelect: () => shell.openExternal(plugin.repo),
-    getPreview: () => (
-      <Preview
-        {...plugin}
-        installedVersion={plugin.installedVersion}
-        isInstalled={plugin.isInstalled}
-        isUpdateAvailable={plugin.isUpdateAvailable}
-      />
-    )
+    getPreview: () => <Preview {...plugin} key={plugin.name} onComplete={() => updatePlugin(update, plugin.name)} />
   }
 }
 
-const fn = ({ term, display, hide, actions }) => {
+const fn = ({ term, display, hide, update, actions }) => {
   const match = term.match(/^plugins?\s*(.+)?$/i)
   if (match) {
-    const pluginSearch = match[1]
     display({
       icon,
       id: 'loading',
       title: 'Looking for plugins...'
     })
     loadPlugins().then(flow(
-      partialRight(search, [pluginSearch, toString]),
-      map(pluginToResult),
+      partialRight(search, [match[1], toString]),
+      map(pluginToResult(update)),
       tap(() => hide('loading')),
       display
     ))

@@ -1,24 +1,32 @@
-import lowerCase from 'lodash/lowerCase'
-import words from 'lodash/words'
-import capitalize from 'lodash/capitalize'
-import trim from 'lodash/trim'
-import compose from 'lodash/fp/compose'
-import map from 'lodash/fp/map'
-import join from 'lodash/fp/join'
+import { flow, lowerCase, words, capitalize, trim, map, join } from 'lodash/fp'
 
-const removeNoise = (str) => str.replace(/^cerebro\s?(plugin)?\s?(to)?/i, '')
-
-export const name = compose(
-  join(' '),
-  map(capitalize),
-  words,
-  trim,
-  removeNoise,
-  lowerCase
+/**
+ * Remove unnecessary information from plugin name or description
+ * like `Cerebro plugin for`
+ * @param  {String} str
+ * @return {String}
+ */
+const removeNoise = (str) => (
+  str.replace(/^cerebro\s?(plugin)?\s?(to|for)?/i, '')
 )
 
-export const description = compose(
-  capitalize,
+export const name = flow(
+  lowerCase,
+  removeNoise,
   trim,
-  removeNoise
+  words,
+  map(capitalize),
+  join(' ')
+)
+
+export const description = flow(
+  removeNoise,
+  trim,
+  capitalize,
+)
+
+export const version = (plugin) => (
+  plugin.isUpdateAvailable ?
+    `${plugin.installedVersion} → ${plugin.version}` :
+    plugin.version
 )

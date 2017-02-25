@@ -31,29 +31,27 @@ export default class Preview extends Component {
 
   constructor(props) {
     super(props)
-    this.onShowDescription = this.onShowDescription.bind(this)
+    this.onComplete = this.onComplete.bind(this)
     this.state = {
       showDescription: false,
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.name !== this.props.name) {
-      this.setState({ showDescription: false })
+  pluginAction(plugin, runningAction) {
+    return () => {
+      this.setState({ runningAction })
+      trackEvent({
+        category: 'Plugins',
+        event: runningAction,
+        label: plugin
+      })
+      client[runningAction](plugin)
     }
   }
 
-  onShowDescription() {
-    this.setState({ showDescription: true })
-  }
-
-  pluginAction(plugin, action) {
-    trackEvent({
-      category: 'Plugins',
-      event: action,
-      label: plugin
-    })
-    return () => client[action](plugin)
+  onComplete() {
+    this.setState({ runningAction: null })
+    this.props.onComplete()
   }
 
   renderDescription(repo) {
@@ -82,7 +80,8 @@ export default class Preview extends Component {
       installedVersion,
       isUpdateAvailable
     } = this.props
-    const match = repo && repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
+    const githubRepo = repo && repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
+    const runningAction = this.state.runningAction
     return (
       <div className={styles.preview} key={name}>
         <h2>{format.name(name)} ({version})</h2>
@@ -93,33 +92,33 @@ export default class Preview extends Component {
               !isInstalled &&
                 <ActionButton
                   action={this.pluginAction(name, 'install')}
-                  text="Install"
-                  loadingText="Installing"
+                  text={runningAction === 'install' ? 'Installing...' : 'Install'}
+                  onComplete={this.onComplete}
                 />
             }
             {
               isInstalled &&
                 <ActionButton
                   action={this.pluginAction(name, 'uninstall')}
-                  text="Uninstall"
-                  loadingText="Uninstalling"
+                  text={runningAction === 'uninstall' ? 'Uninstalling...' : 'Uninstall'}
+                  onComplete={this.onComplete}
                 />
             }
             {
               isUpdateAvailable &&
                 <ActionButton
                   action={this.pluginAction(name, 'update')}
-                  text={`Update (${installedVersion} → ${version})`}
-                  loadingText="Updating"
+                  text={runningAction === 'update' ? 'Updating...' : `Update (${installedVersion} → ${version})`}
+                  onComplete={this.onComplete}
                 />
             }
             {
-              match &&
-                <KeyboardNavItem onSelect={this.onShowDescription}>Details</KeyboardNavItem>
+              githubRepo &&
+                <KeyboardNavItem onSelect={() => this.setState({ showDescription: true })}>Details</KeyboardNavItem>
             }
           </div>
         </KeyboardNav>
-        {this.state.showDescription && this.renderDescription(match[1])}
+        {this.state.showDescription && this.renderDescription(githubRepo[1])}
       </div>
     )
   }

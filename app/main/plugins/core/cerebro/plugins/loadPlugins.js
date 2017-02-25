@@ -1,13 +1,11 @@
 import { memoize } from 'cerebro-tools'
 import availablePlugins from './getAvailablePlugins'
-import installedPlugins from './getInstalledPlugins'
+import getInstalledPlugins from './getInstalledPlugins'
 import semver from 'semver'
 
-//
 const maxAge = 5 * 60 * 1000
 
 const getAvailablePlugins = memoize(availablePlugins, { maxAge })
-const getInstalledPlugins = memoize(installedPlugins, { maxAge })
 
 const parseVersion = (version) => (
   semver.valid((version || '').replace(/^\^/, '')) || '0.0.0'

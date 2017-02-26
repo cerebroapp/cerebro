@@ -1,7 +1,4 @@
-const core = require('./core')
-const loadExternalPlugins = require('./loadExternalPlugins')
+import core from './core'
+import externalPlugins from './externalPlugins'
 
-export default {
-  ...core,
-  ...loadExternalPlugins(),
-}
+export default Object.assign(externalPlugins, core)

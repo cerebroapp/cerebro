@@ -1,46 +1,25 @@
 import React, { PropTypes, Component } from 'react'
 import KeyboardNavItem from 'main/components/KeyboardNavItem'
-import { send } from 'lib/rpc/events'
-
-const reload = () => {
-  // Send message to reload background windows
-  send('reload')
-  // And reload current window
-  location.reload()
-}
 
 export default class ActionButton extends Component {
   static propTypes = {
     action: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
-    loadingText: PropTypes.string.isRequired,
+    onComplete: PropTypes.func.isRequired,
   }
-  constructor(props) {
-    super(props)
-    this.onSelect = this.onSelect.bind(this)
-    this.state = {
-      loading: false
-    }
-  }
-  onSelect() {
-    this.setState({ loading: true })
+  onSelect = () => {
     const timeout = new Promise(resolve => setTimeout(resolve, 1500))
-    // Remove "flashing" when plugin installed in less than 1.5s
     Promise.all([
       this.props.action(),
       timeout
-    ]).then(() => {
-      this.setState({ loading: false })
-      // TODO: reload plugins without reloading window?
-      reload()
-    })
+    ]).then(
+      this.props.onComplete
+    )
   }
   render() {
-    const { text, loadingText } = this.props
-    const { loading } = this.state
     return (
       <KeyboardNavItem onSelect={this.onSelect}>
-        {loading ? `${loadingText}. App will be reloaded...` : text}
+        {this.props.text}
       </KeyboardNavItem>
     )
   }

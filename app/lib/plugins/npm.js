@@ -1,4 +1,5 @@
 import fs from 'fs'
+import os from 'os'
 import rmdir from 'rmdir'
 import path from 'path'
 import tar from 'tar-fs'
@@ -33,18 +34,23 @@ const formatPackageFile = (header) => ({
   name: header.name.replace(/^package\//, '')
 })
 
-const installPackage = (tarPath, destination) => {
+const installPackage = (tarPath, destination, middleware) => {
   console.log(`Extract ${tarPath} to ${destination}`)
   return new Promise((resolve, reject) => {
+    const tempPath = os.tmpdir()
     https.get(tarPath, stream => {
       const result = stream
         // eslint-disable-next-line new-cap
         .pipe(zlib.Unzip())
-        .pipe(tar.extract(destination, {
+        .pipe(tar.extract(tempPath, {
           map: formatPackageFile
         }))
       result.on('error', reject)
-      result.on('finish', resolve)
+      result.on('finish', () => {
+        middleware().then(() => (
+          fs.rename(tempPath, destination, resolve)
+        ))
+      })
     })
   })
 }
@@ -65,13 +71,19 @@ export default (dir) => {
   return {
     /**
      * Install npm package
-     *
      * @param  {String} name Name of package in npm registry
-     * @param  {String} @version [version] Version of npm package. Default is latest version
+     *
+     * @param  {Object} options
+     *             version {String} Version of npm package. Default is latest version
+     *             middleware {Function<Promise>}
+     *               Function that returns promise. Called when package's archive is extracted
+     *               to temp folder, but before moving to real location
      * @return {Promise}
      */
-    install(name, version = null) {
+    install(name, options = {}) {
       let versionToInstall
+      const version = options.version || null
+      const middleware = options.middleware || (() => Promise.resolve())
       console.group('[npm] Install package', name)
       return fetch(`${API_BASE}${name}`)
         .then(response => response.json())
@@ -80,7 +92,8 @@ export default (dir) => {
           console.log('Version:', versionToInstall)
           return installPackage(
             json.versions[versionToInstall].dist.tarball,
-            path.join(dir, 'node_modules', name)
+            path.join(dir, 'node_modules', name),
+            middleware
           )
         })
         .then(() => {
@@ -97,7 +110,11 @@ export default (dir) => {
         })
     },
     update(name) {
-      return this.uninstall(name).then(this.install(name))
+      // Plugin update is downloading `.tar` and unarchiving it to temp folder
+      // Only if this part was succeeded, current version of plugin is uninstalled
+      // and temp folder moved to real plugin location
+      const middleware = () => this.uninstall(name)
+      return this.install(name, { middleware })
     },
     /**
      * Uninstall npm package

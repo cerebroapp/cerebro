@@ -57,6 +57,9 @@ export default ({ src, isDev }) => {
 
   // Save window position when it is being moved
   mainWindow.on('move', debounce(() => {
+    if (!mainWindow.isVisible()) {
+      return
+    }
     const display = screen.getPrimaryDisplay()
     const positions = config.get('positions') || {}
     positions[display.id] = mainWindow.getPosition()

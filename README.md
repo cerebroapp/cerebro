@@ -8,7 +8,7 @@
 [![OpenCollective](https://opencollective.com/cerebro/sponsors/badge.svg)](#sponsors)
 
 ## Usage
-Your can download the latest version on  [releases](https://github.com/KELiON/cerebro/releases) page.
+You can download the latest version on  [releases](https://github.com/KELiON/cerebro/releases) page.
 
 After installation use default shortcut `ctrl+space` to show an app window. You can customize this shortcut clicking on icon in menu bar → preferences.
 

@@ -4,7 +4,7 @@
 
 [![Build Status][travis-image]][travis-url]
 [![Dependency Status][david_img]][david_site]
-[![OpenCollective](https://opencollective.com/cerebro/backers/badge.svg)](#backers) 
+[![OpenCollective](https://opencollective.com/cerebro/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/cerebro/sponsors/badge.svg)](#sponsors)
 
 ## Usage
@@ -30,6 +30,9 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [macOS Define](https://github.com/KELiON/cerebro-osx-define) – define in OSx built-in dictionary;
 * [macOS Eject](https://github.com/codingmatty/cerebro-plugin-osx-eject) – safely eject mounted volume drives;
 * [macOS System](https://github.com/KELiON/cerebro-osx-system) – system commands: i.e. `sleep`, `lock`, `restart`, `empty trash` or open system directories, like `trash` or `airdrop`;
+
+#### Windos only plugins
+* [Windows System](https://github.com/BrainMaestro/cerebro-windows-system) – system commands: i.e. `shutdown`, `sleep`, `lock`, `restart`, `empty trash`, or adjust volume and brightness;
 
 #### Plugins for all platforms
 * [Caniuse](https://github.com/KELiON/cerebro-caniuse) – quick access to [caniuse.com](http://caniuse.com) database;

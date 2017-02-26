@@ -41,11 +41,11 @@ pluginsWatcher.on('unlinkDir', (pluginPath) => {
 })
 
 pluginsWatcher.on('addDir', (pluginPath) => {
-  const name = path.parse(pluginPath).base
-  if (name === 'node_modules') {
+  const { base, dir } = path.parse(pluginPath)
+  if (dir !== modulesDirectory) {
     return
   }
-  console.group(`Load plugin: ${name}`)
+  console.group(`Load plugin: ${base}`)
   console.log(`Path: ${pluginPath}...`)
   const plugin = requirePlugin(pluginPath)
   if (!isPluginValid(plugin)) {
@@ -57,13 +57,13 @@ pluginsWatcher.on('addDir', (pluginPath) => {
   const requirePath = window.require.resolve(pluginPath)
   const watcher = chokidar.watch(requirePath, { depth: 0 })
   watcher.on('change', () => {
-    console.log(`[${name}] Update plugin`)
+    console.log(`[${base}] Update plugin`)
     delete window.require.cache[requirePath]
-    plugins[name] = window.require(pluginPath)
-    console.log(`[${name}] Plugin updated`)
+    plugins[base] = window.require(pluginPath)
+    console.log(`[${base}] Plugin updated`)
   })
   console.groupEnd()
-  plugins[name] = plugin
+  plugins[base] = plugin
 })
 
 export default plugins

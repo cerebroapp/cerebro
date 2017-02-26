@@ -1,6 +1,6 @@
 import React from 'react'
 import Preview from './Preview'
-import { search, memoize } from 'cerebro-tools'
+import { search } from 'cerebro-tools'
 import { shell } from 'electron'
 import loadPlugins from './loadPlugins'
 import icon from '../icon.png'
@@ -26,18 +26,22 @@ const updatePlugin = (update, name) => {
   })
 }
 
-const pluginToResult = update => plugin => {
-  return {
-    icon,
-    id: plugin.name,
-    title: `${format.name(plugin.name)} (${format.version(plugin)})`,
-    subtitle: format.description(plugin.description),
-    onSelect: () => shell.openExternal(plugin.repo),
-    getPreview: () => <Preview {...plugin} key={plugin.name} onComplete={() => updatePlugin(update, plugin.name)} />
-  }
-}
+const pluginToResult = update => plugin => ({
+  icon,
+  id: plugin.name,
+  title: `${format.name(plugin.name)} (${format.version(plugin)})`,
+  subtitle: format.description(plugin.description),
+  onSelect: () => shell.openExternal(plugin.repo),
+  getPreview: () => (
+    <Preview
+      {...plugin}
+      key={plugin.name}
+      onComplete={() => updatePlugin(update, plugin.name)}
+    />
+  )
+})
 
-const fn = ({ term, display, hide, update, actions }) => {
+const fn = ({ term, display, hide, update }) => {
   const match = term.match(/^plugins?\s*(.+)?$/i)
   if (match) {
     display({

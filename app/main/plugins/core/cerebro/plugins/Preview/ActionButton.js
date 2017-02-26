@@ -5,7 +5,7 @@ export default class ActionButton extends Component {
   static propTypes = {
     action: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
-    onComplete:  PropTypes.func.isRequired,
+    onComplete: PropTypes.func.isRequired,
   }
   onSelect = () => {
     const timeout = new Promise(resolve => setTimeout(resolve, 1500))

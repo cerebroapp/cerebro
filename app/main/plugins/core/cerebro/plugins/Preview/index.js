@@ -27,6 +27,7 @@ export default class Preview extends Component {
     installedVersion: PropTypes.string,
     isInstalled: PropTypes.bool.isRequired,
     isUpdateAvailable: PropTypes.bool.isRequired,
+    onComplete: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -35,6 +36,11 @@ export default class Preview extends Component {
     this.state = {
       showDescription: false,
     }
+  }
+
+  onComplete() {
+    this.setState({ runningAction: null })
+    this.props.onComplete()
   }
 
   pluginAction(plugin, runningAction) {
@@ -47,11 +53,6 @@ export default class Preview extends Component {
       })
       client[runningAction](plugin)
     }
-  }
-
-  onComplete() {
-    this.setState({ runningAction: null })
-    this.props.onComplete()
   }
 
   renderDescription(repo) {
@@ -108,13 +109,21 @@ export default class Preview extends Component {
               isUpdateAvailable &&
                 <ActionButton
                   action={this.pluginAction(name, 'update')}
-                  text={runningAction === 'update' ? 'Updating...' : `Update (${installedVersion} → ${version})`}
+                  text={
+                    runningAction === 'update'
+                      ? 'Updating...'
+                      : `Update (${installedVersion} → ${version})`
+                  }
                   onComplete={this.onComplete}
                 />
             }
             {
               githubRepo &&
-                <KeyboardNavItem onSelect={() => this.setState({ showDescription: true })}>Details</KeyboardNavItem>
+                <KeyboardNavItem
+                  onSelect={() => this.setState({ showDescription: true })}
+                >
+                  Details
+                </KeyboardNavItem>
             }
           </div>
         </KeyboardNav>

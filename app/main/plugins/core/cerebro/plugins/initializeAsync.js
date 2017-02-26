@@ -12,7 +12,7 @@ export default function checkForUpdates() {
       console.log(
         updatedPlugins > 0
           ? `${updatedPlugins} plugins are updated`
-          : `All plugins are up to date`
+          : 'All plugins are up to date'
       )
     })
 

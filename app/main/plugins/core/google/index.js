@@ -18,7 +18,8 @@ const googlePlugin = ({ term, actions, display }) => {
    * Open browser with google search of term
    * @param  {String} searchTerm
    */
-  const search = (searchTerm) => {
+  // eslint-disable-next-line no-var
+  var search = (searchTerm) => {
     const q = encodeURIComponent(searchTerm)
     actions.open(`https://google.com/?q=${q}#newwindow=1&q=${q}`)
     actions.hideWindow()

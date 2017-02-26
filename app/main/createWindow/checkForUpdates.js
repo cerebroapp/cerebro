@@ -66,7 +66,7 @@ export default () => {
     } else {
       dialog.showMessageBox({
         title: TITLE,
-        message: `Your are using latest version of Cerebro (${currentVersion})`,
+        message: `You are using latest version of Cerebro (${currentVersion})`,
         buttons: []
       })
     }

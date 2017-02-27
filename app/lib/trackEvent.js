@@ -2,8 +2,16 @@ import ua from 'universal-analytics'
 import { machineIdSync } from 'node-machine-id'
 
 const DEFAULT_CATEGORY = 'Cerebro App'
-const visitor = ua('UA-87361302-1', machineIdSync(), { strictCidFormat: false })
+
 const trackingEnabled = process.env.NODE_ENV === 'production'
+let visitor
+
+try {
+  visitor = ua('UA-87361302-1', machineIdSync(), { strictCidFormat: false })
+} catch (err) {
+  console.log('[machine-id error]', err)
+  visitor = ua('UA-87361302-1')
+}
 
 export default ({ category, event, label, value }) => {
   if (trackingEnabled) {

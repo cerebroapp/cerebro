@@ -31,7 +31,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [macOS Eject](https://github.com/codingmatty/cerebro-plugin-osx-eject) – safely eject mounted volume drives;
 * [macOS System](https://github.com/KELiON/cerebro-osx-system) – system commands: i.e. `sleep`, `lock`, `restart`, `empty trash` or open system directories, like `trash` or `airdrop`;
 
-#### Windos only plugins
+#### Windows only plugins
 * [Windows System](https://github.com/BrainMaestro/cerebro-windows-system) – system commands: i.e. `shutdown`, `sleep`, `lock`, `restart`, `empty trash`, or adjust volume and brightness;
 
 #### Plugins for all platforms

@@ -2,7 +2,7 @@
  * API endpoint to search all cerebro plugins
  * @type {String}
  */
-const URL = 'https://api.npms.io/v2/search?from=0&q=keywords%3Acerebro-plugin'
+const URL = 'https://api.npms.io/v2/search?from=0&q=keywords%3Acerebro-plugin&size=250'
 
 /**
  * Get all available plugins for Cerebro

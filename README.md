@@ -48,6 +48,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [Lipsum](https://github.com/codingmatty/cerebro-plugin-lipsum) – generate lorem ipsum text from [lipsum.com](http://www.lipsum.com);
 * [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
 * [Stackoverflow](https://github.com/BrainMaestro/cerebro-stackoverflow) – search for answers to questions on stackoverflow;
+* [NPM](https://github.com/JordanAdams/cerebro-npm) – search for NPM packages
 
 ## Development
 ### Create plugin

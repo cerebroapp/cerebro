@@ -18,7 +18,6 @@ export default ({ src, isDev }) => {
   const [x, y] = getWindowPosition({})
 
   const mainWindow = new BrowserWindow({
-    alwaysOnTop: true,
     width: WINDOW_WIDTH,
     minWidth: WINDOW_WIDTH,
     height: INPUT_HEIGHT,
@@ -29,6 +28,9 @@ export default ({ src, isDev }) => {
     // Show main window on launch only when application started for the first time
     show: config.get('firstStart')
   })
+
+  // Float main window above full-screen apps
+  mainWindow.setAlwaysOnTop(true, 'modal-panel')
 
   mainWindow.loadURL(src)
   mainWindow.settingsChanges = new EventEmitter()

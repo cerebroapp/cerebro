@@ -40,6 +40,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [DuckDuckGo](https://github.com/tiagoamaro/cerebro-duck-duck-go) – Use DuckDuckGo as your search engine;
 * [Emoj](https://github.com/KELiON/cerebro-emoj) – search for relevant emoji, like `emoj this is awesome`;
 * [Gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;
+* [Github](https://github.com/tenorz007/cerebro-github) – search for trending, repos or users on github;
 * [Google Knowledge Graph](https://github.com/Kageetai/cerebro-gkg) – Get info from the [Google Knowledge Graph](https://www.google.com/intl/bn/insidesearch/features/search/knowledge.html) for your query;
 * [Hash](https://github.com/codingmatty/cerebro-plugin-hash) – hash input text with popular hash algorithms (i.e. md5, sha1, etc);
 * [IMDB](https://github.com/KELiON/cerebro-imdb) – search for films on imdb.com with rating and details, like `imdb star wars`;

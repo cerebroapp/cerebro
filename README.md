@@ -30,6 +30,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [macOS Define](https://github.com/KELiON/cerebro-osx-define) – define in OSx built-in dictionary;
 * [macOS Eject](https://github.com/codingmatty/cerebro-plugin-osx-eject) – safely eject mounted volume drives;
 * [macOS System](https://github.com/KELiON/cerebro-osx-system) – system commands: i.e. `sleep`, `lock`, `restart`, `empty trash` or open system directories, like `trash` or `airdrop`;
+* [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
 
 #### Windows only plugins
 * [Windows System](https://github.com/BrainMaestro/cerebro-windows-system) – system commands: i.e. `shutdown`, `sleep`, `lock`, `restart`, `empty trash`, or adjust volume and brightness;
@@ -45,7 +46,6 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [Hash](https://github.com/codingmatty/cerebro-plugin-hash) – hash input text with popular hash algorithms (i.e. md5, sha1, etc);
 * [IMDB](https://github.com/KELiON/cerebro-imdb) – search for films on imdb.com with rating and details, like `imdb star wars`;
 * [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
-* [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
 * [Lipsum](https://github.com/codingmatty/cerebro-plugin-lipsum) – generate lorem ipsum text from [lipsum.com](http://www.lipsum.com);
 * [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
 * [Stackoverflow](https://github.com/BrainMaestro/cerebro-stackoverflow) – search for answers to questions on stackoverflow;

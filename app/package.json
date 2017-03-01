@@ -20,7 +20,7 @@
     "rmdir": "^1.2.0",
     "semver": "^5.3.0",
     "universal-analytics": "^0.4.8",
-    "win-icon-extractor": "^1.0.1"
+    "win-icon-extractor": "^1.0.3"
   },
   "devDependencies": {}
 }

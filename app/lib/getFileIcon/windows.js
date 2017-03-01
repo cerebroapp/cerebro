@@ -1,4 +1,4 @@
-import extractIcon from 'win-icon-extractor';
+import extractIcon from 'win-icon-extractor'
 
 /**
  * Get system icon for file
@@ -9,16 +9,16 @@ import extractIcon from 'win-icon-extractor';
  * @return {Promise<String>} Promise resolves base64-encoded source of icon
  */
 export default function getFileIcon(path, { width = 128, height = 128 } = {}) {
-	return new Promise((resolve, reject) => {
-		var icon = null;
-		try {
-			icon = extractIcon(path);
-		} catch(e) {
-			reject(e);
-		}
+  return new Promise((resolve, reject) => {
+    var icon = null;
+    try {
+      icon = extractIcon(path)
+    } catch (e) {
+      reject(e)
+    }
 
-		if (icon != null) {
-			resolve(icon);
-		}
-	});
+    if (icon != null) {
+      resolve(icon)
+    }
+  })
 }

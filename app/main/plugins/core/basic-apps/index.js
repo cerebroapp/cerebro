@@ -14,7 +14,7 @@ const fn = ({ term, actions, display }) => {
   const result = search(appsList, term, toString).map(app => {
     const { id, path, name, description, icon } = app
     return {
-      icon,
+      icon: path,
       id: id || path,
       title: name,
       term: name,

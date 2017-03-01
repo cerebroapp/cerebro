@@ -50,6 +50,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
 * [Stackoverflow](https://github.com/BrainMaestro/cerebro-stackoverflow) – search for answers to questions on stackoverflow;
 * [NPM](https://github.com/JordanAdams/cerebro-npm) – search for NPM packages
+* [Photos](https://github.com/matmunn/cerebro-photos) – search for photos on Unsplash, like `photo mountain`;
 
 ## Development
 ### Create plugin

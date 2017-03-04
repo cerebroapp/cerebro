@@ -51,6 +51,7 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [Stackoverflow](https://github.com/BrainMaestro/cerebro-stackoverflow) – search for answers to questions on stackoverflow;
 * [NPM](https://github.com/JordanAdams/cerebro-npm) – search for NPM packages
 * [Photos](https://github.com/matmunn/cerebro-photos) – search for photos on Unsplash, like `photo mountain`;
+* [AQI](https://github.com/hellocreep/cerebro-aqi) – search for AQI(Air Quality Index) information of cities;
 
 ## Development
 ### Create plugin

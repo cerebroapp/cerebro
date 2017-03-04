@@ -32,7 +32,7 @@ const DEFAULT_SCOPE = {
 
 /**
  * Pass search term to all plugins and handle their results
- * @param {String} term Search tem
+ * @param {String} term Search term
  * @param {Function} callback Callback function that receives used search term and found results
  */
 const eachPlugin = (term, display) => {

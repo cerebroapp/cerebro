@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce'
 import chokidar from 'chokidar'
 import path from 'path'
 import { modulesDirectory, ensureFiles } from 'lib/plugins'
@@ -57,12 +58,12 @@ pluginsWatcher.on('addDir', (pluginPath) => {
     console.log('Loaded.')
     const requirePath = window.require.resolve(pluginPath)
     const watcher = chokidar.watch(requirePath, { depth: 0 })
-    watcher.on('change', () => {
+    watcher.on('change', debounce(() => {
       console.log(`[${base}] Update plugin`)
       delete window.require.cache[requirePath]
       plugins[base] = window.require(pluginPath)
       console.log(`[${base}] Plugin updated`)
-    })
+    }, 1000))
     console.groupEnd()
     plugins[base] = plugin
   }, 1000)

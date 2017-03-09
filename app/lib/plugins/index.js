@@ -32,3 +32,4 @@ export const ensureFiles = () => {
 }
 
 export const client = npm(pluginsPath)
+export { default as addSettings } from './settings' 

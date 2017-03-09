@@ -22,7 +22,7 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 * Calculator;
 * Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp`;
 
-### Custom plugins
+### Install and manage custom plugins
 Use built-in `plugins` command to search and manage custom plugins.
 
 #### macOS only plugins

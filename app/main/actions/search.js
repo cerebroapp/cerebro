@@ -41,7 +41,9 @@ const eachPlugin = (term, display) => {
   Object.keys(plugins).forEach(name => {
     const settings = externalSettings[name]
     if (settings) {
-      Object.keys(settings).forEach(key => settings[key] = settings[key].value)
+      Object.keys(settings).forEach(key => {
+        settings[key] = settings[key].value
+      })
     }
 
     try {

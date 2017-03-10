@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import styles from '../styles.css'
 
-export default (props) => (
+const Checkbox = (props) => (
   <div className={styles.item}>
     <div className={styles.itemValueWithoutLabel}>
       <label>
@@ -16,3 +16,11 @@ export default (props) => (
     </div>
   </div>
 )
+
+Checkbox.propTypes = {
+  value: PropTypes.any,
+  onChange: PropTypes.func.isRequired,
+  description: PropTypes.string,
+}
+
+export default Checkbox

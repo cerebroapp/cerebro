@@ -55,7 +55,7 @@ pluginsWatcher.on('addDir', (pluginPath) => {
       console.groupEnd()
       return
     }
-    addSettings(plugin, base);
+    addSettings(plugin, base)
     console.log('Loaded.')
     const requirePath = window.require.resolve(pluginPath)
     const watcher = chokidar.watch(requirePath, { depth: 0 })

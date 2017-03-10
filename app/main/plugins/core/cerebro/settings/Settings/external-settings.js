@@ -1,7 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import loadThemes from 'lib/loadThemes'
 import styles from './styles.css'
-import hotkeyStyles from './Hotkey/styles.css'
 import { Checkbox, Input, Select, Options } from './components'
 
 export default class ExternalSettings extends Component {
@@ -19,7 +17,7 @@ export default class ExternalSettings extends Component {
     const { type, description } = setting
     const value = setting.value || setting.defaultValue
 
-    if (type == 'bool') {
+    if (type === 'bool') {
       return (
         <Checkbox
           key={label}
@@ -30,7 +28,7 @@ export default class ExternalSettings extends Component {
       )
     }
 
-    if (type == 'array') {
+    if (type === 'array') {
       return (
         <Select
           key={label}
@@ -42,7 +40,7 @@ export default class ExternalSettings extends Component {
       )
     }
 
-    if (type == 'option') {
+    if (type === 'option') {
       const { multi } = setting
       const options = setting.options.map(option => ({ label: option, value: option }))
 
@@ -52,8 +50,8 @@ export default class ExternalSettings extends Component {
           label={label}
           value={value}
           onChange={newValue => {
-            const value = multi ? newValue.map(val => val.value) : newValue.value
-            this.changeSetting(plugin, label, value)
+            const changedValue = multi ? newValue.map(val => val.value) : newValue.value
+            this.changeSetting(plugin, label, changedValue)
           }}
           description={description}
           options={options}

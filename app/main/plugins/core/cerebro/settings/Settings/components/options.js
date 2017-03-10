@@ -1,8 +1,8 @@
-import React from 'react'
-import Select, { Creatable } from 'react-select'
+import React, { PropTypes } from 'react'
+import { Creatable } from 'react-select'
 import styles from '../styles.css'
 
-export default (props) => (
+const Options = (props) => (
   <div className={styles.item}>
     <div className={styles.itemValue}>
       <Creatable
@@ -18,3 +18,14 @@ export default (props) => (
     </div>
   </div>
 )
+
+Options.propTypes = {
+  options: PropTypes.array.isRequired,
+  label: PropTypes.string,
+  value: PropTypes.any,
+  onChange: PropTypes.func.isRequired,
+  description: PropTypes.string,
+  multi: PropTypes.bool.isRequired,
+}
+
+export default Options

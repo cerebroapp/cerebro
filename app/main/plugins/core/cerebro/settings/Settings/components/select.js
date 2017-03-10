@@ -1,12 +1,12 @@
-import React from 'react'
-import Select, { Creatable } from 'react-select'
+import React, { PropTypes } from 'react'
+import { Creatable } from 'react-select'
 import styles from '../styles.css'
 
-export default (props) => (
+const Select = (props) => (
   <div className={styles.item}>
     <div className={styles.itemValue}>
       <Creatable
-        multi={true}
+        multi
         value={props.value}
         placeholder={props.label}
         onChange={props.onChange}
@@ -17,3 +17,12 @@ export default (props) => (
     </div>
   </div>
 )
+
+Select.propTypes = {
+  label: PropTypes.string,
+  value: PropTypes.any,
+  onChange: PropTypes.func.isRequired,
+  description: PropTypes.string,
+}
+
+export default Select

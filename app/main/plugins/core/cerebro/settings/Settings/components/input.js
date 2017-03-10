@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import styles from '../styles.css'
 import hotkeyStyles from '../Hotkey/styles.css'
 
-export default (props) => (
+const Input = (props) => (
   <div className={styles.item}>
     <label className={styles.label}>{props.label}:</label>
     <div className={styles.itemValue}>
@@ -18,3 +18,13 @@ export default (props) => (
     </div>
   </div>
 )
+
+Input.propTypes = {
+  inputType: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  value: PropTypes.any,
+  onChange: PropTypes.func.isRequired,
+  description: PropTypes.string,
+}
+
+export default Input

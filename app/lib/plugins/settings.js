@@ -15,7 +15,7 @@ const isValidSetting = setting => {
     return false
   }
 
-  if (type == 'option') {
+  if (type === 'option') {
     return Array.isArray(options) && options.length
   }
 
@@ -35,6 +35,7 @@ export default ({ settings }, base) => {
       return
     }
 
+    // eslint-disable-next-line no-unused-vars
     const { value, ...pluginSetting } = pluginSettings[key] || {}
 
     if (!isEqual(setting, pluginSetting)) {

@@ -16,7 +16,8 @@ export default class ExternalSettings extends Component {
   }
 
   renderSetting(label, setting, plugin) {
-    const { type, value, description } = setting
+    const { type, description } = setting
+    const value = setting.value || setting.defaultValue
 
     if (type == 'bool') {
       return (

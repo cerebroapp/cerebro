@@ -41,3 +41,16 @@
 .checkbox {
   margin-right: 5px;
 }
+
+.settingItem {
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  border-color: #d9d9d9 #ccc #b3b3b3;
+  border-top: 1px solid #ccc;
+  margin-top: 16px;
+}
+
+.header {
+  font-weight: bold;
+}

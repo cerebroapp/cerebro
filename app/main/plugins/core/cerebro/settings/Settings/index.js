@@ -4,6 +4,7 @@ import CountrySelect from './CountrySelect'
 import Select from 'react-select'
 import loadThemes from 'lib/loadThemes'
 import styles from './styles.css'
+import ExternalSettings from './external-settings'
 
 class Settings extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class Settings extends Component {
       country: get('country'),
       theme: get('theme'),
       developerMode: get('developerMode'),
-      cleanOnHide: get('cleanOnHide')
+      cleanOnHide: get('cleanOnHide'),
+      externalSettings: get('external'),
     }
     this.changeConfig = this.changeConfig.bind(this)
   }
@@ -27,7 +29,7 @@ class Settings extends Component {
   }
   render() {
     const {
-      hotkey, showInTray, country, theme, developerMode, cleanOnHide
+      hotkey, showInTray, country, theme, developerMode, cleanOnHide, externalSettings
     } = this.state
     return (
       <div className={styles.settings}>
@@ -110,6 +112,10 @@ class Settings extends Component {
             </label>
           </div>
         </div>
+
+        <ExternalSettings
+          settings={externalSettings}
+        />
       </div>
     )
   }

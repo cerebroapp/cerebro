@@ -2,11 +2,17 @@ import React, { PropTypes, Component } from 'react'
 import loadThemes from 'lib/loadThemes'
 import styles from './styles.css'
 import hotkeyStyles from './Hotkey/styles.css'
-import { Checkbox, Input, Select, Option } from './components'
+import { Checkbox, Input, Select, Options } from './components'
 
 export default class ExternalSettings extends Component {
   static propTypes = {
     settings: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+  }
+
+  changeSetting(plugin, label, value) {
+    this.props.settings[plugin][label].value = value
+    this.props.onChange(this.props.settings)
   }
 
   renderSetting(label, setting, plugin) {
@@ -17,6 +23,7 @@ export default class ExternalSettings extends Component {
         <Checkbox
           key={label}
           value={value}
+          onChange={({ target }) => this.changeSetting(plugin, label, target.checked)}
           description={description}
         />
       )
@@ -27,6 +34,8 @@ export default class ExternalSettings extends Component {
         <Select
           key={label}
           label={label}
+          value={value || []}
+          onChange={newValue => this.changeSetting(plugin, label, newValue)}
           description={description}
         />
       )
@@ -37,9 +46,14 @@ export default class ExternalSettings extends Component {
       const options = setting.options.map(option => ({ label: option, value: option }))
 
       return (
-        <Option
+        <Options
           key={label}
           label={label}
+          value={value}
+          onChange={newValue => {
+            const value = multi ? newValue.map(val => val.value) : newValue.value
+            this.changeSetting(plugin, label, value)
+          }}
           description={description}
           options={options}
           multi={multi}
@@ -51,8 +65,9 @@ export default class ExternalSettings extends Component {
       <Input
         key={label}
         label={label}
-        inputType={type}
         value={value}
+        onChange={({ target }) => this.changeSetting(plugin, label, target.value)}
+        inputType={type}
         description={description}
       />
     )
@@ -63,18 +78,16 @@ export default class ExternalSettings extends Component {
 
     return (
       <div>
-        {Object.keys(settings).map(plugin => {
-          return (
-            <div key={plugin} className={styles.settingItem}>
-              <label className={styles.header}>{plugin}</label>
+        {Object.keys(settings).map(plugin => (
+          <div key={plugin} className={styles.settingItem}>
+            <label className={styles.header}>{plugin}</label>
 
-              {Object.keys(settings[plugin]).map(label => {
-                const setting = settings[plugin][label]
-                return this.renderSetting(label, setting, plugin)
-              })}
-            </div>
-          )
-        })}
+            {Object.keys(settings[plugin]).map(label => {
+              const setting = settings[plugin][label]
+              return this.renderSetting(label, setting, plugin)
+            })}
+          </div>
+        ))}
       </div>
     )
   }

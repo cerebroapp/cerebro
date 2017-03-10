@@ -7,7 +7,7 @@ export default (props) => (
       <label>
         <input
           type="checkbox"
-          checked={props.value}
+          checked={!!props.value}
           onChange={props.onChange}
           className={styles.checkbox}
         />

@@ -10,6 +10,7 @@ export default (props) => (
         value={props.value}
         placeholder={props.label}
         options={props.options}
+        onChange={props.onChange}
       />
       {props.description
         ? <div className={styles.itemNotice}>{props.description}</div>

@@ -10,6 +10,7 @@ export default (props) => (
         type={props.inputType}
         value={props.value}
         className={hotkeyStyles.hotkeyInput}
+        onChange={props.onChange}
       />
       {props.description
         ? <div className={styles.itemNotice}>{props.description}</div>

@@ -17,7 +17,7 @@ class Settings extends Component {
       theme: get('theme'),
       developerMode: get('developerMode'),
       cleanOnHide: get('cleanOnHide'),
-      externalSettings: get('external'),
+      external: get('external'),
     }
     this.changeConfig = this.changeConfig.bind(this)
   }
@@ -29,7 +29,7 @@ class Settings extends Component {
   }
   render() {
     const {
-      hotkey, showInTray, country, theme, developerMode, cleanOnHide, externalSettings
+      hotkey, showInTray, country, theme, developerMode, cleanOnHide, external
     } = this.state
     return (
       <div className={styles.settings}>
@@ -114,7 +114,8 @@ class Settings extends Component {
         </div>
 
         <ExternalSettings
-          settings={externalSettings}
+          settings={external}
+          onChange={settings => this.changeConfig('external', settings)}
         />
       </div>
     )

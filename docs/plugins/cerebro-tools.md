@@ -20,7 +20,7 @@ const results = search(collection, term, toString);
 Use this function to reduce calls to external APIs.
 
 ```js
-const { memoize } = require('memoize');
+const { memoize } = require('memoizee');
 
 const fetchResults = require('path/to/fetchResults');
 

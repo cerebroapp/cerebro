@@ -1,5 +1,3 @@
-import React from 'react'
-import Preview from './Preview'
 import { search } from 'cerebro-tools'
 import uniq from 'lodash/uniq'
 import initializeAsync from './initializeAsync'
@@ -27,8 +25,7 @@ const fn = ({ term, actions, display }) => {
           event.preventDefault()
         }
       },
-      onSelect: () => openApp(app),
-      getPreview: () => <Preview name={name} path={path} icon={icon} />
+      onSelect: () => openApp(app)
     }
   })
   display(result)

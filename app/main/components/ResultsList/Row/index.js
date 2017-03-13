@@ -2,15 +2,7 @@ import React, { PropTypes, Component } from 'react'
 import SmartIcon from '../../SmartIcon'
 import styles from './styles.css'
 
-export default class Row extends Component {
-  static propTypes = {
-    title: PropTypes.string,
-    icon: PropTypes.string,
-    selected: PropTypes.bool,
-    subtitle: PropTypes.string,
-    onSelect: PropTypes.func,
-    onMouseMove: PropTypes.func,
-  }
+class Row extends Component {
   classNames() {
     return [
       styles.row,
@@ -40,3 +32,14 @@ export default class Row extends Component {
     )
   }
 }
+
+Row.propTypes = {
+  title: PropTypes.string,
+  icon: PropTypes.string,
+  selected: PropTypes.bool,
+  subtitle: PropTypes.string,
+  onSelect: PropTypes.func,
+  onMouseMove: PropTypes.func,
+}
+
+export default Row

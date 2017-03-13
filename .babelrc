@@ -2,7 +2,6 @@
   "presets": ["react"],
   "plugins": [
     "transform-object-rest-spread",
-    "transform-class-properties",
     "lodash",
     "add-module-exports",
     "babel-plugin-transform-decorators-legacy",

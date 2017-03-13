@@ -54,6 +54,9 @@ Use built-in `plugins` command to search and manage custom plugins.
 * [AQI](https://github.com/hellocreep/cerebro-aqi) – search for AQI(Air Quality Index) information of cities;
 
 ## Development
+
+If you have any questions feel free to chat in gitter: https://gitter.im/KELiON-cerebro.
+
 ### Create plugin
 Check out [plugins documentation](./docs/plugins.md).
 

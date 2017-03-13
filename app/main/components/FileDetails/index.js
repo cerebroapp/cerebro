@@ -6,12 +6,7 @@ import nodePath from 'path'
 
 import { getFileSize, getFileDetails } from 'lib/rpc/functions'
 
-export default class FileDetails extends Component {
-  static propTypes = {
-    path: PropTypes.string.isRequired,
-    skipName: PropTypes.bool,
-    skipSize: PropTypes.bool,
-  }
+class FileDetails extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -46,3 +41,11 @@ export default class FileDetails extends Component {
     )
   }
 }
+
+FileDetails.propTypes = {
+  path: PropTypes.string.isRequired,
+  skipName: PropTypes.bool,
+  skipSize: PropTypes.bool,
+}
+
+export default FileDetails

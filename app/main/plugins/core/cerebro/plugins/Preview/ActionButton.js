@@ -1,26 +1,22 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes } from 'react'
 import KeyboardNavItem from 'main/components/KeyboardNavItem'
 
-export default class ActionButton extends Component {
-  static propTypes = {
-    action: PropTypes.func.isRequired,
-    text: PropTypes.string.isRequired,
-    onComplete: PropTypes.func.isRequired,
-  }
-  onSelect = () => {
+const ActionButton = ({ action, onComplete, text }) => {
+  const onSelect = () => {
     const timeout = new Promise(resolve => setTimeout(resolve, 1500))
-    Promise.all([
-      this.props.action(),
-      timeout
-    ]).then(
-      this.props.onComplete
-    )
+    Promise.all([action(), timeout]).then(onComplete)
   }
-  render() {
-    return (
-      <KeyboardNavItem onSelect={this.onSelect}>
-        {this.props.text}
-      </KeyboardNavItem>
-    )
-  }
+  return (
+    <KeyboardNavItem onSelect={onSelect}>
+      {text}
+    </KeyboardNavItem>
+  )
 }
+
+ActionButton.propTypes = {
+  action: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  onComplete: PropTypes.func.isRequired,
+}
+
+export default ActionButton

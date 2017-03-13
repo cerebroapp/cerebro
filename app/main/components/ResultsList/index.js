@@ -6,16 +6,7 @@ import { bind } from 'lodash-decorators'
 
 import { RESULT_HEIGHT } from '../../constants/ui'
 
-export default class ResultsList extends Component {
-  static propTypes = {
-    results: PropTypes.array,
-    selected: PropTypes.number,
-    visibleResults: PropTypes.number,
-    onItemHover: PropTypes.func,
-    onSelect: PropTypes.func,
-    mainInputFocused: PropTypes.bool,
-  }
-
+class ResultsList extends Component {
   @bind()
   rowRenderer({ index }) {
     const result = this.props.results[index]
@@ -88,3 +79,14 @@ export default class ResultsList extends Component {
     )
   }
 }
+
+ResultsList.propTypes = {
+  results: PropTypes.array,
+  selected: PropTypes.number,
+  visibleResults: PropTypes.number,
+  onItemHover: PropTypes.func,
+  onSelect: PropTypes.func,
+  mainInputFocused: PropTypes.bool,
+}
+
+export default ResultsList

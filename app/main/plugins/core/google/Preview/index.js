@@ -11,11 +11,7 @@ const isStarWars = (query) => {
   return ['star wars', 'звёздные войны', 'звездные войны'].some(x => str.includes(x))
 }
 
-export default class Preview extends Component {
-  static propTypes = {
-    query: PropTypes.string.isRequired,
-    search: PropTypes.func.isRequired
-  }
+class Preview extends Component {
   renderSuggestions(suggestions, searchFn) {
     const className = [
       styles.wrapper,
@@ -50,3 +46,10 @@ export default class Preview extends Component {
     )
   }
 }
+
+Preview.propTypes = {
+  query: PropTypes.string.isRequired,
+  search: PropTypes.func.isRequired
+}
+
+export default Preview

@@ -28,6 +28,9 @@ Use built-in `plugins` command to search and manage custom plugins.
 Discover plugins and more at [Cerebro's Awesome List](https://github.com/lubien/awesome-cerebro).
 
 ## Development
+
+If you have any questions feel free to chat in gitter: https://gitter.im/KELiON-cerebro.
+
 ### Create plugin
 Check out [plugins documentation](./docs/plugins.md).
 

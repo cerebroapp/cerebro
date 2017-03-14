@@ -1,18 +1,17 @@
 import React, { PropTypes } from 'react'
-import settingsStyles from '../styles.css'
-import styles from './styles.css'
+import styles from '../styles.css'
 
 const Input = ({ label, value, onChange, description, type }) => (
-  <div className={settingsStyles.item}>
-    <label className={settingsStyles.label}>{label}:</label>
-    <div className={settingsStyles.itemValue}>
+  <div className={styles.item}>
+    <label className={styles.label}>{label}:</label>
+    <div className={styles.itemValue}>
       <input
         type={type}
         value={value}
-        className={styles.hotkeyInput}
+        className={styles.input}
         onChange={({ target }) => onChange(target.value)}
       />
-      <div className={settingsStyles.itemNotice}>{description}</div>
+      <div className={styles.itemNotice}>{description}</div>
     </div>
   </div>
 )

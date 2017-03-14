@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react'
 import Select from 'react-select'
-import settingsStyles from '../styles.css'
+import styles from '../styles.css'
 
 const Options = ({ label, value, onChange, description, options, multi }) => (
-  <div className={settingsStyles.item}>
-    <div className={settingsStyles.itemValue}>
+  <div className={styles.item}>
+    <div className={styles.itemValue}>
       <Select
         multi={multi}
         value={value}
@@ -15,7 +15,7 @@ const Options = ({ label, value, onChange, description, options, multi }) => (
           onChange(changedValue)
         }}
       />
-      <div className={settingsStyles.itemNotice}>{description}</div>
+      <div className={styles.itemNotice}>{description}</div>
     </div>
   </div>
 )

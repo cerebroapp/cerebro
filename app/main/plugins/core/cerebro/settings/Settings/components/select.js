@@ -1,17 +1,17 @@
 import React, { PropTypes } from 'react'
 import { Creatable } from 'react-select'
-import settingsStyles from '../styles.css'
+import styles from '../styles.css'
 
 const Select = ({ label, value, onChange, description }) => (
-  <div className={settingsStyles.item}>
-    <div className={settingsStyles.itemValue}>
+  <div className={styles.item}>
+    <div className={styles.itemValue}>
       <Creatable
         multi
         value={value.map(val => ({ value: val, label: val }))}
         placeholder={label}
         onChange={newValue => onChange(newValue.map(val => val.value))}
       />
-      <div className={settingsStyles.itemNotice}>{description}</div>
+      <div className={styles.itemNotice}>{description}</div>
     </div>
   </div>
 )

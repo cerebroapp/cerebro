@@ -20,6 +20,7 @@
   flex-direction: column;
   flex-grow: 2;
 }
+
 .itemValueWithoutLabel {
   composes: itemValue;
   margin-left: 75px;
@@ -53,4 +54,19 @@
 
 .header {
   font-weight: bold;
+}
+
+.hotkey {
+
+}
+
+.input {
+  font-size: 16px;
+  line-height: 34px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  width: 100%;
+  border-color: #d9d9d9 #ccc #b3b3b3;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }

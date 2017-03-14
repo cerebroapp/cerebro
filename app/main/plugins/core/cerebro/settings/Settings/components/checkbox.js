@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react'
-import settingsStyles from '../styles.css'
+import styles from '../styles.css'
 
 const Checkbox = ({ label, value, onChange, description }) => (
-  <div className={settingsStyles.item}>
-    <div className={settingsStyles.itemValueWithoutLabel}>
+  <div className={styles.item}>
+    <div className={styles.itemValueWithoutLabel}>
       <label>
         <input
           type="checkbox"
           checked={value}
           onChange={({ target }) => onChange(target.checked)}
-          className={settingsStyles.checkbox}
+          className={styles.checkbox}
         />
       {description}
       </label>

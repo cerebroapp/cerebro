@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import styles from './styles.css'
+import styles from '../styles.css'
 
 const ASCII = {
   188: '44',
@@ -126,7 +126,7 @@ class Hotkey extends Component {
     return (
       <div className={styles.hotkey}>
         <input
-          className={styles.hotkeyInput}
+          className={styles.input}
           type="text"
           value={keys}
           onKeyDown={this.onKeyDown.bind(this)}

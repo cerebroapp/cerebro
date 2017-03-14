@@ -23,7 +23,8 @@ const defaultSettings = memoize(() => {
     developerMode: false,
     cleanOnHide: true,
     skipDonateDialog: false,
-    lastShownDonateDialog: null
+    lastShownDonateDialog: null,
+    external: {},
   }
 })
 

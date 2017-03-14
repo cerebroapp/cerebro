@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import Hotkey from './Hotkey'
+import Hotkey from './components/hotkey'
 import CountrySelect from './CountrySelect'
 import Select from 'react-select'
 import loadThemes from 'lib/loadThemes'

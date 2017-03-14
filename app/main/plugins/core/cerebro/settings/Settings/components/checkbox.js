@@ -1,24 +1,25 @@
 import React, { PropTypes } from 'react'
-import styles from '../styles.css'
+import settingsStyles from '../styles.css'
 
-const Checkbox = (props) => (
-  <div className={styles.item}>
-    <div className={styles.itemValueWithoutLabel}>
+const Checkbox = ({ label, value, onChange, description }) => (
+  <div className={settingsStyles.item}>
+    <div className={settingsStyles.itemValueWithoutLabel}>
       <label>
         <input
           type="checkbox"
-          checked={!!props.value}
-          onChange={props.onChange}
-          className={styles.checkbox}
+          checked={value}
+          onChange={({ target }) => onChange(target.checked)}
+          className={settingsStyles.checkbox}
         />
-        {props.description}
+      {description}
       </label>
     </div>
   </div>
 )
 
 Checkbox.propTypes = {
-  value: PropTypes.any,
+  label: PropTypes.string,
+  value: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   description: PropTypes.string,
 }

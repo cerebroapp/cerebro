@@ -1,31 +1,36 @@
 import React, { PropTypes } from 'react'
-import { Creatable } from 'react-select'
-import styles from '../styles.css'
+import Select from 'react-select'
+import settingsStyles from '../styles.css'
 
-const Options = (props) => (
-  <div className={styles.item}>
-    <div className={styles.itemValue}>
-      <Creatable
-        multi={props.multi}
-        value={props.value}
-        placeholder={props.label}
-        options={props.options}
-        onChange={props.onChange}
+const Options = ({ label, value, onChange, description, options, multi }) => (
+  <div className={settingsStyles.item}>
+    <div className={settingsStyles.itemValue}>
+      <Select
+        multi={multi}
+        value={value}
+        placeholder={label}
+        options={options.map(option => ({ label: option, value: option }))}
+        onChange={newValue => {
+          const changedValue = multi ? newValue.map(val => val.value) : newValue.value
+          onChange(changedValue)
+        }}
       />
-      {props.description
-        ? <div className={styles.itemNotice}>{props.description}</div>
-        : ''}
+      <div className={settingsStyles.itemNotice}>{description}</div>
     </div>
   </div>
 )
 
 Options.propTypes = {
-  options: PropTypes.array.isRequired,
   label: PropTypes.string,
-  value: PropTypes.any,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
   onChange: PropTypes.func.isRequired,
   description: PropTypes.string,
-  multi: PropTypes.bool.isRequired,
+  options: PropTypes.array.isRequired,
+  multi: PropTypes.bool,
 }
 
 export default Options

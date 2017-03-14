@@ -1,26 +1,24 @@
 import React, { PropTypes } from 'react'
 import { Creatable } from 'react-select'
-import styles from '../styles.css'
+import settingsStyles from '../styles.css'
 
-const Select = (props) => (
-  <div className={styles.item}>
-    <div className={styles.itemValue}>
+const Select = ({ label, value, onChange, description }) => (
+  <div className={settingsStyles.item}>
+    <div className={settingsStyles.itemValue}>
       <Creatable
         multi
-        value={props.value}
-        placeholder={props.label}
-        onChange={props.onChange}
+        value={value.map(val => ({ value: val, label: val }))}
+        placeholder={label}
+        onChange={newValue => onChange(newValue.map(val => val.value))}
       />
-      {props.description
-        ? <div className={styles.itemNotice}>{props.description}</div>
-        : ''}
+      <div className={settingsStyles.itemNotice}>{description}</div>
     </div>
   </div>
 )
 
 Select.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.any,
+  value: PropTypes.arary,
   onChange: PropTypes.func.isRequired,
   description: PropTypes.string,
 }

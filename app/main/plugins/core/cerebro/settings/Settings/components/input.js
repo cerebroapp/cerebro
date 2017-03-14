@@ -1,30 +1,31 @@
 import React, { PropTypes } from 'react'
-import styles from '../styles.css'
-import hotkeyStyles from '../Hotkey/styles.css'
+import settingsStyles from '../styles.css'
+import styles from './styles.css'
 
-const Input = (props) => (
-  <div className={styles.item}>
-    <label className={styles.label}>{props.label}:</label>
-    <div className={styles.itemValue}>
+const Input = ({ label, value, onChange, description, type }) => (
+  <div className={settingsStyles.item}>
+    <label className={settingsStyles.label}>{label}:</label>
+    <div className={settingsStyles.itemValue}>
       <input
-        type={props.inputType}
-        value={props.value}
-        className={hotkeyStyles.hotkeyInput}
-        onChange={props.onChange}
+        type={type}
+        value={value}
+        className={styles.hotkeyInput}
+        onChange={({ target }) => onChange(target.value)}
       />
-      {props.description
-        ? <div className={styles.itemNotice}>{props.description}</div>
-        : ''}
+      <div className={settingsStyles.itemNotice}>{description}</div>
     </div>
   </div>
 )
 
 Input.propTypes = {
-  inputType: PropTypes.string.isRequired,
   label: PropTypes.string,
-  value: PropTypes.any,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   onChange: PropTypes.func.isRequired,
   description: PropTypes.string,
+  type: PropTypes.string.isRequired,
 }
 
 export default Input

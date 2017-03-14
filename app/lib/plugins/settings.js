@@ -10,8 +10,8 @@ const VALID_TYPES = new Set([
 ])
 
 const isValidSetting = setting => {
-  const { type, options } = setting
-  if (!type || !VALID_TYPES.has(type)) {
+  const { type, description, options } = setting
+  if (!type || !VALID_TYPES.has(type) || !description) {
     return false
   }
 

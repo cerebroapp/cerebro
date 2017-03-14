@@ -133,7 +133,7 @@ export default ({ src, isDev }) => {
       mainWindow.focus()
     }
   })
-
+  
   if (shouldQuit) {
     app.quit()
   }

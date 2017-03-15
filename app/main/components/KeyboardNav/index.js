@@ -58,13 +58,7 @@ const onKeyDown = (wrapper, event) => {
   }
 }
 
-export default class KeyboardNav extends Component {
-  static propTypes = {
-    children: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.arrayOf(PropTypes.element),
-    ])
-  }
+class KeyboardNav extends Component {
   onKeyDown(event) {
     onKeyDown(this.wrapper, event)
   }
@@ -76,3 +70,12 @@ export default class KeyboardNav extends Component {
     )
   }
 }
+
+KeyboardNav.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element),
+  ])
+}
+
+export default KeyboardNav

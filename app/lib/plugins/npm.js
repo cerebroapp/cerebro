@@ -5,6 +5,7 @@ import path from 'path'
 import tar from 'tar-fs'
 import zlib from 'zlib'
 import https from 'https'
+import mv from 'mv'
 
 /**
  * Promise-wrapper for rmdir
@@ -37,7 +38,9 @@ const formatPackageFile = (header) => ({
 const installPackage = (tarPath, destination, middleware) => {
   console.log(`Extract ${tarPath} to ${destination}`)
   return new Promise((resolve, reject) => {
-    const tempPath = os.tmpdir()
+    const packageName = path.parse(destination).name
+    const tempPath = `${os.tmpdir()}/${packageName}`
+    console.log(`Download and extract to temp path: ${tempPath}`)
     https.get(tarPath, stream => {
       const result = stream
         // eslint-disable-next-line new-cap
@@ -47,9 +50,10 @@ const installPackage = (tarPath, destination, middleware) => {
         }))
       result.on('error', reject)
       result.on('finish', () => {
-        middleware().then(() => (
-          fs.rename(tempPath, destination, resolve)
-        ))
+        middleware().then(() => {
+          console.log(`Move ${tempPath} to ${destination}`)
+          mv(tempPath, destination, (err) => err ? reject(err) : resolve())
+        })
       })
     })
   })

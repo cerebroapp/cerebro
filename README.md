@@ -22,36 +22,15 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 * Calculator;
 * Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp`;
 
-### Custom plugins
+### Install and manage custom plugins
 Use built-in `plugins` command to search and manage custom plugins.
 
-#### macOS only plugins
-* [macOS Contacts](https://github.com/KELiON/cerebro-osx-contacts) – search in contacts.app;
-* [macOS Define](https://github.com/KELiON/cerebro-osx-define) – define in OSx built-in dictionary;
-* [macOS Eject](https://github.com/codingmatty/cerebro-plugin-osx-eject) – safely eject mounted volume drives;
-* [macOS System](https://github.com/KELiON/cerebro-osx-system) – system commands: i.e. `sleep`, `lock`, `restart`, `empty trash` or open system directories, like `trash` or `airdrop`;
-* [Kill](https://github.com/KELiON/cerebro-kill) – kill process by name, i.e. `kill cerebro`;
-
-#### Windows only plugins
-* [Windows System](https://github.com/BrainMaestro/cerebro-windows-system) – system commands: i.e. `shutdown`, `sleep`, `lock`, `restart`, `empty trash`, or adjust volume and brightness;
-
-#### Plugins for all platforms
-* [Caniuse](https://github.com/KELiON/cerebro-caniuse) – quick access to [caniuse.com](http://caniuse.com) database;
-* [Devdocs](https://github.com/KELiON/cerebro-devdocs) – search in dev. documentations provided by [devdocs.io](http://devdocs.io)
-* [DuckDuckGo](https://github.com/tiagoamaro/cerebro-duck-duck-go) – Use DuckDuckGo as your search engine;
-* [Emoj](https://github.com/KELiON/cerebro-emoj) – search for relevant emoji, like `emoj this is awesome`;
-* [Gif](https://github.com/KELiON/cerebro-gif) – search for relevant gif, i.e. `gif luck`, `how i met your mother gif`;
-* [Github](https://github.com/tenorz007/cerebro-github) – search for trending, repos or users on github;
-* [Google Knowledge Graph](https://github.com/Kageetai/cerebro-gkg) – Get info from the [Google Knowledge Graph](https://www.google.com/intl/bn/insidesearch/features/search/knowledge.html) for your query;
-* [Hash](https://github.com/codingmatty/cerebro-plugin-hash) – hash input text with popular hash algorithms (i.e. md5, sha1, etc);
-* [IMDB](https://github.com/KELiON/cerebro-imdb) – search for films on imdb.com with rating and details, like `imdb star wars`;
-* [IP](https://github.com/KELiON/cerebro-ip) – show your local & external IP address;
-* [Lipsum](https://github.com/codingmatty/cerebro-plugin-lipsum) – generate lorem ipsum text from [lipsum.com](http://www.lipsum.com);
-* [Shell](https://github.com/KELiON/cerebro-shell) – exec shell commands without running terminal;
-* [Stackoverflow](https://github.com/BrainMaestro/cerebro-stackoverflow) – search for answers to questions on stackoverflow;
-* [NPM](https://github.com/JordanAdams/cerebro-npm) – search for NPM packages
+Discover plugins and more at [Cerebro's Awesome List](https://github.com/lubien/awesome-cerebro).
 
 ## Development
+
+If you have any questions feel free to chat in gitter: https://gitter.im/KELiON-cerebro.
+
 ### Create plugin
 Check out [plugins documentation](./docs/plugins.md).
 
@@ -60,10 +39,10 @@ Check out [plugins documentation](./docs/plugins.md).
 First, clone the repo via git:
 
 ```bash
-git clone https://github.com/KELiON/cerebro.git cerebro
+$ git clone https://github.com/KELiON/cerebro.git cerebro
 ```
 
-And then install dependencies.
+And then install dependencies:
 
 ```bash
 $ cd cerebro && yarn && cd ./app && yarn && cd ../
@@ -90,7 +69,7 @@ This error means that node modules with native extensions build with wrong node 
 
 *Linux*: `$XDG_CONFIG_HOME/Cerebro/config.json`  or `~/.config/Cerebro/config.json`
 
-*Mac OS* `~/Library/Application Support/Cerebro/config.json`
+*Mac OS*: `~/Library/Application Support/Cerebro/config.json`
 
 
 ### Package

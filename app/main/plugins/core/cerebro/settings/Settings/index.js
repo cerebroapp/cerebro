@@ -5,11 +5,7 @@ import Select from 'react-select'
 import loadThemes from 'lib/loadThemes'
 import styles from './styles.css'
 
-export default class Settings extends Component {
-  static propTypes = {
-    get: PropTypes.func.isRequired,
-    set: PropTypes.func.isRequired
-  }
+class Settings extends Component {
   constructor(props) {
     super(props)
     const { get } = this.props
@@ -118,3 +114,10 @@ export default class Settings extends Component {
     )
   }
 }
+
+Settings.propTypes = {
+  get: PropTypes.func.isRequired,
+  set: PropTypes.func.isRequired
+}
+
+export default Settings

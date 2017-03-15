@@ -1,3 +1,4 @@
+import debounce from 'lodash/debounce'
 import chokidar from 'chokidar'
 import path from 'path'
 import { modulesDirectory, ensureFiles } from 'lib/plugins'
@@ -45,25 +46,27 @@ pluginsWatcher.on('addDir', (pluginPath) => {
   if (dir !== modulesDirectory) {
     return
   }
-  console.group(`Load plugin: ${base}`)
-  console.log(`Path: ${pluginPath}...`)
-  const plugin = requirePlugin(pluginPath)
-  if (!isPluginValid(plugin)) {
-    console.log('Plugin is not valid, skipped')
+  setTimeout(() => {
+    console.group(`Load plugin: ${base}`)
+    console.log(`Path: ${pluginPath}...`)
+    const plugin = requirePlugin(pluginPath)
+    if (!isPluginValid(plugin)) {
+      console.log('Plugin is not valid, skipped')
+      console.groupEnd()
+      return
+    }
+    console.log('Loaded.')
+    const requirePath = window.require.resolve(pluginPath)
+    const watcher = chokidar.watch(requirePath, { depth: 0 })
+    watcher.on('change', debounce(() => {
+      console.log(`[${base}] Update plugin`)
+      delete window.require.cache[requirePath]
+      plugins[base] = window.require(pluginPath)
+      console.log(`[${base}] Plugin updated`)
+    }, 1000))
     console.groupEnd()
-    return
-  }
-  console.log('Loaded.')
-  const requirePath = window.require.resolve(pluginPath)
-  const watcher = chokidar.watch(requirePath, { depth: 0 })
-  watcher.on('change', () => {
-    console.log(`[${base}] Update plugin`)
-    delete window.require.cache[requirePath]
-    plugins[base] = window.require(pluginPath)
-    console.log(`[${base}] Plugin updated`)
-  })
-  console.groupEnd()
-  plugins[base] = plugin
+    plugins[base] = plugin
+  }, 1000)
 })
 
 export default plugins

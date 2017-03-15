@@ -99,11 +99,7 @@ const charCodeToSign = ({ keyCode, shiftKey }) => {
   return valid ? String.fromCharCode(code) : null
 }
 
-export default class Hotkey extends Component {
-  static propTypes = {
-    hotkey: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-  }
+class Hotkey extends Component {
   onKeyDown(event) {
     if (!event.ctrlKey && !event.altKey && !event.metaKey) {
       // Do not allow to set global shorcut without modifier keys
@@ -139,3 +135,10 @@ export default class Hotkey extends Component {
     )
   }
 }
+
+Hotkey.propTypes = {
+  hotkey: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+}
+
+export default Hotkey

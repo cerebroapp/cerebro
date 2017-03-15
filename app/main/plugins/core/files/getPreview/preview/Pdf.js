@@ -1,20 +1,14 @@
 import React, { PropTypes, Component } from 'react'
 import { debounce, bind } from 'lodash-decorators'
 import Loading from 'main/components/Loading'
+import styles from './styles/index.css'
 
 if (typeof window !== 'undefined') {
   require('pdfjs-dist/build/pdf.combined') // eslint-disable-line global-require
   require('pdfjs-dist/web/compatibility') // eslint-disable-line global-require
 }
 
-import styles from './styles/index.css'
-
-
-export default class Pdf extends Component {
-  static propTypes = {
-    path: PropTypes.string.isRequired,
-  }
-
+class Pdf extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -114,3 +108,9 @@ export default class Pdf extends Component {
     )
   }
 }
+
+Pdf.propTypes = {
+  path: PropTypes.string.isRequired,
+}
+
+export default Pdf

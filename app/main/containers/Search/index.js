@@ -79,20 +79,6 @@ const cursorInEndOfInut = ({ selectionStart, selectionEnd, value }) => (
  * TODO: Split to more components
  */
 class Search extends Component {
-  static propTypes = {
-    actions: PropTypes.shape({
-      reset: PropTypes.func,
-      moveCursor: PropTypes.func,
-      updateTerm: PropTypes.func,
-      changeVisibleResults: PropTypes.func,
-      selectElement: PropTypes.func,
-    }),
-    results: PropTypes.array,
-    selected: PropTypes.number,
-    visibleResults: PropTypes.number,
-    term: PropTypes.string,
-    prevTerm: PropTypes.string,
-  }
   constructor(props) {
     super(props)
     this.electronWindow = remote.getCurrentWindow()
@@ -363,6 +349,21 @@ class Search extends Component {
       </div>
     )
   }
+}
+
+Search.propTypes = {
+  actions: PropTypes.shape({
+    reset: PropTypes.func,
+    moveCursor: PropTypes.func,
+    updateTerm: PropTypes.func,
+    changeVisibleResults: PropTypes.func,
+    selectElement: PropTypes.func,
+  }),
+  results: PropTypes.array,
+  selected: PropTypes.number,
+  visibleResults: PropTypes.number,
+  term: PropTypes.string,
+  prevTerm: PropTypes.string,
 }
 
 function mapStateToProps(state) {

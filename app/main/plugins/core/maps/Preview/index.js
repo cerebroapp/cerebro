@@ -9,14 +9,7 @@ import { triggerEvent } from 'react-google-maps/lib/utils'
 import Marker from 'react-google-maps/lib/Marker'
 import styles from './styles.css'
 
-export default class Preview extends Component {
-  static propTypes = {
-    name: PropTypes.string,
-    geometry: PropTypes.shape({
-      location: PropTypes.object,
-      viewport: PropTypes.object
-    })
-  }
+class Preview extends Component {
   componentDidMount() {
     window.addEventListener('resize', this.handleWindowResize)
   }
@@ -76,3 +69,13 @@ export default class Preview extends Component {
     )
   }
 }
+
+Preview.propTypes = {
+  name: PropTypes.string,
+  geometry: PropTypes.shape({
+    location: PropTypes.object,
+    viewport: PropTypes.object
+  })
+}
+
+export default Preview

@@ -1,6 +1,7 @@
 import React from 'react'
 import { search } from 'cerebro-tools'
 import icon from '../icon.png'
+import { version } from '../../../../../package.json'
 
 // Settings plugin name
 const NAME = 'Cerebro Version'
@@ -21,7 +22,7 @@ const KEYWORDS = [
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const settingsPlugin = ({ term, display, config, actions }) => {
+const versionPlugin = ({ term, display, config, actions }) => {
   const found = search(KEYWORDS, term).length > 0
 
   if (found) {
@@ -30,7 +31,7 @@ const settingsPlugin = ({ term, display, config, actions }) => {
       icon,
       title: NAME,
       term: NAME,
-      getPreview: () => ( <div><strong>0.2.7</strong></div> )
+      getPreview: () => ( <div><strong>{ version }</strong></div> )
       ,
       onSelect: (event) => {
         event.preventDefault()
@@ -43,5 +44,5 @@ const settingsPlugin = ({ term, display, config, actions }) => {
 
 export default {
   name: NAME,
-  fn: settingsPlugin
+  fn: versionPlugin
 }

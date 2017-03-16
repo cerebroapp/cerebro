@@ -1,4 +1,4 @@
-import extractIcon from 'win-icon-extractor'
+const extractIcon = require('win-icon-extractor')
 
 /**
  * Get system icon for file

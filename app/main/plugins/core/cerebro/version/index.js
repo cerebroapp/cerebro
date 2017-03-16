@@ -22,7 +22,7 @@ const KEYWORDS = [
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const versionPlugin = ({ term, display, config, actions }) => {
+const versionPlugin = ({ term, display, actions }) => {
   const found = search(KEYWORDS, term).length > 0
 
   if (found) {
@@ -31,8 +31,7 @@ const versionPlugin = ({ term, display, config, actions }) => {
       icon,
       title: NAME,
       term: NAME,
-      getPreview: () => ( <div><strong>{ version }</strong></div> )
-      ,
+      getPreview: () => (<div><strong>{version}</strong></div>),
       onSelect: (event) => {
         event.preventDefault()
         actions.replaceTerm(NAME)

@@ -126,6 +126,18 @@ export default ({ src, isDev }) => {
   app.on('open-url', (event, path) => handleUrl(mainWindow, path))
   app.on('activate', showMainWindow)
 
+  // Someone tried to run a second instance, we should focus our window.
+  const shouldQuit = app.makeSingleInstance(() => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+  })
+  
+  if (shouldQuit) {
+    app.quit()
+  }
+  
   // Track app start event
   trackEvent({
     category: 'App Start',

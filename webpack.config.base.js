@@ -4,7 +4,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 // all dependecies from app/package.json will be included in build/node_modules
-const externals = require('./app/package.json').dependencies;
+const externals = Object.assign(
+  require('./app/package.json').dependencies,
+  require('./app/package.json').optionalDependencies
+);
 
 module.exports = {
   module: {

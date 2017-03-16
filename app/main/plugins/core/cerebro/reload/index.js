@@ -4,9 +4,10 @@ import icon from '../icon.png'
 const keyword = 'reload'
 const title = 'Reload'
 const subtitle = 'Reload Cerebro App'
-const onSelect = () => {
+const onSelect = (event) => {
   send('reload')
   location.reload()
+  event.preventDefault()
 }
 
 /**
@@ -23,4 +24,7 @@ const fn = ({ term, display }) => {
   }
 }
 
-export default { keyword, fn }
+export default {
+  keyword, fn, icon,
+  name: 'Reload'
+}

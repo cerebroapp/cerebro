@@ -68,6 +68,8 @@ export default ({ src, isDev }) => {
     config.set('positions', positions)
   }, 100))
 
+  mainWindow.on('close', app.quit)
+
   mainWindow.webContents.on('new-window', (event, url) => {
     shell.openExternal(url)
     event.preventDefault()

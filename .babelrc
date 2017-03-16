@@ -1,22 +1,15 @@
 {
-  "presets": [
-    "react",
-    ["env", {
-      "targets": {
-        "electron": "1.4"
-      }
-    }]
-  ],
+  "presets": ["react"],
   "plugins": [
     "transform-object-rest-spread",
-    "transform-class-properties",
     "lodash",
     "add-module-exports",
-    "babel-plugin-transform-decorators-legacy"
+    "babel-plugin-transform-decorators-legacy",
+    "transform-es2015-classes",
+    "transform-es2015-modules-commonjs"
   ],
   "env": {
   	"production": {
-  		"presets": ["react-optimize"],
   		"plugins": [
   			"babel-plugin-transform-remove-debugger"
   		]

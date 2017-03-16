@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import styles from './styles.css'
 
-const KeyboardNavItem = (props) => {
+const KeyboardNavItem = ({ tagName, ...props }) => {
   let className = styles.item
   className += props.className ? ` ${props.className}` : ''
   const onSelect = props.onSelect || (() => {})
@@ -20,7 +20,7 @@ const KeyboardNavItem = (props) => {
     onKeyDown,
     tabIndex: 0,
   }
-  const TagName = props.tagName ? props.tagName : 'div'
+  const TagName = tagName || 'div'
   return (
     <TagName {...props} {...itemProps} />
   )

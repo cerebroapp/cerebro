@@ -18,18 +18,7 @@ const urlTransform = (repo, src) => {
   return src
 }
 
-export default class Preview extends Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    version: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    repo: PropTypes.string,
-    installedVersion: PropTypes.string,
-    isInstalled: PropTypes.bool.isRequired,
-    isUpdateAvailable: PropTypes.bool.isRequired,
-    onComplete: PropTypes.func.isRequired,
-  }
-
+class Preview extends Component {
   constructor(props) {
     super(props)
     this.onComplete = this.onComplete.bind(this)
@@ -132,3 +121,16 @@ export default class Preview extends Component {
     )
   }
 }
+
+Preview.propTypes = {
+  name: PropTypes.string.isRequired,
+  version: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  repo: PropTypes.string,
+  installedVersion: PropTypes.string,
+  isInstalled: PropTypes.bool.isRequired,
+  isUpdateAvailable: PropTypes.bool.isRequired,
+  onComplete: PropTypes.func.isRequired,
+}
+
+export default Preview

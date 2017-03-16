@@ -4,15 +4,7 @@ import React, { Component } from 'react'
  * Component that renders child function only after props.promise is resolved or rejected
  * You can provide props.loader that will be rendered before
  */
-export default class Preload extends Component {
-  static propTypes = {
-    loader: React.PropTypes.element,
-    children: React.PropTypes.func.isRequired,
-    promise: React.PropTypes.shape({
-      then: React.PropTypes.func,
-      catch: React.PropTypes.func
-    }).isRequired
-  }
+class Preload extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -34,3 +26,14 @@ export default class Preload extends Component {
     return loader || null
   }
 }
+
+Preload.propTypes = {
+  loader: React.PropTypes.element,
+  children: React.PropTypes.func.isRequired,
+  promise: React.PropTypes.shape({
+    then: React.PropTypes.func,
+    catch: React.PropTypes.func
+  }).isRequired
+}
+
+export default Preload

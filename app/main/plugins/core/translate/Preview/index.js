@@ -18,17 +18,7 @@ const OPTIONS = sortBy(LANGS, lang => DISPLAY_NAMES[lang]).map(lang => ({
 const WEB_URL = 'http://translate.yandex.com/'
 
 // Detect source language and detect target language by it
-
-export default class Preview extends Component {
-  static propTypes = {
-    openUrl: PropTypes.func.isRequired,
-    userLang: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    targetLang: PropTypes.string,
-    sourceLang: PropTypes.string,
-    translation: PropTypes.string,
-  }
-
+class Preview extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -114,3 +104,14 @@ export default class Preview extends Component {
     )
   }
 }
+
+Preview.propTypes = {
+  openUrl: PropTypes.func.isRequired,
+  userLang: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  targetLang: PropTypes.string,
+  sourceLang: PropTypes.string,
+  translation: PropTypes.string,
+}
+
+export default Preview

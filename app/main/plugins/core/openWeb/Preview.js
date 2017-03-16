@@ -3,10 +3,7 @@ import Loading from 'main/components/Loading'
 import parseMeta from './parseMeta'
 import styles from './styles.css'
 
-export default class Preview extends Component {
-  static propTypes = {
-    url: PropTypes.string.isRequired
-  }
+class Preview extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -56,3 +53,9 @@ export default class Preview extends Component {
     )
   }
 }
+
+Preview.propTypes = {
+  url: PropTypes.string.isRequired
+}
+
+export default Preview

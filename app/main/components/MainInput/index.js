@@ -1,14 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import styles from './styles.css'
 
-export default class MainInput extends Component {
-  static propTypes = {
-    value: PropTypes.string,
-    onChange: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-  }
+class MainInput extends Component {
   focus() {
     this.refs.input.focus()
   }
@@ -29,3 +22,13 @@ export default class MainInput extends Component {
     )
   }
 }
+
+MainInput.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+}
+
+export default MainInput

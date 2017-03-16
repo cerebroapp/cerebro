@@ -133,11 +133,11 @@ export default ({ src, isDev }) => {
       mainWindow.focus()
     }
   })
-  
+
   if (shouldQuit) {
     app.quit()
   }
-  
+
   // Track app start event
   trackEvent({
     category: 'App Start',

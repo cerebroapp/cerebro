@@ -3,6 +3,7 @@ import fs from 'fs'
 import { memoize } from 'cerebro-tools'
 import trackEvent from './trackEvent'
 import loadThemes from './loadThemes'
+import stringify from 'json-stable-stringify'
 
 const electronApp = remote ? remote.app : app
 
@@ -43,7 +44,7 @@ const get = (key) => {
   if (!fs.existsSync(CONFIG_FILE)) {
     // Save default config to local storage
     config = defaultSettings()
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config))
+    fs.writeFileSync(CONFIG_FILE, stringify(config, { space: 2 }))
   } else {
     config = readConfig()
   }
@@ -65,7 +66,7 @@ const set = (key, value) => {
     ...readConfig()
   }
   config[key] = value
-  fs.writeFileSync(CONFIG_FILE, JSON.stringify(config))
+  fs.writeFileSync(CONFIG_FILE, stringify(config, { space: 2 }))
   // Track settings changes
   trackEvent({
     category: 'Settings',

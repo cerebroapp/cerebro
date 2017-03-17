@@ -2,6 +2,7 @@ import plugins from '../plugins/'
 import config from 'lib/config'
 import { shell, clipboard, remote } from 'electron'
 import store from '../store'
+import { settings as pluginSettings } from 'lib/plugins'
 
 import {
  UPDATE_TERM,
@@ -36,16 +37,8 @@ const DEFAULT_SCOPE = {
  * @param {Function} callback Callback function that receives used search term and found results
  */
 const eachPlugin = (term, display) => {
-  const externalSettings = config.get('external') || {}
   // TODO: order results by frequency?
   Object.keys(plugins).forEach(name => {
-    const settings = externalSettings[name]
-    if (settings) {
-      Object.keys(settings).forEach(key => {
-        settings[key] = settings[key].value
-      })
-    }
-
     try {
       plugins[name].fn({
         ...DEFAULT_SCOPE,
@@ -53,7 +46,7 @@ const eachPlugin = (term, display) => {
         hide: (id) => store.dispatch(hideElement(`${name}-${id}`)),
         update: (id, result) => store.dispatch(updateElement(`${name}-${id}`, result)),
         display: (payload) => display(name, payload),
-        settings,
+        settings: pluginSettings.get(name),
       })
     } catch (error) {
       // Do not fail on plugin errors, just log them to console

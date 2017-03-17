@@ -19,7 +19,7 @@ const SettingsComponent = ({ type, ...props }) => {
 }
 
 SettingsComponent.propTypes = {
-  value: PropTypes.any.isRequired,
+  value: PropTypes.any,
   type: PropTypes.string.isRequired,
 }
 

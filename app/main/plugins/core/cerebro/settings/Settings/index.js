@@ -4,7 +4,10 @@ import CountrySelect from './CountrySelect'
 import Select from 'react-select'
 import loadThemes from 'lib/loadThemes'
 import styles from './styles.css'
-import ExternalSettings from './external-settings'
+import PluginSettings from './PluginSettings'
+import plugins from 'main/plugins'
+
+import { pickBy } from 'lodash'
 
 class Settings extends Component {
   constructor(props) {
@@ -17,9 +20,20 @@ class Settings extends Component {
       theme: get('theme'),
       developerMode: get('developerMode'),
       cleanOnHide: get('cleanOnHide'),
-      external: get('external'),
+      pluginsSettings: get('plugins'),
     }
     this.changeConfig = this.changeConfig.bind(this)
+  }
+  pluginChangeSettings(name) {
+    return updateSettings => {
+      const { pluginsSettings } = this.state
+      const newPluginsSettings = {
+        ...pluginsSettings,
+        [name]: updateSettings
+      }
+      this.setState({ pluginsSettings: newPluginsSettings })
+      this.changeConfig('plugins', newPluginsSettings)
+    }
   }
   changeConfig(key, value) {
     this.props.set(key, value)
@@ -27,10 +41,26 @@ class Settings extends Component {
       [key]: value
     })
   }
+  renderPluginsSettings() {
+    const { pluginsSettings } = this.state
+    const pluginsWithSettings = pickBy(plugins, p => p.settings)
+    return Object.keys(pluginsWithSettings).map(name => {
+      const { settings } = pluginsWithSettings[name]
+      return (
+        <PluginSettings
+          values={pluginsSettings[name] || {}}
+          settings={settings}
+          onChange={this.pluginChangeSettings(name)}
+        />
+      )
+    })
+  }
   render() {
     const {
-      hotkey, showInTray, country, theme, developerMode, cleanOnHide, external
+      hotkey, showInTray, country, theme, developerMode, cleanOnHide
     } = this.state
+
+
     return (
       <div className={styles.settings}>
         <div className={styles.item}>
@@ -113,10 +143,7 @@ class Settings extends Component {
           </div>
         </div>
 
-        <ExternalSettings
-          settings={external}
-          onChange={settings => this.changeConfig('external', settings)}
-        />
+        {this.renderPluginsSettings()}
       </div>
     )
   }

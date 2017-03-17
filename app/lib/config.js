@@ -24,7 +24,7 @@ const defaultSettings = memoize(() => {
     cleanOnHide: true,
     skipDonateDialog: false,
     lastShownDonateDialog: null,
-    external: {},
+    plugins: {},
   }
 })
 

@@ -1,10 +1,10 @@
 import React from 'react'
 import { search } from 'cerebro-tools'
-import Settings from './Settings'
 import icon from '../icon.png'
+import { version } from '../../../../../package.json'
 
 // Settings plugin name
-const NAME = 'Cerebro Settings'
+const NAME = 'Cerebro Version'
 
 // Settings plugins in the end of list
 const order = 9
@@ -12,10 +12,8 @@ const order = 9
 // Phrases that used to find settings plugins
 const KEYWORDS = [
   NAME,
-  'Cerebro Preferences',
-  'cfg',
-  'config',
-  'params'
+  'ver',
+  'version'
 ]
 
 /**
@@ -24,20 +22,16 @@ const KEYWORDS = [
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const settingsPlugin = ({ term, display, config, actions }) => {
+const versionPlugin = ({ term, display, actions }) => {
   const found = search(KEYWORDS, term).length > 0
+
   if (found) {
     const results = [{
       order,
       icon,
       title: NAME,
       term: NAME,
-      getPreview: () => (
-        <Settings
-          set={(key, value) => config.set(key, value)}
-          get={(key) => config.get(key)}
-        />
-      ),
+      getPreview: () => (<div><strong>{version}</strong></div>),
       onSelect: (event) => {
         event.preventDefault()
         actions.replaceTerm(NAME)
@@ -49,5 +43,5 @@ const settingsPlugin = ({ term, display, config, actions }) => {
 
 export default {
   name: NAME,
-  fn: settingsPlugin
+  fn: versionPlugin
 }

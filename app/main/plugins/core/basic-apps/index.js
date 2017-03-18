@@ -16,6 +16,7 @@ const fn = ({ term, actions, display }) => {
     return {
       icon,
       id: id || path,
+      count: app.selectCount || 0,
       title: name,
       term: name,
       subtitle: description || path,
@@ -27,7 +28,10 @@ const fn = ({ term, actions, display }) => {
           event.preventDefault()
         }
       },
-      onSelect: () => openApp(app),
+      onSelect: () => {
+        app.selectCount = app.selectCount ? app.selectCount + 1 : 1;
+        openApp(app)
+      },
       getPreview: () => <Preview name={name} path={path} icon={icon} />
     }
   })

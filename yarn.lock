@@ -2445,13 +2445,6 @@ electron-macos-sign@~1.5.0:
     isbinaryfile "^3.0.2"
     plist "^2.0.1"
 
-electron-prebuilt@^1.4.13:
-  version "1.4.13"
-  resolved "https://registry.yarnpkg.com/electron-prebuilt/-/electron-prebuilt-1.4.13.tgz#0a0e4d7bf895a242061ccfab29394dcda1da33d2"
-  dependencies:
-    electron-download "^3.0.1"
-    extract-zip "^1.0.3"
-
 electron-rebuild@1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/electron-rebuild/-/electron-rebuild-1.4.0.tgz#48a407f987f985c42349c03b4d2694abc3a72dc6"
@@ -2469,6 +2462,13 @@ electron-rebuild@1.4.0:
 electron-to-chromium@^1.1.0, electron-to-chromium@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.2.3.tgz#4b4d04d237c301f72e2d15c2137b2b79f9f5ab76"
+
+electron@^1.6.1:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-1.6.3.tgz#95fc62899e50838563fa768baa2011ea860d04b1"
+  dependencies:
+    electron-download "^3.0.1"
+    extract-zip "^1.0.3"
 
 elliptic@^6.0.0:
   version "6.4.0"

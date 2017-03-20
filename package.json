@@ -146,7 +146,7 @@
     "del": "2.2.0",
     "devtron": "1.2.0",
     "electron-builder": "11.5.1",
-    "electron-prebuilt": "^1.4.13",
+    "electron": "1.6.2",
     "electron-rebuild": "1.4.0",
     "eslint": "2.10.2",
     "eslint-config-airbnb": "9.0.1",

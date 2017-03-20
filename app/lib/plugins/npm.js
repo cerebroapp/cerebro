@@ -69,7 +69,7 @@ const installPackage = (tarPath, destination, middleware) => {
 export default (dir) => {
   const packageJson = path.join(dir, 'package.json')
   const setConfig = (config) => (
-    fs.writeFileSync(packageJson, JSON.stringify(config))
+    fs.writeFileSync(packageJson, JSON.stringify(config, null, 2))
   )
   const getConfig = () => JSON.parse(fs.readFileSync(packageJson))
   return {

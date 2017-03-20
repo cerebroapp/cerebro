@@ -7,7 +7,7 @@ const Select = ({ label, value, onChange, description }) => (
     <div className={styles.itemValue}>
       <Creatable
         multi
-        value={value.map(val => ({ value: val, label: val }))}
+        value={(value || []).map(val => ({ value: val, label: val }))}
         placeholder={label}
         onChange={newValue => onChange(newValue.map(val => val.value))}
       />
@@ -18,7 +18,7 @@ const Select = ({ label, value, onChange, description }) => (
 
 Select.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.arary,
+  value: PropTypes.array,
   onChange: PropTypes.func.isRequired,
   description: PropTypes.string,
 }

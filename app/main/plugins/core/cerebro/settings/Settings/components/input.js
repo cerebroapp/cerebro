@@ -7,7 +7,7 @@ const Input = ({ label, value, onChange, description, type }) => (
     <div className={styles.itemValue}>
       <input
         type={type}
-        value={value}
+        value={value || ''}
         className={styles.input}
         onChange={({ target }) => onChange(target.value)}
       />

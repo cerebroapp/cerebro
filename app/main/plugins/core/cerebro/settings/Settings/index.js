@@ -48,6 +48,8 @@ class Settings extends Component {
       const { settings } = pluginsWithSettings[name]
       return (
         <PluginSettings
+          key={name}
+          name={name}
           values={pluginsSettings[name] || {}}
           settings={settings}
           onChange={this.pluginChangeSettings(name)}

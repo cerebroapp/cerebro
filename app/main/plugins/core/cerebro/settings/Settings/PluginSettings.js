@@ -46,9 +46,11 @@ export default class PluginSettings extends Component {
     return (
       <div className={styles.settingItem}>
         <label className={styles.header}>Settings</label>
-        {Object
+        {
+          Object
             .keys(this.props.settings)
-            .map(this.renderSetting)}
+            .map(this.renderSetting)
+        }
       </div>
     )
   }

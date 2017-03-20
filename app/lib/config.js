@@ -43,7 +43,7 @@ const get = (key) => {
   if (!fs.existsSync(CONFIG_FILE)) {
     // Save default config to local storage
     config = defaultSettings()
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config))
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2))
   } else {
     config = readConfig()
   }
@@ -65,7 +65,7 @@ const set = (key, value) => {
     ...readConfig()
   }
   config[key] = value
-  fs.writeFileSync(CONFIG_FILE, JSON.stringify(config))
+  fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2))
   // Track settings changes
   trackEvent({
     category: 'Settings',

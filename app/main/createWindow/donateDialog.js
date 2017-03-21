@@ -20,6 +20,7 @@ export const shouldShow = () => {
   return !lastShow || twoWeeksAgo() >= lastShow
 }
 
+/* eslint-disable max-len*/
 const messages = [
   'Do you like completely free and open-source Cerebro? Support developers with your donation!',
   'Do you like Cerebro? Buy a beer for developers!',
@@ -40,6 +41,7 @@ const skipMessages = [
   "I won't donate",
   "I don't want to see this message again",
 ]
+/* eslint-enable max-len */
 
 export const show = () => {
   config.set('lastShownDonateDialog', now())

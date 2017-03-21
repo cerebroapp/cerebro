@@ -19,6 +19,17 @@ const moveSelectionTo = (elements, index) => {
   elements[nextIndex].focus()
 }
 
+const vimKeyCodes = {
+  h: 72,
+  j: 74,
+  k: 75,
+  l: 76
+}
+
+const isVimMode = (event) => (key) => (
+  vimKeyCodes[key] === event.keyCode && (event.metaKey || event.ctrlKey)
+)
+
 /**
  * Handler keydown in keyboard navigation component
  *
@@ -27,8 +38,9 @@ const moveSelectionTo = (elements, index) => {
  */
 const onKeyDown = (wrapper, event) => {
   const { target, keyCode } = event
-  if (keyCode === 37) {
-    // Move control back to main list when ← is clicked
+  const isVimKey = isVimMode(event)
+  if (keyCode === 37 || isVimKey('h')) {
+    // Move control back to main list when ← is clicked or cmd/ctrl+h
     const mainInput = document.querySelector('#main-input')
     const position = mainInput.value.length
     mainInput.focus()
@@ -37,7 +49,7 @@ const onKeyDown = (wrapper, event) => {
     event.stopPropagation()
     return false
   }
-  if (keyCode !== 40 && keyCode !== 38) {
+  if (keyCode !== 40 && keyCode !== 38 && !isVimKey('j') && !isVimKey('k')) {
     return false
   }
 
@@ -47,11 +59,11 @@ const onKeyDown = (wrapper, event) => {
   // Get index of currently focused element
   const index = Array.prototype.findIndex.call(focusable, (el) => el === target)
 
-  if (keyCode === 40) {
+  if (keyCode === 40 || isVimKey('j')) {
     // Select next focusable element when arrow down clicked
     moveSelectionTo(focusable, index + 1)
     event.stopPropagation()
-  } else if (keyCode === 38) {
+  } else if (keyCode === 38 || isVimKey('k')) {
     // Select previous focusable element when arrow down clicked
     moveSelectionTo(focusable, index - 1)
     event.stopPropagation()

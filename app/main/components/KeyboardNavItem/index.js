@@ -10,7 +10,7 @@ const KeyboardNavItem = ({ tagName, ...props }) => {
     if (props.onKeyDown) {
       props.onKeyDown(event)
     }
-    if (!event.defaultPrevented && event.keyCode === 13) {
+    if (!event.defaultPrevented && (event.keyCode === 79 && (event.metaKey || event.ctrlKey))) {
       onSelect()
     }
   }

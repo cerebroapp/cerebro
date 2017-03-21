@@ -13,6 +13,7 @@ import toggleWindow from './createWindow/toggleWindow'
 import handleUrl from './createWindow/handleUrl'
 import config from '../lib/config'
 import getWindowPosition from '../lib/getWindowPosition'
+import * as donateDialog from './createWindow/donateDialog'
 
 export default ({ src, isDev }) => {
   const [x, y] = getWindowPosition({})
@@ -136,6 +137,10 @@ export default ({ src, isDev }) => {
 
   if (shouldQuit) {
     app.quit()
+  }
+
+  if (donateDialog.shouldShow()) {
+    setTimeout(donateDialog.show, 1000)
   }
 
   // Track app start event

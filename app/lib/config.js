@@ -21,7 +21,9 @@ const defaultSettings = memoize(() => {
     showInTray: true,
     firstStart: true,
     developerMode: false,
-    cleanOnHide: true
+    cleanOnHide: true,
+    skipDonateDialog: false,
+    lastShownDonateDialog: null
   }
 })
 

@@ -3,12 +3,14 @@ import Preload from 'main/components/Preload'
 import KeyboardNav from 'main/components/KeyboardNav'
 import KeyboardNavItem from 'main/components/KeyboardNavItem'
 import ActionButton from './ActionButton.js'
+import PluginSettings from '../../settings/Settings/PluginSettings'
 import getReadme from '../getReadme'
 import ReactMarkdown from 'react-markdown'
 import styles from './styles.css'
 import trackEvent from 'lib/trackEvent'
 import * as format from '../format'
 import { client } from 'lib/plugins'
+import plugins from 'main/plugins'
 
 const isRelative = (src) => !src.match(/^(https?:|data:)/)
 const urlTransform = (repo, src) => {
@@ -22,8 +24,10 @@ class Preview extends Component {
   constructor(props) {
     super(props)
     this.onComplete = this.onComplete.bind(this)
+    const plugin = plugins[props.name] || {}
     this.state = {
       showDescription: false,
+      settings: plugin.settings,
     }
   }
 
@@ -60,6 +64,18 @@ class Preview extends Component {
     )
   }
 
+  renderPluginSettings() {
+    const { settings } = this.state
+    if (! settings) return ''
+
+    return (
+      <PluginSettings
+        name={this.props.name}
+        settings={settings}
+      />
+    )
+  }
+
   render() {
     const {
       name,
@@ -76,6 +92,7 @@ class Preview extends Component {
       <div className={styles.preview} key={name}>
         <h2>{format.name(name)} ({version})</h2>
         <p>{format.description(description)}</p>
+        {this.renderPluginSettings()}
         <KeyboardNav>
           <div className={styles.header}>
             {

@@ -4,10 +4,6 @@ import CountrySelect from './CountrySelect'
 import Select from 'react-select'
 import loadThemes from 'lib/loadThemes'
 import styles from './styles.css'
-import PluginSettings from './PluginSettings'
-import plugins from 'main/plugins'
-
-import { pickBy } from 'lodash'
 
 class Settings extends Component {
   constructor(props) {
@@ -24,37 +20,10 @@ class Settings extends Component {
     }
     this.changeConfig = this.changeConfig.bind(this)
   }
-  pluginChangeSettings(name) {
-    return updateSettings => {
-      const { pluginsSettings } = this.state
-      const newPluginsSettings = {
-        ...pluginsSettings,
-        [name]: updateSettings
-      }
-      this.setState({ pluginsSettings: newPluginsSettings })
-      this.changeConfig('plugins', newPluginsSettings)
-    }
-  }
   changeConfig(key, value) {
     this.props.set(key, value)
     this.setState({
       [key]: value
-    })
-  }
-  renderPluginsSettings() {
-    const { pluginsSettings } = this.state
-    const pluginsWithSettings = pickBy(plugins, p => p.settings)
-    return Object.keys(pluginsWithSettings).map(name => {
-      const { settings } = pluginsWithSettings[name]
-      return (
-        <PluginSettings
-          key={name}
-          name={name}
-          values={pluginsSettings[name] || {}}
-          settings={settings}
-          onChange={this.pluginChangeSettings(name)}
-        />
-      )
     })
   }
   render() {
@@ -144,8 +113,6 @@ class Settings extends Component {
             </label>
           </div>
         </div>
-
-        {this.renderPluginsSettings()}
       </div>
     )
   }

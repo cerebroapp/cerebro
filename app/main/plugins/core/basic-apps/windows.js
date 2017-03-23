@@ -9,11 +9,13 @@ const parseFile = (filePath) => {
     const details = shell.readShortcutLink(filePath)
     return {
       path: details.target,
-      description: details.description
+      description: details.description,
+      icon: details.target
     }
   } catch (e) {
     return {
-      path: filePath
+      path: filePath,
+      icon: filePath
     }
   }
 }

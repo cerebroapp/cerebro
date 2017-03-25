@@ -11,12 +11,13 @@ const { openApp, toString } = process.platform === 'win32'
 let appsList = []
 
 const fn = ({ term, actions, display }) => {
-  const result = search(appsList, term, toString).map(app => {
+  const result = search(appsList, term, toString).sort((a, b) => {
+    return (b.selectCount || 0) - (a.selectCount || 0);
+  }).map(app => {
     const { id, path, name, description, icon } = app
     return {
       icon,
       id: id || path,
-      count: app.selectCount || 0,
       title: name,
       term: name,
       subtitle: description || path,

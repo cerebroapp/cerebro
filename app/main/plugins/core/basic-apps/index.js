@@ -11,9 +11,8 @@ const { openApp, toString } = process.platform === 'win32'
 let appsList = []
 
 const fn = ({ term, actions, display }) => {
-  const result = search(appsList, term, toString).sort((a, b) => {
-    return (b.selectCount || 0) - (a.selectCount || 0);
-  }).map(app => {
+  const result = search(appsList, term, toString)
+  .sort((a, b) => (b.selectCount || 0) - (a.selectCount || 0)).map(app => {
     const { id, path, name, description, icon } = app
     return {
       icon,
@@ -30,8 +29,9 @@ const fn = ({ term, actions, display }) => {
         }
       },
       onSelect: () => {
-        app.selectCount = app.selectCount ? app.selectCount + 1 : 1;
-        openApp(app)
+        const application = app
+        application.selectCount = application.selectCount ? application.selectCount + 1 : 1
+        openApp(application)
       },
       getPreview: () => <Preview name={name} path={path} icon={icon} />
     }

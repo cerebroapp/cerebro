@@ -11,6 +11,6 @@ export default function getFileIcon(path) {
     remote.app.getFileIcon(path, (err, icon) => {
       if (err) return reject(err)
       accept(icon.toDataURL())
-    });
-  });
+    })
+  })
 }

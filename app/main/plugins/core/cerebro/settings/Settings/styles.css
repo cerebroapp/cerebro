@@ -5,33 +5,6 @@
   align-items: center;
 }
 
-.item {
-  display: flex;
-  flex-direction: row;
-  width: 250px;
-  margin-top: 20px;
-  &:first-child {
-    margin-top: 0;
-  }
-}
-
-.itemValue {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 2;
-}
-
-.itemValueWithoutLabel {
-  composes: itemValue;
-  margin-left: 75px;
-}
-
-.itemNotice{
-  color: var(--secondary-font-color);
-  font-size: .8em;
-  margin-top: 5px;
-}
-
 .label {
   margin-right: 15px;
   margin-top: 8px;
@@ -54,10 +27,6 @@
 
 .header {
   font-weight: bold;
-}
-
-.hotkey {
-
 }
 
 .input {

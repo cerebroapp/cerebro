@@ -1,7 +1,8 @@
 import React, { PropTypes, Component } from 'react'
-import Hotkey from './components/hotkey'
-import CountrySelect from './CountrySelect'
-import Select from 'react-select'
+import Hotkey from './Hotkey'
+import countries from './countries'
+import { Select, Checkbox } from 'main/components/Form'
+import Wrapper from 'main/components/Form/Wrapper'
 import loadThemes from 'lib/loadThemes'
 import styles from './styles.css'
 
@@ -31,88 +32,42 @@ class Settings extends Component {
       hotkey, showInTray, country, theme, developerMode, cleanOnHide
     } = this.state
 
-
     return (
       <div className={styles.settings}>
-        <div className={styles.item}>
-          <label className={styles.label}>Hotkey:</label>
-          <div className={styles.itemValue}>
-            <Hotkey
-              hotkey={hotkey}
-              onChange={(key) => this.changeConfig('hotkey', key)}
-            />
-            <div className={styles.itemNotice}>
-              Type your global shortcut for Cerebro in this input.
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.item}>
-          <label className={styles.label}>Country:</label>
-          <div className={styles.itemValue}>
-            <CountrySelect
-              value={country}
-              onChange={({ value }) => this.changeConfig('country', value)}
-            />
-            <div className={styles.itemNotice}>
-              Choose your country so Cerebro can better choose currency, language, etc.
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.item}>
-          <label className={styles.label}>Theme:</label>
-          <div className={styles.itemValue}>
-            <Select
-              value={theme}
-              options={loadThemes()}
-              clearable={false}
-              onChange={({ value }) => this.changeConfig('theme', value)}
-            />
-          </div>
-        </div>
-
-        <div className={styles.item}>
-          <div className={styles.itemValueWithoutLabel}>
-            <label>
-              <input
-                type="checkbox"
-                checked={showInTray}
-                onChange={({ target }) => this.changeConfig('showInTray', target.checked)}
-                className={styles.checkbox}
-              />
-              Show in menu bar
-            </label>
-          </div>
-        </div>
-
-        <div className={styles.item}>
-          <div className={styles.itemValueWithoutLabel}>
-            <label>
-              <input
-                type="checkbox"
-                checked={developerMode}
-                onChange={({ target }) => this.changeConfig('developerMode', target.checked)}
-                className={styles.checkbox}
-              />
-              Developer Mode
-            </label>
-          </div>
-        </div>
-
-        <div className={styles.item}>
-          <div className={styles.itemValueWithoutLabel}>
-            <label>
-              <input
-                type="checkbox"
-                checked={cleanOnHide}
-                onChange={({ target }) => this.changeConfig('cleanOnHide', target.checked)}
-                className={styles.checkbox}
-              />
-              Clean results on hide
-            </label>
-          </div>
-        </div>
+        <Wrapper label="Hotkey" description="Type your global shortcut for Cerebro in this input">
+          <Hotkey
+            hotkey={hotkey}
+            onChange={(key) => this.changeConfig('hotkey', key)}
+          />
+        </Wrapper>
+        <Select
+          label="Country"
+          description="Choose your country so Cerebro can better choose currency, language, etc."
+          value={country}
+          options={countries}
+          onChange={value => this.changeConfig('country', value)}
+        />
+        <Select
+          label="Theme"
+          value={theme}
+          options={loadThemes()}
+          onChange={value => this.changeConfig('theme', value)}
+        />
+        <Checkbox
+          label="Show in menu bar"
+          value={showInTray}
+          onChange={value => this.changeConfig('showInTray', value)}
+        />
+        <Checkbox
+          label="Developer Mode"
+          value={developerMode}
+          onChange={value => this.changeConfig('developerMode', value)}
+        />
+        <Checkbox
+          label="Clean results on hide"
+          value={cleanOnHide}
+          onChange={value => this.changeConfig('cleanOnHide', value)}
+        />
       </div>
     )
   }

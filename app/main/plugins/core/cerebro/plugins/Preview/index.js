@@ -3,7 +3,7 @@ import Preload from 'main/components/Preload'
 import KeyboardNav from 'main/components/KeyboardNav'
 import KeyboardNavItem from 'main/components/KeyboardNavItem'
 import ActionButton from './ActionButton.js'
-import PluginSettings from '../../settings/Settings/PluginSettings'
+import Settings from './Settings'
 import getReadme from '../getReadme'
 import ReactMarkdown from 'react-markdown'
 import styles from './styles.css'
@@ -24,10 +24,9 @@ class Preview extends Component {
   constructor(props) {
     super(props)
     this.onComplete = this.onComplete.bind(this)
-    const plugin = plugins[props.name] || {}
     this.state = {
       showDescription: false,
-      settings: plugin.settings,
+      showSettings: false,
     }
   }
 
@@ -64,18 +63,6 @@ class Preview extends Component {
     )
   }
 
-  renderPluginSettings() {
-    const { settings } = this.state
-    if (! settings) return ''
-
-    return (
-      <PluginSettings
-        name={this.props.name}
-        settings={settings}
-      />
-    )
-  }
-
   render() {
     const {
       name,
@@ -87,14 +74,21 @@ class Preview extends Component {
       isUpdateAvailable
     } = this.props
     const githubRepo = repo && repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
-    const runningAction = this.state.runningAction
+    const { runningAction, showSettings } = this.state
+    const settings = plugins[name] ? plugins[name].settings : null
     return (
       <div className={styles.preview} key={name}>
         <h2>{format.name(name)} ({version})</h2>
         <p>{format.description(description)}</p>
-        {this.renderPluginSettings()}
         <KeyboardNav>
           <div className={styles.header}>
+            {
+              settings &&
+                <KeyboardNavItem onSelect={() => this.setState({ showSettings: !this.state.showSettings })}>
+                  Settings
+                </KeyboardNavItem>
+            }
+            {showSettings && <Settings name={name} settings={settings} />}
             {
               !isInstalled &&
                 <ActionButton
@@ -126,7 +120,7 @@ class Preview extends Component {
             {
               githubRepo &&
                 <KeyboardNavItem
-                  onSelect={() => this.setState({ showDescription: true })}
+                  onSelect={() => this.setState({ showDescription: !this.state.showDescription })}
                 >
                   Details
                 </KeyboardNavItem>
@@ -141,6 +135,7 @@ class Preview extends Component {
 
 Preview.propTypes = {
   name: PropTypes.string.isRequired,
+  settings: PropTypes.object,
   version: PropTypes.string.isRequired,
   description: PropTypes.string,
   repo: PropTypes.string,

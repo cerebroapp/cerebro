@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import styles from '../styles.css'
+import styles from './styles.css'
 
 const Checkbox = ({ label, value, onChange, description }) => (
   <div className={styles.item}>
@@ -11,8 +11,9 @@ const Checkbox = ({ label, value, onChange, description }) => (
           onChange={({ target }) => onChange(target.checked)}
           className={styles.checkbox}
         />
-      {description}
+      {label}
       </label>
+      <div className={styles.itemNotice}>{description}</div>
     </div>
   </div>
 )

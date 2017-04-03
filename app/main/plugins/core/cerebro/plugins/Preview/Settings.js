@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react'
 import config from 'lib/config'
+import FormItem from './FormItem'
 import styles from './styles.css'
-import SettingsComponent from './components'
 
-export default class PluginSettings extends Component {
+export default class Settings extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -32,7 +32,7 @@ export default class PluginSettings extends Component {
     const value = key in this.state.values ? this.state.values[key] : defaultValue
 
     return (
-      <SettingsComponent
+      <FormItem
         key={key}
         label={label || key}
         value={value}
@@ -44,19 +44,16 @@ export default class PluginSettings extends Component {
 
   render() {
     return (
-      <div className={styles.settingItem}>
-        <label className={styles.header}>Settings</label>
+      <div className={styles.settingsWrapper}>
         {
-          Object
-            .keys(this.props.settings)
-            .map(this.renderSetting)
+          Object.keys(this.props.settings).map(this.renderSetting)
         }
       </div>
     )
   }
 }
 
-PluginSettings.propTypes = {
+Settings.propTypes = {
   name: PropTypes.string.isRequired,
   settings: PropTypes.object.isRequired,
 }

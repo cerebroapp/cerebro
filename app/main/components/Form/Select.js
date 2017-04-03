@@ -1,26 +1,26 @@
 import React, { PropTypes } from 'react'
-import Select from 'react-select'
-import styles from '../styles.css'
+import ReactSelect, { Creatable } from 'react-select'
+import Wrapper from './Wrapper'
 
-const Options = ({ label, value, onChange, description, options, multi }) => (
-  <div className={styles.item}>
-    <div className={styles.itemValue}>
-      <Select
+const Select = ({ label, value, onChange, description, options, multi, clearable, creatable }) => {
+  const Component = creatable ? Creatable : ReactSelect
+  return (
+    <Wrapper label={label} description={description}>
+      <Component
         multi={multi}
         value={value}
-        placeholder={label}
-        options={options.map(option => ({ label: option, value: option }))}
+        clearable={clearable}
+        options={options}
         onChange={newValue => {
           const changedValue = multi ? newValue.map(val => val.value) : newValue.value
           onChange(changedValue)
         }}
       />
-      <div className={styles.itemNotice}>{description}</div>
-    </div>
-  </div>
-)
+    </Wrapper>
+  )
+}
 
-Options.propTypes = {
+Select.propTypes = {
   label: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -31,6 +31,8 @@ Options.propTypes = {
   description: PropTypes.string,
   options: PropTypes.array.isRequired,
   multi: PropTypes.bool,
+  clearable: PropTypes.bool,
+  creatable: PropTypes.bool
 }
 
-export default Options
+export default Select

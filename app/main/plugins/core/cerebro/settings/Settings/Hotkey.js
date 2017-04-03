@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import styles from '../styles.css'
+import styles from './styles.css'
 
 const ASCII = {
   188: '44',
@@ -124,7 +124,7 @@ class Hotkey extends Component {
     const { hotkey } = this.props
     const keys = hotkey.split('+').map(keyToSign).join(osKeyDelimiter)
     return (
-      <div className={styles.hotkey}>
+      <div>
         <input
           className={styles.input}
           type="text"

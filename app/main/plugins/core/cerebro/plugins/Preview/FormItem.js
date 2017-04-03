@@ -21,5 +21,3 @@ FormItem.propTypes = {
 }
 
 export default FormItem
-
-

@@ -84,7 +84,9 @@ class Preview extends Component {
           <div className={styles.header}>
             {
               settings &&
-                <KeyboardNavItem onSelect={() => this.setState({ showSettings: !this.state.showSettings })}>
+                <KeyboardNavItem
+                  onSelect={() => this.setState({ showSettings: !this.state.showSettings })}
+                >
                   Settings
                 </KeyboardNavItem>
             }

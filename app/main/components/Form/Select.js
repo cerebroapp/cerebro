@@ -12,6 +12,9 @@ const Select = ({ label, value, onChange, description, options, multi, clearable
         clearable={clearable}
         options={options}
         onChange={newValue => {
+          if (!newValue) {
+            return newValue
+          }
           const changedValue = multi ? newValue.map(val => val.value) : newValue.value
           onChange(changedValue)
         }}

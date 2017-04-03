@@ -17,10 +17,14 @@ const pluginsMock = {
   'test-plugin': testPlugin
 }
 
+
 const actions = searchInjector({
   electron: {},
   '../plugins/': pluginsMock,
-  'lib/config': {}
+  'lib/config': {},
+  'lib/plugins': {
+    get: () => undefined
+  }
 })
 
 describe('reset', () => {

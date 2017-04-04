@@ -147,7 +147,7 @@
     "devtron": "1.2.0",
     "electron-builder": "11.5.1",
     "electron": "1.6.2",
-    "electron-rebuild": "1.4.0",
+    "electron-rebuild": "1.5.7",
     "eslint": "2.10.2",
     "eslint-config-airbnb": "9.0.1",
     "eslint-import-resolver-webpack": "0.3.0",

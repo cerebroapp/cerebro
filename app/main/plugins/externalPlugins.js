@@ -68,7 +68,6 @@ pluginsWatcher.on('addDir', (pluginPath) => {
       console.log(`[${base}] Update plugin`)
       delete window.require.cache[requirePath]
       plugins[base] = window.require(pluginPath)
-      settings.add(base, plugins[base])
       console.log(`[${base}] Plugin updated`)
     }, 1000))
     console.groupEnd()

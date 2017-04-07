@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce'
 import chokidar from 'chokidar'
 import path from 'path'
-import { modulesDirectory, ensureFiles } from 'lib/plugins'
+import { modulesDirectory, ensureFiles, settings } from 'lib/plugins'
 
 const requirePlugin = (pluginPath) => {
   try {
@@ -55,6 +55,12 @@ pluginsWatcher.on('addDir', (pluginPath) => {
       console.groupEnd()
       return
     }
+    if (!settings.validate(plugin)) {
+      console.log('Invalid plugins settings')
+      console.groupEnd()
+      return
+    }
+
     console.log('Loaded.')
     const requirePath = window.require.resolve(pluginPath)
     const watcher = chokidar.watch(requirePath, { depth: 0 })

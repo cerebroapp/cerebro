@@ -2,6 +2,7 @@ import plugins from '../plugins/'
 import config from 'lib/config'
 import { shell, clipboard, remote } from 'electron'
 import store from '../store'
+import { settings as pluginSettings } from 'lib/plugins'
 
 import {
  UPDATE_TERM,
@@ -44,7 +45,8 @@ const eachPlugin = (term, display) => {
         term,
         hide: (id) => store.dispatch(hideElement(`${name}-${id}`)),
         update: (id, result) => store.dispatch(updateElement(`${name}-${id}`, result)),
-        display: (payload) => display(name, payload)
+        display: (payload) => display(name, payload),
+        settings: pluginSettings.get(name),
       })
     } catch (error) {
       // Do not fail on plugin errors, just log them to console

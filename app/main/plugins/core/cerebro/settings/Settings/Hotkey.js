@@ -124,9 +124,9 @@ class Hotkey extends Component {
     const { hotkey } = this.props
     const keys = hotkey.split('+').map(keyToSign).join(osKeyDelimiter)
     return (
-      <div className={styles.hotkey}>
+      <div>
         <input
-          className={styles.hotkeyInput}
+          className={styles.input}
           type="text"
           value={keys}
           onKeyDown={this.onKeyDown.bind(this)}

@@ -5,32 +5,6 @@
   align-items: center;
 }
 
-.item {
-  display: flex;
-  flex-direction: row;
-  width: 250px;
-  margin-top: 20px;
-  &:first-child {
-    margin-top: 0;
-  }
-}
-
-.itemValue {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 2;
-}
-.itemValueWithoutLabel {
-  composes: itemValue;
-  margin-left: 75px;
-}
-
-.itemNotice{
-  color: var(--secondary-font-color);
-  font-size: .8em;
-  margin-top: 5px;
-}
-
 .label {
   margin-right: 15px;
   margin-top: 8px;
@@ -40,4 +14,28 @@
 
 .checkbox {
   margin-right: 5px;
+}
+
+.settingItem {
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+  border-color: #d9d9d9 #ccc #b3b3b3;
+  border-top: 1px solid #ccc;
+  margin-top: 16px;
+}
+
+.header {
+  font-weight: bold;
+}
+
+.input {
+  font-size: 16px;
+  line-height: 34px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  width: 100%;
+  border-color: #d9d9d9 #ccc #b3b3b3;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }

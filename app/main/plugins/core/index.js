@@ -3,7 +3,6 @@
 // Core plugins
 const plugins = {
   ...require('./cerebro'),
-  converter: require('./converter'),
   files: require('./files'),
   google: require('./google'),
   maps: require('./maps'),

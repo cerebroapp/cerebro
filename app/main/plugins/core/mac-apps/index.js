@@ -1,5 +1,3 @@
-import React from 'react'
-import Preview from './Preview'
 import { memoize, search } from 'cerebro-tools'
 import orderBy from 'lodash/orderBy'
 import getAppsList from './lib/getAppsList'
@@ -69,8 +67,7 @@ const appsPlugin = ({ term, actions, display }) => {
             event.preventDefault()
           }
         },
-        onSelect: () => actions.open(`file://${path}`),
-        getPreview: () => <Preview name={name} path={path} />
+        onSelect: () => actions.open(`file://${path}`)
       }
     })
     display(result)

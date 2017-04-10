@@ -13,7 +13,7 @@ const plugins = {
 }
 
 if (process.platform === 'darwin') {
-  plugins.apps = require('./osx-apps')
+  plugins.apps = require('./mac-apps')
 } else {
   plugins.apps = require('./basic-apps')
 }

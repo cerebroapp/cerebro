@@ -1,7 +1,6 @@
 import { every } from 'lodash/fp'
 
 const VALID_TYPES = new Set([
-  'array',
   'string',
   'number',
   'bool',

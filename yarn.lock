@@ -41,6 +41,10 @@ accepts@~1.2.12:
     mime-types "~2.1.6"
     negotiator "0.5.3"
 
+accessibility-developer-tools@^2.11.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/accessibility-developer-tools/-/accessibility-developer-tools-2.12.0.tgz#3da0cce9d6ec6373964b84f35db7cfc3df7ab514"
+
 acorn-globals@^1.0.4:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/acorn-globals/-/acorn-globals-1.0.9.tgz#55bb5e98691507b74579d0513413217c380c54cf"
@@ -2210,10 +2214,11 @@ detective@^4.3.1:
     acorn "^3.1.0"
     defined "^1.0.0"
 
-devtron@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/devtron/-/devtron-1.2.0.tgz#1b178d2d57f1aa4fb8e59bce324c9a66cf4c4a63"
+devtron@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/devtron/-/devtron-1.4.0.tgz#b5e748bd6e95bbe70bfcc68aae6fe696119441e1"
   dependencies:
+    accessibility-developer-tools "^2.11.0"
     highlight.js "^9.3.0"
     humanize-plus "^1.8.1"
 

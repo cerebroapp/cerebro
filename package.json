@@ -118,7 +118,7 @@
   "homepage": "https://cerebroapp.com",
   "devDependencies": {
     "asar": "0.13.0",
-    "autoprefixer": "6.3.7",
+    "autoprefixer": "6.7.7",
     "babel-core": "^6.24.1",
     "babel-eslint": "7.2.2",
     "babel-loader": "^6.4.1",

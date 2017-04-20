@@ -3074,7 +3074,7 @@ fs-extra-p@^4.0.2:
     bluebird-lst "^1.0.2"
     fs-extra "^2.1.2"
 
-fs-extra@0.26.7, fs-extra@^0.26.4, fs-extra@^0.26.5:
+fs-extra@0.26.7, fs-extra@^0.26.4:
   version "0.26.7"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-0.26.7.tgz#9ae1fdd94897798edab76d0918cf42d0c3184fa9"
   dependencies:
@@ -3599,7 +3599,7 @@ interpret@^0.6.4:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-0.6.6.tgz#fecd7a18e7ce5ca6abfb953e1f86213a49f1625b"
 
-interpret@^1.0.0:
+interpret@^1.0.0, interpret@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
 
@@ -4561,13 +4561,14 @@ mksnapshot@^0.3.0:
     fs-extra "0.26.7"
     request "2.55.0"
 
-mocha-webpack@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/mocha-webpack/-/mocha-webpack-0.4.0.tgz#3230f326f38bb2a5dd40cf415a382c825a0d8a80"
+mocha-webpack@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/mocha-webpack/-/mocha-webpack-0.7.0.tgz#d3ae5ac7ddcf29cf947e8b0eed773fa4228e0cce"
   dependencies:
     anymatch "^1.3.0"
-    fs-extra "^0.26.5"
+    fs-extra "^0.30.0"
     glob-parent "^2.0.0"
+    interpret "^1.0.1"
     invariant "^2.2.0"
     is-glob "^2.0.1"
     loader-utils "^0.2.13"
@@ -4576,7 +4577,7 @@ mocha-webpack@0.4.0:
     object-hash "^1.1.2"
     webpack-info-plugin "^0.1.0"
     webpack-sources "^0.1.1"
-    yargs "^3.32.0"
+    yargs "^4.8.0"
 
 mocha@3.2.0:
   version "3.2.0"
@@ -7216,7 +7217,7 @@ yargs-parser@^4.2.0:
   dependencies:
     camelcase "^3.0.0"
 
-yargs@^3.31.0, yargs@^3.32.0:
+yargs@^3.31.0:
   version "3.32.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-3.32.0.tgz#03088e9ebf9e756b69751611d2a5ef591482c995"
   dependencies:
@@ -7228,7 +7229,7 @@ yargs@^3.31.0, yargs@^3.32.0:
     window-size "^0.1.4"
     y18n "^3.2.0"
 
-yargs@^4.8.1:
+yargs@^4.8.0, yargs@^4.8.1:
   version "4.8.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-4.8.1.tgz#c0c42924ca4aaa6b0e6da1739dfb216439f9ddc0"
   dependencies:

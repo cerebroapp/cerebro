@@ -165,7 +165,7 @@
     "lodash-webpack-plugin": "0.10.6",
     "minimist": "1.2.0",
     "mocha": "3.2.0",
-    "mocha-webpack": "0.4.0",
+    "mocha-webpack": "0.7.0",
     "node-libs-browser": "1.0.0",
     "null-loader": "0.1.1",
     "optimize-js-plugin": "0.0.4",

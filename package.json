@@ -178,7 +178,7 @@
     "redux-devtools-log-monitor": "1.0.11",
     "redux-logger": "2.6.1",
     "selenium-webdriver": "3.3.0",
-    "sinon": "1.17.4",
+    "sinon": "2.1.0",
     "style-loader": "0.13.1",
     "url-loader": "https://registry.npmjs.org/url-loader/-/url-loader-0.5.7.tgz",
     "webpack": "1.13.2",

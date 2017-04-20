@@ -138,7 +138,7 @@
     "chai": "3.5.0",
     "chai-spies": "0.7.1",
     "chromedriver": "2.29.0",
-    "co-mocha": "1.1.2",
+    "co-mocha": "1.2.0",
     "concurrently": "2.1.0",
     "copy-webpack-plugin": "4.0.1",
     "cross-env": "1.0.8",

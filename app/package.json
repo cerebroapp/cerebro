@@ -11,7 +11,7 @@
     "url": "https://github.com/KELiON"
   },
   "scripts": {
-    "rebuild": "npm rebuild --runtime=electron --target=1.6.2 --disturl=https://atom.io/download/electron --abi=53"
+    "rebuild": "npm rebuild --runtime=electron --target=1.6.7 --disturl=https://atom.io/download/electron --abi=53"
   },
   "dependencies": {
     "chokidar": "^1.6.1",

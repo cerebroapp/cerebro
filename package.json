@@ -199,7 +199,7 @@
     "react": "15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-shallow-compare": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react-dom": "15.4.2",
     "react-google-maps": "4.11.0",
     "react-markdown": "2.4.2",
     "react-redux": "4.4.5",

@@ -22,9 +22,7 @@
   },
   "build": {
     "productName": "Cerebro",
-    "homepage": "https://cerebroapp.com",
     "appId": "com.cerebroapp.Cerebro",
-    "category": "public.app-category.productivity",
     "protocols": {
       "name": "Cerebro URLs",
       "role": "Viewer",
@@ -37,10 +35,6 @@
       "output": "release"
     },
     "linux": {
-      "arch": [
-        "ia32",
-        "x64"
-      ],
       "target": [
         "deb",
         "AppImage"
@@ -146,7 +140,7 @@
     "del": "2.2.0",
     "devtron": "1.4.0",
     "electron": "1.6.8",
-    "electron-builder": "13.11.1",
+    "electron-builder": "17.2.0",
     "electron-rebuild": "1.5.7",
     "eslint": "2.10.2",
     "eslint-config-airbnb": "9.0.1",

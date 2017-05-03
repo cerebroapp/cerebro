@@ -16,8 +16,8 @@ init:
 install:
   - ps: Install-Product node 7 x64
   - set CI=true
-  - npm install -g npm@4.5.0
-  - npm install
+  - npm install -g yarn@0.23.4
+  - yarn
 
 build: off
 
@@ -25,9 +25,9 @@ shallow_clone: true
 
 test_script:
   - node --version
-  - npm --version
-  - npm run lint
-  - npm run test
+  - yarn --version
+  - yarn run lint
+  - yarn run test
 
 on_success:
-  - npm run package
+  - yarn run package

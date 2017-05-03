@@ -25,7 +25,7 @@ addons:
       - bsdtar
 
 before_install:
-  - npm install -g npm@4.5.0
+  - npm install -g yarn@0.23.4
 
 cache: yarn
 
@@ -38,7 +38,7 @@ addons:
 
 install:
 - export CXX="g++-4.8"
-- npm install
+- yarn
 - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 
 before_script:
@@ -47,6 +47,6 @@ before_script:
 - sleep 3
 
 script:
-- npm run lint
-- npm run test
-- npm run package
+- yarn run lint
+- yarn run test
+- yarn run package

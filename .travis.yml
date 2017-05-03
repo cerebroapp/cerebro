@@ -10,7 +10,7 @@ branches:
 matrix:
   include:
     - os: linux
-      node_js: 6
+      node_js: 7
       env: CC=clang CXX=clang++ npm_config_clang=1
       compiler: clang
 
@@ -25,7 +25,7 @@ addons:
       - bsdtar
 
 before_install:
-  - npm install -g npm@3.10.8
+  - npm install -g npm@4.5.0
 
 cache: yarn
 

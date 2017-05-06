@@ -25,7 +25,7 @@ addons:
       - bsdtar
 
 before_install:
-  - npm install -g yarn@0.23.4
+  - npm install -g yarn
 
 cache: yarn
 

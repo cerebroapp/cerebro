@@ -10,7 +10,7 @@ const Button = ({ label, onClick, description }) => (
 
 Button.propTypes = {
   label: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   description: PropTypes.string,
 }
 

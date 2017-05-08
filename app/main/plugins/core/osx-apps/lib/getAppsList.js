@@ -32,13 +32,13 @@ let cancelPrevious = () => {}
  */
 export default () => {
   cancelPrevious()
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const { output, terminate } = mdfind({
       query: buildQuery()
     })
     cancelPrevious = terminate
     const result = []
-    output.on('data', (file) => result.push(file))
+    output.on('data', file => result.push(file))
     output.on('end', () => resolve(result))
   })
 }

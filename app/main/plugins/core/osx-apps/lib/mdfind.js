@@ -23,7 +23,7 @@ function parseLine(line) {
     path: filePath,
     filename: path.basename(filePath).replace(/\.app$/, '')
   }
-  attrs.forEach(attr => {
+  attrs.forEach((attr) => {
     const [key, value] = attr.split(' = ')
     result[REAL_KEYS[key] || key] = getValue(value)
   })

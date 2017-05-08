@@ -26,7 +26,7 @@ const vimKeyCodes = {
   l: 76
 }
 
-const isVimMode = (event) => (key) => (
+const isVimMode = event => key => (
   vimKeyCodes[key] === event.keyCode && (event.metaKey || event.ctrlKey)
 )
 
@@ -57,7 +57,7 @@ const onKeyDown = (wrapper, event) => {
   const focusable = wrapper.querySelectorAll(focusableSelector)
 
   // Get index of currently focused element
-  const index = Array.prototype.findIndex.call(focusable, (el) => el === target)
+  const index = Array.prototype.findIndex.call(focusable, el => el === target)
 
   if (keyCode === 40 || isVimKey('j')) {
     // Select next focusable element when arrow down clicked

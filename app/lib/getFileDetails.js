@@ -6,7 +6,7 @@ import { memoize } from 'cerebro-tools'
  * @param  {[type]} path [description]
  * @return {[type]}      [description]
  */
-const getFileDetails = (path) => (
+const getFileDetails = path => (
   new Promise((resolve, reject) => {
     fs.stat(path, (err, stat) => (
       err ? reject(err) : resolve(stat)

@@ -9,7 +9,7 @@ const initializePlugins = () => {
   asyncInitializePlugins()
 
   // Call foreground initializers
-  Object.keys(plugins).forEach(name => {
+  Object.keys(plugins).forEach((name) => {
     const { initialize } = plugins[name]
     if (initialize) {
       // Sync plugin initialization

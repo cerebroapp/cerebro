@@ -9,7 +9,7 @@ import { memoize } from 'cerebro-tools'
  * @param  {String} path
  * @return {Boolean}
  */
-const isImage = (path) => !!path.match(/(^data:)|(\.(png|jpe?g|svg)$)/)
+const isImage = path => !!path.match(/(^data:)|(\.(png|jpe?g|svg)$)/)
 
 /**
  * This component renders:

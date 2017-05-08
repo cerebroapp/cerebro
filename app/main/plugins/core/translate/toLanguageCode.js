@@ -17,7 +17,7 @@ export default (lang) => {
     const synonim = Object
       .keys(SYNONIMS)
       .filter(key => key.indexOf('*') !== -1)
-      .find(key => {
+      .find((key) => {
         const regexp = new RegExp(key.replace(/\*/g, '.*'))
         return result.match(regexp)
       })

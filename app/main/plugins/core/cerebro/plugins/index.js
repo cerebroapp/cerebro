@@ -17,7 +17,7 @@ const categories = [
 ]
 
 const updatePlugin = (update, name) => {
-  loadPlugins().then(plugins => {
+  loadPlugins().then((plugins) => {
     const updatedPlugin = plugins.find(plugin => plugin.name === name)
     update(name, {
       title: `${format.name(updatedPlugin.name)} (${format.version(updatedPlugin)})`,
@@ -32,7 +32,7 @@ const updatePlugin = (update, name) => {
   })
 }
 
-const pluginToResult = update => plugin => {
+const pluginToResult = update => (plugin) => {
   if (typeof plugin === 'string') {
     return { title: plugin }
   }
@@ -57,7 +57,7 @@ const categorize = (plugins, callback) => {
   const result = []
   let remainder = plugins
 
-  categories.forEach(category => {
+  categories.forEach((category) => {
     const [title, filter] = category
     const [matched, others] = partition(remainder, filter)
     if (matched.length) result.push(title, ...matched)

@@ -12,7 +12,7 @@ import mv from 'mv'
  * @param  {String} dir
  * @return {Promise}
  */
-const removeDir = (dir) => new Promise((resolve, reject) => {
+const removeDir = dir => new Promise((resolve, reject) => {
   rmdir(dir, err => err ? reject(err) : resolve())
 })
 
@@ -30,7 +30,7 @@ const API_BASE = 'http://registry.npmjs.org/'
  * @param  {Object} header
  * @return {Object}
  */
-const formatPackageFile = (header) => ({
+const formatPackageFile = header => ({
   ...header,
   name: header.name.replace(/^package\//, '')
 })
@@ -41,7 +41,7 @@ const installPackage = (tarPath, destination, middleware) => {
     const packageName = path.parse(destination).name
     const tempPath = `${os.tmpdir()}/${packageName}`
     console.log(`Download and extract to temp path: ${tempPath}`)
-    https.get(tarPath, stream => {
+    https.get(tarPath, (stream) => {
       const result = stream
         // eslint-disable-next-line new-cap
         .pipe(zlib.Unzip())
@@ -52,7 +52,7 @@ const installPackage = (tarPath, destination, middleware) => {
       result.on('finish', () => {
         middleware().then(() => {
           console.log(`Move ${tempPath} to ${destination}`)
-          mv(tempPath, destination, (err) => err ? reject(err) : resolve())
+          mv(tempPath, destination, err => err ? reject(err) : resolve())
         })
       })
     })
@@ -68,7 +68,7 @@ const installPackage = (tarPath, destination, middleware) => {
  */
 export default (dir) => {
   const packageJson = path.join(dir, 'package.json')
-  const setConfig = (config) => (
+  const setConfig = config => (
     fs.writeFileSync(packageJson, JSON.stringify(config, null, 2))
   )
   const getConfig = () => JSON.parse(fs.readFileSync(packageJson))
@@ -91,7 +91,7 @@ export default (dir) => {
       console.group('[npm] Install package', name)
       return fetch(`${API_BASE}${name}`)
         .then(response => response.json())
-        .then(json => {
+        .then((json) => {
           versionToInstall = version || json['dist-tags'].latest
           console.log('Version:', versionToInstall)
           return installPackage(
@@ -107,7 +107,7 @@ export default (dir) => {
           setConfig(json)
           console.groupEnd()
         })
-        .catch(err => {
+        .catch((err) => {
           console.log('Error in package installation')
           console.log(err)
           console.groupEnd()
@@ -150,7 +150,7 @@ export default (dir) => {
           console.groupEnd()
           return true
         })
-        .catch(err => {
+        .catch((err) => {
           console.log('Error in package uninstallation')
           console.log(err)
           console.groupEnd()

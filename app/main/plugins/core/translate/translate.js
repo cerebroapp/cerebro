@@ -14,7 +14,7 @@ const translate = (text, direction) => {
   const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${API_KEY}&text=${encodeURIComponent(text)}&lang=${direction}`
   return fetch(url)
     .then(response => response.json())
-    .then(response => {
+    .then((response) => {
       if (response.code !== 200) {
         throw response.message
       }

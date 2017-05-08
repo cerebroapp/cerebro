@@ -29,7 +29,7 @@ const Code = ({ path }) => {
   return (
     <WithFetchedFile path={path}>
       {
-        (source) => (
+        source => (
           <div className={styles.previewCode}>
             <Highlight source={source} lang={lang} />
           </div>

@@ -7,6 +7,6 @@ import { on, send } from './events'
  */
 export default (name, fn) => {
   on(`rpc.fn.${name}`, ({ args, callId }) => {
-    fn.apply(null, args).then(result => send(callId, result))
+    fn(...args).then(result => send(callId, result))
   })
 }

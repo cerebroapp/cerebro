@@ -122,7 +122,7 @@ export default function search(state = initialState, { type, payload }) {
       }
       let { resultsById, resultIds } = state
 
-      result.forEach(res => {
+      result.forEach((res) => {
         resultsById = {
           ...resultsById,
           [res.id]: normalizeResult(res)

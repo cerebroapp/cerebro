@@ -13,7 +13,7 @@ import { memoize } from 'cerebro-tools'
  */
 const FileIcon = ({ className, path }) => (
   <Preload promise={getFileIcon(path)} key={path}>
-    {(src) => <img src={src} alt="" className={className} />}
+    {src => <img src={src} alt="" className={className} />}
   </Preload>
 )
 

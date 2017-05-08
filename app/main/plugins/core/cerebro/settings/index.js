@@ -35,7 +35,7 @@ const settingsPlugin = ({ term, display, config, actions }) => {
       getPreview: () => (
         <Settings
           set={(key, value) => config.set(key, value)}
-          get={(key) => config.get(key)}
+          get={key => config.get(key)}
         />
       ),
       onSelect: (event) => {

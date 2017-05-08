@@ -6,7 +6,7 @@ import { memoize } from 'cerebro-tools'
  * @param  {String} path
  * @return {Promise<Integer>}
  */
-const getFileSize = (path) => (
+const getFileSize = path => (
   new Promise((resolve, reject) => {
     du(path, (err, size) => (
       err ? reject(err) : resolve(size)

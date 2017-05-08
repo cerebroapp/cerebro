@@ -33,7 +33,7 @@ class Preview extends Component {
   componentDidMount() {
     const { text, sourceLang, targetLang, userLang } = this.props
     const detect = sourceLang ? Promise.resolve(sourceLang) : detectLanguage(text)
-    detect.then(from => {
+    detect.then((from) => {
       const to = targetLang || getTargetLanguage(from, userLang)
       return translate(text, `${from}-${to}`)
     }).then(this.handleTranslation).catch(this.handleError)

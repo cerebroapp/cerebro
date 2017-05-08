@@ -34,7 +34,7 @@ const SELECT_EVENT = {
 }
 
 const trackShowWindow = () => trackEvent(SHOW_EVENT)
-const trackSelectItem = (label) => trackEvent({ ...SELECT_EVENT, label })
+const trackSelectItem = label => trackEvent({ ...SELECT_EVENT, label })
 
 /**
  * Wrap click or mousedown event to custom `select-item` event,

@@ -11,7 +11,7 @@ const Select = ({ label, value, onChange, description, options, multi, clearable
         value={value}
         clearable={clearable}
         options={options}
-        onChange={newValue => {
+        onChange={(newValue) => {
           if (!newValue) {
             return newValue
           }

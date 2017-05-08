@@ -23,10 +23,10 @@ import {
 const DEFAULT_SCOPE = {
   config,
   actions: {
-    open: (q) => shell.openExternal(q),
-    reveal: (q) => shell.showItemInFolder(q),
-    copyToClipboard: (q) => clipboard.writeText(q),
-    replaceTerm: (term) => store.dispatch(updateTerm(term)),
+    open: q => shell.openExternal(q),
+    reveal: q => shell.showItemInFolder(q),
+    copyToClipboard: q => clipboard.writeText(q),
+    replaceTerm: term => store.dispatch(updateTerm(term)),
     hideWindow: () => remote.getCurrentWindow().hide()
   }
 }
@@ -38,14 +38,14 @@ const DEFAULT_SCOPE = {
  */
 const eachPlugin = (term, display) => {
   // TODO: order results by frequency?
-  Object.keys(plugins).forEach(name => {
+  Object.keys(plugins).forEach((name) => {
     try {
       plugins[name].fn({
         ...DEFAULT_SCOPE,
         term,
-        hide: (id) => store.dispatch(hideElement(`${name}-${id}`)),
+        hide: id => store.dispatch(hideElement(`${name}-${id}`)),
         update: (id, result) => store.dispatch(updateElement(`${name}-${id}`, result)),
-        display: (payload) => display(name, payload),
+        display: payload => display(name, payload),
         settings: pluginSettings.get(name),
       })
     } catch (error) {

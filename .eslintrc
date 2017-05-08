@@ -10,7 +10,6 @@
     "consistent-return": 0,
     "comma-dangle": 0,
     "no-use-before-define": 0,
-    "import/no-unresolved": [2, { ignore: ['electron'] }],
     "react/jsx-no-bind": 0,
     "react/prefer-stateless-function": 0,
     "no-console": 0,
@@ -22,6 +21,7 @@
     "react"
   ],
   "settings": {
+    "import/core-modules": "electron",
     "import/resolver": {
       "webpack": {
         "config": "../webpack.config.base.js"

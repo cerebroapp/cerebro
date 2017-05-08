@@ -17,4 +17,9 @@ if (process.platform === 'darwin') {
   plugins.apps = require('./basic-apps')
 }
 
+if (process.platform === 'win32') {
+  // Add windows-only plugins
+  plugins.apps = require('./windows-apps')
+}
+
 module.exports = plugins

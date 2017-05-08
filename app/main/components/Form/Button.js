@@ -5,7 +5,8 @@ const Button = ({ label, onClick, description }) => (
   <button
     title={description}
     onClick={({ target }) => onClick(target)}
-    className={styles.button}>{label}</button>
+    className={styles.button}
+  >{label}</button>
 )
 
 Button.propTypes = {

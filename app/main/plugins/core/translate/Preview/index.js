@@ -48,11 +48,11 @@ class Preview extends Component {
    */
   onChangeLanguage(field) {
     return ({ value }) => {
-      this.setState({ [field]: value }, this.updateTranslation )
+      this.setState({ [field]: value }, this.updateTranslation)
     }
   }
 
-  updateTranslation(){
+  updateTranslation() {
     const { sourceLang, targetLang } = this.state
     translate(this.props.text, `${sourceLang}-${targetLang}`).then(
       this.handleTranslation,
@@ -104,7 +104,7 @@ class Preview extends Component {
           />
           <Button
             label="⇄"
-            description='Swap languages'
+            description="Swap languages"
             onClick={this.swapLanguages()}
           />
           <Select

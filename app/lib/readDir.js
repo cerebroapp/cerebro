@@ -7,7 +7,7 @@ import fs from 'fs'
  * @param  {String} options
  * @return {Promise}
  */
-export default (path) => (
+export default path => (
   new Promise((resolve, reject) => {
     fs.readdir(path, (err, files) => (
       err ? reject(err) : resolve(files)

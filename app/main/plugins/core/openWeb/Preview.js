@@ -19,7 +19,7 @@ class Preview extends Component {
     this.updateMeta(nextProps.url)
   }
   updateMeta(url) {
-    parseMeta(url).then(meta => {
+    parseMeta(url).then((meta) => {
       this.setState({
         meta,
         loaded: true,

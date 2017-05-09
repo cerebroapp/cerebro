@@ -25,6 +25,8 @@ const fn = ({ term, display }) => {
 }
 
 export default {
-  keyword, fn, icon,
+  keyword,
+  fn,
+  icon,
   name: 'Reload'
 }

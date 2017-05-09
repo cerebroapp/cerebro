@@ -40,11 +40,11 @@ const fn = ({ term, actions, display, config }) => {
       lang,
       keyword: address
     })
-  )).then(points => {
+  )).then((points) => {
     const result = points.map(toResult)
     display(result)
   })
-  geocode(address, lang).then(points => {
+  geocode(address, lang).then((points) => {
     const result = points.map(toResult)
     display(result)
   })

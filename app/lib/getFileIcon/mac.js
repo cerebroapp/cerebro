@@ -28,7 +28,7 @@ const readIcon = (path) => {
  * @return {Promise<String>} Promise resolves base64-encoded source of icon
  */
 export default function getFileIcon(path, { width = 128, height = 128 } = {}) {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const pool = macOS.NSAutoreleasePool('alloc')('init')
     const icon = readIcon(path)
     const dict = macOS.NSDictionary(

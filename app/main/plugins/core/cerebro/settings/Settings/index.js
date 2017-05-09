@@ -37,7 +37,7 @@ class Settings extends Component {
         <Wrapper label="Hotkey" description="Type your global shortcut for Cerebro in this input">
           <Hotkey
             hotkey={hotkey}
-            onChange={(key) => this.changeConfig('hotkey', key)}
+            onChange={key => this.changeConfig('hotkey', key)}
           />
         </Wrapper>
         <Select

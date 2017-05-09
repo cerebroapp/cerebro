@@ -22,9 +22,7 @@
   },
   "build": {
     "productName": "Cerebro",
-    "homepage": "https://cerebroapp.com",
     "appId": "com.cerebroapp.Cerebro",
-    "category": "public.app-category.productivity",
     "protocols": {
       "name": "Cerebro URLs",
       "role": "Viewer",
@@ -37,10 +35,6 @@
       "output": "release"
     },
     "linux": {
-      "arch": [
-        "ia32",
-        "x64"
-      ],
       "target": [
         "deb",
         "AppImage"
@@ -145,15 +139,15 @@
     "css-loader": "0.23.1",
     "del": "2.2.0",
     "devtron": "1.4.0",
-    "electron": "1.6.7",
-    "electron-builder": "13.11.1",
+    "electron": "1.6.8",
+    "electron-builder": "17.2.0",
     "electron-rebuild": "1.5.7",
-    "eslint": "2.10.2",
-    "eslint-config-airbnb": "9.0.1",
+    "eslint": "3.6.0",
+    "eslint-config-airbnb": "12.0.0",
     "eslint-import-resolver-webpack": "0.3.0",
-    "eslint-plugin-import": "2.2.0",
-    "eslint-plugin-jsx-a11y": "1.2.2",
-    "eslint-plugin-react": "5.1.1",
+    "eslint-plugin-import": "1.16.0",
+    "eslint-plugin-jsx-a11y": "2.2.2",
+    "eslint-plugin-react": "6.3.0",
     "expect": "1.20.2",
     "express": "4.13.4",
     "extract-text-webpack-plugin": "1.0.1",
@@ -205,7 +199,7 @@
     "react": "15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-shallow-compare": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react-dom": "15.4.2",
     "react-google-maps": "4.11.0",
     "react-markdown": "2.4.2",
     "react-redux": "4.4.5",

@@ -8,7 +8,7 @@ export default function checkForUpdates() {
     filter(property('isUpdateAvailable')),
     map(plugin => client.update(plugin.name))
   )).then(promises => Promise.all(promises).then(() => promises.length))
-    .then(updatedPlugins => {
+    .then((updatedPlugins) => {
       console.log(
         updatedPlugins > 0
           ? `${updatedPlugins} plugins are updated`

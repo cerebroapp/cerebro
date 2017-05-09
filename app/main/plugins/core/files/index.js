@@ -13,7 +13,7 @@ const USER_PATH = remote.app.getPath('home')
  * @param  {String} fileName
  * @return {Boolean}
  */
-const ignoreFile = (fileName) => (
+const ignoreFile = fileName => (
   fileName.match(/^\./)
 )
 
@@ -35,9 +35,9 @@ const filesPlugin = ({ term, actions, display }) => {
     const fileName = match[2]
     readDir(dir).then(files =>
       fileName ? search(files, fileName) : files
-    ).then(files => {
+    ).then((files) => {
       const result = []
-      files.forEach(file => {
+      files.forEach((file) => {
         if (ignoreFile(file)) return
         const filePath = [dir, file].join('')
         const autocomplete = replaceHomePath ? filePath.replace(USER_PATH, '~') : filePath

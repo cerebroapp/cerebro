@@ -7,7 +7,7 @@ import lowerCase from 'lodash/lowerCase'
  * @param  {String} name
  * @return {String}
  */
-export default (name) => (
+export default name => (
   lowerCase(name)
     .split(' ')
     .map(word => word[0])

@@ -23,7 +23,7 @@ function parseLine(line) {
     path: filePath,
     filename: path.basename(filePath).replace(/\.app$/, '')
   }
-  attrs.forEach(attr => {
+  attrs.forEach((attr) => {
     const [key, value] = attr.split(' = ')
     result[REAL_KEYS[key] || key] = getValue(value)
   })
@@ -87,7 +87,7 @@ export default function mdfind({
       .pipe(map(filterEmpty))
       // eslint-disable-next-line func-names
       .pipe(through(function (data) {
-        times++
+        times += times
         if (limit && times === limit) child.kill()
         if (limit && times > limit) return
         this.queue(data)

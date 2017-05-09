@@ -40,12 +40,12 @@ const cachedAppsList = memoize(getAppsList, {
   preFetch: true
 })
 
-const toString = (app) => (
+const toString = app => (
   `${app.name} ${app.filename.replace(/\.app$/, '')} ${getAbbr(app.name)}`
 )
 
 const appsPlugin = ({ term, actions, display }) => {
-  cachedAppsList().then(items => {
+  cachedAppsList().then((items) => {
     const result = orderBy(
       search(items, term, toString),
       [
@@ -53,7 +53,7 @@ const appsPlugin = ({ term, actions, display }) => {
         ({ lastUsed = '0000' }) => lastUsed,
       ],
       ['desc', 'desc']
-    ).map(file => {
+    ).map((file) => {
       const { path, name } = file
       return {
         id: path,
@@ -90,7 +90,7 @@ export default {
     recache()
 
     // recache apps when apps directories changed
-    WATCH_DIRECTORIES.forEach(dir => {
+    WATCH_DIRECTORIES.forEach((dir) => {
       fs.watch(dir, WATCH_OPTIONS, recache)
     })
   }

@@ -48,7 +48,7 @@ class Pdf extends Component {
   showPage(page) {
     const { pdf, renderedPages, viewports } = this.state
     if (renderedPages[page]) return
-    pdf.getPage(page).then(content => {
+    pdf.getPage(page).then((content) => {
       const viewport = content.getViewport(1.0)
       this.setState({
         renderedPages: {
@@ -69,7 +69,7 @@ class Pdf extends Component {
   }
 
   fetchPdf(path) {
-    window.PDFJS.getDocument(path).then(pdf => {
+    window.PDFJS.getDocument(path).then((pdf) => {
       this.setState({
         loading: false,
         pages: pdf.numPages,
@@ -87,7 +87,7 @@ class Pdf extends Component {
   renderPages() {
     const result = []
     for (let i = 1; i <= this.state.pages; i++) {
-      let id = `page-${i}`
+      const id = `page-${i}`
       const viewport = this.state.viewports[i.toString()] || this.state.viewports['1']
       const style = {}
       if (viewport) {

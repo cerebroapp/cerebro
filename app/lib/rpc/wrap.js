@@ -17,8 +17,8 @@ const generateId = () => {
  * @return {Function} Function that returns promise that is resolved
  *   with result of registered function
  */
-export default (name) => (...args) => (
-  new Promise(resolve => {
+export default name => (...args) => (
+  new Promise((resolve) => {
     const callId = generateId()
     once(callId, resolve)
     send(`rpc.fn.${name}`, { args, callId })

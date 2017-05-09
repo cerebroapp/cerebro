@@ -11,7 +11,7 @@ const Checkbox = ({ label, value, onChange, description }) => (
           onChange={({ target }) => onChange(target.checked)}
           className={styles.checkbox}
         />
-      {label}
+        {label}
       </label>
       <div className={styles.itemNotice}>{description}</div>
     </div>

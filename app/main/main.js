@@ -35,7 +35,7 @@ render(
 initializePlugins()
 
 // Handle `showTerm` rpc event and replace search term with payload
-on('showTerm', (term) => store.dispatch(updateTerm(term)))
+on('showTerm', term => store.dispatch(updateTerm(term)))
 
 on('update-downloaded', () => (
   new Notification('Cerebro: update is ready to install', {

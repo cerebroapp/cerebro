@@ -50,15 +50,15 @@ class Preview extends Component {
 
     return (
       <ScriptjsLoader
-        protocol={"https"}
-        hostname={"maps.googleapis.com"}
-        pathname={"/maps/api/js"}
+        protocol={'https'}
+        hostname={'maps.googleapis.com'}
+        pathname={'/maps/api/js'}
         query={{ libraries: 'geometry,drawing,places' }}
         loadingElement={<Loading />}
         containerElement={<div className={styles.container} />}
         googleMapElement={
           <GoogleMap
-            ref={(map) => (this.map = map) && this.fitBounds()}
+            ref={map => (this.map = map) && this.fitBounds()}
             defaultZoom={3}
             defaultCenter={location}
           >

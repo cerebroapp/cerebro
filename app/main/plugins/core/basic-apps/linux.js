@@ -15,7 +15,7 @@ let appDirs = [
   path.join('/var', 'lib', 'snapd', 'desktop')
 ]
 
-if (!!process.env.XDG_DATA_DIRS) {
+if (process.env.XDG_DATA_DIRS) {
   appDirs = [
     ...appDirs,
     ...process.env.XDG_DATA_DIRS.split(':')

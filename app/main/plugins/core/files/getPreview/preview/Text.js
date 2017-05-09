@@ -5,7 +5,7 @@ import styles from './styles/index.css'
 
 const Text = ({ path }) => (
   <WithFetchedFile path={path}>
-    {(source) => <pre className={styles.previewText}>{source}</pre>}
+    {source => <pre className={styles.previewText}>{source}</pre>}
   </WithFetchedFile>
 )
 

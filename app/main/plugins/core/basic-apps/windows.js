@@ -28,11 +28,11 @@ export const DIRECTORIES = [
 
 export const EXTENSIONS = ['lnk', 'exe']
 
-export const openApp = (app) => shell.openItem(app.source)
+export const openApp = app => shell.openItem(app.source)
 
-export const toString = (app) => `${app.name} ${app.filename} ${getAbbr(app.name)}`
+export const toString = app => `${app.name} ${app.filename} ${getAbbr(app.name)}`
 
-export const formatPath = (filePath) => ({
+export const formatPath = filePath => ({
   ...parseFile(filePath),
   id: filePath,
   source: filePath,

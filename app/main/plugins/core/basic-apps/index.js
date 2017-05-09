@@ -11,7 +11,7 @@ const { openApp, toString } = process.platform === 'win32'
 let appsList = []
 
 const fn = ({ term, actions, display }) => {
-  const result = search(appsList, term, toString).map(app => {
+  const result = search(appsList, term, toString).map((app) => {
     const { id, path, name, description, icon } = app
     return {
       icon,

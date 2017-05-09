@@ -12,7 +12,7 @@ import * as format from '../format'
 import { client } from 'lib/plugins'
 import plugins from 'main/plugins'
 
-const isRelative = (src) => !src.match(/^(https?:|data:)/)
+const isRelative = src => !src.match(/^(https?:|data:)/)
 const urlTransform = (repo, src) => {
   if (isRelative(src)) {
     return `http://raw.githubusercontent.com/${repo}/master/${src}`
@@ -51,11 +51,11 @@ class Preview extends Component {
     return (
       <Preload promise={getReadme(repo)}>
         {
-          (content) => (
+          content => (
             <ReactMarkdown
               source={content}
               className={styles.markdown}
-              transformImageUri={(src) => urlTransform(repo, src)}
+              transformImageUri={src => urlTransform(repo, src)}
             />
           )
         }

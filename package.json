@@ -207,6 +207,7 @@
     "react-addons-shallow-compare": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-google-maps": "4.11.0",
+    "react-input-autosize": "^1.1.0",
     "react-markdown": "2.4.2",
     "react-redux": "4.4.5",
     "react-select": "1.0.0-rc.2",

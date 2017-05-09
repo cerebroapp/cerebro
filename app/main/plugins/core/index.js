@@ -4,9 +4,7 @@
 const plugins = {
   ...require('./cerebro'),
   files: require('./files'),
-  google: require('./google'),
   maps: require('./maps'),
-  math: require('./math'),
   openWeb: require('./openWeb'),
   translate: require('./translate')
 }

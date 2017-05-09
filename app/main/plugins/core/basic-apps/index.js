@@ -2,6 +2,7 @@ import React from 'react'
 import Preview from './Preview'
 import { search } from 'cerebro-tools'
 import uniq from 'lodash/uniq'
+import uniqBy from 'lodash/uniqBy'
 import initializeAsync from './initializeAsync'
 
 const { openApp, toString } = process.platform === 'win32'
@@ -12,10 +13,11 @@ let appsList = []
 
 const fn = ({ term, actions, display }) => {
   const result = search(appsList, term, toString).map(app => {
-    const { id, path, name, description, icon } = app
+    const { id, path, name, description, icon, exec, source } = app
     return {
       icon,
       id: id || path,
+      command: exec || source,
       title: name,
       term: name,
       subtitle: description || path,
@@ -31,7 +33,7 @@ const fn = ({ term, actions, display }) => {
       getPreview: () => <Preview name={name} path={path} icon={icon} />
     }
   })
-  display(result)
+  display(uniqBy(result, app => app.command))
 }
 
 export default {

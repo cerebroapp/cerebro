@@ -188,6 +188,7 @@
   },
   "dependencies": {
     "cerebro-tools": "0.1.8",
+    "cerebro-ui": "0.0.1",
     "co": "4.6.0",
     "du": "0.1.0",
     "escape-string-regexp": "1.0.5",
@@ -209,7 +210,6 @@
     "react-input-autosize": "^1.1.0",
     "react-markdown": "2.4.2",
     "react-redux": "4.4.5",
-    "react-select": "1.0.0-rc.2",
     "react-virtualized": "https://registry.npmjs.org/react-virtualized/-/react-virtualized-7.11.8.tgz",
     "redux": "3.5.2",
     "redux-thunk": "2.1.0",

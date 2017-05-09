@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import Loading from 'main/components/Loading'
+import { Loading } from 'cerebro-ui'
 import Preload from 'main/components/Preload'
 import readFile from 'lib/readFile'
 import { memoize } from 'cerebro-tools'

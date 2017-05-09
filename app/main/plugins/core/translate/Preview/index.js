@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
-import Loading from 'main/components/Loading'
-import { Button } from 'main/components/Form'
+import { Loading } from 'cerebro-ui'
+import { Button } from 'cerebro-ui/Form'
 import detectLanguage from '../detectLanguage'
 import translate from '../translate'
 import getTargetLanguage from '../getTargetLanguage'

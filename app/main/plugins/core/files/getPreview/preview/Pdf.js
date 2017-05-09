@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import { debounce, bind } from 'lodash-decorators'
-import Loading from 'main/components/Loading'
+import { Loading } from 'cerebro-ui'
 import styles from './styles/index.css'
 
 if (typeof window !== 'undefined') {

@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react'
 import Loading from 'main/components/Loading'
+import { Button } from 'main/components/Form'
 import detectLanguage from '../detectLanguage'
 import translate from '../translate'
 import getTargetLanguage from '../getTargetLanguage'
@@ -47,13 +48,27 @@ class Preview extends Component {
    */
   onChangeLanguage(field) {
     return ({ value }) => {
-      this.setState({ [field]: value }, () => {
-        const { sourceLang, targetLang } = this.state
-        translate(this.props.text, `${sourceLang}-${targetLang}`).then(
-          this.handleTranslation,
-          this.handleError
-        )
-      })
+      this.setState({ [field]: value }, this.updateTranslation)
+    }
+  }
+
+  updateTranslation() {
+    const { sourceLang, targetLang } = this.state
+    translate(this.props.text, `${sourceLang}-${targetLang}`).then(
+      this.handleTranslation,
+      this.handleError
+    )
+  }
+
+  swapLanguages() {
+    return () => {
+      this.setState(
+        {
+          sourceLang: this.state.targetLang,
+          targetLang: this.state.sourceLang
+        },
+        this.updateTranslation
+      )
     }
   }
 
@@ -87,7 +102,11 @@ class Preview extends Component {
             clearable={false}
             onChange={this.onChangeLanguage('sourceLang')}
           />
-          →
+          <Button
+            label="⇄"
+            description="Swap languages"
+            onClick={this.swapLanguages()}
+          />
           <Select
             className={styles.select}
             value={targetLang}

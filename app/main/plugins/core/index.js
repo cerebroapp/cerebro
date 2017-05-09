@@ -4,7 +4,6 @@
 const plugins = {
   ...require('./cerebro'),
   files: require('./files'),
-  openWeb: require('./openWeb'),
   translate: require('./translate')
 }
 

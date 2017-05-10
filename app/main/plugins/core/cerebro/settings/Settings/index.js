@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import Hotkey from './Hotkey'
 import countries from './countries'
-import { Select, Checkbox } from 'main/components/Form'
-import Wrapper from 'main/components/Form/Wrapper'
+import { Select, Checkbox, Wrapper } from 'cerebro-ui/Form'
 import loadThemes from 'lib/loadThemes'
 import styles from './styles.css'
 

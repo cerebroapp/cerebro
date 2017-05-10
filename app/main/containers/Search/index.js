@@ -7,7 +7,7 @@ import { clipboard, remote } from 'electron'
 import MainInput from '../../components/MainInput'
 import ResultsList from '../../components/ResultsList'
 import styles from './styles.css'
-import focusableSelector from 'lib/focusableSelector'
+import { focusableSelector } from 'cerebro-ui'
 import * as searchActions from '../../actions/search'
 import escapeStringRegexp from 'escape-string-regexp'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { listArchive } from 'lib/rpc/functions'
 import FileIcon from 'main/components/FileIcon'
 import FileDetails from 'main/components/FileDetails'
-import Loading from 'main/components/Loading'
+import { Loading } from 'cerebro-ui'
 import Preload from 'main/components/Preload'
 import styles from './styles/index.css'
 

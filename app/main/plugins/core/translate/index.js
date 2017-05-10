@@ -4,7 +4,7 @@ import translate from './translate'
 import detectLanguage from './detectLanguage'
 import toLanguageCode from './toLanguageCode'
 import Preview from './Preview'
-import Loading from 'main/components/Loading'
+import { Loading } from 'cerebro-ui'
 import { id, REGEXP } from './constants.js'
 
 /**

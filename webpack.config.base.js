@@ -15,7 +15,7 @@ module.exports = {
       test: /\.jsx?$/,
       loaders: ['babel-loader'],
       exclude: (modulePath) => (
-        modulePath.match(/node_modules/) && !modulePath.match(/node_modules\/cerebro-ui/)
+        modulePath.match(/node_modules/) && !modulePath.match(/node_modules(\/|\\)cerebro-ui/)
       )
     }, {
       test: /\.json$/,

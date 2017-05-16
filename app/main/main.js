@@ -1,5 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './store'
 import Search from './containers/Search'
@@ -10,6 +10,9 @@ import { updateTerm } from './actions/search'
 import config from '../lib/config'
 
 require('fix-path')()
+
+window.React = React
+window.ReactDOM = ReactDOM
 
 /**
  * Change current theme
@@ -24,7 +27,7 @@ const changeTheme = (src) => {
 changeTheme(config.get('theme'))
 
 // Render main container
-render(
+ReactDOM.render(
   <Provider store={store}>
     <Search />
   </Provider>,

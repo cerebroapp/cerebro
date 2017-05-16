@@ -3,8 +3,7 @@
 // Core plugins
 const plugins = {
   ...require('./cerebro'),
-  files: require('./files'),
-  translate: require('./translate')
+  files: require('./files')
 }
 
 if (process.platform === 'darwin') {

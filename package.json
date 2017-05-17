@@ -188,7 +188,7 @@
   },
   "dependencies": {
     "cerebro-tools": "0.1.8",
-    "cerebro-ui": "0.0.8",
+    "cerebro-ui": "0.0.10",
     "co": "4.6.0",
     "du": "0.1.0",
     "escape-string-regexp": "1.0.5",
@@ -200,9 +200,7 @@
     "mv": "^2.1.1",
     "node-machine-id": "1.1.4",
     "normalize.css": "4.1.1",
-    "pdfjs-dist": "1.5.355",
     "postcss": "5.2.17",
-    "prismjs": "^1.6.0",
     "react": "15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
     "react-addons-shallow-compare": "^15.4.2",

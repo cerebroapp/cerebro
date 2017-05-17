@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import Preload from './Preload'
+import { Preload } from 'cerebro-ui'
 import { getFileIcon } from 'lib/rpc/functions'
 import { memoize } from 'cerebro-tools'
 

@@ -36,7 +36,7 @@ export default (callback) => {
   })
 
   const searchApps = () => getAppsList().then(apps => {
-    const json = JSON.stringify(apps)
+    const json = JSON.stringify(apps, null, 2)
     fs.writeFile(CACHE_FILE, json, cacheOptions)
     callback(apps)
   })

@@ -7,7 +7,7 @@ import { clipboard, remote } from 'electron'
 import MainInput from '../../components/MainInput'
 import ResultsList from '../../components/ResultsList'
 import styles from './styles.css'
-import focusableSelector from 'lib/focusableSelector'
+import { focusableSelector } from 'cerebro-ui'
 import * as searchActions from '../../actions/search'
 import escapeStringRegexp from 'escape-string-regexp'
 
@@ -151,6 +151,37 @@ class Search extends Component {
     if (event.defaultPrevented) {
       return
     }
+
+    const keyActions = {
+      select: () => {
+        this.selectCurrent(event)
+      },
+      arrowRight: () => {
+        if (cursorInEndOfInut(event.target)) {
+          if (this.autocompleteValue()) {
+            // Autocomplete by arrow right only if autocomple value is shown
+            this.autocomplete(event)
+          } else {
+            focusPreview()
+            event.preventDefault()
+          }
+        }
+      },
+      arrowDown: () => {
+        this.props.actions.moveCursor(1)
+        event.preventDefault()
+      },
+      arrowUp: () => {
+        if (this.props.results.length > 0) {
+          this.props.actions.moveCursor(-1)
+        } else if (this.props.prevTerm) {
+          this.props.actions.updateTerm(this.props.prevTerm)
+        }
+        event.preventDefault()
+      }
+    }
+
+
     if (event.metaKey || event.ctrlKey) {
       if (event.keyCode === 67) {
         // Copy to clipboard on cmd+c
@@ -170,36 +201,37 @@ class Search extends Component {
           return this.selectItem(result)
         }
       }
+      // Lightweight vim-mode: cmd/ctrl + jklo
+      switch (event.keyCode) {
+        case 74:
+          keyActions.arrowDown()
+          break
+        case 75:
+          keyActions.arrowUp()
+          break
+        case 76:
+          keyActions.arrowRight()
+          break
+        case 79:
+          keyActions.select()
+          break
+      }
     }
     switch (event.keyCode) {
       case 9:
         this.autocomplete(event)
         break
       case 39:
-        if (cursorInEndOfInut(event.target)) {
-          if (this.autocompleteValue()) {
-            // Autocomplete by arrow right only if autocomple value is shown
-            this.autocomplete(event)
-          } else {
-            focusPreview()
-            event.preventDefault()
-          }
-        }
+        keyActions.arrowRight()
         break
       case 40:
-        this.props.actions.moveCursor(1)
-        event.preventDefault()
+        keyActions.arrowDown()
         break
       case 38:
-        if (this.props.results.length > 0) {
-          this.props.actions.moveCursor(-1)
-        } else if (this.props.prevTerm) {
-          this.props.actions.updateTerm(this.props.prevTerm)
-        }
-        event.preventDefault()
+        keyActions.arrowUp()
         break
       case 13:
-        this.selectCurrent(event)
+        keyActions.select()
         break
       case 27:
         this.props.actions.reset()

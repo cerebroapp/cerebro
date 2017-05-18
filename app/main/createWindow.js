@@ -13,11 +13,12 @@ import toggleWindow from './createWindow/toggleWindow'
 import handleUrl from './createWindow/handleUrl'
 import config from '../lib/config'
 import getWindowPosition from '../lib/getWindowPosition'
+import * as donateDialog from './createWindow/donateDialog'
 
 export default ({ src, isDev }) => {
   const [x, y] = getWindowPosition({})
 
-  const mainWindow = new BrowserWindow({
+  const browserWindowOptions = {
     width: WINDOW_WIDTH,
     minWidth: WINDOW_WIDTH,
     height: INPUT_HEIGHT,
@@ -27,7 +28,13 @@ export default ({ src, isDev }) => {
     resizable: false,
     // Show main window on launch only when application started for the first time
     show: config.get('firstStart')
-  })
+  }
+
+  if (process.platform === 'linux') {
+    browserWindowOptions.type = 'splash'
+  }
+
+  const mainWindow = new BrowserWindow(browserWindowOptions)
 
   // Float main window above full-screen apps
   mainWindow.setAlwaysOnTop(true, 'modal-panel')
@@ -136,6 +143,10 @@ export default ({ src, isDev }) => {
 
   if (shouldQuit) {
     app.quit()
+  }
+
+  if (donateDialog.shouldShow()) {
+    setTimeout(donateDialog.show, 1000)
   }
 
   // Track app start event

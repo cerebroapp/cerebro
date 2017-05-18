@@ -18,7 +18,7 @@ const ensureDir = (src) => {
 const EMPTY_PACKAGE_JSON = JSON.stringify({
   name: 'cerebro-plugins',
   dependencies: {}
-})
+}, null, 2)
 
 const electronApp = remote ? remote.app : app
 export const pluginsPath = path.join(electronApp.getPath('userData'), 'plugins')
@@ -32,3 +32,4 @@ export const ensureFiles = () => {
 }
 
 export const client = npm(pluginsPath)
+export { default as settings } from './settings'

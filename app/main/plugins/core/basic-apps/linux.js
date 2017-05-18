@@ -103,7 +103,14 @@ const findIcon = (icon) => {
   )).find(fs.existsSync)
 }
 
-export const toString = ({ name }) => `${name} ${getAbbr(name)}`
+export const toString = ({ name, exec }) => {
+  const binaryName = exec
+      .split('/')
+      .pop()
+      .split(' ')
+      .shift()
+  return `${name} ${getAbbr(name)} ${binaryName}`
+}
 
 export const formatPath = (filePath) => {
   const parsedData = parseDesktopFile(filePath, {

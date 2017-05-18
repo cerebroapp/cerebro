@@ -141,3 +141,33 @@ module.exports = {
   fn: plugin
 };
 ```
+
+### using `settings`
+```js
+const plugin = ({ display, settings }) => {
+  const icon = require('[path-to-icon]/icon.png');
+
+  display({
+    icon: settings.icon ? icon : '',
+    title: `${settings.username}, you have been around for ${settings.age}`,
+    subtitle: `Favorite languages: ${settings.languages.join(',')}`,
+  })
+}
+
+module.exports = {
+  fn: plugin,
+  settings: {
+    username: { type: 'string' },
+    age: { type: 'number', defaultValue: 42 },
+    icon: { type: 'bool' },
+    languages: {
+      type: 'option',
+      description: 'Your favorite programming languages'
+      options: ['JavaScript', 'Haskell', 'Rust'],
+      multi: true,
+      createable: true,
+    }
+  }
+}
+
+```

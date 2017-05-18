@@ -2,14 +2,7 @@
 
 // Core plugins
 const plugins = {
-  ...require('./cerebro'),
-  converter: require('./converter'),
-  files: require('./files'),
-  google: require('./google'),
-  maps: require('./maps'),
-  math: require('./math'),
-  openWeb: require('./openWeb'),
-  translate: require('./translate')
+  ...require('./cerebro')
 }
 
 if (process.platform === 'darwin') {

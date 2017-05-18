@@ -11,18 +11,15 @@ const externals = Object.assign(
 
 module.exports = {
   module: {
-    loaders: [{
+    rules: [{
       test: /\.jsx?$/,
-      loaders: ['babel-loader'],
+      use: ['babel-loader'],
       exclude: (modulePath) => (
         modulePath.match(/node_modules/) && !modulePath.match(/node_modules(\/|\\)cerebro-ui/)
       )
     }, {
-      test: /\.json$/,
-      loader: 'json-loader'
-    }, {
       test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
-      loader: 'url-loader'
+      use: ['url-loader']
     }]
   },
   output: {
@@ -31,16 +28,12 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
-    root: [
-      path.resolve('./app'),
-      path.resolve('./node_modules'),
-    ]
+   modules: [
+     path.join(__dirname, "app"),
+     "node_modules"
+   ],
+    extensions: ['.js', '.jsx']
   },
-  postcss: () => [
-    require('autoprefixer'),
-    require('postcss-nested'),
-  ],
   plugins: [
     new LodashModuleReplacementPlugin(),
     new webpack.DefinePlugin({

@@ -24,35 +24,46 @@ const config = {
   module: {
     ...baseConfig.module,
 
-    loaders: [
-      ...baseConfig.module.loaders,
+    rules: [
+      ...baseConfig.module.rules,
 
       {
         test: /global\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader'
-        )
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
       },
 
       {
         test: /^((?!global).)*\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
-        )
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 1,
+                localIdentName: '[name]__[local]___[hash:base64:5]'
+              }
+            },
+            'postcss-loader'
+          ]
+        })
       }
     ]
   },
-
   plugins: [
     ...baseConfig.plugins,
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new ExtractTextPlugin('style.css', { allChunks: true }),
+    new ExtractTextPlugin({
+      filename: '[name].css',
+      allChunks: true,
+      ignoreOrder: true
+    }),
     new OptimizeJsPlugin({
       sourceMap: false
-    }),
-    new webpack.optimize.DedupePlugin()
+    })
   ],
 
   target: 'electron-renderer'

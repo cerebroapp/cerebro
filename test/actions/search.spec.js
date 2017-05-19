@@ -1,5 +1,5 @@
 import expect from 'expect'
-import searchInjector from 'inject!../../app/main/actions/search'
+import searchInjector from 'inject-loader!../../app/main/actions/search'
 
 import {
   MOVE_CURSOR,

@@ -13,7 +13,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.jsx?$/,
-      use: ['babel-loader'],
+      use: 'babel-loader',
       exclude: (modulePath) => (
         modulePath.match(/node_modules/) && !modulePath.match(/node_modules(\/|\\)cerebro-ui/)
       )

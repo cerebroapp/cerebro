@@ -3,7 +3,7 @@ import Preview from './Preview'
 import { search } from 'cerebro-tools'
 import uniq from 'lodash/uniq'
 import uniqBy from 'lodash/uniqBy'
-import initializeAsync from './initializeAsync'
+import initialize from './initializeAsync'
 
 const { openApp, toString } = process.platform === 'win32'
   ? require('./windows')
@@ -11,7 +11,7 @@ const { openApp, toString } = process.platform === 'win32'
 
 let appsList = []
 
-const fn = ({ term, actions, display }) => {
+export const fn = ({ term, actions, display }) => {
   const result = search(appsList, term, toString)
     .sort((a, b) => (b.selectCount || 0) - (a.selectCount || 0))
     .map(app => {
@@ -42,10 +42,9 @@ const fn = ({ term, actions, display }) => {
   display(uniqBy(result, app => app.command))
 }
 
-export default {
-  fn,
-  initializeAsync,
-  onMessage: (apps) => {
-    appsList = uniq([...appsList, ...apps])
-  }
+export const onMessage = (apps) => {
+  appsList = uniq([...appsList, ...apps])
 }
+
+export const initializeAsync = initialize
+

@@ -1,6 +1,6 @@
 /* eslint max-len: 0 */
-import webpack from 'webpack';
-import baseConfig from './webpack.config.base';
+const webpack = require('webpack');
+const baseConfig = require('./webpack.config.base');
 
 const config = {
   ...baseConfig,
@@ -66,4 +66,4 @@ const config = {
   target: 'electron-renderer'
 };
 
-export default config;
+module.exports = config;

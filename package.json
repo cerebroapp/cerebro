@@ -113,7 +113,7 @@
     "launcher",
     "electron",
     "alfred",
-    "spotight"
+    "spotlight"
   ],
   "homepage": "https://cerebroapp.com",
   "devDependencies": {

@@ -39,14 +39,12 @@
         {
           "target": "deb",
           "arch": [
-            "ia32",
             "x64"
           ]
         },
         {
           "target": "AppImage",
           "arch": [
-            "ia32",
             "x64"
           ]
         }

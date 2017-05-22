@@ -2,7 +2,7 @@
   "name": "cerebro",
   "productName": "Cerebro",
   "version": "0.2.8",
-  "description": "Extendable electron-based open-source Spolight and Alfred analogue",
+  "description": "Extendable electron-based open-source Spotlight and Alfred analogue",
   "main": "main.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha-webpack",
@@ -113,7 +113,7 @@
     "launcher",
     "electron",
     "alfred",
-    "spotight"
+    "spotlight"
   ],
   "homepage": "https://cerebroapp.com",
   "devDependencies": {

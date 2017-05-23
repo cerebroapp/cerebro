@@ -87,7 +87,7 @@ export default function mdfind({
       .pipe(map(filterEmpty))
       // eslint-disable-next-line func-names
       .pipe(through(function (data) {
-        times++
+        times += 1
         if (limit && times === limit) child.kill()
         if (limit && times > limit) return
         this.queue(data)

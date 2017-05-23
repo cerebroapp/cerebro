@@ -1,5 +1,5 @@
 import { search } from 'cerebro-tools'
-import plugins from '../../../index'
+import plugins from '../../index'
 import { flow, filter, map, partialRight, values } from 'lodash/fp'
 
 const toString = plugin => plugin.keyword

@@ -28,10 +28,10 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   resolve: {
-   modules: [
-     path.join(__dirname, "app"),
-     "node_modules"
-   ],
+    modules: [
+      path.join(__dirname, "app"),
+      "node_modules"
+    ],
     extensions: ['.js'],
   },
   plugins: [
@@ -39,9 +39,10 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
-    new CopyWebpackPlugin([
-      { from: 'app/main/css/themes/*', to: './main/css/themes/[name].[ext]' }
-    ])
+    new CopyWebpackPlugin([{
+      from: 'app/main/css/themes/*',
+      to: './main/css/themes/[name].[ext]'
+    }])
   ],
   externals: Object.keys(externals || {})
 };

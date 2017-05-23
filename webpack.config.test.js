@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const config = require('./webpack.config.base');
+const config = require('./webpack.config.base')
 
 config.devtool = 'cheap-module-eval-source-map',
 config.target = 'electron-renderer'
@@ -18,6 +18,6 @@ config.module = Object.assign(config.module, {
       use: 'null-loader'
     }
   ])
-});
+})
 
 module.exports = config

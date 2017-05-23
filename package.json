@@ -5,7 +5,7 @@
   "description": "Extendable electron-based open-source Spotlight and Alfred analogue",
   "main": "main.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha-webpack",
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha-webpack",
     "test-watch": "yarn run test -- --watch",
     "lint": "eslint app/background app/lib app/main test *.js",
     "hot-server": "node -r babel-register server.js",
@@ -137,7 +137,6 @@
     "babel-plugin-transform-decorators-legacy": "1.3.4",
     "babel-plugin-transform-object-rest-spread": "6.23.0",
     "babel-plugin-transform-remove-debugger": "^6.8.1",
-    "babel-plugin-webpack-loaders": "^0.9.0",
     "babel-polyfill": "6.23.0",
     "babel-preset-env": "^1.4.0",
     "babel-preset-react": "6.24.1",

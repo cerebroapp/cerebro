@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import FileIcon from 'main/components/FileIcon'
+import { FileIcon } from 'cerebro-ui'
 import FileDetails from 'main/components/FileDetails'
 import styles from './styles.css'
 

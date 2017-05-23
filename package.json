@@ -196,7 +196,7 @@
   },
   "dependencies": {
     "cerebro-tools": "0.1.8",
-    "cerebro-ui": "0.0.10",
+    "cerebro-ui": "0.0.13",
     "co": "4.6.0",
     "du": "0.1.0",
     "escape-string-regexp": "1.0.5",

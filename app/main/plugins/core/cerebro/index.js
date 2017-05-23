@@ -5,6 +5,6 @@ import settings from './settings'
 import version from './version'
 import reload from './reload'
 
-module.exports = {
+export {
   autocomplete, quit, plugins, settings, version, reload
 }

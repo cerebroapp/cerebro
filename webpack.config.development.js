@@ -1,11 +1,9 @@
 /* eslint max-len: 0 */
-import webpack from 'webpack';
-import baseConfig from './webpack.config.base';
+const webpack = require('webpack');
+const baseConfig = require('./webpack.config.base');
 
 const config = {
   ...baseConfig,
-
-  debug: true,
 
   devtool: 'inline-source-map',
 
@@ -27,12 +25,12 @@ const config = {
 
   module: {
     ...baseConfig.module,
-    loaders: [
-      ...baseConfig.module.loaders,
+    rules: [
+      ...baseConfig.module.rules,
 
       {
         test: /global\.css$/,
-        loaders: [
+        use: [
           'style-loader',
           'css-loader?sourceMap'
         ]
@@ -40,9 +38,18 @@ const config = {
 
       {
         test: /^((?!global).)*\.css$/,
-        loaders: [
+        use: [
           'style-loader',
-          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+              importLoaders: 1,
+              localIdentName: '[name]__[local]___[hash:base64:5]'
+            }
+          },
+          'postcss-loader'
         ]
       }
     ]
@@ -50,11 +57,13 @@ const config = {
 
   plugins: [
     ...baseConfig.plugins,
+    new webpack.LoaderOptionsPlugin({
+     debug: true
+    }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
   ],
 
   target: 'electron-renderer'
 };
 
-export default config;
+module.exports = config;

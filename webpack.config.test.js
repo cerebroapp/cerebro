@@ -1,16 +1,23 @@
-const config = require('./webpack.config.base');
+const webpack = require('webpack')
+const config = require('./webpack.config.base')
 
+config.devtool = 'cheap-module-eval-source-map',
 config.target = 'electron-renderer'
 
-config.module = Object.assign(config.module,{
-  debug: true,
-  devtool: 'cheap-module-eval-source-map',
-  loaders: Array.prototype.concat.call(config.module.loaders, [
+config.plugins = [
+  ...config.plugins,
+  new webpack.LoaderOptionsPlugin({
+    debug: true
+  })
+]
+
+config.module = Object.assign(config.module, {
+  rules: Array.prototype.concat.call(config.module.rules, [
     {
       test: /\.(css|svg|jpe?g|png)$/,
-      loader: 'null-loader'
+      use: 'null-loader'
     }
   ])
-});
+})
 
 module.exports = config

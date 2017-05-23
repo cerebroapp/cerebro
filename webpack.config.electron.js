@@ -1,6 +1,5 @@
-import webpack from 'webpack';
-import baseConfig from './webpack.config.base';
-
+const webpack = require('webpack');
+const baseConfig = require('./webpack.config.base');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -12,26 +11,29 @@ const plugins = [
   })
 ];
 
-const externals = [
-  ...baseConfig.externals,
-];
-
-if (!isProduction) {
-  plugins.push(
-    new webpack.BannerPlugin(
-      'require("source-map-support").install();',
-      { raw: true, entryOnly: false }
-    )
-  );
-
-  externals.push('source-map-support');
-}
-
-export default {
+module.exports = {
   ...baseConfig,
+  module: {
+    rules: [{
+      test: /\.jsx?$/,
+      exclude: /(node_modules)/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          plugins: [
+            "babel-plugin-transform-object-rest-spread",
+            "babel-plugin-lodash",
+            "babel-plugin-add-module-exports",
+            "babel-plugin-transform-decorators-legacy",
+            "babel-plugin-transform-es2015-classes",
+            "babel-plugin-transform-es2015-modules-commonjs"
+          ]
+        }
+      }
+    }]
+  },
 
   plugins,
-  externals,
 
   devtool: 'source-map',
   entry: './app/main.development',

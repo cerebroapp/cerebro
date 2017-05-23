@@ -1,9 +1,9 @@
-import webpack from 'webpack';
-import path from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import baseConfig from './webpack.config.base';
-import OptimizeJsPlugin from 'optimize-js-plugin';
-import Visualizer from 'webpack-visualizer-plugin';
+const webpack = require('webpack')
+const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const baseConfig = require('./webpack.config.base')
+const OptimizeJsPlugin = require('optimize-js-plugin')
+const Visualizer = require('webpack-visualizer-plugin')
 
 const config = {
   ...baseConfig,
@@ -24,42 +24,53 @@ const config = {
   module: {
     ...baseConfig.module,
 
-    loaders: [
-      ...baseConfig.module.loaders,
+    rules: [
+      ...baseConfig.module.rules,
 
       {
         test: /global\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader'
-        )
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
       },
 
       {
         test: /^((?!global).)*\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
-        )
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 1,
+                localIdentName: '[name]__[local]___[hash:base64:5]'
+              }
+            },
+            'postcss-loader'
+          ]
+        })
       }
     ]
   },
-
   plugins: [
     ...baseConfig.plugins,
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new ExtractTextPlugin('style.css', { allChunks: true }),
+    new ExtractTextPlugin({
+      filename: '[name].css',
+      allChunks: true,
+      ignoreOrder: true
+    }),
     new OptimizeJsPlugin({
       sourceMap: false
-    }),
-    new webpack.optimize.DedupePlugin()
+    })
   ],
 
   target: 'electron-renderer'
-};
+}
 
 if (process.env.ANALYZE) {
   config.plugins.push(new Visualizer())
 }
 
-export default config;
+module.exports = config

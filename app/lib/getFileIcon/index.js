@@ -13,7 +13,7 @@ if (process.platform === 'win32') {
   getFileIcon = require('./windows')
 }
 
-export default getFileIcon
+module.exports = getFileIcon
 
 /* eslint-enable global-require */
 /* eslint-disable import/no-mutable-exports */

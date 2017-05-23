@@ -11,7 +11,6 @@ const MEMOIZE_OPTIONS = {
 // Export RPC-versions of lib functions
 export const getFileDetails = memoize(wrap('getFileDetails'), MEMOIZE_OPTIONS)
 export const getFileSize = memoize(wrap('getFileSize'), MEMOIZE_OPTIONS)
-export const getFileIcon = memoize(wrap('getFileIcon'), MEMOIZE_OPTIONS)
 export const readDir = memoize(wrap('readDir'), MEMOIZE_OPTIONS)
 
 export { default as initializePlugins } from './initializePlugins'

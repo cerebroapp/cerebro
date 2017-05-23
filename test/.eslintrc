@@ -1,5 +1,13 @@
 {
   "env": {
     "mocha": true
+  },
+  "settings": {
+    "import/core-modules": "electron",
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.base.js"
+      }
+    }
   }
 }

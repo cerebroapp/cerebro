@@ -1,14 +1,10 @@
-/* eslint-disable import/no-mutable-exports, global-require */
+import autocomplete from './autocomplete'
+import quit from './quit'
+import plugins from './plugins'
+import settings from './settings'
+import version from './version'
+import reload from './reload'
 
-// Core plugins
-const plugins = {
-  ...require('./cerebro')
+export default {
+  autocomplete, quit, plugins, settings, version, reload
 }
-
-if (process.platform === 'darwin') {
-  plugins.apps = require('./osx-apps')
-} else {
-  plugins.apps = require('./basic-apps')
-}
-
-module.exports = plugins

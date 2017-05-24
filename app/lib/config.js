@@ -25,6 +25,7 @@ const defaultSettings = memoize(() => {
     skipDonateDialog: false,
     lastShownDonateDialog: null,
     plugins: {},
+    isMigratedPlugins: false
   }
 })
 

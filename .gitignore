@@ -47,3 +47,6 @@ release
 
 # IDEs
 .idea
+
+*.sublime-project
+*.sublime-workspace

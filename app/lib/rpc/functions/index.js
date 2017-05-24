@@ -9,6 +9,4 @@ const MEMOIZE_OPTIONS = {
 }
 
 // Export RPC-versions of lib functions
-export const readDir = memoize(wrap('readDir'), MEMOIZE_OPTIONS)
-
 export { default as initializePlugins } from './initializePlugins'

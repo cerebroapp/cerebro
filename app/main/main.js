@@ -11,8 +11,8 @@ import config from '../lib/config'
 
 require('fix-path')()
 
-window.React = React
-window.ReactDOM = ReactDOM
+global.React = React
+global.ReactDOM = ReactDOM
 
 /**
  * Change current theme

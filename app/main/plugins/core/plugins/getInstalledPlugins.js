@@ -1,7 +1,8 @@
 import { packageJsonPath } from 'lib/plugins'
+import { readFile } from 'fs'
 
 const readPackageJson = () => new Promise((resolve, reject) => {
-  fs.readFile(packageJsonPath, options, (err, source) => (
+  readFile(packageJsonPath, (err, source) => (
     err ? reject(err) : resolve(source)
   ))
 })

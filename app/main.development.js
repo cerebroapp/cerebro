@@ -4,7 +4,7 @@ import createMainWindow from './main/createWindow'
 import createBackgroundWindow from './background/createWindow'
 import config from './lib/config'
 import AppTray from './main/createWindow/AppTray'
-import AppUpdater from './AppUpdater'
+import initAutoUpdater from './initAutoUpdater'
 
 let trayIconSrc = `${__dirname}/tray_icon.png`
 if (process.platform === 'darwin') {
@@ -20,7 +20,6 @@ const isDev = () => (
 let mainWindow
 let backgroundWindow
 let tray
-let appUpdater
 
 if (process.env.NODE_ENV !== 'development') {
   // Set up crash reporter before creating windows in production builds
@@ -55,7 +54,7 @@ app.on('ready', () => {
     tray.show()
   }
 
-  appUpdater = new AppUpdater(mainWindow)
+  initAutoUpdater(mainWindow)
 
   app.dock && app.dock.hide()
 })

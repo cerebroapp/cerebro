@@ -1,0 +1,16 @@
+.statusBar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 11;
+  font-size: 11px;
+  color: var(--secondary-font-color);
+  background: var(--preview-input-background);
+  padding: 5px;
+  border-radius: 5px 0 0 0;
+  border-top: var(--main-border);
+  border-left: var(--main-border);
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import store from './store'
-import Search from './containers/Search'
+import Cerebro from './components/Cerebro'
 import './css/global.css'
 import { initializePlugins } from 'lib/rpc/functions'
 import { on } from 'lib/rpc/events'
@@ -29,7 +29,7 @@ changeTheme(config.get('theme'))
 // Render main container
 ReactDOM.render(
   <Provider store={store}>
-    <Search />
+    <Cerebro />
   </Provider>,
   document.getElementById('root')
 )

@@ -18,7 +18,7 @@ addons:
   apt:
     packages:
       - libgnome-keyring-dev
-      - libicns
+      - icnsutils
       - graphicsmagick
       - xz-utils
       - rpm

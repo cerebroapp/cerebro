@@ -50,7 +50,7 @@ $ cd cerebro && yarn && cd ./app && yarn && cd ../
 
 ### Run
 ```bash
-$ yarn run dev
+$ npm run dev
 ```
 
 > Note: requires a node version >=6.x
@@ -76,7 +76,7 @@ This error means that node modules with native extensions build with wrong node 
 Use this command to build `.app` file:
 
 ```bash
-$ yarn run package
+$ npm run package
 ```
 
 

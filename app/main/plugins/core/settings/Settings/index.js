@@ -17,6 +17,7 @@ class Settings extends Component {
       developerMode: get('developerMode'),
       cleanOnHide: get('cleanOnHide'),
       pluginsSettings: get('plugins'),
+      openAtLogin: get('openAtLogin')
     }
     this.changeConfig = this.changeConfig.bind(this)
   }
@@ -28,7 +29,7 @@ class Settings extends Component {
   }
   render() {
     const {
-      hotkey, showInTray, country, theme, developerMode, cleanOnHide
+      hotkey, showInTray, country, theme, developerMode, cleanOnHide, openAtLogin
     } = this.state
 
     return (
@@ -51,6 +52,11 @@ class Settings extends Component {
           value={theme}
           options={loadThemes()}
           onChange={value => this.changeConfig('theme', value)}
+        />
+        <Checkbox
+          label="Open at login"
+          value={openAtLogin}
+          onChange={value => this.changeConfig('openAtLogin', value)}
         />
         <Checkbox
           label="Show in menu bar"

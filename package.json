@@ -183,6 +183,7 @@
     "webpack-visualizer-plugin": "0.1.5"
   },
   "dependencies": {
+    "auto-launch": "^5.0.1",
     "cerebro-tools": "0.1.8",
     "cerebro-ui": "0.0.13",
     "escape-string-regexp": "1.0.5",

@@ -4,8 +4,8 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { clipboard, remote } from 'electron'
-import MainInput from '../../components/MainInput'
-import ResultsList from '../../components/ResultsList'
+import MainInput from '../MainInput'
+import ResultsList from '../ResultsList'
 import styles from './styles.css'
 import { focusableSelector } from 'cerebro-ui'
 import * as searchActions from '../../actions/search'
@@ -78,7 +78,7 @@ const cursorInEndOfInut = ({ selectionStart, selectionEnd, value }) => (
  * TODO: Remove redux
  * TODO: Split to more components
  */
-class Search extends Component {
+class Cerebro extends Component {
   constructor(props) {
     super(props)
     this.electronWindow = remote.getCurrentWindow()
@@ -383,7 +383,7 @@ class Search extends Component {
   }
 }
 
-Search.propTypes = {
+Cerebro.propTypes = {
   actions: PropTypes.shape({
     reset: PropTypes.func,
     moveCursor: PropTypes.func,
@@ -414,4 +414,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search)
+export default connect(mapStateToProps, mapDispatchToProps)(Cerebro)

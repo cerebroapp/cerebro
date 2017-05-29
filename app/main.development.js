@@ -4,6 +4,7 @@ import createMainWindow from './main/createWindow'
 import createBackgroundWindow from './background/createWindow'
 import config from './lib/config'
 import AppTray from './main/createWindow/AppTray'
+import autoStart from './main/createWindow/autoStart'
 import initAutoUpdater from './initAutoUpdater'
 
 let trayIconSrc = `${__dirname}/tray_icon.png`
@@ -54,6 +55,12 @@ app.on('ready', () => {
     tray.show()
   }
 
+  autoStart.isEnabled().then(enabled => {
+    if (config.get('openAtLogin') !== enabled) {
+      autoStart.set(config.get('openAtLogin'))
+    }
+  })
+
   initAutoUpdater(mainWindow)
 
   app.dock && app.dock.hide()
@@ -71,8 +78,18 @@ ipcMain.on('updateSettings', (event, key, value) => {
   if (key === 'showInTray') {
     value ? tray.show() : tray.hide()
   }
+
   // Show or hide "development" section in tray menu
   if (key === 'developerMode') {
     tray.setIsDev(isDev())
+  }
+
+  // Enable or disable auto start
+  if (key === 'openAtLogin') {
+    autoStart.isEnabled().then(enabled => {
+      if (value !== enabled) {
+        autoStart.set(value)
+      }
+    })
   }
 })

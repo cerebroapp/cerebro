@@ -69,7 +69,7 @@ pluginsWatcher.on('addDir', (pluginPath) => {
 
     console.log('Loaded.')
     const requirePath = window.require.resolve(pluginPath)
-    const watcher = chokidar.watch(requirePath, { depth: 0 })
+    const watcher = chokidar.watch(pluginPath, { depth: 0 })
     watcher.on('change', debounce(() => {
       console.log(`[${base}] Update plugin`)
       delete window.require.cache[requirePath]

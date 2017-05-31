@@ -11,7 +11,7 @@ import { focusableSelector } from 'cerebro-ui'
 import * as searchActions from '../../actions/search'
 import escapeStringRegexp from 'escape-string-regexp'
 
-import { debounce, bind } from 'lodash-decorators'
+import debounce from 'lodash/debounce'
 
 import trackEvent from 'lib/trackEvent'
 import getWindowPosition from 'lib/getWindowPosition'
@@ -82,6 +82,20 @@ class Cerebro extends Component {
   constructor(props) {
     super(props)
     this.electronWindow = remote.getCurrentWindow()
+
+    this.onWindowResize = debounce(this.onWindowResize, 100).bind(this)
+
+    this.updateElectronWindow = debounce(this.updateElectronWindow, 16).bind(this)
+
+    this.onDocumentKeydown = this.onDocumentKeydown.bind(this)
+    this.onKeyDown = this.onKeyDown.bind(this)
+    this.onMainInputFocus = this.onMainInputFocus.bind(this)
+    this.onMainInputBlur = this.onMainInputBlur.bind(this)
+    this.cleanup = this.cleanup.bind(this)
+    this.focusMainInput = this.focusMainInput.bind(this)
+    this.selectItem = this.selectItem.bind(this)
+
+
     this.state = {
       mainInputFocused: false
     }
@@ -117,8 +131,6 @@ class Cerebro extends Component {
   /**
    * Handle resize window and change count of visible results depends on window size
    */
-  @bind()
-  @debounce(100)
   onWindowResize() {
     if (this.props.results.length <= MIN_VISIBLE_RESULTS) {
       return false
@@ -130,7 +142,6 @@ class Cerebro extends Component {
     }
   }
 
-  @bind()
   onDocumentKeydown(event) {
     if (event.keyCode === 27) {
       event.preventDefault()
@@ -141,7 +152,6 @@ class Cerebro extends Component {
   /**
    * Handle keyboard shortcuts
    */
-  @bind()
   onKeyDown(event) {
     const highlighted = this.highlightedResult()
     // TODO: go to first result on cmd+up and last result on cmd+down
@@ -240,17 +250,14 @@ class Cerebro extends Component {
     }
   }
 
-  @bind()
   onMainInputFocus() {
     this.setState({ mainInputFocused: true })
   }
 
-  @bind()
   onMainInputBlur() {
     this.setState({ mainInputFocused: false })
   }
 
-  @bind()
   cleanup() {
     window.removeEventListener('resize', this.onWindowResize)
     window.removeEventListener('keydown', this.onDocumentKeydown)
@@ -260,7 +267,6 @@ class Cerebro extends Component {
     this.electronWindow.removeListener('show', trackShowWindow)
   }
 
-  @bind()
   focusMainInput() {
     this.refs.mainInput.focus()
   }
@@ -278,7 +284,6 @@ class Cerebro extends Component {
    * @param  {[type]} item [description]
    * @return {[type]}      [description]
    */
-  @bind()
   selectItem(item, realEvent) {
     this.props.actions.reset()
     trackSelectItem(item.plugin)
@@ -309,8 +314,6 @@ class Cerebro extends Component {
   /**
    * Set resizable and size for main electron window when results count is changed
    */
-  @bind()
-  @debounce(16)
   updateElectronWindow() {
     const { results, visibleResults } = this.props
     const { length } = results

@@ -3,7 +3,6 @@
   "plugins": [
     "transform-object-rest-spread",
     "lodash",
-    "babel-plugin-transform-decorators-legacy",
     "transform-es2015-classes"
   ],
   "env": {

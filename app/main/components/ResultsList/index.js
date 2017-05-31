@@ -2,12 +2,14 @@ import React, { Component, PropTypes } from 'react'
 import Row from './Row'
 import styles from './styles.css'
 import { VirtualScroll } from 'react-virtualized'
-import { bind } from 'lodash-decorators'
 
 import { RESULT_HEIGHT } from '../../constants/ui'
 
 class ResultsList extends Component {
-  @bind()
+  constructor(props) {
+    super(props)
+    this.rowRenderer = this.rowRenderer.bind(this)
+  }
   rowRenderer({ index }) {
     const result = this.props.results[index]
     const attrs = {

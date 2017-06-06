@@ -8,6 +8,8 @@ import * as format from './format'
 import { flow, map, partialRight, tap } from 'lodash/fp'
 import { partition } from 'lodash'
 import initializeAsync from './initializeAsync'
+import store from '../../../store'
+import * as statusBar from '../../../actions/statusBar'
 
 const toString = ({ name, description }) => [name, description].join(' ')
 const categories = [
@@ -86,10 +88,24 @@ const fn = ({ term, display, hide, update }) => {
   }
 }
 
+const setStatusBar = (text) => {
+  store.dispatch(statusBar.setValue(text))
+}
+
 export default {
   icon,
   fn,
   initializeAsync,
   name: 'Manage plugins',
-  keyword: 'plugins'
+  keyword: 'plugins',
+  onMessage: (type) => {
+    if (type === 'plugins:start-installation') {
+      setStatusBar('Installing default plugins...')
+    }
+    if (type === 'plugins:finish-installation') {
+      setTimeout(() => {
+        setStatusBar(null)
+      }, 2000)
+    }
+  }
 }

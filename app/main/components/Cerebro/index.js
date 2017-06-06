@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import { clipboard, remote } from 'electron'
 import MainInput from '../MainInput'
 import ResultsList from '../ResultsList'
+import StatusBar from '../StatusBar'
 import styles from './styles.css'
 import { focusableSelector } from 'cerebro-ui'
 import * as searchActions from '../../actions/search'
@@ -381,6 +382,7 @@ class Cerebro extends Component {
           onSelect={this.selectItem}
           mainInputFocused={mainInputFocused}
         />
+        {this.props.statusBarText && <StatusBar value={this.props.statusBarText} />}
       </div>
     )
   }
@@ -398,6 +400,7 @@ Cerebro.propTypes = {
   selected: PropTypes.number,
   visibleResults: PropTypes.number,
   term: PropTypes.string,
+  statusBarText: PropTypes.string,
   prevTerm: PropTypes.string,
 }
 
@@ -406,6 +409,7 @@ function mapStateToProps(state) {
     selected: state.search.selected,
     results: state.search.resultIds.map(id => state.search.resultsById[id]),
     term: state.search.term,
+    statusBarText: state.statusBar.text,
     prevTerm: state.search.prevTerm,
     visibleResults: state.search.visibleResults,
   }

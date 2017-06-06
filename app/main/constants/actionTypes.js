@@ -9,3 +9,5 @@ export const RESET = 'RESET'
 export const CHANGE_VISIBLE_RESULTS = 'CHANGE_VISIBLE_RESULTS'
 
 export const ICON_LOADED = 'ICON_LOADED'
+
+export const SET_STATUS_BAR_TEXT = 'SET_STATUS_BAR_TEXT'

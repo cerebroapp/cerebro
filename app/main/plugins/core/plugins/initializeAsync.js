@@ -38,13 +38,13 @@ function checkForUpdates() {
  * Migrate plugins: default plugins were extracted to separate packages
  * so if default plugins are not installed – start installation
  */
-function migratePlugins() {
+function migratePlugins(sendMessage) {
   if (config.get('isMigratedPlugins')) {
     // Plugins are already migrated
     return
   }
 
-  console.log('Start installation for default plugins')
+  console.log('Start installation of default plugins')
 
   getInstalledPlugins().then(installedPlugins => {
     const promises = flow(
@@ -52,14 +52,19 @@ function migratePlugins() {
       map(plugin => client.install(plugin))
     )(DEFAULT_PLUGINS)
 
+    if (promises.length > 0) {
+      sendMessage('plugins:start-installation')
+    }
+
     Promise.all(promises).then(() => {
       console.log('All default plugins are installed!')
       config.set('isMigratedPlugins', true)
+      sendMessage('plugins:finish-installation')
     })
   })
 }
 
-export default () => {
+export default (sendMessage) => {
   checkForUpdates()
-  migratePlugins()
+  migratePlugins(sendMessage)
 }

@@ -22,7 +22,6 @@ module.exports = {
         options: {
           plugins: [
             "babel-plugin-transform-object-rest-spread",
-            "babel-plugin-lodash",
             "babel-plugin-add-module-exports",
             "babel-plugin-transform-es2015-classes",
             "babel-plugin-transform-es2015-modules-commonjs"

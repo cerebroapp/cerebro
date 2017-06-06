@@ -2,7 +2,6 @@
   "presets": ["react"],
   "plugins": [
     "transform-object-rest-spread",
-    "lodash",
     "transform-es2015-classes"
   ],
   "env": {

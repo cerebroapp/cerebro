@@ -8,7 +8,7 @@ import styles from './styles.css'
 import trackEvent from 'lib/trackEvent'
 import * as format from '../format'
 import { client } from 'lib/plugins'
-import plugins from 'main/plugins'
+import plugins from 'plugins'
 
 const isRelative = (src) => !src.match(/^(https?:|data:)/)
 const urlTransform = (repo, src) => {

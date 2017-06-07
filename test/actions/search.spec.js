@@ -20,7 +20,7 @@ const pluginsMock = {
 
 const actions = searchInjector({
   electron: {},
-  '../plugins/': pluginsMock,
+  plugins: pluginsMock,
   'lib/config': {},
   'lib/plugins': {
     get: () => undefined

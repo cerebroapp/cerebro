@@ -1,18 +1,32 @@
-import plugins from '../main/plugins/'
-import { send } from 'lib/rpc/events'
+import { on, send } from 'lib/rpc'
+import plugins from 'plugins'
 
+export const initializePlugin = (name) => {
+  const { initialize, initializeAsync } = plugins[name]
+  if (initialize) {
+    // Foreground plugin initialization
+    try {
+      initialize()
+    } catch (e) {
+      console.error(`Failed to initialize plugin: ${name}`, e)
+    }
+  }
+
+  if (initializeAsync) {
+    // Background plugin initialization
+    send('initializePluginAsync', { name })
+  }
+}
+
+/**
+ * RPC-call for plugins initializations
+ */
 export default () => {
-  // Run plugin initializers only when main window is loaded
-  Object.keys(plugins).forEach(name => {
-    const { initializeAsync } = plugins[name]
-    if (!initializeAsync) return
-    initializeAsync(data => {
-      // Send message back to main window with initialization result
-      send('plugin.message', {
-        name,
-        data,
-      })
-    })
+  // Start listening for replies from plugin async initializers
+  on('plugin.message', ({ name, data }) => {
+    const plugin = plugins[name]
+    if (plugin.onMessage) plugin.onMessage(data)
   })
-  return Promise.resolve()
+
+  Object.keys(plugins).forEach(initializePlugin)
 }

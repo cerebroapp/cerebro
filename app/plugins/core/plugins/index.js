@@ -8,8 +8,8 @@ import * as format from './format'
 import { flow, map, partialRight, tap } from 'lodash/fp'
 import { partition } from 'lodash'
 import initializeAsync from './initializeAsync'
-import store from '../../../store'
-import * as statusBar from '../../../actions/statusBar'
+import store from '../../../main/store'
+import * as statusBar from '../../../main/actions/statusBar'
 
 const toString = ({ name, description }) => [name, description].join(' ')
 const categories = [

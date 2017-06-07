@@ -1,6 +1,7 @@
 import debounce from 'lodash/debounce'
 import chokidar from 'chokidar'
 import path from 'path'
+import { initializePlugin } from 'lib/initializePlugins'
 import { modulesDirectory, ensureFiles, settings } from 'lib/plugins'
 
 const requirePlugin = (pluginPath) => {
@@ -40,11 +41,14 @@ const plugins = {}
 const pluginsWatcher = chokidar.watch(modulesDirectory, { depth: 0 })
 
 pluginsWatcher.on('unlinkDir', (pluginPath) => {
-  const name = path.parse(pluginPath).base
+  const { base, dir } = path.parse(pluginPath)
+  if (dir !== modulesDirectory) {
+    return
+  }
   const requirePath = window.require.resolve(pluginPath)
-  console.log(`[${name}] Plugin removed`)
+  delete plugins[base]
   delete window.require.cache[requirePath]
-  delete plugins[name]
+  console.log(`[${base}] Plugin removed`)
 })
 
 pluginsWatcher.on('addDir', (pluginPath) => {
@@ -76,8 +80,12 @@ pluginsWatcher.on('addDir', (pluginPath) => {
       plugins[base] = window.require(pluginPath)
       console.log(`[${base}] Plugin updated`)
     }, 1000))
-    console.groupEnd()
     plugins[base] = plugin
+    if (!global.isBackground && plugin.initializeAsync) {
+      console.log('Initialize async plugin', base)
+      initializePlugin(base)
+    }
+    console.groupEnd()
   }, 1000)
 })
 

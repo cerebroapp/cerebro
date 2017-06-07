@@ -1,4 +1,4 @@
-import { send } from 'lib/rpc/events'
+import { send } from 'lib/rpc'
 import icon from '../icon.png'
 
 const keyword = 'reload'

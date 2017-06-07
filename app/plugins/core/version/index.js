@@ -1,7 +1,7 @@
 import React from 'react'
 import { search } from 'cerebro-tools'
 import icon from '../icon.png'
-import { version } from '../../../../../package.json'
+import { version } from '../../../../package.json'
 
 // Settings plugin name
 const NAME = 'Cerebro Version'

@@ -4,8 +4,8 @@ import { Provider } from 'react-redux'
 import store from './store'
 import Cerebro from './components/Cerebro'
 import './css/global.css'
-import { initializePlugins } from 'lib/rpc/functions'
-import { on } from 'lib/rpc/events'
+import initializePlugins from 'lib/initializePlugins'
+import { on } from 'lib/rpc'
 import { updateTerm } from './actions/search'
 import config from '../lib/config'
 
@@ -13,6 +13,7 @@ require('fix-path')()
 
 global.React = React
 global.ReactDOM = ReactDOM
+global.isBackground = false
 
 /**
  * Change current theme

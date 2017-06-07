@@ -6,7 +6,9 @@ const asyncInitializePlugins = wrap('initializePlugins')
 
 const initializePlugins = () => {
   // Call background initializers
-  asyncInitializePlugins()
+  // TODO: instead of timeout call initializeAsync of plugin
+  // only when this plugin is loaded in background
+  setTimeout(asyncInitializePlugins, 2000)
 
   // Call foreground initializers
   Object.keys(plugins).forEach(name => {

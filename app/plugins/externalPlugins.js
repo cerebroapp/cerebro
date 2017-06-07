@@ -41,11 +41,14 @@ const plugins = {}
 const pluginsWatcher = chokidar.watch(modulesDirectory, { depth: 0 })
 
 pluginsWatcher.on('unlinkDir', (pluginPath) => {
-  const name = path.parse(pluginPath).base
+  const { base, dir } = path.parse(pluginPath)
+  if (dir !== modulesDirectory) {
+    return
+  }
   const requirePath = window.require.resolve(pluginPath)
-  console.log(`[${name}] Plugin removed`)
+  delete plugins[base]
   delete window.require.cache[requirePath]
-  delete plugins[name]
+  console.log(`[${base}] Plugin removed`)
 })
 
 pluginsWatcher.on('addDir', (pluginPath) => {

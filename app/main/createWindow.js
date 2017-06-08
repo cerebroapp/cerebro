@@ -128,6 +128,14 @@ export default ({ src, isDev }) => {
   // Set initial handler if it is needed
   handleCleanOnHideChange(config.get('cleanOnHide'))
 
+  // Restore focus in previous application
+  // MacOS only: https://github.com/electron/electron/blob/master/docs/api/app.md#apphide-macos
+  if (process.platform === 'darwin') {
+    mainWindow.on('hide', () => {
+      app.hide()
+    })
+  }
+
   // Show main window when user opens application, but it is already opened
   app.on('open-file', (event, path) => handleUrl(mainWindow, path))
   app.on('open-url', (event, path) => handleUrl(mainWindow, path))

@@ -14,7 +14,7 @@ import escapeStringRegexp from 'escape-string-regexp'
 
 import debounce from 'lodash/debounce'
 
-import trackEvent from 'lib/trackEvent'
+import { trackEvent } from 'lib/trackEvent'
 import getWindowPosition from 'lib/getWindowPosition'
 
 import {

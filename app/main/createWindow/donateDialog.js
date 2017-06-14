@@ -1,6 +1,6 @@
 import { dialog, shell } from 'electron'
 import config from '../../lib/config'
-import trackEvent from '../../lib/trackEvent'
+import { trackEvent } from '../../lib/trackEvent'
 
 const now = () => new Date().getTime()
 const twoWeeksAgo = () => now() - 1000 * 3600 * 24 * 7

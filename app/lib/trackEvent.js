@@ -1,5 +1,6 @@
 import ua from 'universal-analytics'
 import { machineIdSync } from 'node-machine-id'
+import { version as appVersion } from '../package.json'
 
 const DEFAULT_CATEGORY = 'Cerebro App'
 
@@ -13,7 +14,13 @@ try {
   visitor = ua('UA-87361302-1')
 }
 
-export default ({ category, event, label, value }) => {
+export const screenView = (screenName) => {
+  if (trackingEnabled) {
+    visitor.screenview(screenName, 'Cerebro', appVersion, process.platform)
+  }
+}
+
+export const trackEvent = ({ category, event, label, value }) => {
   if (trackingEnabled) {
     visitor.event(category || DEFAULT_CATEGORY, event, label, value).send()
   }

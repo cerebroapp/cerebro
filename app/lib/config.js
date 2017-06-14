@@ -1,7 +1,7 @@
 import { app, remote, ipcRenderer } from 'electron'
 import fs from 'fs'
 import { memoize } from 'cerebro-tools'
-import trackEvent from './trackEvent'
+import { trackEvent } from './trackEvent'
 import loadThemes from './loadThemes'
 
 const electronApp = remote ? remote.app : app

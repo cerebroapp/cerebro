@@ -1,6 +1,6 @@
 import { dialog, shell } from 'electron'
 import config from '../../lib/config'
-import trackEvent from '../../lib/trackEvent'
+import { trackEvent } from '../../lib/trackEvent'
 
 const now = () => new Date().getTime()
 const twoWeeksAgo = () => now() - 1000 * 3600 * 24 * 7
@@ -22,23 +22,14 @@ export const shouldShow = () => {
 
 /* eslint-disable max-len*/
 const messages = [
-  'Do you like completely free and open-source Cerebro? Support developers with your donation!',
-  'Do you like Cerebro? Buy a beer for developers!',
-  'Free. Open-source. No ads. It is about Cerebro. Do you like it? Make small donation to support the app',
   'Developers try to make you happy with this free and open-source app. Make them happy too with your donation!'
 ]
 
 const buttons = [
-  ['Close', 'Support'],
-  ['Not now', 'Of course!'],
-  ['Skip', 'Donate'],
   ['Close', 'Make them happy']
 ]
 
 const skipMessages = [
-  "Don't show this message anymore",
-  "Don't ask me again",
-  "I won't donate",
   "I don't want to see this message again",
 ]
 /* eslint-enable max-len */

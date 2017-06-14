@@ -1,7 +1,7 @@
 import { BrowserWindow, globalShortcut, app, screen, shell } from 'electron'
 import debounce from 'lodash/debounce'
 import EventEmitter from 'events'
-import trackEvent from '../lib/trackEvent'
+import { trackEvent, screenView } from '../lib/trackEvent'
 
 import {
   INPUT_HEIGHT,
@@ -162,6 +162,8 @@ export default ({ src, isDev }) => {
     category: 'App Start',
     event: config.get('firstStart') ? 'First' : 'Secondary'
   })
+
+  screenView('Search')
 
   // Save in config information, that application has been started
   config.set('firstStart', false)

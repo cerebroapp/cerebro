@@ -8,11 +8,11 @@ const electronApp = remote ? remote.app : app
 
 // initiate portable mode
 // set data directory to ./userdata
-process.argv.forEach((arg, count) => {
- if (arg.toLowerCase() === '-p' || arg.toLowerCase() === '--portable') {
-    electronApp.setPath('userData', process.cwd() + '/userdata');
+process.argv.forEach((arg) => {
+  if (arg.toLowerCase() === '-p' || arg.toLowerCase() === '--portable') {
+    electronApp.setPath('userData', process.cwd() + '/userdata')
   }
-});
+})
 
 const CONFIG_FILE = `${electronApp.getPath('userData')}/config.json`
 

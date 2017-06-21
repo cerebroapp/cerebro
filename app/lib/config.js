@@ -10,7 +10,7 @@ const electronApp = remote ? remote.app : app
 // set data directory to ./userdata
 process.argv.forEach((arg) => {
   if (arg.toLowerCase() === '-p' || arg.toLowerCase() === '--portable') {
-    electronApp.setPath('userData', process.cwd() + '/userdata')
+    electronApp.setPath('userData', `${process.cwd()}/userdata`)
   }
 })
 

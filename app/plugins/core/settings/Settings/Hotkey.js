@@ -80,6 +80,18 @@ const keyToSign = (key) => {
 }
 
 const charCodeToSign = ({ keyCode, shiftKey }) => {
+  if (KEYCODES[keyCode]) {
+    return KEYCODES[keyCode]
+  }
+  const valid =
+    (keyCode > 47 && keyCode < 58) || // number keys
+    (keyCode > 64 && keyCode < 91) || // letter keys
+    (keyCode > 95 && keyCode < 112) || // numpad keys
+    (keyCode > 185 && keyCode < 193) || // ;=,-./` (in order)
+    (keyCode > 218 && keyCode < 223)   // [\]' (in order)
+  if (!valid) {
+    return null
+  }
   const code = ASCII[keyCode] ? ASCII[keyCode] : keyCode
   if (!shiftKey && (code >= 65 && code <= 90)) {
     return String.fromCharCode(code + 32)
@@ -87,16 +99,7 @@ const charCodeToSign = ({ keyCode, shiftKey }) => {
   if (shiftKey && SHIFT_UPS[code]) {
     return SHIFT_UPS[code]
   }
-  if (KEYCODES[code]) {
-    return KEYCODES[code]
-  }
-  const valid =
-    (code > 47 && code < 58) || // number keys
-    (code > 64 && code < 91) || // letter keys
-    (code > 95 && code < 112) || // numpad keys
-    (code > 185 && code < 193) || // ;=,-./` (in order)
-    (code > 218 && code < 223)   // [\]' (in order)
-  return valid ? String.fromCharCode(code) : null
+  return String.fromCharCode(code)
 }
 
 class Hotkey extends Component {

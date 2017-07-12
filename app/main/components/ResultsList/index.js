@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
-import Row from './Row'
-import styles from './styles.css'
 import { VirtualScroll } from 'react-virtualized'
 
+import Row from './Row'
+import styles from './styles.css'
 import { RESULT_HEIGHT } from '../../constants/ui'
+
 
 class ResultsList extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class ResultsList extends Component {
       // In some cases action should be executed and window should be closed
       // In some cases we should autocomplete value
       selected: index === this.props.selected,
-      onSelect: (event) => this.props.onSelect(result, event),
+      onSelect: event => this.props.onSelect(result, event),
       // Move selection to item under cursor
       onMouseMove: (event) => {
         const { selected, mainInputFocused, onItemHover } = this.props

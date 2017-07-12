@@ -1,5 +1,6 @@
-import showWindowWithTerm from './showWindowWithTerm'
 import { parse } from 'url'
+
+import showWindowWithTerm from './showWindowWithTerm'
 
 export default (mainWindow, url) => {
   const { host: action, query } = parse(url, { parseQueryString: true })

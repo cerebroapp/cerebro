@@ -1,7 +1,7 @@
 import { app, remote } from 'electron'
 import path from 'path'
-import npm from './npm'
 import fs from 'fs'
+import npm from './npm'
 
 const ensureFile = (src, content = '') => {
   if (!fs.existsSync(src)) {

@@ -1,4 +1,6 @@
 /* eslint no-shadow: [2, { "allow": ["comments"] }] */
+import uniq from 'lodash/uniq'
+import orderBy from 'lodash/orderBy'
 
 import {
   UPDATE_TERM,
@@ -12,9 +14,6 @@ import {
 } from '../constants/actionTypes'
 
 import { MIN_VISIBLE_RESULTS } from '../constants/ui'
-
-import uniq from 'lodash/uniq'
-import orderBy from 'lodash/orderBy'
 
 const initialState = {
   // Search term in main input
@@ -122,7 +121,7 @@ export default function search(state = initialState, { type, payload }) {
       }
       let { resultsById, resultIds } = state
 
-      result.forEach(res => {
+      result.forEach((res) => {
         resultsById = {
           ...resultsById,
           [res.id]: normalizeResult(res)

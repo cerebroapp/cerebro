@@ -34,7 +34,7 @@ export default ({ width, heightWithResults }) => {
   if (display.id in positions) {
     const [x, y] = positions[display.id]
     const windowBounds = { x, y, winWidth, winHeight }
-    const isWindowVisible = (disp) => isVisible(windowBounds, disp.bounds)
+    const isWindowVisible = disp => isVisible(windowBounds, disp.bounds)
 
     if (isWindowVisible(display)) {
       return [x, y]

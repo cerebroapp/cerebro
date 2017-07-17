@@ -2,6 +2,9 @@
   "env": {
     "mocha": true
   },
+  "rules":{
+    "import/no-webpack-loader-syntax": "off"
+  },
   "settings": {
     "import/core-modules": "electron",
     "import/resolver": {

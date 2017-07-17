@@ -21,7 +21,7 @@ on('initializePluginAsync', ({ name }) => {
       return
     }
     console.log('running `initializeAsync`')
-    initializeAsync(data => {
+    initializeAsync((data) => {
       console.log('Done! Sending data back to main window')
       // Send message back to main window with initialization result
       send('plugin.message', {

@@ -4,18 +4,19 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { clipboard, remote } from 'electron'
-import MainInput from '../MainInput'
-import ResultsList from '../ResultsList'
-import StatusBar from '../StatusBar'
-import styles from './styles.css'
 import { focusableSelector } from 'cerebro-ui'
-import * as searchActions from '../../actions/search'
 import escapeStringRegexp from 'escape-string-regexp'
 
 import debounce from 'lodash/debounce'
 
 import { trackEvent } from 'lib/trackEvent'
 import getWindowPosition from 'lib/getWindowPosition'
+
+import MainInput from '../MainInput'
+import ResultsList from '../ResultsList'
+import StatusBar from '../StatusBar'
+import styles from './styles.css'
+import * as searchActions from '../../actions/search'
 
 import {
   WINDOW_WIDTH,
@@ -35,7 +36,7 @@ const SELECT_EVENT = {
 }
 
 const trackShowWindow = () => trackEvent(SHOW_EVENT)
-const trackSelectItem = (label) => trackEvent({ ...SELECT_EVENT, label })
+const trackSelectItem = label => trackEvent({ ...SELECT_EVENT, label })
 
 /**
  * Wrap click or mousedown event to custom `select-item` event,

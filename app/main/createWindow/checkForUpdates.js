@@ -36,7 +36,7 @@ const getLatestRelease = () => (
         'User-Agent': `CerebroApp v${currentVersion}`
       }
     }
-    https.get(opts, res => {
+    https.get(opts, (res) => {
       let json = ''
       res.on('data', (chunk) => {
         json += chunk
@@ -47,7 +47,7 @@ const getLatestRelease = () => (
 )
 
 export default () => {
-  getLatestRelease().then(release => {
+  getLatestRelease().then((release) => {
     const version = semver.valid(release.tag_name)
     if (version && semver.gt(version, currentVersion)) {
       dialog.showMessageBox({
@@ -70,7 +70,7 @@ export default () => {
         buttons: []
       })
     }
-  }).catch(err => {
+  }).catch((err) => {
     console.log('Catch error!', err)
     dialog.showErrorBox(
       TITLE,

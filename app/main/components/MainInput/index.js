@@ -14,7 +14,7 @@ class MainInput extends Component {
         ref="input"
         value={this.props.value}
         className={styles.input}
-        onChange={(e) => this.props.onChange(e.target.value)}
+        onChange={e => this.props.onChange(e.target.value)}
         onKeyDown={this.props.onKeyDown}
         onFocus={this.props.onFocus}
         onBlur={this.props.onBlur}

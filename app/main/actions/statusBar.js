@@ -1,5 +1,5 @@
 import {
- SET_STATUS_BAR_TEXT
+  SET_STATUS_BAR_TEXT
 } from '../constants/actionTypes'
 
 export function reset() {

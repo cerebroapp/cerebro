@@ -7,7 +7,7 @@ export default class Settings extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      values: config.get('plugins')[props.name],
+      values: config.get('plugins')[props.name] || {},
     }
     this.renderSetting = this.renderSetting.bind(this)
     this.changeSetting = this.changeSetting.bind(this)

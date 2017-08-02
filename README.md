@@ -65,11 +65,11 @@ This error means that node modules with native extensions build with wrong node 
 #### Config file path
 
 
-*WINDOWS*: `%APPDATA%/Cerebro/config.json`
+*Windows*: `%APPDATA%/Cerebro/config.json`
 
 *Linux*: `$XDG_CONFIG_HOME/Cerebro/config.json`  or `~/.config/Cerebro/config.json`
 
-*Mac OS*: `~/Library/Application Support/Cerebro/config.json`
+*macOS*: `~/Library/Application Support/Cerebro/config.json`
 
 
 ### Package

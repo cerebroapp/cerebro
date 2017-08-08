@@ -3,8 +3,8 @@
   "extends": "airbnb",
   "env": {
     "browser": true,
-    "mocha": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "rules": {
     "consistent-return": 0,
@@ -37,7 +37,8 @@
   "plugins": [
     "jsx-a11y",
     "import",
-    "react"
+    "react",
+    "jest"
   ],
   "settings": {
     "import/core-modules": "electron",

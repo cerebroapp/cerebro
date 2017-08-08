@@ -1,31 +1,11 @@
-import expect from 'expect'
-import searchInjector from 'inject-loader!../../app/main/actions/search'
-
+import * as actions from './search'
 import {
   MOVE_CURSOR,
   SELECT_ELEMENT,
   UPDATE_RESULT,
   HIDE_RESULT,
   RESET,
-} from '../../app/main/constants/actionTypes'
-
-const testPlugin = {
-  fn: () => {}
-}
-
-const pluginsMock = {
-  'test-plugin': testPlugin
-}
-
-
-const actions = searchInjector({
-  electron: {},
-  plugins: pluginsMock,
-  'lib/config': {},
-  'lib/plugins': {
-    getUserSettings: () => undefined
-  }
-})
+} from '../constants/actionTypes'
 
 describe('reset', () => {
   it('returns valid action', () => {
@@ -61,7 +41,7 @@ describe('selectElement', () => {
 })
 
 describe('updateTerm', () => {
-  context('for empty term', () => {
+  describe('for empty term', () => {
     it('returns reset action', () => {
       expect(actions.updateTerm('')).toEqual({
         type: RESET,

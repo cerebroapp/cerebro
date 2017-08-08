@@ -1,23 +1,8 @@
 {
-  "presets": ["react"],
-  "plugins": [
-    "transform-object-rest-spread",
-    "transform-es2015-classes"
-  ],
+  "presets": ["cerebro-plugin"],
   "env": {
-  	"production": {
-  		"plugins": [
-  			"babel-plugin-transform-remove-debugger"
-  		]
-  	},
-    "development": {
+  	"development": {
       "presets": ["react-hmre"]
-    },
-    "test": {
-      "plugins": [
-				"babel-plugin-add-module-exports",
-				"babel-plugin-transform-es2015-modules-commonjs"
-      ]
     }
   }
 }

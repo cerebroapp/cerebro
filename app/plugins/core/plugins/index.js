@@ -13,6 +13,7 @@ import * as statusBar from '../../../main/actions/statusBar'
 
 const toString = ({ name, description }) => [name, description].join(' ')
 const categories = [
+  ['Development', plugin => plugin.isDebugging],
   ['Updates', plugin => plugin.isUpdateAvailable],
   ['Installed', plugin => plugin.isInstalled],
   ['Available', plugin => plugin.name],

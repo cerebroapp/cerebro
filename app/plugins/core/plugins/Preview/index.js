@@ -68,6 +68,7 @@ class Preview extends Component {
       description,
       repo,
       isInstalled,
+      isDebugging,
       installedVersion,
       isUpdateAvailable
     } = this.props
@@ -90,7 +91,7 @@ class Preview extends Component {
             }
             {showSettings && <Settings name={name} settings={settings} />}
             {
-              !isInstalled &&
+              !isInstalled && !isDebugging &&
                 <ActionButton
                   action={this.pluginAction(name, 'install')}
                   text={runningAction === 'install' ? 'Installing...' : 'Install'}
@@ -141,6 +142,7 @@ Preview.propTypes = {
   repo: PropTypes.string,
   installedVersion: PropTypes.string,
   isInstalled: PropTypes.bool.isRequired,
+  isDebugging: PropTypes.bool,
   isUpdateAvailable: PropTypes.bool.isRequired,
   onComplete: PropTypes.func.isRequired,
 }

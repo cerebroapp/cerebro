@@ -369,11 +369,12 @@ class HasteMap extends EventEmitter {
       return null;
     }
 
+    console.log(mockPath, filePath, this._options.mocksPattern, this._options.mocksPattern.test(filePath));
+
     if (
       this._options.mocksPattern &&
       this._options.mocksPattern.test(filePath)) {
       const mockPath = getMockName(filePath);
-      console.log(mockPath, filePath);
       if (mocks[mockPath]) {
         this._console.warn(
           `jest-haste-map: duplicate manual mock found:\n` +

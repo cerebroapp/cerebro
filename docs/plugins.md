@@ -8,7 +8,8 @@ You can create your plugin using [create-cerebro-plugin](https://github.com/KELi
 
 Links:
 * [Plugin structure](./plugins/plugin-structure.md);
-* [Cerebro tools](./plugins/cerebro-tools.md);
+* [Cerebro tools](https://github.com/KELiON/cerebro-tools);
+* [Cerebro UI](https://github.com/KELiON/cerebro-ui);
 * [Styles](./plugins/styles.md) for you plugin previews;
 * [Share your plugin](./plugins/share.md);
 * [Examples](./plugins/examples.md);

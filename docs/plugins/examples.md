@@ -1,17 +1,16 @@
 # <a href="../plugins.md">Plugins</a> → Examples
 You always can check out source code of existing plugins, like:
 
+* [cerebro-math](https://github.com/KELiON/cerebro-math)
+* [cerebro-google](https://github.com/KELiON/cerebro-google)
 * [cerebro-emoj](https://github.com/KELiON/cerebro-emoj)
 * [cerebro-gif](https://github.com/KELiON/cerebro-gif)
 * [cerebro-kill](https://github.com/KELiON/cerebro-kill)
 * [cerebro-ip](https://github.com/KELiON/cerebro-ip)
 
-
-Or any of [core](../../app/main/plugins/core) plugins.
-
 ### Using `id`
 ```js
-const plugin = ({display}) => {
+export const fn = ({display}) => {
   display({
     id: 'my-id',
     title: 'Loading'
@@ -22,10 +21,6 @@ const plugin = ({display}) => {
       title: `Fetched result: ${result}`
     })
   });
-}
-
-module.exports = {
-  fn: plugin,
 }
 ```
 

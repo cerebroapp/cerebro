@@ -3,12 +3,10 @@
 This is a minimum source code of your plugin:
 
 ```js
-module.exports = {
-  fn: (scope) => console.log(scope.term)
-}
+export const fn = (scope) => console.log(scope.term)
 ```
 
-This plugin will write to console all changes in your search field of Cerebro app. So, `fn` key is a heart of your plugin: this function receives `scope` object and your can send results back to Cerebro. Scope object is:
+This plugin will write to console all changes in your search field of Cerebro app. So, `fn` key is a heart of your plugin: this function receives `scope` object and you can send results back to Cerebro. Scope object is:
 
 * `term` – `String`, entered by Cerebro user;
 * `display` – `Function(result: Object | Array<object>)`, display your result
@@ -26,19 +24,15 @@ This plugin will write to console all changes in your search field of Cerebro ap
 Let's show something in results list:
 
 ```js
-const plugin = (scope) => {
+export const fn = (scope) => {
   scope.display({
     title: 'It works!',
     subtitle: `You entered ${scope.term}`
   })
 }
-
-module.exports = {
-  fn: plugin
-}
 ```
 
-`scope.display` accepts one or several results. Result object is:
+`scope.display` accepts one result object or array of result objects. Result object is:
 
 ## Basic fields
 ### `title`

@@ -81,7 +81,7 @@ pluginsWatcher.on('addDir', (pluginPath) => {
       console.log(`[${base}] Plugin updated`)
     }, 1000))
     plugins[base] = plugin
-    if (!global.isBackground && plugin.initializeAsync) {
+    if (!global.isBackground) {
       console.log('Initialize async plugin', base)
       initializePlugin(base)
     }

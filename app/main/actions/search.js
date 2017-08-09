@@ -1,7 +1,7 @@
 import plugins from 'plugins'
-import config from 'lib/config'
+import config from 'lib\\config'
 import { shell, clipboard, remote } from 'electron'
-import { settings as pluginSettings } from 'lib/plugins'
+import { settings as pluginSettings } from 'lib\\plugins'
 import store from '../store'
 
 import {

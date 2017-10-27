@@ -121,7 +121,7 @@ class Cerebro extends Component {
   }
   componentDidUpdate(prevProps) {
     const { results } = this.props
-    if (results.length !== prevProps.results.length) {
+    if (results.length && !prevProps.results.length) {
       // Resize electron window when results count changed
       this.updateElectronWindow()
     }

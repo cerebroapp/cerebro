@@ -35,6 +35,7 @@ const defaultSettings = memoize(() => {
     plugins: {},
     isMigratedPlugins: false,
     trackingEnabled: false,
+    crashreportingEnabled: false,
     openAtLogin: true
   }
 })

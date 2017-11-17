@@ -18,6 +18,7 @@ class Settings extends Component {
       cleanOnHide: get('cleanOnHide'),
       pluginsSettings: get('plugins'),
       trackingEnabled: get('trackingEnabled'),
+      crashreportingEnabled: get('crashreportingEnabled'),
       openAtLogin: get('openAtLogin')
     }
     this.changeConfig = this.changeConfig.bind(this)
@@ -30,7 +31,8 @@ class Settings extends Component {
   }
   render() {
     const {
-      hotkey, showInTray, country, theme, developerMode, cleanOnHide, openAtLogin, trackingEnabled
+      hotkey, showInTray, country, theme, developerMode, cleanOnHide, openAtLogin,
+      trackingEnabled, crashreportingEnabled
     } = this.state
 
     return (
@@ -78,6 +80,11 @@ class Settings extends Component {
           label="Send anonymous statistics (requires restart)"
           value={trackingEnabled}
           onChange={value => this.changeConfig('trackingEnabled', value)}
+        />
+        <Checkbox
+          label="Send automatic crash reports (requires restart)"
+          value={crashreportingEnabled}
+          onChange={value => this.changeConfig('crashreportingEnabled', value)}
         />
       </div>
     )

@@ -24,12 +24,14 @@ let tray
 
 if (process.env.NODE_ENV !== 'development') {
   // Set up crash reporter before creating windows in production builds
-  crashReporter.start({
-    productName: 'Cerebro',
-    companyName: 'Cerebro',
-    submitURL: 'http://crashes.cerebroapp.com/post',
-    autoSubmit: true
-  })
+  if (config.get('crashreportingEnabled')) {
+    crashReporter.start({
+      productName: 'Cerebro',
+      companyName: 'Cerebro',
+      submitURL: 'http://crashes.cerebroapp.com/post',
+      autoSubmit: true
+    })
+  }
 }
 
 app.on('ready', () => {

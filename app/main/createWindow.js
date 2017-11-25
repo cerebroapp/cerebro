@@ -51,7 +51,6 @@ export default ({ src, isDev }) => {
   const showMainWindow = () => {
     mainWindow.show()
     mainWindow.focus()
-
   }
 
   // Setup event listeners for main window

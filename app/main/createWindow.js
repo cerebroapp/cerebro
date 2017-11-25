@@ -51,6 +51,7 @@ export default ({ src, isDev }) => {
   const showMainWindow = () => {
     mainWindow.show()
     mainWindow.focus()
+
   }
 
   // Setup event listeners for main window
@@ -69,7 +70,10 @@ export default ({ src, isDev }) => {
     if (!mainWindow.isVisible()) {
       return
     }
-    const display = screen.getPrimaryDisplay()
+    const display = screen.getDisplayNearestPoint(
+      screen.getCursorScreenPoint()
+    )
+
     const positions = config.get('positions') || {}
     positions[display.id] = mainWindow.getPosition()
     config.set('positions', positions)

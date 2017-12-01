@@ -97,9 +97,15 @@ class Cerebro extends Component {
     this.focusMainInput = this.focusMainInput.bind(this)
     this.selectItem = this.selectItem.bind(this)
 
+    this.onMouseDown = this.onMouseDown.bind(this)
+    this.onMouseUp = this.onMouseUp.bind(this)
+    this.onMouseMove = this.onMouseMove.bind(this)
 
     this.state = {
-      mainInputFocused: false
+      mainInputFocused: false,
+      draggingWindow: false,
+      wX: 0,
+      wy: 0
     }
   }
 
@@ -111,6 +117,9 @@ class Cerebro extends Component {
     // Cleanup event listeners on unload
     // NOTE: when page refreshed (location.reload) componentWillUnmount is not called
     window.addEventListener('beforeunload', this.cleanup)
+    window.addEventListener('mousedown', this.onMouseDown)
+    window.addEventListener('mouseup', this.onMouseUp)
+    window.addEventListener('mousemove', this.onMouseMove)
     this.electronWindow.on('show', this.focusMainInput)
     this.electronWindow.on('show', this.updateElectronWindow)
     this.electronWindow.on('show', trackShowWindow)
@@ -149,6 +158,31 @@ class Cerebro extends Component {
       event.preventDefault()
       document.getElementById('main-input').focus()
     }
+  }
+
+  onMouseDown(event) {
+    this.state.draggingWindow = true;
+    this.state.wX = event.pageX;
+    this.state.wY = event.pageY;
+  }
+
+  onMouseMove(event) {
+    if(event.ctrlKey) {
+      const { draggingWindow, wX, wY } = this.state
+      event.stopPropagation();
+      event.preventDefault();
+      if (draggingWindow) {
+        try {
+          remote.BrowserWindow.getFocusedWindow().setPosition(event.screenX - wX, event.screenY - wY);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    }
+  }
+
+  onMouseUp(event) {
+    this.state.draggingWindow = false;
   }
 
   /**
@@ -267,6 +301,9 @@ class Cerebro extends Component {
     this.electronWindow.removeListener('show', this.focusMainInput)
     this.electronWindow.removeListener('show', this.updateElectronWindow)
     this.electronWindow.removeListener('show', trackShowWindow)
+    window.removeEventListener('mousedown', this.onMouseDown)
+    window.removeEventListener('mouseup', this.onMouseUp)
+    window.removeEventListener('mousemove', this.onMouseMove)
   }
 
   focusMainInput() {

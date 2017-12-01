@@ -12,6 +12,6 @@
   box-sizing: border-box;
   background: transparent;
   white-space: nowrap;
-  -webkit-app-region: drag;
-  -webkit-user-select: none;
+  /* -webkit-app-region: drag;
+  -webkit-user-select: none; */
 }

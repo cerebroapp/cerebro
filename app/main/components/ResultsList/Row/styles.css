@@ -27,7 +27,7 @@
 .title {
   font-size: .8em;
   max-width: 100%;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   color: var(--result-title-color);
 }
 
@@ -37,7 +37,7 @@
   font-weight: 300;
   color: var(--result-subtitle-color);
   max-width: 100%;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .selected {

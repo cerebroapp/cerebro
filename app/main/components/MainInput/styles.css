@@ -3,6 +3,7 @@
   height: 45px;
   background-color: var(--main-background-color);
   color: var(--main-font-color);
+  font-family: var(--main-font);  
   font-size: 1.5em;
   border: 0;
   outline: none;
@@ -11,6 +12,6 @@
   box-sizing: border-box;
   background: transparent;
   white-space: nowrap;
-  -webkit-app-region: drag;
-  -webkit-user-select: none;
+  /* -webkit-app-region: drag;
+  -webkit-user-select: none; */
 }

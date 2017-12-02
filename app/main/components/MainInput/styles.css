@@ -3,6 +3,7 @@
   height: 45px;
   background-color: var(--main-background-color);
   color: var(--main-font-color);
+  font-family: var(--main-font);
   font-size: 1.5em;
   border: 0;
   outline: none;

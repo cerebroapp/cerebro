@@ -161,28 +161,24 @@ class Cerebro extends Component {
   }
 
   onMouseDown(event) {
-    this.state.draggingWindow = true;
-    this.state.wX = event.pageX;
-    this.state.wY = event.pageY;
+    this.state.draggingWindow = true
+    this.state.wX = event.pageX
+    this.state.wY = event.pageY
   }
 
   onMouseMove(event) {
-    if(event.ctrlKey) {
+    if (event.ctrlKey) {
       const { draggingWindow, wX, wY } = this.state
-      event.stopPropagation();
-      event.preventDefault();
+      event.stopPropagation()
+      event.preventDefault()
       if (draggingWindow) {
-        try {
-          remote.BrowserWindow.getFocusedWindow().setPosition(event.screenX - wX, event.screenY - wY);
-        } catch (err) {
-          console.log(err);
-        }
+        this.electronWindow.setPosition(event.screenX - wX, event.screenY - wY)
       }
     }
   }
 
-  onMouseUp(event) {
-    this.state.draggingWindow = false;
+  onMouseUp() {
+    this.state.draggingWindow = false
   }
 
   /**

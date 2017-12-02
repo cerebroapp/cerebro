@@ -68,7 +68,7 @@ class ResultsList extends Component {
           rowCount={results.length}
           rowHeight={RESULT_HEIGHT}
           rowRenderer={this.rowRenderer}
-          width={(results[selected]!==undefined && results[selected].getPreview) ? 250 : 10000}
+          width={(results[selected] !== undefined && results[selected].getPreview) ? 250 : 10000}
           scrollToIndex={selected}
           // Needed to force update of VirtualScroll
           titles={results.map(result => result.title)}

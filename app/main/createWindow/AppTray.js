@@ -50,7 +50,7 @@ export default class AppTray {
       },
       {
         label: 'Preferences...',
-        click: () => showWindowWithTerm(mainWindow, 'settings'),
+        click: () => showWindowWithTerm(mainWindow, 'Cerebro Settings'),
       },
       separator,
       {

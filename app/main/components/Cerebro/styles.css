@@ -26,17 +26,17 @@
 }
 
 ::-webkit-scrollbar {
-	height: var(--scroll-height);
-	width: var(--scroll-width);
+  height: var(--scroll-height);
+  width: var(--scroll-width);
   background: var(--scroll-background);
   -webkit-border-radius: 0;
 }
 
 ::-webkit-scrollbar-track {
-	background: var(--scroll-track);
+  background: var(--scroll-track);
 }
 ::-webkit-scrollbar-track:active {
-	background: var(--scroll-track-active);
+  background: var(--scroll-track-active);
 }
 
 ::-webkit-scrollbar-track:hover {

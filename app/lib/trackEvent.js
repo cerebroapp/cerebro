@@ -5,26 +5,35 @@ import config from './config'
 
 const DEFAULT_CATEGORY = 'Cerebro App'
 
-const trackingEnabled = process.env.NODE_ENV === 'production' && config.get('trackingEnabled')
-let visitor
+const isTrackingEnabled = () => (
+  process.env.NODE_ENV === 'production' && config.get('trackingEnabled')
+)
 
-if (trackingEnabled) {
-  try {
-    visitor = ua('UA-87361302-1', machineIdSync(), { strictCidFormat: false })
-  } catch (err) {
-    console.log('[machine-id error]', err)
-    visitor = ua('UA-87361302-1')
+let visitorCache = null
+
+const visitor = () => {
+  if (visitorCache) {
+    return visitorCache
   }
+  if (isTrackingEnabled()) {
+    try {
+      visitorCache = ua('UA-87361302-1', machineIdSync(), { strictCidFormat: false })
+    } catch (err) {
+      console.log('[machine-id error]', err)
+      visitorCache = ua('UA-87361302-1')
+    }
+  }
+  return visitorCache
 }
 
 export const screenView = (screenName) => {
-  if (trackingEnabled) {
-    visitor.screenview(screenName, 'Cerebro', appVersion, process.platform)
+  if (isTrackingEnabled()) {
+    visitor().screenview(screenName, 'Cerebro', appVersion, process.platform)
   }
 }
 
 export const trackEvent = ({ category, event, label, value }) => {
-  if (trackingEnabled) {
-    visitor.event(category || DEFAULT_CATEGORY, event, label, value).send()
+  if (isTrackingEnabled()) {
+    visitor().event(category || DEFAULT_CATEGORY, event, label, value).send()
   }
 }

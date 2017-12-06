@@ -6,8 +6,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: var(--main-background-color);
-  color: var(--main-font-color);
 }
 
 body {
@@ -15,6 +13,8 @@ body {
   height: 100vh;
   font-family: var(--main-font);
   overflow-y: hidden;
+  background-color: var(--main-background-color);
+  color: var(--main-font-color);
 }
 
 #root {

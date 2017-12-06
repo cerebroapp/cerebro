@@ -36,6 +36,10 @@ export default ({ src, isDev }) => {
 
   const mainWindow = new BrowserWindow(browserWindowOptions)
 
+  // Setting required for Windows (10 creators update) notifications
+  // MUST be equal to appId in package.json!
+  app.setAppUserModelId('com.cerebroapp.Cerebro')
+
   // Float main window above full-screen apps
   mainWindow.setAlwaysOnTop(true, 'modal-panel')
 

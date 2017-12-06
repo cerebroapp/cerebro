@@ -44,7 +44,7 @@ const pluginToResult = update => plugin => {
     icon,
     id: plugin.name,
     title: `${format.name(plugin.name)} (${format.version(plugin)})`,
-    subtitle: format.description(plugin.description),
+    subtitle: format.description(plugin.description || ''),
     onSelect: () => shell.openExternal(plugin.repo),
     getPreview: () => (
       <Preview

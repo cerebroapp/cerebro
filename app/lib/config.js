@@ -34,6 +34,8 @@ const defaultSettings = memoize(() => {
     lastShownDonateDialog: null,
     plugins: {},
     isMigratedPlugins: false,
+    trackingEnabled: true,
+    crashreportingEnabled: true,
     openAtLogin: true
   }
 })

@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "chokidar": "^1.6.1",
-    "electron-updater": "^1.15.0",
+    "electron-updater": "^2.17.6",
     "nodobjc": "^2.1.0",
     "rmdir": "^1.2.0",
     "semver": "^5.3.0",

@@ -22,9 +22,10 @@ const actions = searchInjector({
   electron: {},
   plugins: pluginsMock,
   'lib/config': {},
-  'lib/plugins': {
-    get: () => undefined
-  }
+  // 'lib/plugins': {
+  //   get: () => undefined
+  // },
+  'lib/initializePlugins': {}
 })
 
 describe('reset', () => {

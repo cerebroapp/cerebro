@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import plugins from 'plugins'
 import { on, send } from 'lib/rpc'
 import { modulesDirectory } from 'lib/plugins'
+import { getSettings } from 'lib/initializePlugins'
 
 require('fix-path')()
 
@@ -28,7 +29,7 @@ on('initializePluginAsync', ({ name }) => {
         name,
         data,
       })
-    })
+    }, getSettings(name))
   } catch (err) {
     console.log('Failed', err)
   }

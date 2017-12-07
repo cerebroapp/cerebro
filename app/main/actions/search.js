@@ -1,7 +1,8 @@
 import plugins from 'plugins'
 import config from 'lib/config'
 import { shell, clipboard, remote } from 'electron'
-import { settings as pluginSettings } from 'lib/plugins'
+import { getSettings } from 'lib/initializePlugins'
+
 import store from '../store'
 
 import {
@@ -29,17 +30,6 @@ const DEFAULT_SCOPE = {
     replaceTerm: term => store.dispatch(updateTerm(term)),
     hideWindow: () => remote.getCurrentWindow().hide()
   }
-}
-
-const getSettings = (name) => {
-  const settings = pluginSettings.get(name) || {}
-  if (plugins[name].settings) {
-    // Provide default values if nothing is set by user
-    Object.keys(plugins[name].settings).forEach((key) => {
-      settings[key] = settings[key] || plugins[name].settings[key].defaultValue
-    })
-  }
-  return settings
 }
 
 /**

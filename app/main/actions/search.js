@@ -1,7 +1,7 @@
 import plugins from 'plugins'
 import config from 'lib/config'
 import { shell, clipboard, remote } from 'electron'
-import { getSettings } from 'lib/initializePlugins'
+import { settings as pluginSettings } from 'lib/plugins'
 
 import store from '../store'
 
@@ -47,7 +47,7 @@ const eachPlugin = (term, display) => {
         hide: id => store.dispatch(hideElement(`${name}-${id}`)),
         update: (id, result) => store.dispatch(updateElement(`${name}-${id}`, result)),
         display: payload => display(name, payload),
-        settings: getSettings(name)
+        settings: pluginSettings.getUserSettings(name)
       })
     } catch (error) {
       // Do not fail on plugin errors, just log them to console

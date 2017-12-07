@@ -1,7 +1,7 @@
 import config from 'lib/config'
 import plugins from 'plugins'
 
-const getSettings = (pluginName) => config.get('plugins')[pluginName] || {}
+const getSettings = pluginName => config.get('plugins')[pluginName] || {}
 
 const getUserSettings = (pluginName) => {
   const settings = getSettings(pluginName)

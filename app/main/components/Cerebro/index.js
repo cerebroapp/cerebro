@@ -291,6 +291,8 @@ class Cerebro extends Component {
     trackSelectItem(item.plugin)
     const event = wrapEvent(realEvent)
     if (!event.defaultPrevented) {
+      this.electronWindow.blur() // Windows needs blurring to happen twice For
+      this.electronWindow.blur() // Some reason
       this.electronWindow.hide()
     }
     item.onSelect(event)

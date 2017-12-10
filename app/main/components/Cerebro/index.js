@@ -290,10 +290,10 @@ class Cerebro extends Component {
     this.props.actions.reset()
     trackSelectItem(item.plugin)
     const event = wrapEvent(realEvent)
+    item.onSelect(event)
     if (!event.defaultPrevented) {
       this.electronWindow.hide()
     }
-    item.onSelect(event)
   }
 
   /**

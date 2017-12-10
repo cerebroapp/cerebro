@@ -247,6 +247,8 @@ class Cerebro extends Component {
         break
       case 27:
         this.props.actions.reset()
+        this.electronWindow.blur() // Needs to be blurred twice on Windows
+        this.electronWindow.blur() // To restore focus correctly
         this.electronWindow.hide()
         break
     }
@@ -291,8 +293,8 @@ class Cerebro extends Component {
     trackSelectItem(item.plugin)
     const event = wrapEvent(realEvent)
     if (!event.defaultPrevented) {
-      this.electronWindow.blur() // Windows needs blurring to happen twice For
-      this.electronWindow.blur() // Some reason
+      this.electronWindow.blur() // Needs to be blurred twice on Windows
+      this.electronWindow.blur() // To restore focus correctly
       this.electronWindow.hide()
     }
     item.onSelect(event)

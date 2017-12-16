@@ -31,3 +31,6 @@ test_script:
 
 on_success:
   - yarn run package
+
+cache:
+ - "%LOCALAPPDATA%\\Yarn"

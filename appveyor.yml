@@ -16,7 +16,6 @@ init:
 install:
   - ps: Install-Product node 8 x64
   - set CI=true
-  - npm install -g yarn
   - yarn
 
 build: off

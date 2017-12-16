@@ -202,20 +202,19 @@
     "normalize.css": "^7.0.0",
     "postcss": "^6.0.6",
     "react": "^15.6.1",
-    "react-addons-css-transition-group": "^15.6.0",
-    "react-addons-shallow-compare": "^15.6.0",
+    "react-transition-group": "^2.2.1",
     "react-dom": "^15.6.1",
     "react-input-autosize": "^1.1.0",
     "react-markdown": "^2.5.0",
-    "react-redux": "^5.0.5",
+    "react-redux": "^5.0.6",
     "react-select":"^1.1.0",
-    "react-virtualized": "https://registry.npmjs.org/react-virtualized/-/react-virtualized-7.11.8.tgz",
+    "react-virtualized": "9.13.0",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
     "source-map-support": "^0.4.15",
     "tar-fs": "1.15.0"
   },
   "devEngines": {
-    "node": ">=6.x"
+    "node": ">=8.x"
   }
 }

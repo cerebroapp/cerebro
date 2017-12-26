@@ -1,7 +1,7 @@
 {
   "name": "cerebro",
   "productName": "Cerebro",
-  "description": "Extendable electron-based open-source Spolight and Alfred analogue",
+  "description": "Extendable electron-based open-source Spotlight and Alfred analogue",
   "version": "0.3.2",
   "main": "./main.js",
   "license": "MIT",
@@ -11,7 +11,7 @@
     "url": "https://github.com/KELiON"
   },
   "scripts": {
-    "rebuild": "npm rebuild --runtime=electron --target=1.7.10 --disturl=https://atom.io/download/electron --abi=53"
+    "rebuild": "npm rebuild --runtime=electron --target=1.7.10 --disturl=https://atom.io/download/electron --abi=59"
   },
   "dependencies": {
     "chokidar": "^1.7.0",

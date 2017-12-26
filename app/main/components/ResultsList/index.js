@@ -12,6 +12,7 @@ class ResultsList extends Component {
     super(props)
     this.rowRenderer = this.rowRenderer.bind(this)
   }
+
   rowRenderer({ index }) {
     const result = this.props.results[index]
     const attrs = {
@@ -34,7 +35,7 @@ class ResultsList extends Component {
           onItemHover(index)
         }
       },
-      key: result.id,
+      key: result.id
     }
     return <Row {...attrs} />
   }
@@ -61,24 +62,34 @@ class ResultsList extends Component {
     }
     return (
       <div className={styles.wrapper}>
-        <List
-          ref="list"
-          className={classNames}
-          height={visibleResults * RESULT_HEIGHT}
-          overscanRowCount={2}
-          rowCount={results.length}
-          rowHeight={RESULT_HEIGHT}
-          rowRenderer={this.rowRenderer}
-          width={10000}
-          scrollToIndex={selected}
-          // Needed to force update of VirtualScroll
-          titles={results.map(result => result.title)}
-          // Disable accesebility of VirtualScroll by tab
-          tabIndex={null}
-        />
-        <div className={styles.preview} id="preview">
-          {this.renderPreview()}
-        </div>
+        <InfiniteLoader
+          isRowLoaded={isRowLoaded}
+          loadMoreRows={loadMoreRows}
+          rowCount={rowCount}
+        >
+          {({ onRowsRendered, registerChild }) => (
+            <List
+              ref={registerChild}
+              onRowsRendered={onRowsRendered}
+              rowRenderer={rowRenderer}
+              className={classNames}
+              height={visibleResults * RESULT_HEIGHT}
+              overscanRowCount={2}
+              rowCount={results.length}
+              rowHeight={RESULT_HEIGHT}
+              rowRenderer={this.rowRenderer}
+              width={10000}
+              scrollToIndex={selected}
+              // Needed to force update of VirtualScroll
+              titles={results.map(result => result.title)}
+              // Disable accesebility of VirtualScroll by tab
+              tabIndex={null}
+            />
+          )}
+          <div className={styles.preview} id="preview">
+            {this.renderPreview()}
+          </div>
+        </InfiniteLoader>
       </div>
     )
   }
@@ -90,7 +101,7 @@ ResultsList.propTypes = {
   visibleResults: PropTypes.number,
   onItemHover: PropTypes.func,
   onSelect: PropTypes.func,
-  mainInputFocused: PropTypes.bool,
+  mainInputFocused: PropTypes.bool
 }
 
 export default ResultsList

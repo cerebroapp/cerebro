@@ -1,12 +1,13 @@
 import { on, send } from 'lib/rpc'
 import plugins from 'plugins'
+import { settings as pluginSettings } from 'lib/plugins'
 
 export const initializePlugin = (name) => {
   const { initialize, initializeAsync } = plugins[name]
   if (initialize) {
     // Foreground plugin initialization
     try {
-      initialize()
+      initialize(pluginSettings.getUserSettings(name))
     } catch (e) {
       console.error(`Failed to initialize plugin: ${name}`, e)
     }

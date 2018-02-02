@@ -1,4 +1,4 @@
-import get from './get'
+import getUserSettings from './get'
 import validate from './validate'
 
-export default { get, validate }
+export default { getUserSettings, validate }

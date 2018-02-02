@@ -23,7 +23,7 @@ const actions = searchInjector({
   plugins: pluginsMock,
   'lib/config': {},
   'lib/plugins': {
-    get: () => undefined
+    getUserSettings: () => undefined
   }
 })
 

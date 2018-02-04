@@ -18,7 +18,7 @@ module.exports = {
         modulePath.match(/node_modules/) && !modulePath.match(/node_modules(\/|\\)cerebro-ui/)
       )
     }, {
-      test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3|\.(eot|svg|ttf|woff|woff2)$/,
+      test: /\.(jpe?g|gif|png|svg)$|\.(wav|mp3)$|\.(eot|svg|ttf|woff|woff2)$/,
       use: ['url-loader']
     }]
   },

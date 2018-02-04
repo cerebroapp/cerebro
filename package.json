@@ -205,6 +205,7 @@
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",
     "react-dom": "^15.6.1",
+    "react-fontawesome": "^1.6.1",
     "react-input-autosize": "^1.1.0",
     "react-markdown": "^2.5.0",
     "react-redux": "^5.0.5",

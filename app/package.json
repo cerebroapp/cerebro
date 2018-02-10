@@ -11,14 +11,14 @@
     "url": "https://github.com/KELiON"
   },
   "scripts": {
-    "rebuild": "npm rebuild --runtime=electron --target=1.7.10 --disturl=https://atom.io/download/electron --abi=59"
+    "rebuild": "npm rebuild --runtime=electron --disturl=https://atom.io/download/electron"
   },
   "dependencies": {
-    "chokidar": "^1.7.0",
-    "electron-updater": "^2.17.6",
+    "chokidar": "^2.0.1",
+    "electron-updater": "^2.20.1",
     "nodobjc": "^2.1.0",
     "rmdir": "^1.2.0",
-    "semver": "^5.4.1",
+    "semver": "^5.5.0",
     "universal-analytics": "^0.4.16"
   },
   "optionalDependencies": {},

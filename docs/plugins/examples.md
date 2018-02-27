@@ -53,7 +53,7 @@ const plugin = (scope) => {
 }
 
 module.exports = {
-  name: 'Search emojis...'
+  name: 'Search emojis...',
   fn: plugin,
   keyword: 'emoj'
 }

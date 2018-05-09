@@ -7,7 +7,7 @@ import { flow, lowerCase, words, capitalize, trim, map, join } from 'lodash/fp'
  * @return {String}
  */
 const removeNoise = (str) => (
-  str.replace(/^cerebro\s?(plugin)?\s?(to|for)?/i, '')
+  (str || '').replace(/^cerebro\s?(plugin)?\s?(to|for)?/i, '')
 )
 
 export const name = flow(

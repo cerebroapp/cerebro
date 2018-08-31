@@ -364,7 +364,7 @@ class Cerebro extends Component {
   render() {
     const { mainInputFocused } = this.state
     return (
-      <div className={styles.search}>
+      <div className={styles.search} onClick={function (){alert}}>
         {this.renderAutocomplete()}
         <div className={styles.inputWrapper}>
           <MainInput

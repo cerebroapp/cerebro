@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\main",
+    "\\main\\actions",
+    "\\main\\components",
+    "\\main\\components\\Cerebro",
+    "\\main\\components\\MainInput",
+    "\\main\\components\\ResultsList",
+    "\\main\\components\\StatusBar"
+  ],
+  "SelectedNode": "\\main\\main.js",
+  "PreviewInSolutionExplorer": false
+}

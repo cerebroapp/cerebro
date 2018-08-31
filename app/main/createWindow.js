@@ -25,7 +25,6 @@ export default ({ src, isDev }) => {
     x,
     y,
     frame: false,
-      transparent: true,
     resizable: false,
     // Show main window on launch only when application started for the first time
     show: config.get('firstStart')

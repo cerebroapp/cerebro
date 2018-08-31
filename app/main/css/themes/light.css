@@ -33,5 +33,6 @@
   --result-height: 57px;
   --preview-left: 250px;
   --result-list-image-padding:5px;
+    --result-list-image-size: 30px;
     --subtitle-padding: 0px;
 }

@@ -26,7 +26,7 @@
 }
 
 .title {
-  font-size: 0.8em;
+  font-size: .8em;
   max-width: 100%;
   /* overflow-x: hidden; */
   color: var(--result-title-color);

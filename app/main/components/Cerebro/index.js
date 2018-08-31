@@ -367,7 +367,9 @@ class Cerebro extends Component {
       <div className={styles.search}>
         {this.renderAutocomplete()}
         <div className={styles.inputWrapper}>
-          <MainInput
+          <div className={styles.test}>
+              <img className={styles.testimage} src={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALhSURBVGhD7dlJqE5hHMfx1ywWhosFSmFBGe5WmXYiRKaIhSIbSddQQpIhKwlZSWYyr6XIksiQKZayIEmRefj+yql//851T+/zPMd79P7qs7jd7vM//zM853nOrTXTTGNmFNbhMp7hA3798Qa3cRhL0QcNlS5YhFvIDrqIzziFsfjnmYB7yDvQon5CV6kFpacTtuI78g7O0pnXweb9znqJiSgtXXEceQfzDdewGuMwEEo3DMEU7MET5P29mp6P5NGVOAl/ADrjpzESRTMLj+DH0lWejaTZAl9Ys9FU1BNNFDvgb72P0BVNEj3Y/pl4jOEIzUJ8gR+7B6JGZ87PTq8Ro4ksK2DHl82ImsWwBXQr1Hs7/S2HYOu8Q19Ei3/Z6cFOkX54C1tLK4UoGQ078FeMQKqsh613H1HiB76KlBkEP6kMRXCuwA6ql13q3IStuQTBeQ476Bikjt4ttuZOBOcT7KBlLO5WwdY8hqBoSWIH1FqojMyBrXsJwbED6iHUyzF1FsDW1fouOHop2UEHI3XWwtbci+DchR20jD3DAdiaGxCcI7CD7kLqvICtOQnBWQY7qPYQKaM9vK2nDxjdEZz+0GxlB5+BVNFUa2tdRLScgR38ATojdsbjB2ytqKvsVvhd3DbETC/cga2hn6PnKGwRNTYPMaIX71nY8XVltCuNngF4BVtMz85yhERXwjch+5Esk+H31qJ5v56dnJ4JfztlzkOfkZJFS+q8D3P6mtKGIotKraB1q/oH20vezFz4VXFGTV7HdqzETOhZWoN98NuCjlxA0mY0kz1FXvHY1EyUl2J76Ql9tHuPvAMoQs/INPidqJe8GUVfPzbiIfIOwtNsdw7ToalX0UE2RDNZhkHrs904AW2KtDI4iE3Qm7o38lKkGS1ZSmsmJEWa0clpNlN2ijSj/1X+N83o981myk5HzdyAFp+VSHvNVKqJLL6ZSjaRJWum0k1kUTOVb6KZCqZW+w1w1tdLnXK2BgAAAABJRU5ErkJggg=="}></img>
+                  </div><MainInput
             value={this.props.term}
             ref="mainInput"
             onChange={this.props.actions.updateTerm}

@@ -20,3 +20,9 @@ body {
 #root {
   height: 100%;
 }
+
+--input-height: 45px;
+--input-padding: 0 10px;
+--result-height: 57px;
+--preview-left: 250px;
+--result-list-image-padding: 5px;

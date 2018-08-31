@@ -25,11 +25,12 @@
   display: flex;
   max-height: 100%;
   position: absolute;
-  left: 250px;
+  left: var(--preview-left);
   top: 0;
   bottom: 0;
   right: 0;
   overflow: auto;
+  border-left: var(--main-border);
   /*
     Instead of using `justify-content: center` we have to use this hack.
     In this case child element that is bigger than `.preview ` will be placed on left border
@@ -85,4 +86,22 @@
       }
     }
   }
+    
+    
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #555555; 
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: grey; 
+    border-radius: 7px;
+}
+
 }

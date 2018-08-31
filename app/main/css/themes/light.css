@@ -27,4 +27,11 @@
 
   /* filter for previews */
   --preview-filter: none;
+    
+  --input-height: 45px;
+  --input-padding: 0 10px;
+  --result-height: 57px;
+  --preview-left: 250px;
+  --result-list-image-padding:5px;
+    --subtitle-padding: 0px;
 }

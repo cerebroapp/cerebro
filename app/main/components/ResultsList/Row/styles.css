@@ -11,21 +11,22 @@
   width: 100%;
   cursor: pointer;
   box-sizing: border-box;
-  height: 45px;
-  padding: 3px 5px;
+  height: var(--result-height);
+  padding-top: 3px;
+  padding-left: var(--result-list-image-padding);
   align-items: center;
   color: var(--main-font-color);
   background: var(--result-background);
 }
 
 .icon {
-  max-height: 30px;
-  max-width: 30px;
-  margin-right: 5px;
+  max-height: var(--result-list-image-size);
+  max-width: var(--result-list-image-size);
+  margin-right: var(--result-list-image-padding);
 }
 
 .title {
-  font-size: .8em;
+  font-size: 0.8em;
   max-width: 100%;
   /* overflow-x: hidden; */
   color: var(--result-title-color);
@@ -37,6 +38,7 @@
   font-weight: 300;
   color: var(--result-subtitle-color);
   max-width: 100%;
+  padding-top: var(--subtitle-padding);
   /* overflow-x: hidden; */
 }
 

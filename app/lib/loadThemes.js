@@ -14,6 +14,10 @@ export default () => {
     {
       value: `${prefix}dist/main/css/themes/dark.css`,
       label: 'Dark'
+    },
+    {
+      value: `${prefix}dist/main/css/themes/spotlight.css`,
+      label: 'Spotlight'
     }
   ]
 }

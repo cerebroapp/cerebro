@@ -1,8 +1,8 @@
 // Height of main input
-export const INPUT_HEIGHT = 45
+export const INPUT_HEIGHT = 57 // previous 45
 
 // Heigth of default result line
-export const RESULT_HEIGHT = 45
+export const RESULT_HEIGHT = 54 // previous 45
 
 // Width of main window
 export const WINDOW_WIDTH = 650

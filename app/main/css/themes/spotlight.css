@@ -1,0 +1,38 @@
+:root {
+  /* Main fonts and colors */
+  --main-background-color: #f0f0f0;
+  --main-font: system;
+  --main-font-color: #000000;
+
+  /* border styles */
+  --main-border: 1px solid #dbdbdb;
+
+  /* Secondary fonts and colors */
+  --secondary-font-color: #7e7e7e;
+
+  /* results list */
+  --result-background: transparent;
+  --result-title-color: var(--main-font-color);
+  --result-subtitle-color: #555555;
+
+  /* selected result */
+  --selected-result-title-color: #efefef;
+  --selected-result-subtitle-color: #d0d0d0;
+  --selected-result-background: rgb(0, 105, 217);
+
+  /* inputs */
+  --preview-input-background: white;
+  --preview-input-color: var(--main-font-color);
+  --preview-input-border: 1px solid #ccc;
+
+  /* filter for previews */
+  --preview-filter: none;
+    
+  --input-height: 57px  !important;
+  --input-padding: 0 20px !important;
+  --result-height:54px  !important;
+  --preview-left:340px  !important;
+  --result-list-image-padding: 20px;
+  --result-list-image-size: 35px;
+  --subtitle-padding: 6px;
+}

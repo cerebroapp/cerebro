@@ -1,12 +1,12 @@
 .input {
   width: 100%;
-  height: 45px;
+  height: var(--input-height);
   color: var(--main-font-color);
   font-family: var(--main-font);
   font-size: 1.5em;
   border: 0;
   outline: none;
-  padding: 0 10px;
+  padding: var(--input-padding);
   line-height: 60px;
   box-sizing: border-box;
   background: transparent;

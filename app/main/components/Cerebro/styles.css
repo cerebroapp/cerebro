@@ -10,7 +10,8 @@
   z-index: 2;
   width: 100%;
   height: var(--input-height);
-    display: flex;
+  /*display: flex;*/
+
 }
 
 .autocomplete {
@@ -24,16 +25,15 @@
   box-sizing: border-box;
   color: var(--secondary-font-color);
   white-space: pre;
+  top: var(--autocomplete-top);
 }
 
 .test{
-    width:0px;
+    position:absolute;
   height: var(--input-height);
   color: var(--main-font-color);
-
   -webkit-app-region: drag;
   -webkit-user-select: none;
-  background-color: red;
 }
 
 .testimage{

@@ -29,7 +29,9 @@
   --preview-filter: none;
     
   --input-height: 57px  !important;
-  --input-padding: 0 71px !important;
+  --autocomplete-top: -2px;
+  --input-padding: 0 72px 3px!important;
+
   --result-height:54px  !important;
   --preview-left:340px  !important;
   --result-list-image-padding: 20px;

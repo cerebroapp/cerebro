@@ -10,7 +10,7 @@
 ## Usage
 You can download the latest version on  [releases](https://github.com/KELiON/cerebro/releases) page.
 
-After installation use default shortcut `ctrl+space` to show an app window. You can customize this shortcut clicking on icon in menu bar → preferences.
+After installation use the default shortcut <kbd>ctrl</kbd><kbd>space</kbd> to show an app window. You can customize this shortcut clicking on icon in menu bar → preferences.
 
 ![Cerebro](https://cloud.githubusercontent.com/assets/594298/20180624/858a483a-a75b-11e6-94a1-ef1edc4d95c3.gif)
 
@@ -85,7 +85,6 @@ Follow to be notified about new releases or learn some productivity tips with Ce
 
 * [Twitter](https://twitter.com/cerebro_app)
 * [Facebook](https://www.facebook.com/cerebroapp)
-* [Google+](https://plus.google.com/104292436165594177472)
 * [VK.com](https://vk.com/cerebroapp) – channel in Russian
 
 Or [subscribe to newsletter](http://eepurl.com/coiKU9) to be notified only about big releases.

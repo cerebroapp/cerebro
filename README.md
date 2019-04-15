@@ -62,6 +62,12 @@ After `yarn` postinstall script checks node version. If you see this error you h
 2. `Uncaught Error: Module version mismatch. Exepcted 50, got ...`
 This error means that node modules with native extensions build with wrong node version (your local node version != node version, included to electron). To fix this issue run `cd ./app && yarn run rebuild`
 
+### Change Theme
+
+Use shortcut `ctrl+space` to open app window and type `Cerebro Settings`. There you will be able to change the Theme (Currently Light and Dark Themes are supported out of the box)
+
+![change-cerebro-theme](https://user-images.githubusercontent.com/24854406/56137765-5880ca00-5fb7-11e9-86d0-e740de1127c2.gif)
+
 #### Config file path
 
 

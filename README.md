@@ -35,7 +35,7 @@ open it in the terminal configuration file path, go to the plugins folder
 cd ./plugins
 ```
 
-Install the pluggin
+Install the plugin
 
  ```bash
  npm install --save name-of-plugin

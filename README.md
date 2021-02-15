@@ -27,6 +27,20 @@ Use built-in `plugins` command to search and manage custom plugins.
 
 Discover plugins and more at [Cerebro's Awesome List](https://github.com/lubien/awesome-cerebro).
 
+You can install them manually using npm
+
+open it in the terminal configuration file path, go to the plugins folder
+
+```bash
+cd ./plugins
+```
+
+Install the plugin
+
+ ```bash
+ npm install --save name-of-plugin
+ ``` 
+
 ## Development
 
 If you have any questions feel free to chat in gitter: https://gitter.im/KELiON-cerebro.

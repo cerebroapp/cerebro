@@ -1,5 +1,5 @@
 /* eslint no-console: 0 */
-
+require('dotenv').config()
 const express = require('express')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -9,7 +9,7 @@ const config = require('./webpack.config.development')
 
 const app = express()
 const compiler = webpack(config)
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 const wdm = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,

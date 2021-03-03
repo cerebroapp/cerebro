@@ -20,6 +20,17 @@
   --selected-result-subtitle-color: var(--result-subtitle-color);
   --selected-result-background: rgba(18, 110, 219, 1);
 
+  /* scrollbar */
+  --scroll-background: var(--main-background-color);
+  --scroll-track: #e0e0e0;
+  --scroll-track-active: var(--scroll-track);
+  --scroll-track-hover: var(--scroll-track);
+  --scroll-thumb: var(--secondary-font-color);
+  --scroll-thumb-hover: var(--scroll-thumb);
+  --scroll-thumb-active: var(--main-font-color);
+  --scroll-width: 5px;
+  --scroll-height: 5px;
+
   /* inputs */
   --preview-input-background: white;
   --preview-input-color: var(--main-font-color);

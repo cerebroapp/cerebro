@@ -28,7 +28,10 @@ export default ({ width, heightWithResults }) => {
     ? heightWithResults
     : MIN_VISIBLE_RESULTS * RESULT_HEIGHT + INPUT_HEIGHT
 
-  const display = screen.getPrimaryDisplay()
+  const display = screen.getDisplayNearestPoint(
+    screen.getCursorScreenPoint()
+  )
+
   const positions = config.get('positions') || {}
 
   if (display.id in positions) {

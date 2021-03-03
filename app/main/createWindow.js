@@ -69,7 +69,10 @@ export default ({ src, isDev }) => {
     if (!mainWindow.isVisible()) {
       return
     }
-    const display = screen.getPrimaryDisplay()
+    const display = screen.getDisplayNearestPoint(
+      screen.getCursorScreenPoint()
+    )
+
     const positions = config.get('positions') || {}
     positions[display.id] = mainWindow.getPosition()
     config.set('positions', positions)

@@ -57,7 +57,7 @@ export default ({ src, isDev }) => {
   globalShortcut.register(shortcut, toggleMainWindow)
 
   mainWindow.on('blur', () => {
-    if (!isDev()) {
+    if (!isDev() && config.get('hideOnBlur')) {
       // Hide window on blur in production
       // In development we usually use developer tools that can blur a window
       mainWindow.hide()

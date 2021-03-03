@@ -30,6 +30,7 @@ const defaultSettings = memoize(() => {
     firstStart: true,
     developerMode: false,
     cleanOnHide: true,
+    hideOnBlur: true,
     skipDonateDialog: false,
     lastShownDonateDialog: null,
     plugins: {},

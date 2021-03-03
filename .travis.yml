@@ -10,7 +10,7 @@ branches:
 matrix:
   include:
     - os: linux
-      node_js: 7
+      node_js: 8
       env: CC=clang CXX=clang++ npm_config_clang=1
       compiler: clang
 

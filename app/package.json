@@ -10,6 +10,9 @@
     "email": "kelionweb@gmail.com",
     "url": "https://github.com/KELiON"
   },
+  "contributors": [
+		"Gustavo Pereira"
+	],
   "scripts": {
     "rebuild": "npm rebuild --runtime=electron --target=1.6.11 --disturl=https://atom.io/download/electron --abi=53"
   },

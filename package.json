@@ -104,7 +104,7 @@
       "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.editorconfig,.flowconfig,.yarn-metadata.json,.idea,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}"
     ],
     "squirrelWindows": {
-      "iconUrl": "https://raw.githubusercontent.com/KELiON/cerebro/master/build/icon.ico"
+      "iconUrl": "https://raw.githubusercontent.com/cerebroapp/cerebro/master/build/icon.ico"
     },
     "publish": {
       "provider": "github",
@@ -116,18 +116,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KELiON/cerebro.git"
+    "url": "git+https://github.com/cerebroapp/cerebro.git"
   },
   "author": {
     "name": "Alexandr Subbotin",
     "email": "kelionweb@gmail.com",
     "url": "https://github.com/KELiON"
   },
+  "contributors": [
+		"Gustavo Pereira"
+	],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/KELiON/cerebro/issues"
+    "url": "https://github.com/cerebroapp/cerebro/issues"
   },
   "keywords": [
+    "cerebro",
+    "cerebroapp",
     "launcher",
     "electron",
     "alfred",

@@ -20,11 +20,22 @@
   --selected-result-subtitle-color: var(--result-subtitle-color);
   --selected-result-background: #1972D6;
 
+  /* scrollbar */
+  --scroll-background: var(--main-background-color);
+  --scroll-track: #2E2E2C;
+  --scroll-track-active: var(--scroll-track);
+  --scroll-track-hover: var(--scroll-track);
+  --scroll-thumb: var(--secondary-font-color);
+  --scroll-thumb-hover: var(--scroll-thumb);
+  --scroll-thumb-active: var(--main-font-color);
+  --scroll-width: 5px;
+  --scroll-height: 5px;
+
   /* inputs */
   --preview-input-background: #2E2E2C;
   --preview-input-color: var(--main-font-color);
   --preview-input-border: 0;
 
   /* filter for previews */
-  --preview-filter: invert(100%) hue-rotate(180deg) contrast(80%);;
+  --preview-filter: invert(100%) hue-rotate(180deg) contrast(80%);
 }

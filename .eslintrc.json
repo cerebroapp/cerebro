@@ -3,8 +3,8 @@
   "extends": "airbnb",
   "env": {
     "browser": true,
-    "mocha": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "rules": {
     "consistent-return": 0,
@@ -34,7 +34,12 @@
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/label-has-for": "off"
   },
-  "plugins": ["jsx-a11y", "import", "react"],
+  "plugins": [
+    "jsx-a11y",
+    "import",
+    "react",
+    "jest"
+  ],
   "settings": {
     "import/core-modules": "electron",
     "import/resolver": {

@@ -20,7 +20,7 @@ export const shouldShow = () => {
   return !lastShow || twoWeeksAgo() >= lastShow
 }
 
-/* eslint-disable max-len*/
+/* eslint-disable max-len */
 const messages = [
   'Developers try to make you happy with this free and open-source app. Make them happy too with your donation!'
 ]

@@ -27,8 +27,12 @@ export default ({ src, isDev }) => {
     frame: false,
     resizable: false,
     transparent: true,
+    show: config.get('firstStart'),
+    webPreferences: {
+      nodeIntegration: true,
+      nodeIntegrationInSubFrames: false,
+    },
     // Show main window on launch only when application started for the first time
-    show: config.get('firstStart')
   }
 
   if (process.platform === 'linux') {
@@ -70,6 +74,7 @@ export default ({ src, isDev }) => {
     if (!mainWindow.isVisible()) {
       return
     }
+
     const display = screen.getDisplayNearestPoint(
       screen.getCursorScreenPoint()
     )
@@ -146,15 +151,17 @@ export default ({ src, isDev }) => {
   app.on('activate', showMainWindow)
 
   // Someone tried to run a second instance, we should focus our window.
-  const shouldQuit = app.makeSingleInstance(() => {
-    if (mainWindow) {
-      if (mainWindow.isMinimized()) mainWindow.restore()
-      mainWindow.focus()
-    }
-  })
+  const shouldQuit = app.requestSingleInstanceLock()
 
-  if (shouldQuit) {
+  if (!shouldQuit) {
     app.quit()
+  } else {
+    app.on('second-instance', () => {
+      if (mainWindow) {
+        if (mainWindow.isMinimized()) mainWindow.restore()
+        mainWindow.focus()
+      }
+    })
   }
 
   if (donateDialog.shouldShow()) {

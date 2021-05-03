@@ -26,10 +26,13 @@ if (process.env.NODE_ENV !== 'development') {
   // Set up crash reporter before creating windows in production builds
   if (config.get('crashreportingEnabled')) {
     crashReporter.start({
+      globalExtra: {
+        _companyName: 'Cerebro',
+      },
       productName: 'Cerebro',
-      companyName: 'Cerebro',
       submitURL: 'http://crashes.cerebroapp.com/post',
-      autoSubmit: true
+      autoSubmit: true,
+      compress: false
     })
   }
 }

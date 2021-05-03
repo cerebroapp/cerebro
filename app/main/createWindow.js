@@ -31,6 +31,8 @@ export default ({ src, isDev }) => {
     webPreferences: {
       nodeIntegration: true,
       nodeIntegrationInSubFrames: false,
+      enableRemoteModule: true,
+      contextIsolation: false
     },
     // Show main window on launch only when application started for the first time
   }

@@ -115,6 +115,12 @@ export default ({ src, isDev }) => {
     })
   })
 
+  mainWindow.settingsChanges.on('proxy', (value) => {
+    mainWindow.webContents.session.setProxy({
+      proxyRules: value
+    })
+  })
+
   // Handle window.hide: if cleanOnHide value in preferences is true
   // we clear all results and show empty window every time
   const resetResults = () => {

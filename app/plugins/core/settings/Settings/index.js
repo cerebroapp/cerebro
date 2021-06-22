@@ -61,7 +61,7 @@ class Settings extends Component {
           label="Proxy"
           value={proxy}
           onChange={value => this.changeConfig('proxy', value)}
-        ></Text>
+        />
         <Checkbox
           label="Open at login"
           value={openAtLogin}

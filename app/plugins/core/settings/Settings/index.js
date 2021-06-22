@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import Hotkey from './Hotkey'
 import countries from './countries'
-import { Select, Checkbox, Wrapper } from 'cerebro-ui/Form'
+import { Select, Checkbox, Wrapper, Text } from 'cerebro-ui/Form'
 import loadThemes from 'lib/loadThemes'
 import styles from './styles.css'
 
@@ -14,6 +14,7 @@ class Settings extends Component {
       showInTray: get('showInTray'),
       country: get('country'),
       theme: get('theme'),
+      proxy: get('proxy'),
       developerMode: get('developerMode'),
       cleanOnHide: get('cleanOnHide'),
       pluginsSettings: get('plugins'),
@@ -31,7 +32,7 @@ class Settings extends Component {
   }
   render() {
     const {
-      hotkey, showInTray, country, theme, developerMode, cleanOnHide, openAtLogin,
+      hotkey, showInTray, country, theme, proxy, developerMode, cleanOnHide, openAtLogin,
       trackingEnabled, crashreportingEnabled
     } = this.state
 
@@ -55,6 +56,11 @@ class Settings extends Component {
           value={theme}
           options={loadThemes()}
           onChange={value => this.changeConfig('theme', value)}
+        />
+        <Text
+          label="Proxy"
+          value={proxy}
+          onChange={value => this.changeConfig('proxy', value)}
         />
         <Checkbox
           label="Open at login"

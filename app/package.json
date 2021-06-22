@@ -11,14 +11,14 @@
     "url": "https://github.com/KELiON"
   },
   "contributors": [
-		"Gustavo Pereira"
-	],
+    "Gustavo Pereira"
+  ],
   "scripts": {
     "rebuild": "npm rebuild --runtime=electron --target=1.6.11 --disturl=https://atom.io/download/electron --abi=53"
   },
   "dependencies": {
     "chokidar": "^1.6.1",
-    "electron-updater": "^1.15.0",
+    "electron-updater": "^4.3.9",
     "rmdir": "^1.2.0",
     "semver": "^5.3.0",
     "universal-analytics": "^0.4.8"

@@ -18,7 +18,7 @@
     "start": "cross-env NODE_ENV=production electron -r babel-register ./app",
     "start-hot": "yarn build-main-dev && cross-env HOT=1 NODE_ENV=development ./node_modules/.bin/electron -r babel-register ./app",
     "release": "build -mwl --draft",
-    "dev": "concurrently --kill-others \"yarn run hot-server\" \"yarn run start-hot\""
+    "dev": "yarn run hot-server & yarn run start-hot"
   },
   "build": {
     "productName": "Cerebro",
@@ -145,22 +145,21 @@
     "babel-preset-cerebro-plugin": "^0.0.17",
     "babel-preset-react-hmre": "1.1.1",
     "babel-register": "^6.24.1",
-    "concurrently": "^3.5.0",
     "copy-webpack-plugin": "4.0.1",
     "cross-env": "^5.0.2",
     "css-loader": "^0.28.4",
     "electron": "^13.1.3",
-    "electron-builder": "^22.11.7",
+    "electron-builder": "^22.13.1",
     "eslint": "^4.2.0",
     "eslint-config-airbnb": "^15.0.2",
     "eslint-import-resolver-webpack": "^0.8.3",
-    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-jsx-a11y": "^5.0.1",
-    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react": "^7.27.0",
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "^3.0.0",
-    "jest": "^20.0.4",
+    "jest": "^27.3.1",
     "lodash-webpack-plugin": "^0.11.4",
     "optimize-js-plugin": "0.0.4",
     "postcss-loader": "^2.0.6",
@@ -170,21 +169,20 @@
     "url-loader": "^0.5.9",
     "webpack": "^3.2.0",
     "webpack-dev-middleware": "^1.11.0",
-    "webpack-hot-middleware": "^2.18.2",
+    "webpack-hot-middleware": "^2.25.1",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "dependencies": {
     "auto-launch": "^5.0.1",
     "cerebro-tools": "0.1.8",
     "cerebro-ui": "^0.0.16",
-    "dotenv": "^8.2.0",
-    "escape-string-regexp": "1.0.5",
+    "dotenv": "^10.0.0",
+    "escape-string-regexp": "5.0.0",
     "fix-path": "^3.0.0",
     "lodash": "^4.17.4",
     "mv": "^2.1.1",
     "node-machine-id": "^1.1.8",
-    "normalize.css": "^7.0.0",
-    "postcss": "^6.0.6",
+    "normalize.css": "^8.0.1",
     "react": "^15.6.1",
     "react-addons-shallow-compare": "^15.6.0",
     "react-dom": "^15.6.1",
@@ -197,6 +195,6 @@
     "tar-fs": "1.15.0"
   },
   "devEngines": {
-    "node": ">=6.x"
+    "node": ">=16.x"
   }
 }

@@ -23,7 +23,6 @@ const defaultSettings = memoize(() => {
     locale,
     lang,
     country,
-    // use first theme from loadThemes by default
     theme: loadThemes()[0].value,
     hotkey: 'Control+Space',
     showInTray: true,

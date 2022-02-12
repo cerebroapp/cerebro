@@ -1,8 +1,6 @@
 const webpack = require('webpack');
 const baseConfig = require('./webpack.config.base');
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 const plugins = [
   new webpack.DefinePlugin({
     'process.env': {

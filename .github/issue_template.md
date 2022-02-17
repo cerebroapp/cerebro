@@ -7,8 +7,8 @@
 -->
 
 <!-- Checked checkbox should look like this: [x] -->
-- [ ] I am on the [latest](https://github.com/KELiON/cerebro/releases/latest) Cerebro.app version
-- [ ] I have searched the [issues](https://github.com/KELiON/cerebro/issues) of this repo and believe that this is not a duplicate
+- [ ] I am on the [latest](https://github.com/cerebroapp/cerebro/releases/latest) Cerebro.app version
+- [ ] I have searched the [issues](https://github.com/cerebroapp/cerebro/issues) of this repo and believe that this is not a duplicate
 
 <!--
   Once those are done, if you're able to fill in the following list with your information,

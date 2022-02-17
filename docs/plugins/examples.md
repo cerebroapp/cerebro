@@ -1,12 +1,12 @@
 # <a href="../plugins.md">Plugins</a> → Examples
 You always can check out source code of existing plugins, like:
 
-* [cerebro-math](https://github.com/KELiON/cerebro-math)
-* [cerebro-google](https://github.com/KELiON/cerebro-google)
-* [cerebro-emoj](https://github.com/KELiON/cerebro-emoj)
-* [cerebro-gif](https://github.com/KELiON/cerebro-gif)
-* [cerebro-kill](https://github.com/KELiON/cerebro-kill)
-* [cerebro-ip](https://github.com/KELiON/cerebro-ip)
+* [cerebro-math](https://github.com/cerebroapp/cerebro-math)
+* [cerebro-google](https://github.com/cerebroapp/cerebro-google)
+* [cerebro-emoj](https://github.com/cerebroapp/cerebro-emoj)
+* [cerebro-gif](https://github.com/cerebroapp/cerebro-gif)
+* [cerebro-kill](https://github.com/cerebroapp/cerebro-kill)
+* [cerebro-ip](https://github.com/cerebroapp/cerebro-ip)
 
 ### Using `id`
 ```js

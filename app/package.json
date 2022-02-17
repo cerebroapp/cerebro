@@ -2,7 +2,7 @@
   "name": "cerebro",
   "productName": "Cerebro",
   "description": "Extendable electron-based open-source Spotlight and Alfred analogue",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "main": "./main.js",
   "license": "MIT",
   "author": {

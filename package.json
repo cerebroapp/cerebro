@@ -1,7 +1,7 @@
 {
   "name": "cerebro",
   "productName": "cerebro",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Extendable electron-based open-source Spotlight and Alfred analogue",
   "main": "main.js",
   "scripts": {

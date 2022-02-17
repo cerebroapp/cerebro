@@ -8,7 +8,7 @@
 [![OpenCollective](https://opencollective.com/cerebro/sponsors/badge.svg)](#sponsors)
 
 ## Usage
-You can download the latest version on  [releases](https://github.com/KELiON/cerebro/releases) page.
+You can download the latest version on  [releases](https://github.com/cerebroapp/cerebro/releases) page.
 
 After installation use default shortcut `ctrl+space` to show an app window. You can customize this shortcut clicking on icon in menu bar → preferences.
 
@@ -41,10 +41,6 @@ Install the plugin
  npm install --save name-of-plugin
  ``` 
 
-## Development
-
-If you have any questions feel free to chat in gitter: https://gitter.im/KELiON-cerebro.
-
 ### Create plugin
 Check out [plugins documentation](./docs/plugins.md).
 
@@ -53,7 +49,7 @@ Check out [plugins documentation](./docs/plugins.md).
 First, clone the repo via git:
 
 ```bash
-$ git clone https://github.com/KELiON/cerebro.git cerebro
+$ git clone https://github.com/cerebroapp/cerebro.git cerebro
 ```
 
 And then install dependencies:
@@ -181,8 +177,3 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 
 ## License
 MIT © [Alexandr Subbotin](https://github.com/KELiON)
-
-[travis-image]: https://travis-ci.org/KELiON/cerebro.svg?branch=master
-[travis-url]: https://travis-ci.org/KELiON/cerebro
-[david_img]: https://img.shields.io/david/KELiON/cerebro.svg
-[david_site]: https://david-dm.org/KELiON/cerebro

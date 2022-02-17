@@ -4,7 +4,7 @@ import semver from 'semver'
 import https from 'https'
 
 const currentVersion = app.getVersion()
-const DEFAULT_DOWNLOAD_URL = 'https://github.com/KELiON/cerebro/releases'
+const DEFAULT_DOWNLOAD_URL = 'https://github.com/cerebroapp/cerebro/releases'
 
 const TITLE = 'Cerebro Updates'
 
@@ -31,7 +31,7 @@ const getLatestRelease = () => (
   new Promise((resolve, reject) => {
     const opts = {
       host: 'api.github.com',
-      path: '/repos/KELiON/cerebro/releases',
+      path: '/repos/cerebro/cerebro/releases',
       headers: {
         'User-Agent': `CerebroApp v${currentVersion}`
       }

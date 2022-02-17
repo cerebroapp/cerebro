@@ -2,11 +2,6 @@
 
 <img src="./build/icons/128x128.png" align="right"/>
 
-[![Build Status][travis-image]][travis-url]
-[![Dependency Status][david_img]][david_site]
-[![OpenCollective](https://opencollective.com/cerebro/backers/badge.svg)](#backers)
-[![OpenCollective](https://opencollective.com/cerebro/sponsors/badge.svg)](#sponsors)
-
 ## Usage
 You can download the latest version on  [releases](https://github.com/cerebroapp/cerebro/releases) page.
 
@@ -92,7 +87,7 @@ Use shortcut `ctrl+space` to open app window and type `Cerebro Settings`. There 
 Use this command to build `.app` file:
 
 ```bash
-$ yarn run package
+$ yarn build
 ```
 
 

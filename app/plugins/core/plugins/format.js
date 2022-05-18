@@ -1,26 +1,35 @@
-import { flow, lowerCase, words, capitalize, trim, map, join } from 'lodash/fp'
+import { flow, words, capitalize, trim, map, join } from 'lodash/fp'
 
 /**
- * Remove unnecessary information from plugin name or description
+ * Remove unnecessary information from plugin description
  * like `Cerebro plugin for`
  * @param  {String} str
  * @return {String}
  */
-const removeNoise = (str) => (
+const removeDescriptionNoise = (str) => (
   (str || '').replace(/^cerebro\s?(plugin)?\s?(to|for)?/i, '')
 )
 
-export const name = flow(
-  lowerCase,
-  removeNoise,
+
+/**
+ * Remove unnecessary information from plugin name
+ * like `cerebro-plugin-` or `cerebro-`
+ * @param  {String} str
+ * @return {String}
+ */
+const removeNameNoise = (str) => (
+  (str || '').replace(/^cerebro-(plugin)?-?/i, '')
+)
+
+export const name = (text = '') => flow(
   trim,
   words,
   map(capitalize),
   join(' ')
-)
+)(removeNameNoise(text.toLowerCase()))
 
 export const description = flow(
-  removeNoise,
+  removeDescriptionNoise,
   trim,
   capitalize,
 )

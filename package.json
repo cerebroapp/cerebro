@@ -1,7 +1,7 @@
 {
   "name": "cerebro",
   "productName": "cerebro",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "description": "Extendable electron-based open-source Spotlight and Alfred analogue",
   "main": "main.js",
   "scripts": {
@@ -114,7 +114,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cerebroapp/cerebro.git"
+    "url": "git+https://github.com/dubisdev/cerebro.git"
   },
   "author": {
     "name": "Alexandr Subbotin",
@@ -126,7 +126,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cerebroapp/cerebro/issues"
+    "url": "https://github.com/dubisdev/cerebro/issues"
   },
   "keywords": [
     "cerebro",

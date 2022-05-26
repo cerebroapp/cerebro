@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import plugins from 'plugins'
 import { on, send } from 'lib/rpc'
 import { settings as pluginSettings, modulesDirectory } from 'lib/plugins'
+import fixPath from 'fix-path'
 
-require('fix-path')()
+fixPath()
 
 global.React = React
 global.ReactDOM = ReactDOM

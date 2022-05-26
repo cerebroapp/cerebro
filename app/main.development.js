@@ -60,7 +60,7 @@ app.on('ready', () => {
     tray.show()
   }
 
-  autoStart.isEnabled().then(enabled => {
+  autoStart.isEnabled().then((enabled) => {
     if (config.get('openAtLogin') !== enabled) {
       autoStart.set(config.get('openAtLogin'))
     }
@@ -91,7 +91,7 @@ ipcMain.on('updateSettings', (event, key, value) => {
 
   // Enable or disable auto start
   if (key === 'openAtLogin') {
-    autoStart.isEnabled().then(enabled => {
+    autoStart.isEnabled().then((enabled) => {
       if (value !== enabled) {
         autoStart.set(value)
       }

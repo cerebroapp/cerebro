@@ -16,6 +16,7 @@
     "no-useless-escape": 0,
     "no-mixed-operators": "off",
     "no-continue": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
     "import/no-extraneous-dependencies": "off",
     "import/imports-first": "off",
     "import/extensions": "off",

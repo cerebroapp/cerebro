@@ -1,11 +1,11 @@
-import * as os from "os";
-import { dialog, } from 'electron'
-import { autoUpdater } from "electron-updater";
+import * as os from 'os'
+import { dialog } from 'electron'
+import { autoUpdater } from 'electron-updater'
 
 const event = 'update-downloaded'
 
 export default (w) => {
-  if (process.env.NODE_ENV === 'development' || os.platform() === "linux") {
+  if (process.env.NODE_ENV === 'development' || os.platform() === 'linux') {
     return
   }
 

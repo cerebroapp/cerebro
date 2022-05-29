@@ -1,4 +1,4 @@
-import { screen } from 'electron'
+import { remote } from 'electron'
 
 import {
   WINDOW_WIDTH,
@@ -17,7 +17,7 @@ export default ({ width, heightWithResults }) => {
     ? heightWithResults
     : MIN_VISIBLE_RESULTS * RESULT_HEIGHT + INPUT_HEIGHT
 
-  const display = screen.getPrimaryDisplay()
+  const display = remote.screen.getPrimaryDisplay()
 
   const x = parseInt(display.bounds.x + (display.workAreaSize.width - winWidth) / 2, 10)
   const y = parseInt(display.bounds.y + (display.workAreaSize.height - winHeight) / 2, 10)

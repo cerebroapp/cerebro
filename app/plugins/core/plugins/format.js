@@ -6,7 +6,7 @@ import { flow, words, capitalize, trim, map, join } from 'lodash/fp'
  * @param  {String} str
  * @return {String}
  */
-const removeDescriptionNoise = (str) => (
+const removeDescriptionNoise = str => (
   (str || '').replace(/^cerebro\s?(plugin)?\s?(to|for)?/i, '')
 )
 
@@ -17,7 +17,7 @@ const removeDescriptionNoise = (str) => (
  * @param  {String} str
  * @return {String}
  */
-const removeNameNoise = (str) => (
+const removeNameNoise = str => (
   (str || '').replace(/^cerebro-(plugin)?-?/i, '')
 )
 
@@ -34,7 +34,7 @@ export const description = flow(
   capitalize,
 )
 
-export const version = (plugin) => (
+export const version = plugin => (
   plugin.isUpdateAvailable ?
     `${plugin.installedVersion} → ${plugin.version}` :
     plugin.version

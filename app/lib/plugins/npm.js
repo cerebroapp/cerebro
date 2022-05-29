@@ -37,6 +37,7 @@ const formatPackageFile = header => ({
 
 const installPackage = (tarPath, destination, middleware) => {
   console.log(`Extract ${tarPath} to ${destination}`)
+
   return new Promise((resolve, reject) => {
     const packageName = path.parse(destination).name
     const tempPath = `${os.tmpdir()}/${packageName}`
@@ -84,35 +85,30 @@ export default (dir) => {
      *               to temp folder, but before moving to real location
      * @return {Promise}
      */
-    install(name, options = {}) {
+    async install(name, options = {}) {
       let versionToInstall
       const version = options.version || null
       const middleware = options.middleware || (() => Promise.resolve())
+
       console.group('[npm] Install package', name)
-      return fetch(`${API_BASE}${name}`)
-        .then(response => response.json())
-        .then((json) => {
-          versionToInstall = version || json['dist-tags'].latest
-          console.log('Version:', versionToInstall)
-          return installPackage(
-            json.versions[versionToInstall].dist.tarball,
-            path.join(dir, 'node_modules', name),
-            middleware
-          )
-        })
-        .then(() => {
-          const json = getConfig()
-          json.dependencies[name] = versionToInstall
-          console.log('Add package to dependencies')
-          setConfig(json)
-          console.groupEnd()
-        })
-        .catch((err) => {
-          console.log('Error in package installation')
-          console.log(err)
-          console.groupEnd()
-        })
+
+      try {
+        const json = await fetch(`${API_BASE}${name}`).then(response => response.json())
+
+        versionToInstall = version || json['dist-tags'].latest
+        console.log('Version:', versionToInstall)
+        return installPackage(
+          json.versions[versionToInstall].dist.tarball,
+          path.join(dir, 'node_modules', name),
+          middleware
+        )
+      } catch (err) {
+        console.log('Error in package installation')
+        console.log(err)
+        console.groupEnd()
+      }
     },
+
     update(name) {
       // Plugin update is downloading `.tar` and unarchiving it to temp folder
       // Only if this part was succeeded, current version of plugin is uninstalled
@@ -120,41 +116,39 @@ export default (dir) => {
       const middleware = () => this.uninstall(name)
       return this.install(name, { middleware })
     },
+
     /**
      * Uninstall npm package
      *
      * @param  {String} name
      * @return {Promise}
      */
-    uninstall(name) {
+    async uninstall(name) {
       const modulePath = path.join(dir, 'node_modules', name)
       console.group('[npm] Uninstall package', name)
       console.log('Remove package directory ', modulePath)
-      return removeDir(modulePath)
-        .then(() => {
-          const json = getConfig()
-          console.log('Update package.json')
-          json.dependencies = Object
-            .keys(json.dependencies || {})
-            .reduce((acc, key) => {
-              if (key !== name) {
-                return {
-                  ...acc,
-                  [key]: json.dependencies[key]
-                }
-              }
-              return acc
-            }, {})
-          console.log('Rewrite package.json')
-          setConfig(json)
-          console.groupEnd()
-          return true
-        })
-        .catch((err) => {
-          console.log('Error in package uninstallation')
-          console.log(err)
-          console.groupEnd()
-        })
+      try {
+        await removeDir(modulePath)
+
+        const json = getConfig()
+        console.log('Update package.json')
+        json.dependencies = Object
+          .keys(json.dependencies || {})
+          .reduce((acc, key) => {
+            if (key !== name) {
+              return { ...acc, [key]: json.dependencies[key] }
+            }
+            return acc
+          }, {})
+        console.log('Rewrite package.json')
+        setConfig(json)
+        console.groupEnd()
+        return true
+      } catch (err) {
+        console.log('Error in package uninstallation')
+        console.log(err)
+        console.groupEnd()
+      }
     }
   }
 }

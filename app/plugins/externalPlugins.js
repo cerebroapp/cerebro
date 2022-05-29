@@ -26,7 +26,7 @@ const requirePlugin = (pluginPath) => {
  * @param  {Object} plugin
  * @return {Boolean}
  */
-const isPluginValid = (plugin) => (
+const isPluginValid = plugin => (
   plugin &&
     // Check existing of main plugin function
     typeof plugin.fn === 'function' &&

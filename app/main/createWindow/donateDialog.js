@@ -20,19 +20,13 @@ export const shouldShow = () => {
   return !lastShow || twoWeeksAgo() >= lastShow
 }
 
-/* eslint-disable max-len */
 const messages = [
   'Developers try to make you happy with this free and open-source app. Make them happy too with your donation!'
 ]
 
-const buttons = [
-  ['Close', 'Make them happy']
-]
+const buttons = [['Close', 'Make them happy']]
+const skipMessages = ["I don't want to see this message again"]
 
-const skipMessages = [
-  "I don't want to see this message again",
-]
-/* eslint-enable max-len */
 
 export const show = () => {
   config.set('lastShownDonateDialog', now())
@@ -65,9 +59,7 @@ export const show = () => {
     if (id === 1) {
       track('choose-donate')
       donate()
-    } else {
-      track('cancel')
-    }
+    } else { track('cancel') }
   }
 
   setTimeout(() => {

@@ -88,7 +88,7 @@ ipcMain.on('updateSettings', (event, key, value) => {
   // Enable or disable auto start
   if (key === 'openAtLogin') {
     autoStart.isEnabled().then((enabled) => {
-      if (value !== enabled) { autoStart.set(value) }
+      if (value !== enabled) autoStart.set(value)
     })
   }
 })

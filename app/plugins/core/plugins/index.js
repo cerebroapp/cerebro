@@ -1,15 +1,15 @@
 import React from 'react'
-import Preview from './Preview'
 import { search } from 'cerebro-tools'
 import { shell } from 'electron'
+import { partition } from 'lodash'
+import { flow, map, partialRight, tap } from 'lodash/fp'
+import store from 'main/store'
+import * as statusBar from 'main/actions/statusBar'
 import loadPlugins from './loadPlugins'
 import icon from '../icon.png'
 import * as format from './format'
-import { flow, map, partialRight, tap } from 'lodash/fp'
-import { partition } from 'lodash'
+import Preview from './Preview'
 import initializeAsync from './initializeAsync'
-import store from '../../../main/store'
-import * as statusBar from '../../../main/actions/statusBar'
 
 const toString = ({ name, description }) => [name, description].join(' ')
 const categories = [
@@ -19,23 +19,22 @@ const categories = [
   ['Available', plugin => plugin.name],
 ]
 
-const updatePlugin = (update, name) => {
-  loadPlugins().then(plugins => {
-    const updatedPlugin = plugins.find(plugin => plugin.name === name)
-    update(name, {
-      title: `${format.name(updatedPlugin.name)} (${format.version(updatedPlugin)})`,
-      getPreview: () => (
-        <Preview
-          {...updatedPlugin}
-          key={Math.random()}
-          onComplete={() => updatePlugin(update, name)}
-        />
-      )
-    })
+const updatePlugin = async (update, name) => {
+  const plugins = await loadPlugins()
+  const updatedPlugin = plugins.find(plugin => plugin.name === name)
+  update(name, {
+    title: `${format.name(updatedPlugin.name)} (${format.version(updatedPlugin)})`,
+    getPreview: () => (
+      <Preview
+        {...updatedPlugin}
+        key={Math.random()}
+        onComplete={() => updatePlugin(update, name)}
+      />
+    )
   })
 }
 
-const pluginToResult = update => plugin => {
+const pluginToResult = update => (plugin) => {
   if (typeof plugin === 'string') {
     return { title: plugin }
   }
@@ -60,7 +59,7 @@ const categorize = (plugins, callback) => {
   const result = []
   let remainder = plugins
 
-  categories.forEach(category => {
+  categories.forEach((category) => {
     const [title, filter] = category
     const [matched, others] = partition(remainder, filter)
     if (matched.length) result.push(title, ...matched)

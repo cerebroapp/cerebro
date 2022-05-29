@@ -10,9 +10,7 @@ const components = {
 const FormItem = ({ type, ...props }) => {
   const Component = components[type] || Text
 
-  return (
-    <Component type={type} {...props} />
-  )
+  return <Component type={type} {...props} />
 }
 
 FormItem.propTypes = {

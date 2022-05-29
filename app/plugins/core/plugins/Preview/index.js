@@ -1,16 +1,18 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { KeyboardNav, KeyboardNavItem, Preload } from 'cerebro-ui'
+import { trackEvent } from 'lib/trackEvent'
+import { client } from 'lib/plugins'
+import plugins from 'plugins'
+import ReactMarkdown from 'react-markdown'
+
 import ActionButton from './ActionButton.js'
 import Settings from './Settings'
 import getReadme from '../getReadme'
-import ReactMarkdown from 'react-markdown'
 import styles from './styles.css'
-import { trackEvent } from 'lib/trackEvent'
 import * as format from '../format'
-import { client } from 'lib/plugins'
-import plugins from 'plugins'
 
-const isRelative = (src) => !src.match(/^(https?:|data:)/)
+const isRelative = src => !src.match(/^(https?:|data:)/)
 const urlTransform = (repo, src) => {
   if (isRelative(src)) {
     return `http://raw.githubusercontent.com/${repo}/master/${src}`
@@ -49,11 +51,11 @@ class Preview extends Component {
     return (
       <Preload promise={getReadme(repo)}>
         {
-          (content) => (
+          content => (
             <ReactMarkdown
               source={content}
               className={styles.markdown}
-              transformImageUri={(src) => urlTransform(repo, src)}
+              transformImageUri={src => urlTransform(repo, src)}
             />
           )
         }

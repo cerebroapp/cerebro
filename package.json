@@ -182,6 +182,7 @@
     "mv": "2.1.1",
     "node-machine-id": "1.1.12",
     "normalize.css": "8.0.1",
+    "prop-types": "15.8.1",
     "react": "15.7.0",
     "react-addons-shallow-compare": "15.6.3",
     "react-dom": "15.7.0",

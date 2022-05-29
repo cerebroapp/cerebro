@@ -1,8 +1,12 @@
-import { app, remote, ipcRenderer } from 'electron'
+import { app, ipcRenderer } from 'electron'
 import fs from 'fs'
 import { memoize } from 'cerebro-tools'
 import { trackEvent } from './trackEvent'
 import loadThemes from './loadThemes'
+
+const remote = process.type === 'browser'
+  ? undefined
+  : require('@electron/remote')
 
 const electronApp = remote ? remote.app : app
 

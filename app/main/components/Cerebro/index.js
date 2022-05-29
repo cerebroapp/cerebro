@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { clipboard, remote } from 'electron'
+import { clipboard, BrowserWindow } from 'electron'
 import { focusableSelector } from 'cerebro-ui'
 import escapeStringRegexp from 'escape-string-regexp'
 
@@ -24,6 +24,11 @@ import MainInput from '../MainInput'
 import ResultsList from '../ResultsList'
 import StatusBar from '../StatusBar'
 import styles from './styles.css'
+// import remote from '@electron/remote'
+
+const remote = process.type === 'browser'
+  ? { getCurrentWindow: BrowserWindow.getFocusedWindow }
+  : require('@electron/remote')
 
 
 const SHOW_EVENT = {

@@ -1,4 +1,10 @@
-import { app, ipcMain, crashReporter } from 'electron'
+import { app, ipcMain, crashReporter, screen } from 'electron'
+import {
+  WINDOW_WIDTH,
+  INPUT_HEIGHT,
+  RESULT_HEIGHT,
+  MIN_VISIBLE_RESULTS,
+} from 'main/constants/ui'
 
 import createMainWindow from './main/createWindow'
 import createBackgroundWindow from './background/createWindow'
@@ -6,6 +12,7 @@ import config from './lib/config'
 import AppTray from './main/createWindow/AppTray'
 import autoStart from './main/createWindow/autoStart'
 import initAutoUpdater from './initAutoUpdater'
+
 
 const iconSrc = {
   DEFAULT: `${__dirname}/tray_icon.png`,
@@ -41,6 +48,10 @@ app.on('ready', () => {
     isDev,
     src: `file://${__dirname}/main/index.html`, // Main window html
   })
+  // eslint-disable-next-line global-require
+  require('@electron/remote/main').initialize()
+  // eslint-disable-next-line global-require
+  require('@electron/remote/main').enable(mainWindow.webContents)
 
   backgroundWindow = createBackgroundWindow({
     src: `file://${__dirname}/background/index.html`,
@@ -91,4 +102,20 @@ ipcMain.on('updateSettings', (event, key, value) => {
       if (value !== enabled) autoStart.set(value)
     })
   }
+})
+
+ipcMain.on('get-window-position', (event, { width, heightWithResults }) => {
+  const winWidth = typeof width !== 'undefined' ? width : WINDOW_WIDTH
+
+  const winHeight = typeof heightWithResults !== 'undefined'
+    ? heightWithResults
+    : MIN_VISIBLE_RESULTS * RESULT_HEIGHT + INPUT_HEIGHT
+
+  const display = screen.getPrimaryDisplay()
+
+  const x = parseInt(display.bounds.x + (display.workAreaSize.width - winWidth) / 2, 10)
+  const y = parseInt(display.bounds.y + (display.workAreaSize.height - winHeight) / 2, 10)
+
+  // eslint-disable-next-line no-param-reassign
+  event.returnValue = [x, y]
 })

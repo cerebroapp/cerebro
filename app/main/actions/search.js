@@ -1,6 +1,7 @@
 import plugins from 'plugins'
 import config from 'lib/config'
-import { shell, clipboard, remote } from 'electron'
+import { shell, clipboard } from 'electron'
+
 import { settings as pluginSettings } from 'lib/plugins'
 import {
   UPDATE_TERM,
@@ -14,6 +15,10 @@ import {
 } from 'main/constants/actionTypes'
 
 import store from '../store'
+
+const remote = process.type === 'browser'
+  ? undefined
+  : require('@electron/remote')
 
 /**
  * Default scope object would be first argument for plugins

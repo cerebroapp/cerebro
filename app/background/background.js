@@ -13,26 +13,25 @@ global.isBackground = true
 
 on('initializePluginAsync', ({ name }) => {
   console.group(`Initialize async plugin ${name}`)
+
   try {
     const { initializeAsync } = plugins[name]
       ? plugins[name]
       : window.require(`${modulesDirectory}/${name}`)
+
     if (!initializeAsync) {
       console.log('no `initializeAsync` function, skipped')
       return
     }
+
     console.log('running `initializeAsync`')
     initializeAsync((data) => {
       console.log('Done! Sending data back to main window')
       // Send message back to main window with initialization result
-      send('plugin.message', {
-        name,
-        data,
-      })
+      send('plugin.message', { name, data })
     }, pluginSettings.getUserSettings(name))
-  } catch (err) {
-    console.log('Failed', err)
-  }
+  } catch (err) { console.log('Failed', err) }
+
   console.groupEnd()
 })
 

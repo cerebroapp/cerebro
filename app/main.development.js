@@ -7,16 +7,15 @@ import AppTray from './main/createWindow/AppTray'
 import autoStart from './main/createWindow/autoStart'
 import initAutoUpdater from './initAutoUpdater'
 
-let trayIconSrc = `${__dirname}/tray_icon.png`
-if (process.platform === 'darwin') {
-  trayIconSrc = `${__dirname}/tray_iconTemplate@2x.png`
-} else if (process.platform === 'win32') {
-  trayIconSrc = `${__dirname}/tray_icon.ico`
+const iconSrc = {
+  DEFAULT: `${__dirname}/tray_icon.png`,
+  darwin: `${__dirname}/tray_iconTemplate@2x.png`,
+  win32: `${__dirname}/tray_icon.ico`
 }
 
-const isDev = () => (
-  process.env.NODE_ENV === 'development' || config.get('developerMode')
-)
+const trayIconSrc = iconSrc[process.platform] || iconSrc.DEFAULT
+
+const isDev = () => (process.env.NODE_ENV === 'development' || config.get('developerMode'))
 
 let mainWindow
 let backgroundWindow
@@ -40,8 +39,7 @@ if (process.env.NODE_ENV !== 'development') {
 app.on('ready', () => {
   mainWindow = createMainWindow({
     isDev,
-    // Main window html
-    src: `file://${__dirname}/main/index.html`,
+    src: `file://${__dirname}/main/index.html`, // Main window html
   })
 
   backgroundWindow = createBackgroundWindow({
@@ -56,9 +54,7 @@ app.on('ready', () => {
   })
 
   // Show tray icon if it is set in configuration
-  if (config.get('showInTray')) {
-    tray.show()
-  }
+  if (config.get('showInTray')) { tray.show() }
 
   autoStart.isEnabled().then((enabled) => {
     if (config.get('openAtLogin') !== enabled) {
@@ -81,20 +77,18 @@ ipcMain.on('updateSettings', (event, key, value) => {
 
   // Show or hide menu bar icon when it is changed in setting
   if (key === 'showInTray') {
-    value ? tray.show() : tray.hide()
+    value
+      ? tray.show()
+      : tray.hide()
   }
 
   // Show or hide "development" section in tray menu
-  if (key === 'developerMode') {
-    tray.setIsDev(isDev())
-  }
+  if (key === 'developerMode') { tray.setIsDev(isDev()) }
 
   // Enable or disable auto start
   if (key === 'openAtLogin') {
     autoStart.isEnabled().then((enabled) => {
-      if (value !== enabled) {
-        autoStart.set(value)
-      }
+      if (value !== enabled) { autoStart.set(value) }
     })
   }
 })

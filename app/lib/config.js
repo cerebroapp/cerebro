@@ -55,13 +55,13 @@ const readConfig = () => {
  */
 const get = (key) => {
   let config
+
   if (!fs.existsSync(CONFIG_FILE)) {
     // Save default config to local storage
     config = defaultSettings()
     fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2))
-  } else {
-    config = readConfig()
-  }
+  } else { config = readConfig() }
+
   return config[key]
 }
 
@@ -87,6 +87,7 @@ const set = (key, value) => {
     event: `Change ${key}`,
     label: value
   })
+
   if (ipcRenderer) {
     console.log('notify main process', key, value)
     // Notify main process about settings changes

@@ -2,9 +2,6 @@ import plugins from 'plugins'
 import config from 'lib/config'
 import { shell, clipboard, remote } from 'electron'
 import { settings as pluginSettings } from 'lib/plugins'
-
-import store from '../store'
-
 import {
   UPDATE_TERM,
   MOVE_CURSOR,
@@ -14,7 +11,9 @@ import {
   UPDATE_RESULT,
   RESET,
   CHANGE_VISIBLE_RESULTS,
-} from '../constants/actionTypes'
+} from 'main/constants/actionTypes'
+
+import store from '../store'
 
 /**
  * Default scope object would be first argument for plugins
@@ -81,9 +80,7 @@ function onResultFound(term, result) {
  * @return {Object}  redux action
  */
 export function reset() {
-  return {
-    type: RESET,
-  }
+  return { type: RESET }
 }
 
 /**
@@ -93,9 +90,8 @@ export function reset() {
  * @return {Object}  redux action
  */
 export function updateTerm(term) {
-  if (term === '') {
-    return reset()
-  }
+  if (term === '') return reset()
+
   return (dispatch) => {
     dispatch({
       type: UPDATE_TERM,

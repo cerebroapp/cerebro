@@ -1,5 +1,6 @@
 import { dialog, app, shell } from 'electron'
-import semver from 'semver'
+import validVersion from 'semver/functions/valid'
+import compareVersions from 'semver/functions/gt'
 import https from 'https'
 
 const currentVersion = app.getVersion()
@@ -50,8 +51,8 @@ export default async () => {
   try {
     const release = await getLatestRelease()
 
-    const version = semver.valid(release.tag_name)
-    if (version && semver.gt(version, currentVersion)) {
+    const version = validVersion(release.tag_name)
+    if (version && compareVersions(version, currentVersion)) {
       dialog.showMessageBox({
         buttons: ['Skip', 'Download'],
         defaultId: 1,

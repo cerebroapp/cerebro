@@ -43,7 +43,7 @@ if (process.env.NODE_ENV !== 'development') {
   }
 }
 
-app.on('ready', () => {
+app.whenReady().then(() => {
   mainWindow = createMainWindow({
     isDev,
     src: `file://${__dirname}/main/index.html`, // Main window html

@@ -9,11 +9,10 @@
 }
 
 .markdown {
-  min-width: 100%;
   font-size: .8em;
   align-self: flex-start;
   font-size: 16px;
-  padding: 10px;
+  padding: 0 10px;
   p {
     font-size: 1em;
     margin: 0 0 10px;

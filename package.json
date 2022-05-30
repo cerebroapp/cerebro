@@ -148,7 +148,7 @@
     "copy-webpack-plugin": "4.6.0",
     "cross-env": "5.2.1",
     "css-loader": "0.28.11",
-    "electron": "13.6.9",
+    "electron": "19.0.1",
     "electron-builder": "22.14.13",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "15.0.2",
@@ -173,6 +173,7 @@
     "webpack-visualizer-plugin": "0.1.11"
   },
   "dependencies": {
+    "@electron/remote": "2.0.8",
     "auto-launch": "5.0.5",
     "cerebro-tools": "0.1.8",
     "cerebro-ui": "0.0.16",
@@ -186,13 +187,12 @@
     "react": "15.7.0",
     "react-addons-shallow-compare": "15.6.3",
     "react-dom": "15.7.0",
-    "react-markdown": "2.5.1",
+    "react-markdown": "5.0.3",
     "react-redux": "5.1.2",
     "react-virtualized": "7.24.3",
     "redux": "3.7.2",
     "redux-thunk": "2.4.1",
-    "source-map-support": "0.4.18",
-    "tar-fs": "1.16.3"
+    "tar-fs": "2.1.1"
   },
   "devEngines": {
     "node": ">=16.x"

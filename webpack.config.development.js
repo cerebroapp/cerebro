@@ -1,6 +1,6 @@
 /* eslint max-len: 0 */
-const webpack = require('webpack');
-const baseConfig = require('./webpack.config.base');
+const webpack = require('webpack')
+const baseConfig = require('./webpack.config.base')
 
 const config = {
   ...baseConfig,
@@ -58,12 +58,12 @@ const config = {
   plugins: [
     ...baseConfig.plugins,
     new webpack.LoaderOptionsPlugin({
-     debug: true
+      debug: true
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
 
   target: 'electron-renderer'
-};
+}
 
-module.exports = config;
+module.exports = config

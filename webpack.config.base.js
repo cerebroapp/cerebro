@@ -1,20 +1,20 @@
-const webpack = require('webpack');
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const webpack = require('webpack')
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 
 // all dependecies from app/package.json will be included in build/node_modules
 const externals = Object.assign(
   require('./app/package.json').dependencies,
   require('./app/package.json').optionalDependencies
-);
+)
 
 module.exports = {
   module: {
     rules: [{
       test: /\.jsx?$/,
       use: 'babel-loader',
-      exclude: (modulePath) => (
+      exclude: modulePath => (
         modulePath.match(/node_modules/) && !modulePath.match(/node_modules(\/|\\)cerebro-ui/)
       )
     }, {
@@ -29,8 +29,8 @@ module.exports = {
   },
   resolve: {
     modules: [
-      path.join(__dirname, "app"),
-      "node_modules"
+      path.join(__dirname, 'app'),
+      'node_modules'
     ],
     extensions: ['.js'],
   },
@@ -45,4 +45,4 @@ module.exports = {
     }])
   ],
   externals: Object.keys(externals || {})
-};
+}

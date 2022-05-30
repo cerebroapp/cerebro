@@ -1,5 +1,5 @@
-const webpack = require('webpack');
-const baseConfig = require('./webpack.config.base');
+const webpack = require('webpack')
+const baseConfig = require('./webpack.config.base')
 
 const plugins = [
   new webpack.DefinePlugin({
@@ -7,7 +7,7 @@ const plugins = [
       NODE_ENV: JSON.stringify(process.env.NODE_ENV)
     }
   })
-];
+]
 
 module.exports = {
   ...baseConfig,
@@ -19,9 +19,9 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           plugins: [
-            "babel-plugin-transform-object-rest-spread",
-            "babel-plugin-transform-es2015-classes",
-            "babel-plugin-transform-es2015-modules-commonjs"
+            'babel-plugin-transform-object-rest-spread',
+            'babel-plugin-transform-es2015-classes',
+            'babel-plugin-transform-es2015-modules-commonjs'
           ]
         }
       }
@@ -45,4 +45,4 @@ module.exports = {
     __dirname: false,
     __filename: false
   },
-};
+}

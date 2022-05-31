@@ -167,7 +167,7 @@
     "postcss-nested": "5.0.6",
     "style-loader": "2.0.0",
     "uglify-es": "3.3.9",
-    "url-loader": "0.5.9",
+    "url-loader": "4.1.1",
     "webpack": "4.46.0",
     "webpack-cli": "4.9.2",
     "webpack-dev-middleware": "2.0.6",

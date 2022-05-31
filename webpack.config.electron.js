@@ -11,6 +11,7 @@ const plugins = [
 
 module.exports = {
   ...baseConfig,
+  mode: process.env.NODE_ENV,
   module: {
     rules: [{
       test: /\.jsx?$/,

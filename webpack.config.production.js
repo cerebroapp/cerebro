@@ -8,6 +8,8 @@ const Visualizer = require('webpack-visualizer-plugin')
 const config = {
   ...baseConfig,
 
+  mode: process.env.NODE_ENV,
+
   devtool: 'source-map',
 
   entry: {
@@ -43,9 +45,13 @@ const config = {
             {
               loader: 'css-loader',
               options: {
-                modules: true,
+                import: true,
+                modules: {
+                  localIdentName: '[name]__[local]___[hash:base64:5]',
+                  // auto: true,
+                },
+                esModule: false,
                 importLoaders: 1,
-                localIdentName: '[name]__[local]___[hash:base64:5]'
               }
             },
             'postcss-loader'

@@ -5,6 +5,8 @@ const baseConfig = require('./webpack.config.base')
 const config = {
   ...baseConfig,
 
+  mode: 'development',
+
   devtool: 'inline-source-map',
 
   entry: {
@@ -43,10 +45,14 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
+              import: true,
+              modules: {
+                localIdentName: '[name]__[local]___[hash:base64:5]',
+                // auto: true,
+              },
+              esModule: false,
               sourceMap: true,
               importLoaders: 1,
-              localIdentName: '[name]__[local]___[hash:base64:5]'
             }
           },
           'postcss-loader'

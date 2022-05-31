@@ -138,7 +138,7 @@
   ],
   "homepage": "https://cerebroapp.com",
   "devDependencies": {
-    "autoprefixer": "7.2.6",
+    "autoprefixer": "10.4.7",
     "babel-core": "6.26.3",
     "babel-eslint": "7.2.3",
     "babel-loader": "7.1.5",
@@ -170,7 +170,7 @@
     "url-loader": "0.5.9",
     "webpack": "4.46.0",
     "webpack-cli": "4.9.2",
-    "webpack-dev-middleware": "1.12.2",
+    "webpack-dev-middleware": "2.0.6",
     "webpack-hot-middleware": "2.25.1",
     "webpack-visualizer-plugin": "0.1.11"
   },

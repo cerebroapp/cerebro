@@ -1,20 +1,13 @@
 import fs from 'fs'
 import os from 'os'
-import rmdir from 'rmdir'
+import rimraf from 'rimraf'
 import path from 'path'
 import tar from 'tar-fs'
 import zlib from 'zlib'
 import https from 'https'
 import mv from 'mv'
 
-/**
- * Promise-wrapper for rmdir
- * @param  {String} dir
- * @return {Promise}
- */
-const removeDir = dir => new Promise((resolve, reject) => {
-  rmdir(dir, err => err ? reject(err) : resolve())
-})
+const removeDir = dir => rimraf.sync(dir)
 
 /**
  * Base url of npm API
@@ -40,7 +33,7 @@ const installPackage = (tarPath, destination, middleware) => {
 
   return new Promise((resolve, reject) => {
     const packageName = path.parse(destination).name
-    const tempPath = `${os.tmpdir()}/${packageName}`
+    const tempPath = path.join(os.tmpdir(), packageName)
     console.log(`Download and extract to temp path: ${tempPath}`)
     https.get(tarPath, (stream) => {
       const result = stream
@@ -93,15 +86,21 @@ export default (dir) => {
       console.group('[npm] Install package', name)
 
       try {
-        const json = await fetch(`${API_BASE}${name}`).then(response => response.json())
+        const resJson = await fetch(`${API_BASE}${name}`).then(response => response.json())
 
-        versionToInstall = version || json['dist-tags'].latest
+        versionToInstall = version || resJson['dist-tags'].latest
         console.log('Version:', versionToInstall)
-        return installPackage(
-          json.versions[versionToInstall].dist.tarball,
+        await installPackage(
+          resJson.versions[versionToInstall].dist.tarball,
           path.join(dir, 'node_modules', name),
           middleware
         )
+
+        const json = getConfig()
+        json.dependencies[name] = versionToInstall
+        console.log('Add package to dependencies')
+        setConfig(json)
+        console.groupEnd()
       } catch (err) {
         console.log('Error in package installation')
         console.log(err)
@@ -128,20 +127,15 @@ export default (dir) => {
       console.group('[npm] Uninstall package', name)
       console.log('Remove package directory ', modulePath)
       try {
-        await removeDir(modulePath)
+        try { removeDir(modulePath) } catch (err) { console.log(err) }
 
         const json = getConfig()
         console.log('Update package.json')
-        json.dependencies = Object
-          .keys(json.dependencies || {})
-          .reduce((acc, key) => {
-            if (key !== name) {
-              return { ...acc, [key]: json.dependencies[key] }
-            }
-            return acc
-          }, {})
+        delete json.dependencies[name]
+
         console.log('Rewrite package.json')
         setConfig(json)
+
         console.groupEnd()
         return true
       } catch (err) {

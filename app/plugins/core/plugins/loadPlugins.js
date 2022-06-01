@@ -31,7 +31,7 @@ export default async () => {
       isUpdateAvailable
     }
   })
-  console.log(debuggingPlugins)
+  console.log('Debugging Plugins: ', debuggingPlugins)
 
   const listOfDebuggingPlugins = debuggingPlugins.map(name => ({
     name,

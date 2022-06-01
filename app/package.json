@@ -20,7 +20,8 @@
   "dependencies": {
     "chokidar": "3.5.3",
     "electron-updater": "5.0.1",
-    "rmdir": "1.2.0",
+    "fix-path": "3.0.0",
+    "rimraf": "3.0.2",
     "semver": "7.3.7",
     "universal-analytics": "0.5.3"
   },

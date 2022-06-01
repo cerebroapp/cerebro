@@ -1,4 +1,3 @@
-/* eslint max-len: 0 */
 const webpack = require('webpack')
 const baseConfig = require('./webpack.config.base')
 

@@ -13,11 +13,11 @@
     "build-main-dev": "cross-env NODE_ENV=development node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.electron.js --progress=profile --color",
     "build-renderer": "cross-env HOT=0 NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.production.js --progress=profile --color",
     "bundle-analyze": "cross-env ANALYZE=true NODE_ENV=production node -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.production.js --progress=profile --color && open ./app/dist/stats.html",
-    "build": "yarn run build-main && yarn run build-renderer && electron-builder",
+    "build": "run-p build-main build-renderer",
     "start": "cross-env NODE_ENV=production electron -r babel-register ./app",
     "start-hot": "yarn build-main-dev && cross-env HOT=1 NODE_ENV=development ./node_modules/.bin/electron -r babel-register ./app",
     "release": "build -mwl --draft",
-    "dev": "yarn run hot-server & yarn run start-hot"
+    "dev": "run-p hot-server start-hot"
   },
   "build": {
     "productName": "Cerebro",
@@ -160,6 +160,7 @@
     "jest": "27.5.1",
     "lodash-webpack-plugin": "0.11.6",
     "mini-css-extract-plugin": "1.6.2",
+    "npm-run-all": "4.1.5",
     "postcss": "8.4.14",
     "postcss-loader": "4.2.0",
     "postcss-nested": "5.0.6",

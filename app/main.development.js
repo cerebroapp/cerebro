@@ -1,4 +1,6 @@
-import { app, ipcMain, crashReporter, screen } from 'electron'
+import {
+  app, ipcMain, crashReporter, screen
+} from 'electron'
 import {
   WINDOW_WIDTH,
   INPUT_HEIGHT,
@@ -12,7 +14,6 @@ import config from './lib/config'
 import AppTray from './main/createWindow/AppTray'
 import autoStart from './main/createWindow/autoStart'
 import initAutoUpdater from './initAutoUpdater'
-
 
 const iconSrc = {
   DEFAULT: `${__dirname}/tray_icon.png`,
@@ -119,3 +120,5 @@ ipcMain.on('get-window-position', (event, { width, heightWithResults }) => {
   // eslint-disable-next-line no-param-reassign
   event.returnValue = [x, y]
 })
+
+ipcMain.on('quit', () => app.quit())

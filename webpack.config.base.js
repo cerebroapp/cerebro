@@ -39,10 +39,12 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
-    new CopyWebpackPlugin([{
-      from: 'app/main/css/themes/*',
-      to: './main/css/themes/[name].[ext]'
-    }])
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: 'app/main/css/themes/*',
+        to: './main/css/themes/[name].[ext]'
+      }]
+    })
   ],
   externals: Object.keys(externals || {})
 }

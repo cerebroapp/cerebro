@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "extends": "airbnb",
   "env": {
     "browser": true,
@@ -44,8 +44,8 @@
   "settings": {
     "import/core-modules": "electron",
     "import/resolver": {
-      "webpack": {
-        "config": "../webpack.config.base.js"
+      "node": {
+        "paths": ["app"]
       }
     }
   }

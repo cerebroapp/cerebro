@@ -9,12 +9,7 @@ const app = express()
 const compiler = webpack(config)
 const PORT = 3000
 
-const wdm = webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  stats: {
-    colors: true
-  }
-})
+const wdm = webpackDevMiddleware(compiler)
 
 app.use(wdm)
 

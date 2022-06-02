@@ -68,6 +68,10 @@ const config = {
     new webpack.HotModuleReplacementPlugin(),
   ],
 
+  stats: {
+    colors: true,
+  },
+
   target: 'electron-renderer'
 }
 

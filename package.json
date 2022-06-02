@@ -189,7 +189,7 @@
     "react-markdown": "5.0.3",
     "react-redux": "5.1.2",
     "react-virtualized": "7.24.3",
-    "redux": "3.7.2",
+    "redux": "4.2.0",
     "redux-thunk": "2.4.1",
     "tar-fs": "2.1.1"
   },

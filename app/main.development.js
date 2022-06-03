@@ -58,6 +58,9 @@ app.whenReady().then(() => {
     src: `file://${__dirname}/background/index.html`,
   })
 
+  // eslint-disable-next-line global-require
+  require('@electron/remote/main').enable(backgroundWindow.webContents)
+
   tray = new AppTray({
     src: trayIconSrc,
     isDev: isDev(),

@@ -50,7 +50,7 @@ $ git clone https://github.com/cerebroapp/cerebro.git cerebro
 And then install dependencies:
 
 ```bash
-$ cd cerebro && yarn && cd ./app && yarn && cd ../
+$ cd cerebro && yarn
 ```
 
 ### Run

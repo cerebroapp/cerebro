@@ -1,5 +1,9 @@
 name: Build/release
-on: workflow_dispatch
+
+on:
+  push:
+    tags:        
+      - '*'
 
 jobs:
   release:
@@ -11,10 +15,10 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 16
 

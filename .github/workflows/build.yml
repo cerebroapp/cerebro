@@ -1,9 +1,8 @@
 name: Build/release
 
 on:
-  push:
-    tags:        
-      - '*'
+  release:
+    types: [prereleased, released]
 
 jobs:
   release:
@@ -22,13 +21,10 @@ jobs:
         with:
           node-version: 16
 
-      - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
-
-          # If the commit is tagged with a version (e.g. "v1.0.0"),
-          # release the app after building
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+      - name: Install deps
+        run: yarn
+  
+      - name: Build & Release Electron app
+        run: yarn electron-builder --publish always
+        env:
+          GH_TOKEN: ${{ secrets.github_token }}

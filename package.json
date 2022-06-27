@@ -106,7 +106,8 @@
     },
     "publish": {
       "provider": "github",
-      "vPrefixedTagName": false
+      "vPrefixedTagName": false,
+      "releaseType": "prerelease"
     }
   },
   "bin": {

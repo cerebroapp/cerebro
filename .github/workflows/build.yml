@@ -22,6 +22,4 @@ jobs:
       - name: Build & Release Electron app
         run: yarn electron-builder --publish always
         with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
           GH_TOKEN: ${{ secrets.github_token }}

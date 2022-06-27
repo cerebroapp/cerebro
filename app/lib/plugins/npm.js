@@ -7,7 +7,7 @@ import zlib from 'zlib'
 import https from 'https'
 import mv from 'mv'
 
-const removeDir = dir => rimraf.sync(dir)
+const removeDir = (dir) => rimraf.sync(dir)
 
 /**
  * Base url of npm API
@@ -23,7 +23,7 @@ const API_BASE = 'http://registry.npmjs.org/'
  * @param  {Object} header
  * @return {Object}
  */
-const formatPackageFile = header => ({
+const formatPackageFile = (header) => ({
   ...header,
   name: header.name.replace(/^package\//, '')
 })
@@ -46,7 +46,7 @@ const installPackage = (tarPath, destination, middleware) => {
       result.on('finish', () => {
         middleware().then(() => {
           console.log(`Move ${tempPath} to ${destination}`)
-          mv(tempPath, destination, err => err ? reject(err) : resolve())
+          mv(tempPath, destination, (err) => err ? reject(err) : resolve())
         })
       })
     })
@@ -62,7 +62,7 @@ const installPackage = (tarPath, destination, middleware) => {
  */
 export default (dir) => {
   const packageJson = path.join(dir, 'package.json')
-  const setConfig = config => (
+  const setConfig = (config) => (
     fs.writeFileSync(packageJson, JSON.stringify(config, null, 2))
   )
   const getConfig = () => JSON.parse(fs.readFileSync(packageJson))
@@ -86,7 +86,7 @@ export default (dir) => {
       console.group('[npm] Install package', name)
 
       try {
-        const resJson = await fetch(`${API_BASE}${name}`).then(response => response.json())
+        const resJson = await fetch(`${API_BASE}${name}`).then((response) => response.json())
 
         versionToInstall = version || resJson['dist-tags'].latest
         console.log('Version:', versionToInstall)
@@ -127,11 +127,11 @@ export default (dir) => {
       console.group('[npm] Uninstall package', name)
       console.log('Remove package directory ', modulePath)
       try {
-        try { removeDir(modulePath) } catch (err) { console.log(err) }
+        removeDir(modulePath) // sync method
 
         const json = getConfig()
         console.log('Update package.json')
-        delete json.dependencies[name]
+        delete json.dependencies?.[name]
 
         console.log('Rewrite package.json')
         setConfig(json)

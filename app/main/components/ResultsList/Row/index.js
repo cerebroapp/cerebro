@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { SmartIcon } from 'cerebro-ui'
 import styles from './styles.css'
 
@@ -21,6 +22,7 @@ class Row extends Component {
       onMouseMove,
       subtitle
     } = this.props
+
     return (
       <div className={this.classNames()} onClick={onSelect} onMouseMove={onMouseMove}>
         {this.renderIcon()}

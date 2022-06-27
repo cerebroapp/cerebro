@@ -1,14 +1,11 @@
-import { remote } from 'electron'
+import { ipcRenderer } from 'electron'
 import { search } from 'cerebro-tools'
 import icon from '../icon.png'
 
-const KEYWORDS = [
-  'Quit',
-  'Exit'
-]
+const KEYWORDS = ['Quit', 'Exit']
 
 const subtitle = 'Quit from Cerebro'
-const onSelect = () => remote.app.quit()
+const onSelect = () => ipcRenderer.send('quit')
 
 /**
  * Plugin to exit from Cerebro
@@ -17,8 +14,11 @@ const onSelect = () => remote.app.quit()
  * @param  {Function} options.display
  */
 const fn = ({ term, display }) => {
-  const result = search(KEYWORDS, term).map(title => ({
-    icon, title, subtitle, onSelect,
+  const result = search(KEYWORDS, term).map((title) => ({
+    icon,
+    title,
+    subtitle,
+    onSelect,
     term: title,
   }))
   display(result)

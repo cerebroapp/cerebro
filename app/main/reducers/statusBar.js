@@ -2,7 +2,7 @@
 
 import {
   SET_STATUS_BAR_TEXT
-} from '../constants/actionTypes'
+} from 'main/constants/actionTypes'
 
 const initialState = {
   text: null

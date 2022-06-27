@@ -41,7 +41,4 @@ const versionPlugin = ({ term, display, actions }) => {
   }
 }
 
-export default {
-  name: NAME,
-  fn: versionPlugin
-}
+export default { name: NAME, fn: versionPlugin }

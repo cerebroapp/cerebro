@@ -68,20 +68,23 @@ export default class AppTray {
       template.push(separator)
       template.push({
         label: 'Development',
-        submenu: [{
-          label: 'DevTools (main)',
-          click: () => mainWindow.webContents.openDevTools({ mode: 'detach' })
-        }, {
-          label: 'DevTools (background)',
-          click: () => backgroundWindow.webContents.openDevTools({ mode: 'detach' })
-        }, {
-          label: 'Reload',
-          click: () => {
-            mainWindow.reload()
-            backgroundWindow.reload()
-            backgroundWindow.hide()
-          }
-        }]
+        submenu: [
+          {
+            label: 'DevTools (main)',
+            click: () => mainWindow.webContents.openDevTools({ mode: 'detach' })
+          },
+          {
+            label: 'DevTools (background)',
+            click: () => backgroundWindow.webContents.openDevTools({ mode: 'detach' })
+          },
+          {
+            label: 'Reload',
+            click: () => {
+              mainWindow.reload()
+              backgroundWindow.reload()
+              backgroundWindow.hide()
+            }
+          }]
       })
     }
 

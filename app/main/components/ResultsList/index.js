@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { VirtualScroll } from 'react-virtualized'
+import { RESULT_HEIGHT } from 'main/constants/ui'
 
 import Row from './Row'
 import styles from './styles.css'
-import { RESULT_HEIGHT } from '../../constants/ui'
 
 
 class ResultsList extends Component {

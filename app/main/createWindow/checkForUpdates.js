@@ -1,6 +1,6 @@
 import { dialog, app, shell } from 'electron'
-import os from 'os'
-import semver from 'semver'
+import validVersion from 'semver/functions/valid'
+import compareVersions from 'semver/functions/gt'
 import https from 'https'
 
 const currentVersion = app.getVersion()
@@ -13,17 +13,18 @@ const PLATFORM_EXTENSIONS = {
   linux: 'AppImage',
   win32: 'exe'
 }
-const platform = os.platform()
+
+const platform = process.platform
 const installerExtension = PLATFORM_EXTENSIONS[platform]
 
 const findInstaller = (assets) => {
-  if (!installerExtension) {
-    return DEFAULT_DOWNLOAD_URL
-  }
+  if (!installerExtension) return DEFAULT_DOWNLOAD_URL
+
   const regexp = new RegExp(`\.${installerExtension}$`)
   const downloadUrl = assets
     .map(a => a.browser_download_url)
     .find(url => url.match(regexp))
+
   return downloadUrl || DEFAULT_DOWNLOAD_URL
 }
 
@@ -46,10 +47,12 @@ const getLatestRelease = () => (
   })
 )
 
-export default () => {
-  getLatestRelease().then((release) => {
-    const version = semver.valid(release.tag_name)
-    if (version && semver.gt(version, currentVersion)) {
+export default async () => {
+  try {
+    const release = await getLatestRelease()
+
+    const version = validVersion(release.tag_name)
+    if (version && compareVersions(version, currentVersion)) {
       dialog.showMessageBox({
         buttons: ['Skip', 'Download'],
         defaultId: 1,
@@ -70,11 +73,8 @@ export default () => {
         buttons: []
       })
     }
-  }).catch((err) => {
+  } catch (err) {
     console.log('Catch error!', err)
-    dialog.showErrorBox(
-      TITLE,
-      'Error fetching latest version',
-    )
-  })
+    dialog.showErrorBox(TITLE, 'Error fetching latest version')
+  }
 }

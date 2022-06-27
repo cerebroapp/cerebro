@@ -1,8 +1,10 @@
-import React, { PropTypes, Component } from 'react'
-import Hotkey from './Hotkey'
-import countries from './countries'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Select, Checkbox, Wrapper, Text } from 'cerebro-ui/Form'
 import loadThemes from 'lib/loadThemes'
+
+import Hotkey from './Hotkey'
+import countries from './countries'
 import styles from './styles.css'
 
 class Settings extends Component {
@@ -41,7 +43,7 @@ class Settings extends Component {
         <Wrapper label="Hotkey" description="Type your global shortcut for Cerebro in this input">
           <Hotkey
             hotkey={hotkey}
-            onChange={(key) => this.changeConfig('hotkey', key)}
+            onChange={key => this.changeConfig('hotkey', key)}
           />
         </Wrapper>
         <Select

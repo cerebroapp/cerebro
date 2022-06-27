@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import styles from './styles.css'
 
 const ASCII = {
@@ -88,7 +89,7 @@ const charCodeToSign = ({ keyCode, shiftKey }) => {
     (keyCode > 64 && keyCode < 91) || // letter keys
     (keyCode > 95 && keyCode < 112) || // numpad keys
     (keyCode > 185 && keyCode < 193) || // ;=,-./` (in order)
-    (keyCode > 218 && keyCode < 223)   // [\]' (in order)
+    (keyCode > 218 && keyCode < 223) // [\]' (in order)
   if (!valid) {
     return null
   }

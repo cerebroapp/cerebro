@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "extends": "airbnb",
   "env": {
     "browser": true,
@@ -16,6 +16,7 @@
     "no-useless-escape": 0,
     "no-mixed-operators": "off",
     "no-continue": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
     "import/no-extraneous-dependencies": "off",
     "import/imports-first": "off",
     "import/extensions": "off",
@@ -43,8 +44,8 @@
   "settings": {
     "import/core-modules": "electron",
     "import/resolver": {
-      "webpack": {
-        "config": "../webpack.config.base.js"
+      "node": {
+        "paths": ["app"]
       }
     }
   }

@@ -1,4 +1,3 @@
-/* eslint no-console: 0 */
 const express = require('express')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -10,12 +9,7 @@ const app = express()
 const compiler = webpack(config)
 const PORT = 3000
 
-const wdm = webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath,
-  stats: {
-    colors: true
-  }
-})
+const wdm = webpackDevMiddleware(compiler)
 
 app.use(wdm)
 

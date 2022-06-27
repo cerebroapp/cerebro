@@ -24,7 +24,4 @@ const fn = ({ term, display }) => {
   }
 }
 
-export default {
-  keyword, fn, icon,
-  name: 'Reload'
-}
+export default { keyword, fn, icon, name: 'Reload' }

@@ -18,14 +18,11 @@ ipcRenderer.on(CHANNEL, (_, { message, payload }) => {
 /**
  * Send message to rpc-channel
  * @param  {String} message
- * @param  {<any>} payload
+ * @param  {any} payload
  */
 export const send = (message, payload) => {
   console.log(`[rpc] send ${message}`)
-  ipcRenderer.send(CHANNEL, {
-    message,
-    payload
-  })
+  ipcRenderer.send(CHANNEL, { message, payload })
 }
 
 export const on = emitter.on.bind(emitter)

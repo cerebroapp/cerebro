@@ -5,7 +5,9 @@
       (function() {
         const script = document.createElement('script');
         script.async = true;
-        script.src = (process.env.HOT) ? 'http://localhost:3000/dist/background.bundle.js' : '../dist/background.bundle.js';
+        script.src = (process.env.HOT)
+          ? 'http://localhost:3000/dist/background.bundle.js'
+          : '../dist/background.bundle.js';
         document.write(script.outerHTML);
       }());
     </script>

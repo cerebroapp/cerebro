@@ -1,7 +1,11 @@
-import { app, remote } from 'electron'
+import { app } from 'electron'
 import path from 'path'
 import fs from 'fs'
 import npm from './npm'
+
+const remote = process.type === 'browser'
+  ? undefined
+  : require('@electron/remote')
 
 const ensureFile = (src, content = '') => {
   if (!fs.existsSync(src)) {

@@ -1,0 +1,25 @@
+name: Build/release
+
+on: release
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Build & Release Electron app
+        run: yarn electron-builder --publish always
+        with:
+          GH_TOKEN: ${{ secrets.github_token }}

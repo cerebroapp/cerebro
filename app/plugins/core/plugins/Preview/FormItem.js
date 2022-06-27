@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Select, Text, Checkbox } from 'cerebro-ui/Form'
 
 const components = {
@@ -9,9 +10,7 @@ const components = {
 const FormItem = ({ type, ...props }) => {
   const Component = components[type] || Text
 
-  return (
-    <Component type={type} {...props} />
-  )
+  return <Component type={type} {...props} />
 }
 
 FormItem.propTypes = {

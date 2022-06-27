@@ -50,7 +50,7 @@ $ git clone https://github.com/cerebroapp/cerebro.git cerebro
 And then install dependencies:
 
 ```bash
-$ cd cerebro && yarn && cd ./app && yarn && cd ../
+$ cd cerebro && yarn
 ```
 
 ### Run
@@ -58,7 +58,7 @@ $ cd cerebro && yarn && cd ./app && yarn && cd ../
 $ yarn run dev
 ```
 
-> Note: requires a node version >=6.x
+> Note: requires a node version >=14.x
 
 ### Resolve common issues
 1. `AssertionError: Current node version is not supported for development` on npm postinstall.
@@ -96,10 +96,17 @@ Follow to be notified about new releases or learn some productivity tips with Ce
 
 * [Twitter](https://twitter.com/cerebro_app)
 * [Facebook](https://www.facebook.com/cerebroapp)
-* [Google+](https://plus.google.com/104292436165594177472)
 * [VK.com](https://vk.com/cerebroapp) – channel in Russian
 
-Or [subscribe to newsletter](http://eepurl.com/coiKU9) to be notified only about big releases.
+<!-- The link is broken -->
+<!-- Or [subscribe to newsletter](http://eepurl.com/coiKU9) to be notified only about big releases. -->
+
+## Contributing
+
+### Add dependencies
+
+CerebroApp was created from an [old version of electron-react-boilerplate](https://github.com/cerebroapp/cerebro/commit/57b6e28c0f64beae8948cf17f099fa5d6236ae3c) and uses a two package.json file structure. If you are interested in developing a new feature, you should read about this structure in the [electron-react-boilerplate documentation](https://www.electron.build/tutorials/two-package-structure.html).
+
 
 ## Support
 ### Backers

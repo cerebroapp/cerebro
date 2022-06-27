@@ -5,16 +5,13 @@ import config from './config'
 
 const DEFAULT_CATEGORY = 'Cerebro App'
 
-const isTrackingEnabled = () => (
-  process.env.NODE_ENV === 'production' && config.get('trackingEnabled')
-)
+const isTrackingEnabled = () => (process.env.NODE_ENV === 'production' && config.get('trackingEnabled'))
 
 let visitorCache = null
 
 const visitor = () => {
-  if (visitorCache) {
-    return visitorCache
-  }
+  if (visitorCache) return visitorCache
+
   if (isTrackingEnabled()) {
     try {
       visitorCache = ua('UA-87361302-1', machineIdSync(), { strictCidFormat: false })

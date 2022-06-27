@@ -1,6 +1,8 @@
 name: Build/release
 
-on: release
+on:
+  release:
+    types: [prereleased, released]
 
 jobs:
   release:
@@ -21,5 +23,5 @@ jobs:
 
       - name: Build & Release Electron app
         run: yarn electron-builder --publish always
-        with:
+        env:
           GH_TOKEN: ${{ secrets.github_token }}

@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: 16
 
+      - name: Install deps
+        run: yarn
+  
       - name: Build & Release Electron app
         run: yarn electron-builder --publish always
         env:

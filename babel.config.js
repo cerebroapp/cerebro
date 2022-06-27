@@ -3,7 +3,8 @@ module.exports = {
     [
       '@babel/preset-env', {
         targets: {
-          electron: '19.0.2'
+          node: '16',
+          chrome: '102'
         }
       }
     ],

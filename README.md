@@ -108,11 +108,9 @@ Follow to be notified about new releases or learn some productivity tips with Ce
 CerebroApp is using GH actions to build the app and publish it to a release. To publish a new release follow the steps below:
 
 1. Update the version on both `package.json` and `app/package.json` files.
-2. Commit and push the changes.
-3. Tag the release: `git tag -am "vx.y.z"` (with the same version as in `package.json`)
-4. Push the tag to GH: `git push origin master --tags`
-5. The GH action is triggered and a draft release is created.
-6. Review the **draft release** and update to public **'release'** if everything is ok. 
+2. Create a release with from GH and publish it. 🚧 The release **tag** SHOULD NOT contain the `v` prefix (❌ `v0.1.2` → ✅`0.1.2`).
+3. Complete the name with a name and a description of the release.
+4. The GH action is triggered and the release is updated when executables are built.
 
 ### Add dependencies
 

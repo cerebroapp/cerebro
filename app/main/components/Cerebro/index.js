@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { clipboard, BrowserWindow } from 'electron'
-import { focusableSelector } from 'cerebro-ui'
+import { focusableSelector } from '@cerebroapp/cerebro-ui'
 import escapeStringRegexp from 'escape-string-regexp'
 
 import debounce from 'lodash/debounce'
@@ -30,7 +30,6 @@ const remote = process.type === 'browser'
   ? { getCurrentWindow: BrowserWindow.getFocusedWindow }
   : require('@electron/remote')
 
-
 const SHOW_EVENT = {
   category: 'Window',
   event: 'show'
@@ -42,7 +41,7 @@ const SELECT_EVENT = {
 }
 
 const trackShowWindow = () => trackEvent(SHOW_EVENT)
-const trackSelectItem = label => trackEvent({ ...SELECT_EVENT, label })
+const trackSelectItem = (label) => trackEvent({ ...SELECT_EVENT, label })
 
 /**
  * Wrap click or mousedown event to custom `select-item` event,
@@ -100,7 +99,6 @@ class Cerebro extends Component {
     this.cleanup = this.cleanup.bind(this)
     this.focusMainInput = this.focusMainInput.bind(this)
     this.selectItem = this.selectItem.bind(this)
-
 
     this.state = { mainInputFocused: false }
   }
@@ -196,7 +194,6 @@ class Cerebro extends Component {
         event.preventDefault()
       }
     }
-
 
     if (event.metaKey || event.ctrlKey) {
       if (event.keyCode === 67) {
@@ -417,7 +414,7 @@ Cerebro.propTypes = {
 function mapStateToProps(state) {
   return {
     selected: state.search.selected,
-    results: state.search.resultIds.map(id => state.search.resultsById[id]),
+    results: state.search.resultIds.map((id) => state.search.resultsById[id]),
     term: state.search.term,
     statusBarText: state.statusBar.text,
     prevTerm: state.search.prevTerm,

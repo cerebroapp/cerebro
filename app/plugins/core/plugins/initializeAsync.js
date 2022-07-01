@@ -1,11 +1,13 @@
 import { client } from 'lib/plugins'
 import config from 'lib/config'
-import { flow, filter, map, property } from 'lodash/fp'
+import {
+  flow, filter, map, property
+} from 'lodash/fp'
 import loadPlugins from './loadPlugins'
 import getInstalledPlugins from './getInstalledPlugins'
 
 const DEFAULT_PLUGINS = [
-  process.platform === 'darwin' ? 'cerebro-mac-apps' : 'cerebro-basic-apps',
+  process.platform === 'darwin' ? 'cerebro-mac-apps' : '@cerebroapp/cerebro-basic-apps',
   'cerebro-google',
   'cerebro-math',
   'cerebro-converter',
@@ -22,15 +24,14 @@ async function checkForUpdates() {
 
   const updatePromises = flow(
     filter(property('isUpdateAvailable')),
-    map(plugin => client.update(plugin.name))
+    map((plugin) => client.update(plugin.name))
   )(plugins)
 
   await Promise.all(updatePromises)
 
   console.log(updatePromises.length > 0
     ? `${updatePromises.length} plugins are updated`
-    : 'All plugins are up to date'
-  )
+    : 'All plugins are up to date')
 
   // Run autoupdate every 12 hours
   setTimeout(checkForUpdates, 12 * 60 * 60 * 1000)
@@ -50,8 +51,8 @@ async function migratePlugins(sendMessage) {
   const installedPlugins = await getInstalledPlugins()
 
   const promises = flow(
-    filter(plugin => !installedPlugins[plugin]),
-    map(plugin => client.install(plugin))
+    filter((plugin) => !installedPlugins[plugin]),
+    map((plugin) => client.install(plugin))
   )(DEFAULT_PLUGINS)
 
   if (promises.length > 0) {

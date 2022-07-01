@@ -1261,6 +1261,20 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@cerebroapp/cerebro-ui@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@cerebroapp/cerebro-ui/-/cerebro-ui-1.0.3.tgz#97af7ac972a214258dcf0facb0f475e70bfdefe3"
+  integrity sha512-u4G0xJEJvjSLxo/LmXNE5FKsAzvxOH7MtWXL127pd5M3PfGs8bgtz+ieOvb3QHC9x0fH0+pBfdF+O5O68mwz/Q==
+  dependencies:
+    "@electron/remote" "2.0.8"
+    cerebro-tools "0.1.8"
+    prop-types "15.8.1"
+    react "15.7.0"
+    react-dom "15.7.0"
+    react-fontawesome "1.7.1"
+    react-input-autosize "1.2.0"
+    react-select "1.3.0"
+
 "@develar/schema-utils@~2.6.5":
   version "2.6.5"
   resolved "https://registry.yarnpkg.com/@develar/schema-utils/-/schema-utils-2.6.5.tgz#3ece22c5838402419a6e0425f85742b961d9b6c6"
@@ -3080,16 +3094,6 @@ cerebro-tools@0.1.8:
   integrity sha512-IbJCPrqDlKNIpRYMZFK/zS91EADLS4qmPgmAfvWI3x+YPAfi248dcaHU9655BhxcZ3xfKSCaSEbigkw6YBixqQ==
   dependencies:
     memoizee "^0.4.1"
-
-cerebro-ui@0.0.16:
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/cerebro-ui/-/cerebro-ui-0.0.16.tgz#55695c26862ebd9a9e44646feb0b475c208d010e"
-  integrity sha512-W6+7e4Imv0aEEOHNWlteR0oSh6AEoFnFR9Q0UDOhXDoh457j7UbHEHNBSL970E4EcJ7b5me49XIjUcE1ThiUgg==
-  dependencies:
-    react "^15.4.2"
-    react-dom "^15.4.2"
-    react-input-autosize "^1.1.0"
-    react-select "^1.0.0-rc.2"
 
 chalk@^2.0.0, chalk@^2.4.1, chalk@^2.4.2:
   version "2.4.2"
@@ -8131,7 +8135,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@15.8.1, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@15.8.1, prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -8313,7 +8317,7 @@ react-addons-shallow-compare@15.6.3:
   dependencies:
     object-assign "^4.1.0"
 
-react-dom@15.7.0, react-dom@^15.4.2:
+react-dom@15.7.0:
   version "15.7.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.7.0.tgz#39106dee996d0742fb0f43d567ef8b8153483ab2"
   integrity sha512-mpjXqC2t1FuYsILOLCj0kg6pbg460byZkVA/80VtDmKU/pYmoTdHOtaMcTRIDiyXLz4sIur0cQ04nOC6iGndJg==
@@ -8328,7 +8332,14 @@ react-dom@^0.14.0:
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-0.14.10.tgz#da883daef7fa86838e9e2fcfcc084c590c350e21"
   integrity sha512-kDs8SWFb8Sry4NAplhpJbZEeAnTPir/m+s9s+lkdqA2a89BzmWGnEgGG/CfmhULjv1ogc4oHrjMfAvFNruT3jQ==
 
-react-input-autosize@^1.1.0:
+react-fontawesome@1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.7.1.tgz#f74f5a338fef3ee3b379820109c1cba47290f035"
+  integrity sha512-kottReWW1I9Uupub6A5YX4VK7qfpFnEjAcm5zB4Aepst7iofONT27GJYdTcRsj7q5uQu9PXBL7GsxAFKANNUVg==
+  dependencies:
+    prop-types "^15.5.6"
+
+react-input-autosize@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.2.0.tgz#87241071159f742123897691da6796ec33b57d05"
   integrity sha512-xlmWqzUnBb07xPrsR8iWMOJ2wPqhCEy8jwspum09luCB1nDkDar6ychBZSM6DRZyLF2KFAPmvEVe0/UsbQUmmg==
@@ -8387,7 +8398,7 @@ react-redux@5.1.2:
     react-is "^16.6.0"
     react-lifecycles-compat "^3.0.0"
 
-react-select@^1.0.0-rc.2:
+react-select@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.3.0.tgz#1828ad5bf7f3e42a835c7e2d8cb13b5c20714876"
   integrity sha512-g/QAU1HZrzSfxkwMAo/wzi6/ezdWye302RGZevsATec07hI/iSxcpB1hejFIp7V63DJ8mwuign6KmB3VjdlinQ==
@@ -8406,7 +8417,7 @@ react-virtualized@7.24.3:
     dom-helpers "^2.4.0"
     raf "^3.1.0"
 
-react@15.7.0, react@^15.4.2:
+react@15.7.0:
   version "15.7.0"
   resolved "https://registry.yarnpkg.com/react/-/react-15.7.0.tgz#10308fd42ac6912a250bf00380751abc41ac7106"
   integrity sha512-5/MMRYmpmM0sMTHGLossnJCrmXQIiJilD6y3YN3TzAwGFj6zdnMtFv6xmi65PHKRV+pehIHpT7oy67Sr6s9AHA==

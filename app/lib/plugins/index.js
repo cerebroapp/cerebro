@@ -1,11 +1,7 @@
-import { app } from 'electron'
+import getAppDataPath from 'appdata-path'
 import path from 'path'
 import fs from 'fs'
 import npm from './npm'
-
-const remote = process.type === 'browser'
-  ? undefined
-  : require('@electron/remote')
 
 const ensureFile = (src, content = '') => {
   if (!fs.existsSync(src)) {
@@ -24,8 +20,7 @@ const EMPTY_PACKAGE_JSON = JSON.stringify({
   dependencies: {}
 }, null, 2)
 
-const electronApp = remote ? remote.app : app
-export const pluginsPath = path.join(electronApp.getPath('userData'), 'plugins')
+export const pluginsPath = path.join(getAppDataPath('Cerebro'), 'plugins')
 export const modulesDirectory = path.join(pluginsPath, 'node_modules')
 export const cerebroappModulesDirectory = path.join(pluginsPath, 'node_modules', '@cerebroapp')
 export const packageJsonPath = path.join(pluginsPath, 'package.json')

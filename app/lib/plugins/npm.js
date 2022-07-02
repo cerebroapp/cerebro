@@ -5,7 +5,7 @@ import path from 'path'
 import tar from 'tar-fs'
 import zlib from 'zlib'
 import https from 'https'
-import mv from 'mv'
+import moveFile from 'move-file'
 
 const removeDir = (dir) => rimraf.sync(dir)
 
@@ -28,29 +28,30 @@ const formatPackageFile = (header) => ({
   name: header.name.replace(/^package\//, '')
 })
 
-const installPackage = (tarPath, destination, middleware) => {
+const installPackage = async (tarPath, destination, middleware) => {
   console.log(`Extract ${tarPath} to ${destination}`)
 
-  return new Promise((resolve, reject) => {
-    const packageName = path.parse(destination).name
-    const tempPath = path.join(os.tmpdir(), packageName)
-    console.log(`Download and extract to temp path: ${tempPath}`)
+  const packageName = path.parse(destination).name
+  const tempPath = path.join(os.tmpdir(), packageName)
+
+  console.log(`Download and extract to temp path: ${tempPath}`)
+
+  await new Promise((resolve, reject) => {
     https.get(tarPath, (stream) => {
       const result = stream
-        // eslint-disable-next-line new-cap
         .pipe(zlib.Unzip())
         .pipe(tar.extract(tempPath, {
           map: formatPackageFile
         }))
       result.on('error', reject)
       result.on('finish', () => {
-        middleware().then(() => {
-          console.log(`Move ${tempPath} to ${destination}`)
-          mv(tempPath, destination, (err) => err ? reject(err) : resolve())
-        })
+        middleware().then(resolve)
       })
     })
   })
+
+  console.log(`Move ${tempPath} to ${destination}`)
+  moveFile.sync(tempPath, destination)
 }
 
 /**
@@ -100,6 +101,7 @@ export default (dir) => {
         json.dependencies[name] = versionToInstall
         console.log('Add package to dependencies')
         setConfig(json)
+        console.log('Finished installing', name)
         console.groupEnd()
       } catch (err) {
         console.log('Error in package installation')

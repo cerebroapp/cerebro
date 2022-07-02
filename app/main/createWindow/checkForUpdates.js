@@ -1,7 +1,5 @@
 import { dialog, app, shell } from 'electron'
-import validVersion from 'semver/functions/valid'
-import compareVersions from 'semver/functions/gt'
-import https from 'https'
+import { autoUpdater } from 'electron-updater'
 
 const currentVersion = app.getVersion()
 const DEFAULT_DOWNLOAD_URL = 'https://github.com/cerebroapp/cerebro/releases'
@@ -14,7 +12,7 @@ const PLATFORM_EXTENSIONS = {
   win32: 'exe'
 }
 
-const platform = process.platform
+const { platform } = process
 const installerExtension = PLATFORM_EXTENSIONS[platform]
 
 const findInstaller = (assets) => {
@@ -22,37 +20,16 @@ const findInstaller = (assets) => {
 
   const regexp = new RegExp(`\.${installerExtension}$`)
   const downloadUrl = assets
-    .map(a => a.browser_download_url)
-    .find(url => url.match(regexp))
+    .find(({ url }) => url.match(regexp))
 
   return downloadUrl || DEFAULT_DOWNLOAD_URL
 }
 
-const getLatestRelease = () => (
-  new Promise((resolve, reject) => {
-    const opts = {
-      host: 'api.github.com',
-      path: '/repos/cerebro/cerebro/releases',
-      headers: {
-        'User-Agent': `CerebroApp v${currentVersion}`
-      }
-    }
-    https.get(opts, (res) => {
-      let json = ''
-      res.on('data', (chunk) => {
-        json += chunk
-      })
-      res.on('end', () => resolve(JSON.parse(json)[0]))
-    }).on('error', () => reject())
-  })
-)
-
 export default async () => {
   try {
-    const release = await getLatestRelease()
-
-    const version = validVersion(release.tag_name)
-    if (version && compareVersions(version, currentVersion)) {
+    const release = await autoUpdater.checkForUpdates()
+    if (release) {
+      const { updateInfo: { version, files } } = release
       dialog.showMessageBox({
         buttons: ['Skip', 'Download'],
         defaultId: 1,
@@ -62,7 +39,7 @@ export default async () => {
         detail: 'Click download to get it now',
       }, (response) => {
         if (response === 1) {
-          const url = findInstaller(release.assets)
+          const url = findInstaller(files)
           shell.openExternal(url)
         }
       })

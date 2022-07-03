@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {
   MOVE_CURSOR,
   SELECT_ELEMENT,
@@ -7,7 +11,6 @@ import {
 } from 'main/constants/actionTypes'
 
 import * as actions from './search'
-
 
 describe('reset', () => {
   it('returns valid action', () => {

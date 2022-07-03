@@ -1261,10 +1261,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cerebroapp/cerebro-ui@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@cerebroapp/cerebro-ui/-/cerebro-ui-1.0.3.tgz#97af7ac972a214258dcf0facb0f475e70bfdefe3"
-  integrity sha512-u4G0xJEJvjSLxo/LmXNE5FKsAzvxOH7MtWXL127pd5M3PfGs8bgtz+ieOvb3QHC9x0fH0+pBfdF+O5O68mwz/Q==
+"@cerebroapp/cerebro-ui@1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@cerebroapp/cerebro-ui/-/cerebro-ui-1.0.4.tgz#9e424760a2c6e924ad7a5e396e9ee6523cedd199"
+  integrity sha512-IGLVRyt3JbcOSsIx91z1FlWkNhh0YppwDbWwFhnWqvb5aDax2gfNwsh5Qot9z+8AapaZOOxSL0IndDx0b/7llQ==
   dependencies:
     "@electron/remote" "2.0.8"
     cerebro-tools "0.1.8"

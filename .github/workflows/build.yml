@@ -6,12 +6,24 @@ on:
       - '*'
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v3
+        - name: Use Node.js 16
+          uses: actions/setup-node@v3
+          with:
+            node-version: 16
+        - run: yarn
+        - run: yarn test --detectOpenHandles --forceExit
+
   release:
+    needs: test
     runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest] # could include macos-latest but is not tested
 
     steps:
       - name: Check out Git repository

@@ -1,8 +1,8 @@
 {
   "name": "cerebro",
   "productName": "Cerebro",
-  "description": "Extendable electron-based open-source Spotlight and Alfred analogue",
-  "version": "0.5.8",
+  "description": "Cerebro is a open-source launcher to improve your productivity and efficiency",
+  "version": "0.6.0",
   "main": "./main.js",
   "license": "MIT",
   "author": {

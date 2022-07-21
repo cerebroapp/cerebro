@@ -1,8 +1,8 @@
 {
   "name": "cerebro",
   "productName": "cerebro",
-  "version": "0.5.8",
-  "description": "Extendable electron-based open-source Spotlight and Alfred analogue",
+  "version": "0.6.0",
+  "description": "Cerebro is a open-source launcher to improve your productivity and efficiency",
   "main": "main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest",
@@ -134,9 +134,7 @@
     "cerebro",
     "cerebroapp",
     "launcher",
-    "electron",
-    "alfred",
-    "spotlight"
+    "electron"
   ],
   "homepage": "https://cerebroapp.com",
   "devDependencies": {

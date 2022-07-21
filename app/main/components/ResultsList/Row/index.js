@@ -31,16 +31,12 @@ class Row extends Component {
         <div className={styles.details}>
           {title && (
           <div className={styles.title}>
-            {' '}
-            {title}
-            {' '}
+            {` ${title} `}
           </div>
           )}
           {subtitle && (
           <div className={styles.subtitle}>
-            {' '}
-            {subtitle}
-            {' '}
+            {` ${subtitle} `}
           </div>
           )}
         </div>

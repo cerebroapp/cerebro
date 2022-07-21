@@ -1,14 +1,16 @@
-import React, { PropTypes, Component } from 'react'
-import { KeyboardNav, KeyboardNavItem, Preload } from 'cerebro-ui'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { KeyboardNav, KeyboardNavItem, Preload } from '@cerebroapp/cerebro-ui'
+import { trackEvent } from 'lib/trackEvent'
+import { client } from 'lib/plugins'
+import plugins from 'plugins'
+import ReactMarkdown from 'react-markdown'
+
 import ActionButton from './ActionButton.js'
 import Settings from './Settings'
 import getReadme from '../getReadme'
-import ReactMarkdown from 'react-markdown'
 import styles from './styles.css'
-import { trackEvent } from 'lib/trackEvent'
 import * as format from '../format'
-import { client } from 'lib/plugins'
-import plugins from 'plugins'
 
 const isRelative = (src) => !src.match(/^(https?:|data:)/)
 const urlTransform = (repo, src) => {
@@ -77,37 +79,50 @@ class Preview extends Component {
     const settings = plugins[name] ? plugins[name].settings : null
     return (
       <div className={styles.preview} key={name}>
-        <h2>{format.name(name)} ({version})</h2>
+        <h2>
+          {format.name(name)}
+          {' '}
+          (
+          {version}
+          )
+        </h2>
         <p>{format.description(description)}</p>
         <KeyboardNav>
           <div className={styles.header}>
             {
-              settings &&
+              settings
+                && (
                 <KeyboardNavItem
                   onSelect={() => this.setState({ showSettings: !this.state.showSettings })}
                 >
                   Settings
                 </KeyboardNavItem>
+                )
             }
             {showSettings && <Settings name={name} settings={settings} />}
             {
-              !isInstalled && !isDebugging &&
+              !isInstalled && !isDebugging
+                && (
                 <ActionButton
                   action={this.pluginAction(name, 'install')}
                   text={runningAction === 'install' ? 'Installing...' : 'Install'}
                   onComplete={this.onComplete}
                 />
+                )
             }
             {
-              isInstalled &&
+              isInstalled
+                && (
                 <ActionButton
                   action={this.pluginAction(name, 'uninstall')}
                   text={runningAction === 'uninstall' ? 'Uninstalling...' : 'Uninstall'}
                   onComplete={this.onComplete}
                 />
+                )
             }
             {
-              isUpdateAvailable &&
+              isUpdateAvailable
+                && (
                 <ActionButton
                   action={this.pluginAction(name, 'update')}
                   text={
@@ -117,14 +132,17 @@ class Preview extends Component {
                   }
                   onComplete={this.onComplete}
                 />
+                )
             }
             {
-              githubRepo &&
+              githubRepo
+                && (
                 <KeyboardNavItem
                   onSelect={() => this.setState({ showDescription: !this.state.showDescription })}
                 >
                   Details
                 </KeyboardNavItem>
+                )
             }
           </div>
         </KeyboardNav>

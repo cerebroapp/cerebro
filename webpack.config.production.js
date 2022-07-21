@@ -1,12 +1,12 @@
-const webpack = require('webpack')
 const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const baseConfig = require('./webpack.config.base')
-const OptimizeJsPlugin = require('optimize-js-plugin')
 const Visualizer = require('webpack-visualizer-plugin')
 
 const config = {
   ...baseConfig,
+
+  mode: process.env.NODE_ENV,
 
   devtool: 'source-map',
 
@@ -17,7 +17,7 @@ const config = {
 
   output: {
     ...baseConfig.output,
-    path: path.join(__dirname, 'app/dist'),
+    path: path.join(__dirname, 'app', 'dist'),
     publicPath: '../dist/'
   },
 
@@ -29,41 +29,35 @@ const config = {
 
       {
         test: /global\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
 
       {
         test: /^((?!global).)*\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                importLoaders: 1,
-                localIdentName: '[name]__[local]___[hash:base64:5]'
-              }
-            },
-            'postcss-loader'
-          ]
-        })
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          {
+            loader: 'css-loader',
+            options: {
+              import: true,
+              modules: {
+                localIdentName: '[name]__[local]___[hash:base64:5]',
+                // auto: true,
+              },
+              esModule: false,
+              sourceMap: true,
+              importLoaders: 1,
+            }
+          },
+          { loader: 'postcss-loader' }
+        ]
       }
     ]
   },
+
   plugins: [
     ...baseConfig.plugins,
-    new ExtractTextPlugin({
-      filename: '[name].css',
-      allChunks: true,
-      ignoreOrder: true
-    }),
-    new OptimizeJsPlugin({
-      sourceMap: false
-    })
+    new MiniCssExtractPlugin()
   ],
 
   target: 'electron-renderer'

@@ -1,4 +1,12 @@
-import { app, ipcMain, crashReporter } from 'electron'
+import {
+  app, ipcMain, crashReporter, screen
+} from 'electron'
+import {
+  WINDOW_WIDTH,
+  INPUT_HEIGHT,
+  RESULT_HEIGHT,
+  MIN_VISIBLE_RESULTS,
+} from 'main/constants/ui'
 
 import createMainWindow from './main/createWindow'
 import createBackgroundWindow from './background/createWindow'
@@ -7,16 +15,15 @@ import AppTray from './main/createWindow/AppTray'
 import autoStart from './main/createWindow/autoStart'
 import initAutoUpdater from './initAutoUpdater'
 
-let trayIconSrc = `${__dirname}/tray_icon.png`
-if (process.platform === 'darwin') {
-  trayIconSrc = `${__dirname}/tray_iconTemplate@2x.png`
-} else if (process.platform === 'win32') {
-  trayIconSrc = `${__dirname}/tray_icon.ico`
+const iconSrc = {
+  DEFAULT: `${__dirname}/tray_icon.png`,
+  darwin: `${__dirname}/tray_iconTemplate@2x.png`,
+  win32: `${__dirname}/tray_icon.ico`
 }
 
-const isDev = () => (
-  process.env.NODE_ENV === 'development' || config.get('developerMode')
-)
+const trayIconSrc = iconSrc[process.platform] || iconSrc.DEFAULT
+
+const isDev = () => (process.env.NODE_ENV === 'development' || config.get('developerMode'))
 
 let mainWindow
 let backgroundWindow
@@ -37,16 +44,22 @@ if (process.env.NODE_ENV !== 'development') {
   }
 }
 
-app.on('ready', () => {
+app.whenReady().then(() => {
   mainWindow = createMainWindow({
     isDev,
-    // Main window html
-    src: `file://${__dirname}/main/index.html`,
+    src: `file://${__dirname}/main/index.html`, // Main window html
   })
+  // eslint-disable-next-line global-require
+  require('@electron/remote/main').initialize()
+  // eslint-disable-next-line global-require
+  require('@electron/remote/main').enable(mainWindow.webContents)
 
   backgroundWindow = createBackgroundWindow({
     src: `file://${__dirname}/background/index.html`,
   })
+
+  // eslint-disable-next-line global-require
+  require('@electron/remote/main').enable(backgroundWindow.webContents)
 
   tray = new AppTray({
     src: trayIconSrc,
@@ -56,11 +69,9 @@ app.on('ready', () => {
   })
 
   // Show tray icon if it is set in configuration
-  if (config.get('showInTray')) {
-    tray.show()
-  }
+  if (config.get('showInTray')) { tray.show() }
 
-  autoStart.isEnabled().then(enabled => {
+  autoStart.isEnabled().then((enabled) => {
     if (config.get('openAtLogin') !== enabled) {
       autoStart.set(config.get('openAtLogin'))
     }
@@ -81,20 +92,36 @@ ipcMain.on('updateSettings', (event, key, value) => {
 
   // Show or hide menu bar icon when it is changed in setting
   if (key === 'showInTray') {
-    value ? tray.show() : tray.hide()
+    value
+      ? tray.show()
+      : tray.hide()
   }
 
   // Show or hide "development" section in tray menu
-  if (key === 'developerMode') {
-    tray.setIsDev(isDev())
-  }
+  if (key === 'developerMode') { tray.setIsDev(isDev()) }
 
   // Enable or disable auto start
   if (key === 'openAtLogin') {
-    autoStart.isEnabled().then(enabled => {
-      if (value !== enabled) {
-        autoStart.set(value)
-      }
+    autoStart.isEnabled().then((enabled) => {
+      if (value !== enabled) autoStart.set(value)
     })
   }
 })
+
+ipcMain.on('get-window-position', (event, { width, heightWithResults }) => {
+  const winWidth = typeof width !== 'undefined' ? width : WINDOW_WIDTH
+
+  const winHeight = typeof heightWithResults !== 'undefined'
+    ? heightWithResults
+    : MIN_VISIBLE_RESULTS * RESULT_HEIGHT + INPUT_HEIGHT
+
+  const display = screen.getPrimaryDisplay()
+
+  const x = parseInt(display.bounds.x + (display.workAreaSize.width - winWidth) / 2, 10)
+  const y = parseInt(display.bounds.y + (display.workAreaSize.height - winHeight) / 2, 10)
+
+  // eslint-disable-next-line no-param-reassign
+  event.returnValue = [x, y]
+})
+
+ipcMain.on('quit', () => app.quit())

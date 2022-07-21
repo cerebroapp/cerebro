@@ -5,20 +5,21 @@ let appLauncher
 
 const isLinux = ['win32', 'darwin'].indexOf(process.platform) === -1
 
-if (isLinux) {
-  appLauncher = new AutoLaunch({ name: 'Cerebro' })
-}
+if (isLinux) { appLauncher = new AutoLaunch({ name: 'Cerebro' }) }
 
-const isEnabled = () => (
+const isEnabled = async () => (
   isLinux
     ? appLauncher.isEnabled()
-    : Promise.resolve(app.getLoginItemSettings().openAtLogin)
+    : app.getLoginItemSettings().openAtLogin
 )
 
 const set = (openAtLogin) => {
   if (isLinux) {
-    return openAtLogin ? appLauncher.enable() : appLauncher.disable()
+    return openAtLogin
+      ? appLauncher.enable()
+      : appLauncher.disable()
   }
+
   return app.setLoginItemSettings({ openAtLogin })
 }
 

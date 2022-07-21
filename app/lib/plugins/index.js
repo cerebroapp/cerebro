@@ -1,4 +1,4 @@
-import { app, remote } from 'electron'
+import getAppDataPath from 'appdata-path'
 import path from 'path'
 import fs from 'fs'
 import npm from './npm'
@@ -20,9 +20,9 @@ const EMPTY_PACKAGE_JSON = JSON.stringify({
   dependencies: {}
 }, null, 2)
 
-const electronApp = remote ? remote.app : app
-export const pluginsPath = path.join(electronApp.getPath('userData'), 'plugins')
+export const pluginsPath = path.join(getAppDataPath('Cerebro'), 'plugins')
 export const modulesDirectory = path.join(pluginsPath, 'node_modules')
+export const cerebroappModulesDirectory = path.join(pluginsPath, 'node_modules', '@cerebroapp')
 export const packageJsonPath = path.join(pluginsPath, 'package.json')
 
 export const ensureFiles = () => {

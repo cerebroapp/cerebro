@@ -4,6 +4,7 @@ import { settings as pluginSettings } from 'lib/plugins'
 
 export const initializePlugin = (name) => {
   const { initialize, initializeAsync } = plugins[name]
+
   if (initialize) {
     // Foreground plugin initialization
     try {

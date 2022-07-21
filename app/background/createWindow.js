@@ -10,6 +10,7 @@ export default ({ src }) => {
       contextIsolation: false
     },
   })
+
   backgroundWindow.loadURL(src)
   return backgroundWindow
 }

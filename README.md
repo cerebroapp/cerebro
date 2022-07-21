@@ -46,19 +46,26 @@ First, clone the repo via git:
 ```bash
 $ git clone https://github.com/cerebroapp/cerebro.git cerebro
 ```
+Open the project
+
+```bash
+$ cd cerebro
+```
 
 And then install dependencies:
 
+
 ```bash
-$ cd cerebro && yarn && cd ./app && yarn && cd ../
+yarn
 ```
 
 ### Run
+
 ```bash
 $ yarn run dev
 ```
 
-> Note: requires a node version >=6.x
+> Note: requires a node version >=16.x
 
 ### Resolve common issues
 1. `AssertionError: Current node version is not supported for development` on npm postinstall.
@@ -90,19 +97,26 @@ Use this command to build `.app` file:
 $ yarn build
 ```
 
+## For developers
 
-## Be in touch
-Follow to be notified about new releases or learn some productivity tips with Cerebro:
+### Publish a release
 
-* [Twitter](https://twitter.com/cerebro_app)
-* [Facebook](https://www.facebook.com/cerebroapp)
-* [Google+](https://plus.google.com/104292436165594177472)
-* [VK.com](https://vk.com/cerebroapp) – channel in Russian
+CerebroApp is using GH actions to build the app and publish it to a release. To publish a new release follow the steps below:
 
-Or [subscribe to newsletter](http://eepurl.com/coiKU9) to be notified only about big releases.
+1. Update the version on both `package.json` and `app/package.json` files.
+2. Create a release with from GH and publish it. 🚧 The release **tag** SHOULD NOT contain the `v` prefix (❌ `v0.1.2` → ✅`0.1.2`).
+3. Complete the name with a name and a description of the release.
+4. The GH action is triggered and the release is updated when executables are built.
 
-## Support
+### Add dependencies
+
+CerebroApp was created from an [old version of electron-react-boilerplate](https://github.com/cerebroapp/cerebro/commit/57b6e28c0f64beae8948cf17f099fa5d6236ae3c) and uses a two package.json file structure. If you are interested in developing a new feature, you should read about this structure in the [electron-react-boilerplate documentation](https://www.electron.build/tutorials/two-package-structure.html).
+
+
+# Support
+
 ### Backers
+
 Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/cerebro#backer)]
 
 <a href="https://opencollective.com/cerebro/backer/0/website" target="_blank"><img src="https://opencollective.com/cerebro/backer/0/avatar.svg"></a>
@@ -171,4 +185,5 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 <a href="https://opencollective.com/cerebro/sponsor/29/website" target="_blank"><img src="https://opencollective.com/cerebro/sponsor/29/avatar.svg"></a>
 
 ## License
-MIT © [Alexandr Subbotin](https://github.com/KELiON)
+
+MIT © [Cerebro App](https://github.com/cerebroapp/cerebro/blob/master/LICENSE)

@@ -1,7 +1,9 @@
 import { BrowserWindow, globalShortcut, app, screen, shell } from 'electron'
 import debounce from 'lodash/debounce'
 import EventEmitter from 'events'
-import { trackEvent, screenView } from '../lib/trackEvent'
+import { trackEvent, screenView } from 'lib/trackEvent'
+import config from 'lib/config'
+import getWindowPosition from 'lib/getWindowPosition'
 
 import {
   INPUT_HEIGHT,
@@ -11,8 +13,6 @@ import {
 import buildMenu from './createWindow/buildMenu'
 import toggleWindow from './createWindow/toggleWindow'
 import handleUrl from './createWindow/handleUrl'
-import config from '../lib/config'
-import getWindowPosition from '../lib/getWindowPosition'
 import * as donateDialog from './createWindow/donateDialog'
 
 export default ({ src, isDev }) => {

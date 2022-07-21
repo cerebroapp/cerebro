@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import config from 'lib/config'
 import FormItem from './FormItem'
 import styles from './styles.css'
@@ -45,9 +46,7 @@ export default class Settings extends Component {
   render() {
     return (
       <div className={styles.settingsWrapper}>
-        {
-          Object.keys(this.props.settings).map(this.renderSetting)
-        }
+        { Object.keys(this.props.settings).map(this.renderSetting) }
       </div>
     )
   }

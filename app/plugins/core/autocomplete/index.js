@@ -1,13 +1,15 @@
 import { search } from 'cerebro-tools'
-import plugins from '../../index'
-import { flow, filter, map, partialRight, values } from 'lodash/fp'
+import {
+  flow, filter, map, partialRight, values
+} from 'lodash/fp'
+import plugins from 'plugins'
 
-const toString = plugin => plugin.keyword
-const notMatch = term => plugin => (
+const toString = (plugin) => plugin.keyword
+const notMatch = (term) => (plugin) => (
   plugin.keyword !== term && `${plugin.keyword} ` !== term
 )
 
-const pluginToResult = actions => res => ({
+const pluginToResult = (actions) => (res) => ({
   title: res.name,
   icon: res.icon,
   term: `${res.keyword} `,
@@ -25,14 +27,11 @@ const pluginToResult = actions => res => ({
  */
 const fn = ({ term, display, actions }) => flow(
   values,
-  filter(plugin => !!plugin.keyword),
+  filter((plugin) => !!plugin.keyword),
   partialRight(search, [term, toString]),
   filter(notMatch(term)),
   map(pluginToResult(actions)),
   display
 )(plugins)
 
-export default {
-  fn,
-  name: 'Plugins autocomplete',
-}
+export default { fn, name: 'Plugins autocomplete' }

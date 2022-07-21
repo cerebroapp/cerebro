@@ -1,29 +1,33 @@
 /* eslint default-case: 0 */
 
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { clipboard, remote } from 'electron'
-import { focusableSelector } from 'cerebro-ui'
+import { clipboard, BrowserWindow } from 'electron'
+import { focusableSelector } from '@cerebroapp/cerebro-ui'
 import escapeStringRegexp from 'escape-string-regexp'
 
 import debounce from 'lodash/debounce'
 
 import { trackEvent } from 'lib/trackEvent'
 import getWindowPosition from 'lib/getWindowPosition'
-
-import MainInput from '../MainInput'
-import ResultsList from '../ResultsList'
-import StatusBar from '../StatusBar'
-import styles from './styles.css'
-import * as searchActions from '../../actions/search'
-
 import {
   WINDOW_WIDTH,
   INPUT_HEIGHT,
   RESULT_HEIGHT,
   MIN_VISIBLE_RESULTS,
-} from '../../constants/ui'
+} from 'main/constants/ui'
+import * as searchActions from 'main/actions/search'
+
+import MainInput from '../MainInput'
+import ResultsList from '../ResultsList'
+import StatusBar from '../StatusBar'
+import styles from './styles.css'
+
+const remote = process.type === 'browser'
+  ? { getCurrentWindow: BrowserWindow.getFocusedWindow }
+  : require('@electron/remote')
 
 const SHOW_EVENT = {
   category: 'Window',
@@ -36,7 +40,7 @@ const SELECT_EVENT = {
 }
 
 const trackShowWindow = () => trackEvent(SHOW_EVENT)
-const trackSelectItem = label => trackEvent({ ...SELECT_EVENT, label })
+const trackSelectItem = (label) => trackEvent({ ...SELECT_EVENT, label })
 
 /**
  * Wrap click or mousedown event to custom `select-item` event,
@@ -60,9 +64,7 @@ const wrapEvent = (realEvent) => {
 const focusPreview = () => {
   const previewDom = document.getElementById('preview')
   const firstFocusable = previewDom.querySelector(focusableSelector)
-  if (firstFocusable) {
-    firstFocusable.focus()
-  }
+  if (firstFocusable) { firstFocusable.focus() }
 }
 
 /**
@@ -97,10 +99,7 @@ class Cerebro extends Component {
     this.focusMainInput = this.focusMainInput.bind(this)
     this.selectItem = this.selectItem.bind(this)
 
-
-    this.state = {
-      mainInputFocused: false
-    }
+    this.state = { mainInputFocused: false }
   }
 
   componentWillMount() {
@@ -115,10 +114,12 @@ class Cerebro extends Component {
     this.electronWindow.on('show', this.updateElectronWindow)
     this.electronWindow.on('show', trackShowWindow)
   }
+
   componentDidMount() {
     this.focusMainInput()
     this.updateElectronWindow()
   }
+
   componentDidUpdate(prevProps) {
     const { results } = this.props
     if (results.length !== prevProps.results.length) {
@@ -126,6 +127,7 @@ class Cerebro extends Component {
       this.updateElectronWindow()
     }
   }
+
   componentWillUnmount() {
     this.cleanup()
   }
@@ -160,14 +162,11 @@ class Cerebro extends Component {
     if (highlighted && highlighted.onKeyDown) {
       highlighted.onKeyDown(event)
     }
-    if (event.defaultPrevented) {
-      return
-    }
+    if (event.defaultPrevented) { return }
 
     const keyActions = {
-      select: () => {
-        this.selectCurrent(event)
-      },
+      select: () => this.selectCurrent(event),
+
       arrowRight: () => {
         if (cursorInEndOfInut(event.target)) {
           if (this.autocompleteValue()) {
@@ -179,10 +178,12 @@ class Cerebro extends Component {
           }
         }
       },
+
       arrowDown: () => {
         this.props.actions.moveCursor(1)
         event.preventDefault()
       },
+
       arrowUp: () => {
         if (this.props.results.length > 0) {
           this.props.actions.moveCursor(-1)
@@ -192,7 +193,6 @@ class Cerebro extends Component {
         event.preventDefault()
       }
     }
-
 
     if (event.metaKey || event.ctrlKey) {
       if (event.keyCode === 67) {
@@ -213,6 +213,7 @@ class Cerebro extends Component {
           return this.selectItem(result)
         }
       }
+
       // Lightweight vim-mode: cmd/ctrl + jklo
       switch (event.keyCode) {
         case 74:
@@ -229,6 +230,7 @@ class Cerebro extends Component {
           break
       }
     }
+
     switch (event.keyCode) {
       case 9:
         this.autocomplete(event)
@@ -306,6 +308,7 @@ class Cerebro extends Component {
       event.preventDefault()
     }
   }
+
   /**
    * Select highlighted element
    */
@@ -350,6 +353,7 @@ class Cerebro extends Component {
     }
     return ''
   }
+
   /**
    * Render autocomplete suggestion from selected item
    * @return {React}
@@ -360,6 +364,7 @@ class Cerebro extends Component {
       return <div className={styles.autocomplete}>{term}</div>
     }
   }
+
   render() {
     const { mainInputFocused } = this.state
     return (
@@ -408,7 +413,7 @@ Cerebro.propTypes = {
 function mapStateToProps(state) {
   return {
     selected: state.search.selected,
-    results: state.search.resultIds.map(id => state.search.resultsById[id]),
+    results: state.search.resultIds.map((id) => state.search.resultsById[id]),
     term: state.search.term,
     statusBarText: state.statusBar.text,
     prevTerm: state.search.prevTerm,

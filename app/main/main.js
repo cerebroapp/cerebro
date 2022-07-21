@@ -1,16 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import fixPath from 'fix-path'
 
 import initializePlugins from 'lib/initializePlugins'
 import { on } from 'lib/rpc'
+import config from 'lib/config'
 import { updateTerm } from './actions/search'
-import config from '../lib/config'
 import store from './store'
 import Cerebro from './components/Cerebro'
 import './css/global.css'
 
-require('fix-path')()
+fixPath()
 
 global.React = React
 global.ReactDOM = ReactDOM

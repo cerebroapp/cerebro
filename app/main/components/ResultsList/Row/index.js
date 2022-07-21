@@ -1,5 +1,6 @@
-import React, { PropTypes, Component } from 'react'
-import { SmartIcon } from 'cerebro-ui'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { SmartIcon } from '@cerebroapp/cerebro-ui'
 import styles from './styles.css'
 
 class Row extends Component {
@@ -9,11 +10,13 @@ class Row extends Component {
       this.props.selected ? styles.selected : null
     ].join(' ')
   }
+
   renderIcon() {
     const { icon } = this.props
     if (!icon) return null
     return <SmartIcon path={icon} className={styles.icon} />
   }
+
   render() {
     const {
       title,
@@ -21,12 +24,21 @@ class Row extends Component {
       onMouseMove,
       subtitle
     } = this.props
+
     return (
       <div className={this.classNames()} onClick={onSelect} onMouseMove={onMouseMove}>
         {this.renderIcon()}
         <div className={styles.details}>
-          {title && <div className={styles.title}> {title} </div>}
-          {subtitle && <div className={styles.subtitle}> {subtitle} </div>}
+          {title && (
+          <div className={styles.title}>
+            {` ${title} `}
+          </div>
+          )}
+          {subtitle && (
+          <div className={styles.subtitle}>
+            {` ${subtitle} `}
+          </div>
+          )}
         </div>
       </div>
     )

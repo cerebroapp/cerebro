@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import styles from './styles.css'
 
 const ASCII = {
@@ -83,12 +84,11 @@ const charCodeToSign = ({ keyCode, shiftKey }) => {
   if (KEYCODES[keyCode]) {
     return KEYCODES[keyCode]
   }
-  const valid =
-    (keyCode > 47 && keyCode < 58) || // number keys
-    (keyCode > 64 && keyCode < 91) || // letter keys
-    (keyCode > 95 && keyCode < 112) || // numpad keys
-    (keyCode > 185 && keyCode < 193) || // ;=,-./` (in order)
-    (keyCode > 218 && keyCode < 223)   // [\]' (in order)
+  const valid = (keyCode > 47 && keyCode < 58) // number keys
+    || (keyCode > 64 && keyCode < 91) // letter keys
+    || (keyCode > 95 && keyCode < 112) // numpad keys
+    || (keyCode > 185 && keyCode < 193) // ;=,-./` (in order)
+    || (keyCode > 218 && keyCode < 223) // [\]' (in order)
   if (!valid) {
     return null
   }
@@ -123,6 +123,7 @@ class Hotkey extends Component {
     keys.push(key)
     this.props.onChange(keys.join('+'))
   }
+
   render() {
     const { hotkey } = this.props
     const keys = hotkey.split('+').map(keyToSign).join(osKeyDelimiter)

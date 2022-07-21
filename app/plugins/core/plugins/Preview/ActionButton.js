@@ -1,9 +1,10 @@
-import React, { PropTypes } from 'react'
-import { KeyboardNavItem } from 'cerebro-ui'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { KeyboardNavItem } from '@cerebroapp/cerebro-ui'
 
-const ActionButton = ({ action, onComplete, text }) => {
+function ActionButton({ action, onComplete, text }) {
   const onSelect = () => {
-    const timeout = new Promise(resolve => setTimeout(resolve, 1500))
+    const timeout = new Promise((resolve) => setTimeout(resolve, 1500))
     Promise.all([action(), timeout]).then(onComplete)
   }
   return (

@@ -1,8 +1,8 @@
 {
   "name": "cerebro",
   "productName": "Cerebro",
-  "description": "Extendable electron-based open-source Spotlight and Alfred analogue",
-  "version": "0.5.0",
+  "description": "Cerebro is a open-source launcher to improve your productivity and efficiency",
+  "version": "0.6.0",
   "main": "./main.js",
   "license": "MIT",
   "author": {
@@ -11,17 +11,20 @@
     "url": "https://github.com/KELiON"
   },
   "contributors": [
-    "Gustavo Pereira"
+    "Gustavo Pereira",
+    "David Jiménez"
   ],
   "scripts": {
     "rebuild": "npm rebuild --runtime=electron --target=1.6.11 --disturl=https://atom.io/download/electron --abi=53"
   },
   "dependencies": {
-    "chokidar": "^1.6.1",
-    "electron-updater": "^4.3.9",
-    "rmdir": "^1.2.0",
-    "semver": "^5.3.0",
-    "universal-analytics": "^0.4.8"
+    "move-file": "2.1.0",
+    "chokidar": "3.5.3",
+    "electron-updater": "5.0.1",
+    "fix-path": "3.0.0",
+    "rimraf": "3.0.2",
+    "semver": "7.3.7",
+    "universal-analytics": "0.5.3"
   },
   "optionalDependencies": {},
   "devDependencies": {}

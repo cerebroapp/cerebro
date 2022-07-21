@@ -1,0 +1,41 @@
+name: Build/release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v3
+        - name: Use Node.js 16
+          uses: actions/setup-node@v3
+          with:
+            node-version: 16
+        - run: yarn
+        - run: yarn test --detectOpenHandles --forceExit
+
+  release:
+    needs: test
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Build & Release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          release: true

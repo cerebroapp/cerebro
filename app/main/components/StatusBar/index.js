@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styles from './styles.css'
 
 const StatusBar = ({ value }) => (
@@ -6,7 +7,7 @@ const StatusBar = ({ value }) => (
 )
 
 StatusBar.propTypes = {
-  value: React.PropTypes.string
+  value: PropTypes.string
 }
 
 export default StatusBar

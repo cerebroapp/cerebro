@@ -1,19 +1,16 @@
 import path from 'path'
 import { modulesDirectory } from 'lib/plugins'
-import { readdir, lstatSync } from 'fs'
+import { lstatSync, readdirSync } from 'fs'
 
-const isSymlink = file => lstatSync(path.join(modulesDirectory, file)).isSymbolicLink()
+const isSymlink = (file) => lstatSync(path.join(modulesDirectory, file)).isSymbolicLink()
 
-/* Get list of all plugins that are currently in debugging mode.
+/**
+ * Get list of all plugins that are currently in debugging mode.
  * These plugins are symlinked by [create-cerebro-plugin](https://github.com/cerebroapp/create-cerebro-plugin)
  *
- * @return {Promise<Object>}
+ * @return {Promise<String[]>}
  */
-export default () => new Promise((resolve, reject) => {
-  readdir(modulesDirectory, (err, files) => {
-    if (err) {
-      return reject(err)
-    }
-    resolve(files.filter(isSymlink))
-  })
-})
+export default async () => {
+  const files = readdirSync(modulesDirectory)
+  return files.filter(isSymlink)
+}

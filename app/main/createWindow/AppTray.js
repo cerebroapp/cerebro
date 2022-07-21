@@ -19,6 +19,7 @@ export default class AppTray {
     this.tray = null
     this.options = options
   }
+
   /**
    * Show application icon in menu bar
    */
@@ -28,12 +29,14 @@ export default class AppTray {
     tray.setContextMenu(this.buildMenu())
     this.tray = tray
   }
+
   setIsDev(isDev) {
     this.options.isDev = isDev
     if (this.tray) {
       this.tray.setContextMenu(this.buildMenu())
     }
   }
+
   buildMenu() {
     const { mainWindow, backgroundWindow, isDev } = this.options
     const separator = { type: 'separator' }
@@ -95,6 +98,7 @@ export default class AppTray {
     })
     return Menu.buildFromTemplate(template)
   }
+
   /**
    * Hide icon in menu bar
    */

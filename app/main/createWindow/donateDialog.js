@@ -27,7 +27,6 @@ const messages = [
 const buttons = [['Close', 'Make them happy']]
 const skipMessages = ["I don't want to see this message again"]
 
-
 export const show = () => {
   config.set('lastShownDonateDialog', now())
   const AB = Math.floor(Math.random() * buttons.length)

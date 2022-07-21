@@ -24,7 +24,6 @@ import MainInput from '../MainInput'
 import ResultsList from '../ResultsList'
 import StatusBar from '../StatusBar'
 import styles from './styles.css'
-// import remote from '@electron/remote'
 
 const remote = process.type === 'browser'
   ? { getCurrentWindow: BrowserWindow.getFocusedWindow }

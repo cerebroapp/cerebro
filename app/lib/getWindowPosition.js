@@ -33,4 +33,3 @@ const getWhenMainProcess = ({ width, heightWithResults }) => {
 
   return [x, y]
 }
-

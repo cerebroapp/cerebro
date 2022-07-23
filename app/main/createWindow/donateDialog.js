@@ -1,6 +1,5 @@
 import { dialog, shell } from 'electron'
 import config from '../../lib/config'
-import { trackEvent } from '../../lib/trackEvent'
 
 const now = () => new Date().getTime()
 const twoWeeksAgo = () => now() - 1000 * 3600 * 24 * 7
@@ -30,15 +29,6 @@ const skipMessages = ["I don't want to see this message again"]
 export const show = () => {
   config.set('lastShownDonateDialog', now())
   const AB = Math.floor(Math.random() * buttons.length)
-  const track = (event) => {
-    trackEvent({
-      event,
-      category: 'Donate Dialog',
-      label: AB
-    })
-  }
-
-  track('show-dialog')
 
   const options = {
     type: 'info',
@@ -53,12 +43,10 @@ export const show = () => {
   const callback = (id, checkboxChecked) => {
     if (checkboxChecked) {
       config.set('skipDonateDialog', true)
-      track('skip-dialog')
     }
     if (id === 1) {
-      track('choose-donate')
       donate()
-    } else { track('cancel') }
+    }
   }
 
   setTimeout(() => {

@@ -1,7 +1,8 @@
-import { BrowserWindow, globalShortcut, app, screen, shell } from 'electron'
+import {
+  BrowserWindow, globalShortcut, app, screen, shell
+} from 'electron'
 import debounce from 'lodash/debounce'
 import EventEmitter from 'events'
-import { trackEvent, screenView } from 'lib/trackEvent'
 import config from 'lib/config'
 import getWindowPosition from 'lib/getWindowPosition'
 
@@ -175,14 +176,6 @@ export default ({ src, isDev }) => {
   if (donateDialog.shouldShow()) {
     setTimeout(donateDialog.show, 1000)
   }
-
-  // Track app start event
-  trackEvent({
-    category: 'App Start',
-    event: config.get('firstStart') ? 'First' : 'Secondary'
-  })
-
-  screenView('Search')
 
   // Save in config information, that application has been started
   config.set('firstStart', false)

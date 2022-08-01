@@ -11,11 +11,21 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 
 ## Plugins
 ### Core plugins
-* Search in the web with google suggestions;
+
+The following plugins are downloaded when you first install Cerebro:
+
 * Search & launch application, i.e. `spotify`;
-* Navigate in file system with file previews (i.e. `~/Dropbox/passport.pdf`);
-* Calculator;
-* Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp`;
+* Search in the web with google suggestions (`cerebro-google`). There are more providers available (ecosia, duck-duck-go, ...)
+* Navigate in file system with file previews (i.e. `~/Dropbox/passport.pdf`)
+* Calculator (`cerebro-math`)
+* Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp` (`cerebro-converter`)
+
+## Shortcuts
+
+Cerebro provides several shortcuts to improve your productivity:
+- `ctrl+c`: copy the result from a plugin to the clipboard, if the plugin does not provida a result, the term you introduced will be copied
+- `ctrl+1...9`: select directly a result from the list
+- `ctrl+[hjkl]`: navigate through the results using vim-like keys (Also `ctrl+o` to select the result)
 
 ### Install and manage custom plugins
 Use built-in `plugins` command to search and manage custom plugins.
@@ -104,7 +114,7 @@ $ yarn build
 CerebroApp is using GH actions to build the app and publish it to a release. To publish a new release follow the steps below:
 
 1. Update the version on both `package.json` and `app/package.json` files.
-2. Create a release with from GH and publish it. 🚧 The release **tag** SHOULD NOT contain the `v` prefix (❌ `v0.1.2` → ✅`0.1.2`).
+2. Create a release with from GH and publish it. 🚧 The release **tag** MUST contain the `v` prefix (❌ `0.1.2` → ✅`v0.1.2`).
 3. Complete the name with a name and a description of the release.
 4. The GH action is triggered and the release is updated when executables are built.
 

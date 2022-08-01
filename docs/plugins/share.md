@@ -13,4 +13,4 @@ If you have any problems check out [publishing packages](https://docs.npmjs.com/
 1. Update your repository `Readme.md`, add screenshot or gif;
 1. Push your plugin to open github repository – this repository is used by cerebro, at least to show `Readme.md` of your plugin;
 1. Make sure that you have changed package.json metadata: module name, description, author and link to github repository;
-1. Add `cerebro-plugin` keyword to package.json keywords section. Otherwise your plugin won't be shown in Cerebro;
+1. Add `cerebro-plugin` or `cerebro-extracted-plugin` keyword to package.json keywords section. Otherwise your plugin won't be shown in Cerebro;

@@ -6,6 +6,8 @@ This is a minimum source code of your plugin:
 export const fn = (scope) => console.log(scope.term)
 ```
 
+> You can open the developer tools by pressing `ctrl+shift+i`(for the main window) and `ctrl+shift+b`(for the background). Developer mode should be enabled from the settings
+
 This plugin will write to console all changes in your search field of Cerebro app. So, `fn` key is a heart of your plugin: this function receives `scope` object and you can send results back to Cerebro. Scope object is:
 
 * `term` – `String`, entered by Cerebro user;

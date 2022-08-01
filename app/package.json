@@ -14,9 +14,6 @@
     "Gustavo Pereira",
     "David Jiménez"
   ],
-  "scripts": {
-    "rebuild": "npm rebuild --runtime=electron --target=1.6.11 --disturl=https://atom.io/download/electron --abi=53"
-  },
   "dependencies": {
     "move-file": "2.1.0",
     "chokidar": "3.5.3",

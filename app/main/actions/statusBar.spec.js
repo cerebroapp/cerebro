@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import {
   SET_STATUS_BAR_TEXT
 } from 'main/constants/actionTypes'

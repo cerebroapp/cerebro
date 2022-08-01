@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 import {
   MOVE_CURSOR,
   SELECT_ELEMENT,

@@ -9,7 +9,7 @@ const maxAge = 5 * 60 * 1000 // 5 minutes
 
 const getAvailablePlugins = memoize(availablePlugins, { maxAge })
 
-const parseVersion = version => (
+const parseVersion = (version) => (
   validVersion((version || '').replace(/^\^/, '')) || '0.0.0'
 )
 
@@ -20,29 +20,41 @@ export default async () => {
     getDebuggingPlugins()
   ])
 
+  const listOfInstalledPlugins = installed.map(([name, version]) => ({
+    name,
+    version,
+    installedVersion: parseVersion(version),
+    isInstalled: true,
+    isUpdateAvailable: false,
+  }))
+
   const listOfAvailablePlugins = available.map((plugin) => {
-    const installedVersion = parseVersion(installed[plugin.name])
-    const isInstalled = !!installed[plugin.name]
-    const isUpdateAvailable = isInstalled && compareVersions(plugin.version, installedVersion)
+    const installedPlugin = listOfInstalledPlugins.find(({ name }) => name === plugin.name)
+    if (!installedPlugin) {
+      return plugin
+    }
+
+    const { installedVersion } = installedPlugin
+    const isUpdateAvailable = compareVersions(plugin.version, installedVersion)
+
     return {
       ...plugin,
       installedVersion,
-      isInstalled,
+      isInstalled: true,
       isUpdateAvailable
     }
   })
   console.log('Debugging Plugins: ', debuggingPlugins)
 
-  const listOfDebuggingPlugins = debuggingPlugins.map(name => ({
+  const listOfDebuggingPlugins = debuggingPlugins.map((name) => ({
     name,
     description: '',
     version: 'dev',
-    isInstalled: false,
-    isUpdateAvailable: false,
     isDebugging: true
   }))
 
   return [
+    ...listOfInstalledPlugins,
     ...listOfAvailablePlugins,
     ...listOfDebuggingPlugins
   ]

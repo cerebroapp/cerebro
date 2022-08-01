@@ -8,7 +8,7 @@ const isSymlink = (file) => lstatSync(path.join(modulesDirectory, file)).isSymbo
  * Get list of all plugins that are currently in debugging mode.
  * These plugins are symlinked by [create-cerebro-plugin](https://github.com/cerebroapp/create-cerebro-plugin)
  *
- * @return {Promise<String[]>}
+ * @return {Promise<string[]>}
  */
 export default async () => {
   const files = readdirSync(modulesDirectory)

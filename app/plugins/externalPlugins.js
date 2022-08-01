@@ -2,9 +2,7 @@ import debounce from 'lodash/debounce'
 import chokidar from 'chokidar'
 import path from 'path'
 import { initializePlugin } from 'lib/initializePlugins'
-import {
-  modulesDirectory, cerebroappModulesDirectory, ensureFiles, settings
-} from 'lib/plugins'
+import { modulesDirectory, ensureFiles, settings } from 'lib/plugins'
 
 const requirePlugin = (pluginPath) => {
   try {
@@ -40,15 +38,13 @@ ensureFiles()
 
 const plugins = {}
 
-const pluginsWatcher = chokidar.watch([modulesDirectory, cerebroappModulesDirectory], { depth: 0 })
+const pluginsWatcher = chokidar.watch(modulesDirectory, { depth: 1 })
 
 pluginsWatcher.on('unlinkDir', (pluginPath) => {
   const { base, dir } = path.parse(pluginPath)
-  const isCerebroappFolder = base === '@cerebroapp'
-  const notValidModuleFolder = dir !== modulesDirectory && dir !== cerebroappModulesDirectory
-  if (isCerebroappFolder || notValidModuleFolder) {
-    return
-  }
+  if (base.match(/node_modules/) || base.match(/^@/)) return
+  if (!dir.match(/node_modules$/) && !dir.match(/@.+$/)) return
+
   const requirePath = window.require.resolve(pluginPath)
   delete plugins[base]
   delete window.require.cache[requirePath]
@@ -57,11 +53,8 @@ pluginsWatcher.on('unlinkDir', (pluginPath) => {
 
 pluginsWatcher.on('addDir', (pluginPath) => {
   const { base, dir } = path.parse(pluginPath)
-  const isCerebroappFolder = base === '@cerebroapp'
-  const notValidModuleFolder = dir !== modulesDirectory && dir !== cerebroappModulesDirectory
-  if (isCerebroappFolder || notValidModuleFolder) {
-    return
-  }
+  if (base.match(/node_modules/) || base.match(/^@/)) return
+  if (!dir.match(/node_modules$/) && !dir.match(/@.+$/)) return
 
   setTimeout(() => {
     console.group(`Load plugin: ${base}`)

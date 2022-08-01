@@ -179,7 +179,8 @@ class Cerebro extends Component {
       }
     }
 
-    if (event.metaKey || event.ctrlKey) {
+    // shortcuts for ctrl+...
+    if ((event.metaKey || event.ctrlKey) && !event.altKey) {
       if (event.keyCode === 67) {
         // Copy to clipboard on cmd+c
         const text = this.highlightedResult().clipboard
@@ -190,12 +191,13 @@ class Cerebro extends Component {
         }
         return
       }
+
+      // Select element by number
       if (event.keyCode >= 49 && event.keyCode <= 57) {
-        // Select element by number
         const number = Math.abs(49 - event.keyCode)
         const result = this.props.results[number]
         if (result) {
-          return this.selectItem(result)
+          return this.selectItem(result, event)
         }
       }
 

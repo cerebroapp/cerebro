@@ -63,47 +63,36 @@ class Preview extends Component {
       version,
       description,
       repo,
-      isInstalled,
+      isInstalled = false,
       isDebugging,
       installedVersion,
-      isUpdateAvailable
+      isUpdateAvailable = false
     } = this.props
     const githubRepo = repo && repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
     const { runningAction, showSettings } = this.state
     const settings = plugins[name] ? plugins[name].settings : null
     return (
       <div className={styles.preview} key={name}>
-        <h2>
-          {format.name(name)}
-          {' '}
-          (
-          {version}
-          )
-        </h2>
+        <h2>{`${format.name(name)} (${version})`}</h2>
+
         <p>{format.description(description)}</p>
         <KeyboardNav>
           <div className={styles.header}>
-            {
-              settings
-                && (
-                <KeyboardNavItem
-                  onSelect={() => this.setState({ showSettings: !this.state.showSettings })}
-                >
-                  Settings
-                </KeyboardNavItem>
-                )
-            }
+            { settings && (
+              <KeyboardNavItem
+                onSelect={() => this.setState({ showSettings: !this.state.showSettings })}
+              >
+                Settings
+              </KeyboardNavItem>
+            )}
             {showSettings && <Settings name={name} settings={settings} />}
-            {
-              !isInstalled && !isDebugging
-                && (
-                <ActionButton
-                  action={this.pluginAction(name, 'install')}
-                  text={runningAction === 'install' ? 'Installing...' : 'Install'}
-                  onComplete={this.onComplete}
-                />
-                )
-            }
+            { !isInstalled && !isDebugging && (
+            <ActionButton
+              action={this.pluginAction(name, 'install')}
+              text={runningAction === 'install' ? 'Installing...' : 'Install'}
+              onComplete={this.onComplete}
+            />
+            )}
             {
               isInstalled
                 && (
@@ -153,9 +142,9 @@ Preview.propTypes = {
   description: PropTypes.string,
   repo: PropTypes.string,
   installedVersion: PropTypes.string,
-  isInstalled: PropTypes.bool.isRequired,
+  isInstalled: PropTypes.bool,
   isDebugging: PropTypes.bool,
-  isUpdateAvailable: PropTypes.bool.isRequired,
+  isUpdateAvailable: PropTypes.bool,
   onComplete: PropTypes.func.isRequired,
 }
 

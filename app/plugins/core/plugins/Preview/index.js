@@ -35,10 +35,10 @@ class Preview extends Component {
   }
 
   pluginAction(plugin, runningAction) {
-    return () => {
-      this.setState({ runningAction })
+    return () => [
+      this.setState({ runningAction }),
       client[runningAction](plugin)
-    }
+    ]
   }
 
   renderDescription(repo) {
@@ -64,7 +64,7 @@ class Preview extends Component {
       description,
       repo,
       isInstalled = false,
-      isDebugging,
+      isDebugging = false,
       installedVersion,
       isUpdateAvailable = false
     } = this.props

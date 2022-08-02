@@ -4,8 +4,7 @@ import { KeyboardNavItem } from '@cerebroapp/cerebro-ui'
 
 function ActionButton({ action, onComplete, text }) {
   const onSelect = () => {
-    const timeout = new Promise((resolve) => setTimeout(resolve, 1500))
-    Promise.all([action(), timeout]).then(onComplete)
+    Promise.all(action()).then(onComplete)
   }
   return (
     <KeyboardNavItem onSelect={onSelect}>

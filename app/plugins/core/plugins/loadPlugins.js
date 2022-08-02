@@ -14,36 +14,41 @@ const parseVersion = (version) => (
 )
 
 export default async () => {
+  const resultPlugins = []
+
   const [available, installed, debuggingPlugins] = await Promise.all([
     getAvailablePlugins(),
     getInstalledPlugins(),
     getDebuggingPlugins()
   ])
 
-  const listOfInstalledPlugins = installed.map(([name, version]) => ({
-    name,
-    version,
-    installedVersion: parseVersion(version),
-    isInstalled: true,
-    isUpdateAvailable: false,
-  }))
+  installed.forEach(([name, version]) => {
+    resultPlugins.push({
+      name,
+      version,
+      installedVersion: parseVersion(version),
+      isInstalled: true,
+      isUpdateAvailable: false,
+    })
+  })
 
-  const listOfAvailablePlugins = available.map((plugin) => {
-    const installedPlugin = listOfInstalledPlugins.find(({ name }) => name === plugin.name)
-    if (!installedPlugin) {
-      return plugin
+  available.forEach((plugin) => {
+    const installedPluginIndex = resultPlugins.findIndex(({ name }) => name === plugin.name)
+    if (installedPluginIndex === -1) {
+      return resultPlugins.push(plugin)
     }
 
+    const installedPlugin = resultPlugins[installedPluginIndex]
     const { installedVersion } = installedPlugin
     const isUpdateAvailable = compareVersions(plugin.version, installedVersion)
 
-    return {
+    resultPlugins[installedPluginIndex] = {
+      ...installedPlugin,
       ...plugin,
-      installedVersion,
-      isInstalled: true,
       isUpdateAvailable
     }
   })
+
   console.log('Debugging Plugins: ', debuggingPlugins)
 
   const listOfDebuggingPlugins = debuggingPlugins.map((name) => ({
@@ -54,8 +59,7 @@ export default async () => {
   }))
 
   return [
-    ...listOfInstalledPlugins,
-    ...listOfAvailablePlugins,
+    ...resultPlugins,
     ...listOfDebuggingPlugins
   ]
 }

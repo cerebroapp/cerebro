@@ -2,7 +2,9 @@ import React from 'react'
 import { search } from 'cerebro-tools'
 import { shell } from 'electron'
 import { partition } from 'lodash'
-import { flow, map, partialRight, tap } from 'lodash/fp'
+import {
+  flow, map, partialRight, tap
+} from 'lodash/fp'
 import store from 'main/store'
 import * as statusBar from 'main/actions/statusBar'
 import loadPlugins from './loadPlugins'
@@ -13,31 +15,29 @@ import initializeAsync from './initializeAsync'
 
 const toString = ({ name, description }) => [name, description].join(' ')
 const categories = [
-  ['Development', plugin => plugin.isDebugging],
-  ['Updates', plugin => plugin.isUpdateAvailable],
-  ['Installed', plugin => plugin.isInstalled],
-  ['Available', plugin => plugin.name],
+  ['Development', (plugin) => plugin.isDebugging],
+  ['Updates', (plugin) => plugin.isUpdateAvailable],
+  ['Installed', (plugin) => plugin.isInstalled],
+  ['Available', (plugin) => plugin.name],
 ]
 
 const updatePlugin = async (update, name) => {
   const plugins = await loadPlugins()
-  const updatedPlugin = plugins.find(plugin => plugin.name === name)
+  const updatedPlugin = plugins.find((plugin) => plugin.name === name)
   update(name, {
     title: `${format.name(updatedPlugin.name)} (${format.version(updatedPlugin)})`,
     getPreview: () => (
       <Preview
         {...updatedPlugin}
-        key={Math.random()}
+        key={name}
         onComplete={() => updatePlugin(update, name)}
       />
     )
   })
 }
 
-const pluginToResult = update => (plugin) => {
-  if (typeof plugin === 'string') {
-    return { title: plugin }
-  }
+const pluginToResult = (update) => (plugin) => {
+  if (typeof plugin === 'string') return { title: plugin }
 
   return {
     icon,
@@ -71,7 +71,9 @@ const categorize = (plugins, callback) => {
   callback()
 }
 
-const fn = ({ term, display, hide, update }) => {
+const fn = ({
+  term, display, hide, update
+}) => {
   const match = term.match(/^plugins?\s*(.+)?$/i)
   if (match) {
     display({
@@ -81,7 +83,7 @@ const fn = ({ term, display, hide, update }) => {
     })
     loadPlugins().then(flow(
       partialRight(search, [match[1], toString]),
-      tap(plugins => categorize(plugins, () => hide('loading'))),
+      tap((plugins) => categorize(plugins, () => hide('loading'))),
       map(pluginToResult(update)),
       display
     ))

@@ -18,7 +18,8 @@
     "start-hot": "yarn build-main-dev && cross-env HOT=1 NODE_ENV=development ./node_modules/.bin/electron -r @babel/register ./app",
     "release": "build -mwl --draft",
     "dev": "run-p hot-server start-hot",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "package": "yarn build && npx electron-builder"
   },
   "build": {
     "productName": "Cerebro",

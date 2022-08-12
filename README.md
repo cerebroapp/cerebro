@@ -59,14 +59,22 @@ And then install dependencies:
 yarn
 ```
 
-### Run
+### Run in development mode
 
 ```bash
 $ yarn run dev
 ```
 
 > Note: requires a node version >=16.x
+### Build executable from source
 
+If you would like to install one version but the package is not published you can use this command to build executable file from source:
+
+```bash
+$ yarn package
+```
+
+> Note: in CI we use `yarn build` as there is an action to package and publish the executables
 ### Resolve common issues
 1. `AssertionError: Current node version is not supported for development` on npm postinstall.
 After `yarn` postinstall script checks node version. If you see this error you have to check node and npm version in `package.json` `devEngines` section and install proper ones.
@@ -88,14 +96,6 @@ Use shortcut `ctrl+space` to open app window and type `Cerebro Settings`. There 
 *Linux*: `$XDG_CONFIG_HOME/Cerebro/config.json`  or `~/.config/Cerebro/config.json`
 
 *macOS*: `~/Library/Application Support/Cerebro/config.json`
-
-
-### Package
-Use this command to build `.app` file:
-
-```bash
-$ yarn build
-```
 
 ## For developers
 

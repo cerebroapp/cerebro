@@ -107,7 +107,7 @@
     },
     "publish": {
       "provider": "github",
-      "vPrefixedTagName": false,
+      "vPrefixedTagName": true,
       "releaseType": "release"
     }
   },

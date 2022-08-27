@@ -1,11 +1,12 @@
 import { app } from 'electron'
 import AutoLaunch from 'auto-launch'
 
-let appLauncher
+const isLinux = !['win32', 'darwin'].includes(process.platform)
+const isDevelopment = process.env.NODE_ENV === 'development'
 
-const isLinux = ['win32', 'darwin'].indexOf(process.platform) === -1
-
-if (isLinux) { appLauncher = new AutoLaunch({ name: 'Cerebro' }) }
+const appLauncher = isLinux
+  ? new AutoLaunch({ name: 'Cerebro' })
+  : null
 
 const isEnabled = async () => (
   isLinux
@@ -13,14 +14,15 @@ const isEnabled = async () => (
     : app.getLoginItemSettings().openAtLogin
 )
 
-const set = (openAtLogin) => {
+const set = async (openAtLogin) => {
+  const openAtStartUp = openAtLogin && !isDevelopment
   if (isLinux) {
-    return openAtLogin
+    return openAtStartUp
       ? appLauncher.enable()
       : appLauncher.disable()
   }
 
-  return app.setLoginItemSettings({ openAtLogin })
+  return app.setLoginItemSettings({ openAtLogin: openAtStartUp })
 }
 
 export default { isEnabled, set }

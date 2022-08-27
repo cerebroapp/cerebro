@@ -197,10 +197,13 @@ class Cerebro extends Component {
     if (event.metaKey || event.ctrlKey) {
       if (event.keyCode === 67) {
         // Copy to clipboard on cmd+c
-        const text = this.highlightedResult().clipboard
+        const text = this.highlightedResult()?.clipboard || this.props.term
         if (text) {
           clipboard.writeText(text)
           this.props.actions.reset()
+          if (!event.defaultPrevented) {
+            this.electronWindow.hide()
+          }
           event.preventDefault()
         }
         return

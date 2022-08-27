@@ -22,7 +22,6 @@ const EMPTY_PACKAGE_JSON = JSON.stringify({
 
 export const pluginsPath = path.join(getAppDataPath('Cerebro'), 'plugins')
 export const modulesDirectory = path.join(pluginsPath, 'node_modules')
-export const cerebroappModulesDirectory = path.join(pluginsPath, 'node_modules', '@cerebroapp')
 export const packageJsonPath = path.join(pluginsPath, 'package.json')
 
 export const ensureFiles = () => {

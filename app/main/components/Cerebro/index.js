@@ -10,7 +10,6 @@ import escapeStringRegexp from 'escape-string-regexp'
 
 import debounce from 'lodash/debounce'
 
-import { trackEvent } from 'lib/trackEvent'
 import getWindowPosition from 'lib/getWindowPosition'
 import {
   WINDOW_WIDTH,
@@ -28,19 +27,6 @@ import styles from './styles.css'
 const remote = process.type === 'browser'
   ? { getCurrentWindow: BrowserWindow.getFocusedWindow }
   : require('@electron/remote')
-
-const SHOW_EVENT = {
-  category: 'Window',
-  event: 'show'
-}
-
-const SELECT_EVENT = {
-  category: 'Plugins',
-  event: 'select'
-}
-
-const trackShowWindow = () => trackEvent(SHOW_EVENT)
-const trackSelectItem = (label) => trackEvent({ ...SELECT_EVENT, label })
 
 /**
  * Wrap click or mousedown event to custom `select-item` event,
@@ -112,7 +98,6 @@ class Cerebro extends Component {
     window.addEventListener('beforeunload', this.cleanup)
     this.electronWindow.on('show', this.focusMainInput)
     this.electronWindow.on('show', this.updateElectronWindow)
-    this.electronWindow.on('show', trackShowWindow)
   }
 
   componentDidMount() {
@@ -268,7 +253,6 @@ class Cerebro extends Component {
     window.removeEventListener('beforeunload', this.cleanup)
     this.electronWindow.removeListener('show', this.focusMainInput)
     this.electronWindow.removeListener('show', this.updateElectronWindow)
-    this.electronWindow.removeListener('show', trackShowWindow)
   }
 
   focusMainInput() {
@@ -290,7 +274,6 @@ class Cerebro extends Component {
    */
   selectItem(item, realEvent) {
     this.props.actions.reset()
-    trackSelectItem(item.plugin)
     const event = wrapEvent(realEvent)
     item.onSelect(event)
     if (!event.defaultPrevented) {

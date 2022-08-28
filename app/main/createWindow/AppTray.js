@@ -74,12 +74,12 @@ export default class AppTray {
         submenu: [
           {
             label: 'DevTools (main)',
-            accelerator: 'CmdOrCtrl+Alt+I',
+            accelerator: 'CmdOrCtrl+Shift+I',
             click: () => mainWindow.webContents.openDevTools({ mode: 'detach' })
           },
           {
             label: 'DevTools (background)',
-            accelerator: 'CmdOrCtrl+Alt+B',
+            accelerator: 'CmdOrCtrl+Shift+B',
             click: () => backgroundWindow.webContents.openDevTools({ mode: 'detach' })
           },
           {

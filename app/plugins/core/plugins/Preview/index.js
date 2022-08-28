@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { KeyboardNav, KeyboardNavItem, Preload } from '@cerebroapp/cerebro-ui'
-import { trackEvent } from 'lib/trackEvent'
 import { client } from 'lib/plugins'
 import plugins from 'plugins'
 import ReactMarkdown from 'react-markdown'
@@ -36,15 +35,10 @@ class Preview extends Component {
   }
 
   pluginAction(plugin, runningAction) {
-    return () => {
-      this.setState({ runningAction })
-      trackEvent({
-        category: 'Plugins',
-        event: runningAction,
-        label: plugin
-      })
+    return () => [
+      this.setState({ runningAction }),
       client[runningAction](plugin)
-    }
+    ]
   }
 
   renderDescription(repo) {
@@ -70,7 +64,7 @@ class Preview extends Component {
       description,
       repo,
       isInstalled = false,
-      isDebugging,
+      isDebugging = false,
       installedVersion,
       isUpdateAvailable = false
     } = this.props

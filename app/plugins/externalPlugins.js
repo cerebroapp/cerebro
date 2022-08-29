@@ -36,6 +36,18 @@ const isPluginValid = (plugin) => (
 
 ensureFiles()
 
+/* As we support scoped plugins, using 'base' as plugin name is no longer valid
+  because it is not unique. '@example/plugin' and '@test/plugin' would both be treated as 'plugin'
+  So now we must introduce the scope to the plugin name
+  This function returns the name with the scope if it is present in the path
+*/
+const getPluginName = (pluginPath) => {
+  const { base, dir } = path.parse(pluginPath)
+  const scope = dir.match(/@.+$/)
+  if (!scope) return base
+  return `${scope[0]}/${base}`
+}
+
 const plugins = {}
 
 const pluginsWatcher = chokidar.watch(modulesDirectory, { depth: 1 })
@@ -45,10 +57,12 @@ pluginsWatcher.on('unlinkDir', (pluginPath) => {
   if (base.match(/node_modules/) || base.match(/^@/)) return
   if (!dir.match(/node_modules$/) && !dir.match(/@.+$/)) return
 
+  const pluginName = getPluginName(pluginPath)
+
   const requirePath = window.require.resolve(pluginPath)
-  delete plugins[base]
+  delete plugins[pluginName]
   delete window.require.cache[requirePath]
-  console.log(`[${base}] Plugin removed`)
+  console.log(`[${pluginName}] Plugin removed`)
 })
 
 pluginsWatcher.on('addDir', (pluginPath) => {
@@ -57,8 +71,10 @@ pluginsWatcher.on('addDir', (pluginPath) => {
   if (base.match(/node_modules/) || base.match(/^@/)) return
   if (!dir.match(/node_modules$/) && !dir.match(/@.+$/)) return
 
+  const pluginName = getPluginName(pluginPath)
+
   setTimeout(() => {
-    console.group(`Load plugin: ${base}`)
+    console.group(`Load plugin: ${pluginName}`)
     console.log(`Path: ${pluginPath}...`)
     const plugin = requirePlugin(pluginPath)
     if (!isPluginValid(plugin)) {
@@ -76,15 +92,15 @@ pluginsWatcher.on('addDir', (pluginPath) => {
     const requirePath = window.require.resolve(pluginPath)
     const watcher = chokidar.watch(pluginPath, { depth: 0 })
     watcher.on('change', debounce(() => {
-      console.log(`[${base}] Update plugin`)
+      console.log(`[${pluginName}] Update plugin`)
       delete window.require.cache[requirePath]
-      plugins[base] = window.require(pluginPath)
-      console.log(`[${base}] Plugin updated`)
+      plugins[pluginName] = window.require(pluginPath)
+      console.log(`[${pluginName}] Plugin updated`)
     }, 1000))
-    plugins[base] = plugin
+    plugins[pluginName] = plugin
     if (!global.isBackground) {
-      console.log('Initialize async plugin', base)
-      initializePlugin(base)
+      console.log('Initialize async plugin', pluginName)
+      initializePlugin(pluginName)
     }
     console.groupEnd()
   }, 1000)

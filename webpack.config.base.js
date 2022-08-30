@@ -1,4 +1,3 @@
-const webpack = require('webpack')
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
@@ -14,9 +13,7 @@ module.exports = {
     rules: [{
       test: /\.jsx?$/,
       use: 'babel-loader',
-      exclude: modulePath => (
-        modulePath.match(/node_modules/) && !modulePath.match(/node_modules(\/|\\)cerebro-ui/)
-      )
+      exclude: /node_modules/
     }, {
       test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
       use: ['url-loader']
@@ -36,9 +33,6 @@ module.exports = {
   },
   plugins: [
     new LodashModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    }),
     new CopyWebpackPlugin({
       patterns: [{
         from: 'app/main/css/themes/*',

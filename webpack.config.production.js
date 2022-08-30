@@ -1,12 +1,12 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const baseConfig = require('./webpack.config.base')
 const Visualizer = require('webpack-visualizer-plugin')
+const baseConfig = require('./webpack.config.base')
 
 const config = {
   ...baseConfig,
 
-  mode: process.env.NODE_ENV,
+  mode: 'production',
 
   devtool: 'source-map',
 

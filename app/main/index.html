@@ -6,7 +6,8 @@
     <link rel='stylesheet' id='cerebro-theme'>
     <script>
       (function() {
-        if (!process.env.HOT) {
+        // NODE_ENV is undefined in production
+        if (!process.env.NODE_ENV) {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = '../dist/main.css';
@@ -22,7 +23,7 @@
       (function() {
         const script = document.createElement('script');
         script.async = true;
-        script.src = (process.env.HOT)
+        script.src = process.env.NODE_ENV === 'development'
           ? 'http://localhost:3000/dist/main.bundle.js'
           : '../dist/main.bundle.js';
         document.write(script.outerHTML);

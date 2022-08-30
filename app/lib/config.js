@@ -1,7 +1,7 @@
 import { app, ipcRenderer } from 'electron'
 import fs from 'fs'
+import path from 'path'
 import { memoize } from 'cerebro-tools'
-import { trackEvent } from './trackEvent'
 import loadThemes from './loadThemes'
 
 const remote = process.type === 'browser'
@@ -14,11 +14,11 @@ const electronApp = remote ? remote.app : app
 // set data directory to ./userdata
 process.argv.forEach((arg) => {
   if (arg.toLowerCase() === '-p' || arg.toLowerCase() === '--portable') {
-    electronApp.setPath('userData', `${process.cwd()}/userdata`)
+    electronApp.setPath('userData', path.join(process.cwd(), 'userdata'))
   }
 })
 
-const CONFIG_FILE = `${electronApp.getPath('userData')}/config.json`
+const CONFIG_FILE = path.join(electronApp.getPath('userData'), 'config.json')
 
 const defaultSettings = memoize(() => {
   const locale = electronApp.getLocale() || 'en-US'
@@ -38,7 +38,6 @@ const defaultSettings = memoize(() => {
     lastShownDonateDialog: null,
     plugins: {},
     isMigratedPlugins: false,
-    trackingEnabled: true,
     crashreportingEnabled: true,
     openAtLogin: true
   }
@@ -85,12 +84,6 @@ const set = (key, value) => {
   }
   config[key] = value
   fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2))
-  // Track settings changes
-  trackEvent({
-    category: 'Settings',
-    event: `Change ${key}`,
-    label: value
-  })
 
   if (ipcRenderer) {
     console.log('notify main process', key, value)

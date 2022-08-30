@@ -119,7 +119,7 @@ Use shortcut `ctrl+space` to open app window and type `Cerebro Settings`. There 
 CerebroApp is using GH actions to build the app and publish it to a release. To publish a new release follow the steps below:
 
 1. Update the version on both `package.json` and `app/package.json` files.
-2. Create a release with from GH and publish it. 🚧 The release **tag** SHOULD NOT contain the `v` prefix (❌ `v0.1.2` → ✅`0.1.2`).
+2. Create a release with from GH and publish it. 🚧 The release **tag** MUST contain the `v` prefix (❌ `0.1.2` → ✅`v0.1.2`).
 3. Complete the name with a name and a description of the release.
 4. The GH action is triggered and the release is updated when executables are built.
 

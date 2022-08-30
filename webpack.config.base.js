@@ -13,9 +13,7 @@ module.exports = {
     rules: [{
       test: /\.jsx?$/,
       use: 'babel-loader',
-      exclude: (modulePath) => (
-        modulePath.match(/node_modules/) && !modulePath.match(/node_modules(\/|\\)cerebro-ui/)
-      )
+      exclude: /node_modules/
     }, {
       test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
       use: ['url-loader']

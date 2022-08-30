@@ -8,7 +8,7 @@
     "test": "cross-env NODE_ENV=test jest",
     "test-watch": "jest -- --watch",
     "lint": "eslint app/background app/lib app/main app/plugins *.js",
-    "hot-server": "node server.js",
+    "hot-server": "node -r @babel/register server.js",
     "build-main": "webpack --mode production --config webpack.config.electron.js",
     "build-main-dev": "webpack --mode development --config webpack.config.electron.js",
     "build-renderer": "webpack --config webpack.config.production.js",

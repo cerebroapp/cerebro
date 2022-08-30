@@ -20,6 +20,14 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 * Calculator;
 * Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp`;
 
+## Shortcuts
+
+Cerebro provides several shortcuts to improve your productivity:
+
+* `ctrl+c`: copy the result from a plugin to the clipboard, if the plugin does not provida a result, the term you introduced will be copied
+* `ctrl+1...9`: select directly a result from the list
+* `ctrl+[hjkl]`: navigate through the results using vim-like keys (Also `ctrl+o` to select the result)
+
 ### Install and manage custom plugins
 
 Use built-in `plugins` command to search and manage custom plugins.

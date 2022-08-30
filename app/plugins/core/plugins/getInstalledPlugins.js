@@ -1,14 +1,22 @@
 import { packageJsonPath } from 'lib/plugins'
-import { readFileSync } from 'fs'
+import { readFile } from 'fs/promises'
 
-const readPackageJson = () => readFileSync(packageJsonPath, { encoding: 'utf8' })
+const readPackageJson = async () => {
+  try {
+    const fileContent = await readFile(packageJsonPath, { encoding: 'utf8' })
+    return JSON.parse(fileContent)
+  } catch (err) {
+    console.log(err)
+    return {}
+  }
+}
 
 /**
  * Get list of all installed plugins with versions
  *
- * @return {Promise<Object>}
+ * @return {Promise<{[name: string]: string}>}
  */
 export default async () => {
-  const packageJson = JSON.parse(readPackageJson())
-  return packageJson.dependencies
+  const packageJson = await readPackageJson()
+  return packageJson?.dependencies || {}
 }

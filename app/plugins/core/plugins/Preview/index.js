@@ -35,10 +35,10 @@ class Preview extends Component {
   }
 
   pluginAction(plugin, runningAction) {
-    return () => {
-      this.setState({ runningAction })
+    return () => [
+      this.setState({ runningAction }),
       client[runningAction](plugin)
-    }
+    ]
   }
 
   renderDescription(repo) {
@@ -63,23 +63,18 @@ class Preview extends Component {
       version,
       description,
       repo,
-      isInstalled,
-      isDebugging,
+      isInstalled = false,
+      isDebugging = false,
       installedVersion,
-      isUpdateAvailable
+      isUpdateAvailable = false
     } = this.props
     const githubRepo = repo && repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
     const { runningAction, showSettings } = this.state
     const settings = plugins[name] ? plugins[name].settings : null
     return (
       <div className={styles.preview} key={name}>
-        <h2>
-          {format.name(name)}
-          {' '}
-          (
-          {version}
-          )
-        </h2>
+        <h2>{`${format.name(name)} (${version})`}</h2>
+
         <p>{format.description(description)}</p>
         <KeyboardNav>
           <div className={styles.header}>
@@ -153,9 +148,9 @@ Preview.propTypes = {
   description: PropTypes.string,
   repo: PropTypes.string,
   installedVersion: PropTypes.string,
-  isInstalled: PropTypes.bool.isRequired,
+  isInstalled: PropTypes.bool,
   isDebugging: PropTypes.bool,
-  isUpdateAvailable: PropTypes.bool.isRequired,
+  isUpdateAvailable: PropTypes.bool,
   onComplete: PropTypes.func.isRequired,
 }
 

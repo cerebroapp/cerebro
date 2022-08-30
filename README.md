@@ -3,6 +3,7 @@
 <img src="./build/icons/128x128.png" align="right"/>
 
 ## Usage
+
 You can download the latest version on  [releases](https://github.com/cerebroapp/cerebro/releases) page.
 
 After installation use default shortcut `ctrl+space` to show an app window. You can customize this shortcut clicking on icon in menu bar → preferences.
@@ -10,7 +11,9 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 ![Cerebro](https://cloud.githubusercontent.com/assets/594298/20180624/858a483a-a75b-11e6-94a1-ef1edc4d95c3.gif)
 
 ## Plugins
+
 ### Core plugins
+
 * Search in the web with google suggestions;
 * Search & launch application, i.e. `spotify`;
 * Navigate in file system with file previews (i.e. `~/Dropbox/passport.pdf`);
@@ -18,6 +21,7 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 * Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp`;
 
 ### Install and manage custom plugins
+
 Use built-in `plugins` command to search and manage custom plugins.
 
 Discover plugins and more at [Cerebro's Awesome List](https://github.com/lubien/awesome-cerebro).
@@ -34,9 +38,10 @@ Install the plugin
 
  ```bash
  npm install --save name-of-plugin
- ``` 
+ ```
 
 ### Create plugin
+
 Check out [plugins documentation](./docs/plugins.md).
 
 ### Install
@@ -44,16 +49,16 @@ Check out [plugins documentation](./docs/plugins.md).
 First, clone the repo via git:
 
 ```bash
-$ git clone https://github.com/cerebroapp/cerebro.git cerebro
+git clone https://github.com/cerebroapp/cerebro.git cerebro
 ```
+
 Open the project
 
 ```bash
-$ cd cerebro
+cd cerebro
 ```
 
 And then install dependencies:
-
 
 ```bash
 yarn
@@ -62,20 +67,23 @@ yarn
 ### Run in development mode
 
 ```bash
-$ yarn run dev
+yarn run dev
 ```
 
 > Note: requires a node version >=16.x
+
 ### Build executable from source
 
 If you would like to install one version but the package is not published you can use this command to build executable file from source:
 
 ```bash
-$ yarn package
+yarn package
 ```
 
 > Note: in CI we use `yarn build` as there is an action to package and publish the executables
+
 ### Resolve common issues
+
 1. `AssertionError: Current node version is not supported for development` on npm postinstall.
 After `yarn` postinstall script checks node version. If you see this error you have to check node and npm version in `package.json` `devEngines` section and install proper ones.
 
@@ -90,7 +98,6 @@ Use shortcut `ctrl+space` to open app window and type `Cerebro Settings`. There 
 
 #### Config file path
 
-
 *Windows*: `%APPDATA%/Cerebro/config.json`
 
 *Linux*: `$XDG_CONFIG_HOME/Cerebro/config.json`  or `~/.config/Cerebro/config.json`
@@ -104,14 +111,13 @@ Use shortcut `ctrl+space` to open app window and type `Cerebro Settings`. There 
 CerebroApp is using GH actions to build the app and publish it to a release. To publish a new release follow the steps below:
 
 1. Update the version on both `package.json` and `app/package.json` files.
-2. Create a release with from GH and publish it. 🚧 The release **tag** SHOULD NOT contain the `v` prefix (❌ `v0.1.2` → ✅`0.1.2`).
+2. Create a release with from GH and publish it. 🚧 The release **tag** MUST contain the `v` prefix (❌ `0.1.2` → ✅`v0.1.2`).
 3. Complete the name with a name and a description of the release.
 4. The GH action is triggered and the release is updated when executables are built.
 
 ### Add dependencies
 
 CerebroApp was created from an [old version of electron-react-boilerplate](https://github.com/cerebroapp/cerebro/commit/57b6e28c0f64beae8948cf17f099fa5d6236ae3c) and uses a two package.json file structure. If you are interested in developing a new feature, you should read about this structure in the [electron-react-boilerplate documentation](https://www.electron.build/tutorials/two-package-structure.html).
-
 
 # Support
 
@@ -151,6 +157,7 @@ Support us with a monthly donation and help us continue our activities. [[Become
 <a href="https://opencollective.com/cerebro/backer/29/website" target="_blank"><img src="https://opencollective.com/cerebro/backer/29/avatar.svg"></a>
 
 ### Sponsors
+
 Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/cerebro#sponsor)]
 
 <a href="https://opencollective.com/cerebro/sponsor/0/website" target="_blank"><img src="https://opencollective.com/cerebro/sponsor/0/avatar.svg"></a>

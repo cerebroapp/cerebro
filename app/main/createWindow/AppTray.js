@@ -58,7 +58,7 @@ export default class AppTray {
       separator,
       {
         label: 'Check for updates',
-        click: () => checkForUpdates(),
+        click: checkForUpdates,
       },
       separator,
       {
@@ -74,10 +74,12 @@ export default class AppTray {
         submenu: [
           {
             label: 'DevTools (main)',
+            accelerator: 'CmdOrCtrl+Shift+I',
             click: () => mainWindow.webContents.openDevTools({ mode: 'detach' })
           },
           {
             label: 'DevTools (background)',
+            accelerator: 'CmdOrCtrl+Shift+B',
             click: () => backgroundWindow.webContents.openDevTools({ mode: 'detach' })
           },
           {
@@ -96,7 +98,11 @@ export default class AppTray {
       label: 'Quit Cerebro',
       click: () => app.quit()
     })
-    return Menu.buildFromTemplate(template)
+
+    const menu = Menu.buildFromTemplate(template)
+    Menu.setApplicationMenu(menu)
+
+    return menu
   }
 
   /**

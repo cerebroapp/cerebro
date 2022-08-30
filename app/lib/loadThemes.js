@@ -5,7 +5,7 @@
  *                         Label is text that is shown in preferences theme selector
  */
 export default () => {
-  const prefix = process.env.HOT ? 'http://localhost:3000/' : '../'
+  const prefix = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : '../'
   return [
     {
       value: `${prefix}dist/main/css/themes/light.css`,

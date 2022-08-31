@@ -45,6 +45,8 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 app.whenReady().then(() => {
+  process.env.CEREBRO_VERSION = app.getVersion()
+
   mainWindow = createMainWindow({
     isDev,
     src: `file://${__dirname}/main/index.html`, // Main window html

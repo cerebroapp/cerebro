@@ -114,6 +114,14 @@ Use shortcut `ctrl+space` to open app window and type `Cerebro Settings`. There 
 
 ## For developers
 
+### Conventional Commit Format
+
+The project is using conventional commit specification to keep track of changes. This helps us with the realeases and enforces a consistent style.
+You can commit as usually or use the following commands that will help you to commit with the right style:
+
+* `yarn cz`
+* `yarn commit`
+
 ### Publish a release
 
 CerebroApp is using GH actions to build the app and publish it to a release. To publish a new release follow the steps below:

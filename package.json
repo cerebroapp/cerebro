@@ -20,7 +20,8 @@
     "dev": "run-p hot-server start-hot",
     "postinstall": "electron-builder install-app-deps",
     "package": "yarn build && npx electron-builder",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commit": "cz"
   },
   "build": {
     "productName": "Cerebro",
@@ -149,9 +150,11 @@
     "@commitlint/config-conventional": "17.1.0",
     "autoprefixer": "10.4.8",
     "babel-loader": "8.2.5",
+    "commitizen": "4.2.5",
     "copy-webpack-plugin": "6.4.0",
     "cross-env": "7.0.3",
     "css-loader": "5.2.7",
+    "cz-conventional-changelog": "3.3.0",
     "electron": "19.0.14",
     "electron-builder": "22.14.13",
     "eslint": "8.23.0",
@@ -200,5 +203,10 @@
   },
   "devEngines": {
     "node": ">=16.x"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

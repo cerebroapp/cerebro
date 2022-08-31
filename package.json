@@ -19,7 +19,8 @@
     "release": "build -mwl --draft",
     "dev": "run-p hot-server start-hot",
     "postinstall": "electron-builder install-app-deps",
-    "package": "yarn build && npx electron-builder"
+    "package": "yarn build && npx electron-builder",
+    "prepare": "husky install"
   },
   "build": {
     "productName": "Cerebro",
@@ -161,6 +162,7 @@
     "eslint-plugin-react": "7.31.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "express": "4.18.1",
+    "husky": "^8.0.1",
     "jest": "27.5.1",
     "lodash-webpack-plugin": "0.11.6",
     "mini-css-extract-plugin": "1.6.2",

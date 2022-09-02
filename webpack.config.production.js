@@ -28,30 +28,26 @@ const config = {
       ...baseConfig.module.rules,
 
       {
-        test: /global\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      },
-
-      {
-        test: /^((?!global).)*\.css$/,
+        test: /\.css$/,
         use: [
           { loader: MiniCssExtractPlugin.loader },
           {
             loader: 'css-loader',
             options: {
-              import: true,
-              modules: {
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-                // auto: true,
-              },
-              esModule: false,
+              modules: true,
               sourceMap: true,
               importLoaders: 1,
-            }
+            },
           },
-          { loader: 'postcss-loader' }
-        ]
-      }
+          'postcss-loader',
+        ],
+        include: /\.module\.css$/,
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+        exclude: /\.module\.css$/,
+      },
     ]
   },
 

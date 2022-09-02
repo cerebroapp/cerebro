@@ -5,7 +5,7 @@ import loadThemes from 'lib/loadThemes'
 
 import Hotkey from './Hotkey'
 import countries from './countries'
-import styles from './styles.css'
+import styles from './styles.module.css'
 
 const {
   Select, Checkbox, Wrapper, Text

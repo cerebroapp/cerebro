@@ -4,14 +4,14 @@ import { VirtualScroll } from 'react-virtualized'
 import { RESULT_HEIGHT } from 'main/constants/ui'
 
 import Row from './Row'
-import styles from './styles.css'
-
+import styles from './styles.module.css'
 
 class ResultsList extends Component {
   constructor(props) {
     super(props)
     this.rowRenderer = this.rowRenderer.bind(this)
   }
+
   rowRenderer({ index }) {
     const result = this.props.results[index]
     const attrs = {
@@ -20,7 +20,7 @@ class ResultsList extends Component {
       // In some cases action should be executed and window should be closed
       // In some cases we should autocomplete value
       selected: index === this.props.selected,
-      onSelect: event => this.props.onSelect(result, event),
+      onSelect: (event) => this.props.onSelect(result, event),
       // Move selection to item under cursor
       onMouseMove: (event) => {
         const { selected, mainInputFocused, onItemHover } = this.props
@@ -38,6 +38,7 @@ class ResultsList extends Component {
     }
     return <Row {...attrs} />
   }
+
   renderPreview() {
     const selected = this.props.results[this.props.selected]
     if (!selected.getPreview) {
@@ -50,8 +51,11 @@ class ResultsList extends Component {
     }
     return preview
   }
+
   render() {
-    const { results, selected, visibleResults, mainInputFocused } = this.props
+    const {
+      results, selected, visibleResults, mainInputFocused
+    } = this.props
     const classNames = [
       styles.resultsList,
       mainInputFocused ? styles.focused : styles.unfocused
@@ -72,7 +76,7 @@ class ResultsList extends Component {
           width={(results[selected] !== undefined && results[selected].getPreview) ? 250 : 10000}
           scrollToIndex={selected}
           // Needed to force update of VirtualScroll
-          titles={results.map(result => result.title)}
+          titles={results.map((result) => result.title)}
           // Disable accesebility of VirtualScroll by tab
           tabIndex={null}
         />

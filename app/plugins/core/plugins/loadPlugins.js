@@ -4,6 +4,7 @@ import compareVersions from 'semver/functions/gt'
 import availablePlugins from './getAvailablePlugins'
 import getInstalledPlugins from './getInstalledPlugins'
 import getDebuggingPlugins from './getDebuggingPlugins'
+import blacklist from './blacklist'
 
 const maxAge = 5 * 60 * 1000 // 5 minutes
 
@@ -50,9 +51,11 @@ export default async () => {
     isDebugging: true
   }))
 
-  return [
+  const plugins = [
     ...listOfInstalledPlugins,
     ...listOfAvailablePlugins,
     ...listOfDebuggingPlugins
-  ]
+  ].filter((plugin) => !blacklist.includes(plugin.name))
+
+  return plugins
 }

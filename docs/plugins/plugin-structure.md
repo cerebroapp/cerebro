@@ -1,4 +1,4 @@
-# <a href="../plugins.md">Plugins</a> → Plugin structure
+# [Plugins](../plugins.md) → Plugin structure
 
 This is a minimum source code of your plugin:
 
@@ -91,7 +91,7 @@ Arguments: `event: Event`
 
 Action, that should be executed when user selects your result. I.e, to open provided url in default browser:
 
-```
+```js
 onSelect: (event) => actions.open(`http://www.cerebroapp.com`),
 ```
 
@@ -183,3 +183,9 @@ This object is used to specify settings that a plugin user can change. Each sett
 Check `settings` [example](./examples.md#using-settings)
 
 Look at [React Select](https://github.com/JedWatson/react-select) for more details on how the `option` type works.
+
+## Available `env` variables
+
+The following variables are available in the `process.env` object:
+
+* `CEREBRO_VERSION` – Version of Cerebro

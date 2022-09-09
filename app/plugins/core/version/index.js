@@ -1,7 +1,6 @@
 import React from 'react'
 import { search } from 'cerebro-tools'
 import icon from '../icon.png'
-import { version } from '../../../../package.json'
 
 // Settings plugin name
 const NAME = 'Cerebro Version'
@@ -15,6 +14,8 @@ const KEYWORDS = [
   'ver',
   'version'
 ]
+
+const { CEREBRO_VERSION } = process.env
 
 /**
  * Plugin to show app settings in results list
@@ -31,7 +32,7 @@ const versionPlugin = ({ term, display, actions }) => {
       icon,
       title: NAME,
       term: NAME,
-      getPreview: () => (<div><strong>{version}</strong></div>),
+      getPreview: () => (<div><strong>{CEREBRO_VERSION}</strong></div>),
       onSelect: (event) => {
         event.preventDefault()
         actions.replaceTerm(NAME)

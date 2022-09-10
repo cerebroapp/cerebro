@@ -18,10 +18,5 @@ module.exports = {
     filename: './main.js'
   },
 
-  target: 'electron-main',
-
-  node: {
-    __dirname: false,
-    __filename: false
-  },
+  target: 'electron-main'
 }

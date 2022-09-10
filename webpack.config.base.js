@@ -16,7 +16,7 @@ module.exports = {
       exclude: /node_modules/
     }, {
       test: /\.jpe?g$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
-      use: ['url-loader']
+      type: 'asset/inline'
     }]
   },
   output: {
@@ -36,7 +36,7 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [{
         from: 'app/main/css/themes/*',
-        to: './main/css/themes/[name].[ext]'
+        to: './main/css/themes/[name][ext]'
       }]
     })
   ],

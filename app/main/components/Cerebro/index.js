@@ -22,7 +22,7 @@ import * as searchActions from 'main/actions/search'
 import MainInput from '../MainInput'
 import ResultsList from '../ResultsList'
 import StatusBar from '../StatusBar'
-import styles from './styles.css'
+import styles from './styles.module.css'
 
 const remote = process.type === 'browser'
   ? { getCurrentWindow: BrowserWindow.getFocusedWindow }

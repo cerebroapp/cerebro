@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import config from 'lib/config'
 import FormItem from './FormItem'
-import styles from './styles.css'
+import styles from './styles.module.css'
 
 export default class Settings extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ export default class Settings extends Component {
         key={key}
         label={label || key}
         value={value}
-        onChange={newValue => this.changeSetting(this.props.name, key, newValue)}
+        onChange={(newValue) => this.changeSetting(this.props.name, key, newValue)}
         {...restProps}
       />
     )

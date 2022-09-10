@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { SmartIcon } from '@cerebroapp/cerebro-ui'
-import styles from './styles.css'
+import styles from './styles.module.css'
 
 class Row extends Component {
   classNames() {

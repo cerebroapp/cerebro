@@ -30,33 +30,26 @@ const config = {
       ...baseConfig.module.rules,
 
       {
-        test: /global\.css$/,
-        use: [
-          'style-loader',
-          'css-loader?sourceMap'
-        ]
-      },
-
-      {
-        test: /^((?!global).)*\.css$/,
+        test: /\.css$/,
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
-              import: true,
-              modules: {
-                localIdentName: '[name]__[local]___[hash:base64:5]',
-                // auto: true,
-              },
-              esModule: false,
+              modules: true,
               sourceMap: true,
               importLoaders: 1,
-            }
+            },
           },
-          'postcss-loader'
-        ]
-      }
+          'postcss-loader',
+        ],
+        include: /\.module\.s?(c|a)ss$/,
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        exclude: /\.module\.css$/,
+      },
     ]
   },
 

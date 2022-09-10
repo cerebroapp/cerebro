@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown'
 import ActionButton from './ActionButton.js'
 import Settings from './Settings'
 import getReadme from '../getReadme'
-import styles from './styles.css'
+import styles from './styles.module.css'
 import * as format from '../format'
 
 const isRelative = (src) => !src.match(/^(https?:|data:)/)

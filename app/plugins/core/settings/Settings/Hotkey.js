@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import styles from './styles.css'
+import styles from './styles.module.css'
 
 const ASCII = {
   188: '44',

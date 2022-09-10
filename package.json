@@ -1,7 +1,7 @@
 {
   "name": "cerebro",
   "productName": "cerebro",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Cerebro is an open-source launcher to improve your productivity and efficiency",
   "main": "main.js",
   "scripts": {
@@ -33,7 +33,7 @@
   },
   "contributors": [
     "Alexandr Subbotin <kelionweb@gmail.com> (https://github.com/KELiON)",
-    "Gustavo Pereira",
+    "Gustavo Pereira <oguhpereira@protonmail.com (https://github.com/oguhpereira)",
     "David Jiménez <dubisdev@gmail.com> (https://dubis.dev)"
   ],
   "license": "MIT",

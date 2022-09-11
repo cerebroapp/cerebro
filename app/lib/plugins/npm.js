@@ -5,7 +5,6 @@ import path from 'path'
 import tar from 'tar-fs'
 import zlib from 'zlib'
 import https from 'https'
-import moveFile from 'move-file'
 
 const removeDir = (dir) => rimraf.sync(dir)
 
@@ -51,7 +50,10 @@ const installPackage = async (tarPath, destination, middleware) => {
   })
 
   console.log(`Move ${tempPath} to ${destination}`)
-  moveFile.sync(tempPath, destination)
+  fs.rename(tempPath, destination, (err) => {
+    if (err) throw err
+    console.log('Successfully!')
+  })
 }
 
 /**

@@ -15,7 +15,6 @@
     "David Jiménez <dubisdev@gmail.com> (https://dubis.dev)"
   ],
   "dependencies": {
-    "move-file": "2.1.0",
     "chokidar": "3.5.3",
     "electron-updater": "5.2.1",
     "fix-path": "3.0.0",

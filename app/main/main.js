@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import fixPath from 'fix-path'
 
 import initializePlugins from 'lib/initializePlugins'
 import { on } from 'lib/rpc'
@@ -10,8 +9,6 @@ import { updateTerm } from './actions/search'
 import store from './store'
 import Cerebro from './components/Cerebro'
 import './css/global.css'
-
-fixPath()
 
 global.React = React
 global.ReactDOM = ReactDOM
@@ -41,7 +38,7 @@ ReactDOM.render(
 initializePlugins()
 
 // Handle `showTerm` rpc event and replace search term with payload
-on('showTerm', term => store.dispatch(updateTerm(term)))
+on('showTerm', (term) => store.dispatch(updateTerm(term)))
 
 on('update-downloaded', () => (
   new Notification('Cerebro: update is ready to install', {

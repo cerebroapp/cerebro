@@ -1,4 +1,4 @@
-import getUserSettings from './get'
+import getUserSettings from '../get'
 
 const plugin = {
   settings: {

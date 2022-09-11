@@ -1,7 +1,7 @@
 import debounce from 'lodash/debounce'
 import chokidar from 'chokidar'
 import path from 'path'
-import { initializePlugin } from 'lib/initializePlugins'
+import initPlugin from 'lib/initPlugin'
 import { modulesDirectory, ensureFiles, settings } from 'lib/plugins'
 
 const requirePlugin = (pluginPath) => {
@@ -99,8 +99,7 @@ pluginsWatcher.on('addDir', (pluginPath) => {
     }, 1000))
     plugins[pluginName] = plugin
     if (!global.isBackground) {
-      console.log('Initialize async plugin', pluginName)
-      initializePlugin(pluginName)
+      initPlugin(plugin, pluginName)
     }
     console.groupEnd()
   }, 1000)

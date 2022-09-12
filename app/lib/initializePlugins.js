@@ -1,27 +1,9 @@
-import { on, send } from 'lib/rpc'
+import { on } from 'lib/rpc'
 import plugins from 'plugins'
-import { settings as pluginSettings } from 'lib/plugins'
-
-export const initializePlugin = (name) => {
-  const { initialize, initializeAsync } = plugins[name]
-
-  if (initialize) {
-    // Foreground plugin initialization
-    try {
-      initialize(pluginSettings.getUserSettings(name))
-    } catch (e) {
-      console.error(`Failed to initialize plugin: ${name}`, e)
-    }
-  }
-
-  if (initializeAsync) {
-    // Background plugin initialization
-    send('initializePluginAsync', { name })
-  }
-}
+import initPlugin from './initPlugin'
 
 /**
- * RPC-call for plugins initializations
+ * Starts listening for `initializePlugin` events and initializes all plugins
  */
 export default () => {
   // Start listening for replies from plugin async initializers
@@ -30,5 +12,5 @@ export default () => {
     if (plugin.onMessage) plugin.onMessage(data)
   })
 
-  Object.keys(plugins).forEach(initializePlugin)
+  Object.keys(plugins).forEach((name) => initPlugin(plugins[name], name))
 }

@@ -47,6 +47,16 @@ const readConfig = () => {
   try {
     return JSON.parse(fs.readFileSync(CONFIG_FILE).toString())
   } catch (err) {
+    const config = defaultSettings()
+
+    if (err.code !== 'ENOENT') {
+      console.error('Error reading config file', err)
+      return config
+    }
+
+    if (process.env.NODE_ENV === 'test') return config
+
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2))
     return defaultSettings()
   }
 }
@@ -57,14 +67,7 @@ const readConfig = () => {
  * @return {Any}
  */
 const get = (key) => {
-  let config
-
-  if (!fs.existsSync(CONFIG_FILE)) {
-    // Save default config to local storage
-    config = defaultSettings()
-    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2))
-  } else { config = readConfig() }
-
+  const config = readConfig()
   return config[key]
 }
 

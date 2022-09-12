@@ -28,10 +28,10 @@ const remote = process.type === 'browser'
 const DEFAULT_SCOPE = {
   config,
   actions: {
-    open: q => shell.openExternal(q),
-    reveal: q => shell.showItemInFolder(q),
-    copyToClipboard: q => clipboard.writeText(q),
-    replaceTerm: term => store.dispatch(updateTerm(term)),
+    open: (q) => shell.openExternal(q),
+    reveal: (q) => shell.showItemInFolder(q),
+    copyToClipboard: (q) => clipboard.writeText(q),
+    replaceTerm: (term) => store.dispatch(updateTerm(term)),
     hideWindow: () => remote.getCurrentWindow().hide()
   }
 }
@@ -39,19 +39,20 @@ const DEFAULT_SCOPE = {
 /**
  * Pass search term to all plugins and handle their results
  * @param {String} term Search term
- * @param {Function} callback Callback function that receives used search term and found results
+ * @param {Function} display Callback function that receives used search term and found results
  */
 const eachPlugin = (term, display) => {
   // TODO: order results by frequency?
   Object.keys(plugins).forEach((name) => {
+    const plugin = plugins[name]
     try {
-      plugins[name].fn({
+      plugin.fn({
         ...DEFAULT_SCOPE,
         term,
-        hide: id => store.dispatch(hideElement(`${name}-${id}`)),
+        hide: (id) => store.dispatch(hideElement(`${name}-${id}`)),
         update: (id, result) => store.dispatch(updateElement(`${name}-${id}`, result)),
-        display: payload => display(name, payload),
-        settings: pluginSettings.getUserSettings(name)
+        display: (payload) => display(name, payload),
+        settings: pluginSettings.getUserSettings(plugin, name)
       })
     } catch (error) {
       // Do not fail on plugin errors, just log them to console
@@ -60,12 +61,11 @@ const eachPlugin = (term, display) => {
   })
 }
 
-
 /**
  * Handle results found by plugin
  *
  * @param  {String} term Search term that was used for found results
- * @param  {Array or Object} result Found results (or result)
+ * @param  {Array | Object} result Found results (or result)
  * @return {Object}  redux action
  */
 function onResultFound(term, result) {
@@ -77,7 +77,6 @@ function onResultFound(term, result) {
     }
   }
 }
-
 
 /**
  * Action that clears everthing in search box
@@ -104,7 +103,7 @@ export function updateTerm(term) {
     })
     eachPlugin(term, (plugin, payload) => {
       let result = Array.isArray(payload) ? payload : [payload]
-      result = result.map(x => ({
+      result = result.map((x) => ({
         ...x,
         plugin,
         // Scope result ids with plugin name and use title if id is empty
@@ -121,8 +120,8 @@ export function updateTerm(term) {
 
 /**
  * Action to move highlighted cursor to next or prev element
- * @param  {Integer} diff 1 or -1
- * @return {Object}  redux action
+ * @param  {1 | -1} diff
+ * @return {Object} redux action
  */
 export function moveCursor(diff) {
   return {
@@ -133,8 +132,8 @@ export function moveCursor(diff) {
 
 /**
  * Action to change highlighted element
- * @param  {Integer} index of new highlighted element
- * @return {Object}  redux action
+ * @param  {number} index Index of new highlighted element
+ * @return {Object} redux action
  */
 export function selectElement(index) {
   return {
@@ -146,7 +145,7 @@ export function selectElement(index) {
 /**
  * Action to remove element from results list by id
  * @param  {String} id
- * @return {Object}  redux action
+ * @return {Object} redux action
  */
 export function hideElement(id) {
   return {

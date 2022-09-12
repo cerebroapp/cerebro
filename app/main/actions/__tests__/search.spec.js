@@ -10,7 +10,7 @@ import {
   RESET,
 } from 'main/constants/actionTypes'
 
-import * as actions from './search'
+import * as actions from '../search'
 
 describe('reset', () => {
   it('returns valid action', () => {

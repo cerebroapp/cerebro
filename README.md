@@ -98,6 +98,10 @@ Then you can install the executable by running the following command:
 
 > In some computers you might need run these commands with elevated privileges (sudo). `sudo ./<path to the executable>` or `sudo dpkg -i <path to the executable>`
 
+## Contributing
+
+PRs are welcome! You can get a general idea of how Cerebro works by reading the [developer guide](/docs/cerebro-developers.md).
+
 ## License
 
 MIT © [Cerebro App](https://github.com/cerebroapp/cerebro/blob/master/LICENSE)

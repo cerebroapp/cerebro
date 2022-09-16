@@ -1,6 +1,6 @@
 # Cerebro
 
-> Cerebro is a open-source launcher to improve your productivity and efficiency
+> Cerebro is an open-source launcher to improve your productivity and efficiency
 
 <img src="./build/icons/128x128.png" align="right"/>
 
@@ -8,7 +8,10 @@
 
 You can download the latest version on  [releases](https://github.com/cerebroapp/cerebro/releases) page.
 
-After installation use default shortcut `ctrl+space` to show an app window. You can customize this shortcut clicking on icon in menu bar → preferences.
+- If there is not installer for your OS check [build instructions](#build-executable-from-source).
+- If you are a linux user see [how to install the executable](#install-executable-on-linux)
+
+After installation use the default shortcut `ctrl+space` to show the app window. You can customize this shortcut clicking on the icon in the menu bar and then selecting "Preferences...".
 
 ![Cerebro](https://cloud.githubusercontent.com/assets/594298/20180624/858a483a-a75b-11e6-94a1-ef1edc4d95c3.gif)
 
@@ -16,91 +19,39 @@ After installation use default shortcut `ctrl+space` to show an app window. You 
 
 ### Core plugins
 
-* Search in the web with google suggestions;
-* Search & launch application, i.e. `spotify`;
-* Navigate in file system with file previews (i.e. `~/Dropbox/passport.pdf`);
-* Calculator;
-* Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp`;
+- Search in the web with google suggestions;
+- Search & launch application, i.e. `spotify`;
+- Navigate in file system with file previews (i.e. `~/Dropbox/passport.pdf`);
+- Calculator;
+- Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp`;
+
+### Install plugins
+
+You can manage and install more plugins by typing `plugins <plugin-name>` in the Cerebro search bar.
+
+Discover plugins and more at [Cerebro's Awesome List](https://github.com/lubien/awesome-cerebro).
+
+> If you are interested in creating your own plugin, check the [plugins documentation](./docs/plugins-developers.md).
 
 ## Shortcuts
 
 Cerebro provides several shortcuts to improve your productivity:
 
-* `ctrl+c`: copy the result from a plugin to the clipboard, if the plugin does not provida a result, the term you introduced will be copied
-* `ctrl+1...9`: select directly a result from the list
-* `ctrl+[hjkl]`: navigate through the results using vim-like keys (Also `ctrl+o` to select the result)
+- `ctrl+c`: copy the result from a plugin to the clipboard, if the plugin does not provida a result, the term you introduced will be copied
+- `ctrl+1...9`: select directly a result from the list
+- `ctrl+[hjkl]`: navigate through the results using vim-like keys (Also `ctrl+o` to select the result)
 
 ### Change Theme
 
-Use shortcut `ctrl+space` to open app window and type `Cerebro Settings`. There you will be able to change the Theme (Currently Light and Dark Themes are supported out of the box)
+Use shortcut `ctrl+space` to open app window and type `Cerebro Settings`. There you will be able to change the Theme.
+
+> Currently Light and Dark Themes are supported out of the box
 
 ![change-cerebro-theme](https://user-images.githubusercontent.com/24854406/56137765-5880ca00-5fb7-11e9-86d0-e740de1127c2.gif)
 
-## For developers
+### Config file path
 
-### Install
-
-First, clone the repo via git:
-
-```bash
-git clone https://github.com/cerebroapp/cerebro.git cerebro
-```
-
-Open the project
-
-```bash
-cd cerebro
-```
-
-And then install dependencies:
-
-```bash
-yarn
-```
-
-### Run in development mode
-
-```bash
-yarn run dev
-```
-
-> Note: requires a node version >=16.x
-
-### Install and manage custom plugins
-
-Use built-in `plugins` command to search and manage custom plugins.
-
-Discover plugins and more at [Cerebro's Awesome List](https://github.com/lubien/awesome-cerebro).
-
-You can install them manually using npm
-
-open it in the terminal configuration file path, go to the plugins folder
-
-```bash
-cd ./plugins
-```
-
-Install the plugin
-
- ```bash
- npm install --save name-of-plugin
- ```
-
-## Create plugin
-
-Check out [plugins documentation](./docs/plugins.md).
-
-### Build executable from source
-
-If you would like to install one version but the package is not published you can use this command to build executable file from source:
-
-```bash
-yarn package
-```
-
-> Note: in CI we use `yarn build` as there is an action to package and publish the executables
-
-#### Config file path
+You can find the config file in the following path depending on your OS:
 
 *Windows*: `%APPDATA%/Cerebro/config.json`
 
@@ -108,35 +59,44 @@ yarn package
 
 *macOS*: `~/Library/Application Support/Cerebro/config.json`
 
-### Resolve common issues
+> ⚠️ A bad configuration file can break Cerebro. If you are not sure about what you are doing, don't edit the config file directly.
 
-1. `AssertionError: Current node version is not supported for development` on npm postinstall.
-After `yarn` postinstall script checks node version. If you see this error you have to check node and npm version in `package.json` `devEngines` section and install proper ones.
+## Build executable from source
 
-2. `Uncaught Error: Module version mismatch. Exepcted 50, got ...`
-This error means that node modules with native extensions build with wrong node version (your local node version != node version, included to electron). To fix this issue run `cd ./app && yarn run rebuild`
+If you would like to install one version of Cerebro but the executable has not been released you can follow this isntruction to build it from source:
 
-### Conventional Commit Format
+1. Clone the repository
+2. Install dependencies with `yarn`
 
-The project is using conventional commit specification to keep track of changes. This helps us with the realeases and enforces a consistent style.
-You can commit as usually or use the following commands that will help you to commit with the right style:
+3. ```bash
+    yarn package
+   ```
 
-* `yarn cz`
-* `yarn commit`
+> Note: in CI we use `yarn build` as there is an action to package and publish the executables
 
-### Publish a release
+## Install executable on Linux
 
-CerebroApp is using GH actions to build the app and publish it to a release. To publish a new release follow the steps below:
+If you are a linux user you might need to grant execution permissions to the executable. To do so, open the terminal and run the following command:
 
-1. Update the version on both `package.json` and `app/package.json` files.
-2. Create a release with from GH and publish it. 🚧 The release **tag** MUST contain the `v` prefix (❌ `0.1.2` → ✅`v0.1.2`).
-3. Complete the name with a name and a description of the release.
-4. The GH action is triggered and the release is updated when executables are built.
+```bash
+sudo chmod +x <path to the executable>
+```
 
-### Add dependencies
+Then you can install the executable by running the following command:
 
-CerebroApp was created from an [old version of electron-react-boilerplate](https://github.com/cerebroapp/cerebro/commit/57b6e28c0f64beae8948cf17f099fa5d6236ae3c) and uses a two package.json file structure. If you are interested in developing a new feature, you should read about this structure in the [electron-react-boilerplate documentation](https://www.electron.build/tutorials/two-package-structure.html).
+- If you are using the AppImage executable:
 
+  ```bash
+  ./<path to the executable>
+  ```
+
+- If you are using the deb executable:
+
+  ```bash
+  dpkg -i <path to the executable>
+  ```
+
+> In some computers you might need run these commands with elevated privileges (sudo). `sudo ./<path to the executable>` or `sudo dpkg -i <path to the executable>`
 
 ## License
 

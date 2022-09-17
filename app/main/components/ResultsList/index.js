@@ -1,50 +1,44 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { VirtualScroll } from 'react-virtualized'
+import { List } from 'react-virtualized'
 import { RESULT_HEIGHT } from 'main/constants/ui'
 
 import Row from './Row'
 import styles from './styles.module.css'
 
-class ResultsList extends Component {
-  constructor(props) {
-    super(props)
-    this.rowRenderer = this.rowRenderer.bind(this)
-  }
-
-  rowRenderer({ index }) {
-    const result = this.props.results[index]
+function ResultsList({
+  results, selected, visibleResults, onSelect, mainInputFocused, onItemHover
+}) {
+  const rowRenderer = ({ index, key, style }) => {
+    const result = results[index]
     const attrs = {
       ...result,
       // TODO: think about events
       // In some cases action should be executed and window should be closed
       // In some cases we should autocomplete value
-      selected: index === this.props.selected,
-      onSelect: (event) => this.props.onSelect(result, event),
+      selected: index === selected,
+      onSelect: (event) => onSelect(result, event),
       // Move selection to item under cursor
       onMouseMove: (event) => {
-        const { selected, mainInputFocused, onItemHover } = this.props
         const { movementX, movementY } = event.nativeEvent
-        if (index === selected || !mainInputFocused) {
-          return false
-        }
+        if (index === selected || !mainInputFocused) return false
+
         if (movementX || movementY) {
           // Hover item only when we had real movement of mouse
           // We should prevent changing of selection when user uses keyboard
           onItemHover(index)
         }
       },
-      key: result.id,
     }
-    return <Row {...attrs} />
+    return <Row key={key} style={style} {...attrs} />
   }
 
-  renderPreview() {
-    const selected = this.props.results[this.props.selected]
-    if (!selected.getPreview) {
-      return null
-    }
-    const preview = selected.getPreview()
+  const renderPreview = () => {
+    const selectedResult = results[selected]
+    if (!selectedResult.getPreview) return null
+
+    const preview = selectedResult.getPreview()
+
     if (typeof preview === 'string') {
       // Fallback for html previews intead of react component
       return <div dangerouslySetInnerHTML={{ __html: preview }} />
@@ -52,40 +46,30 @@ class ResultsList extends Component {
     return preview
   }
 
-  render() {
-    const {
-      results, selected, visibleResults, mainInputFocused
-    } = this.props
-    const classNames = [
-      styles.resultsList,
-      mainInputFocused ? styles.focused : styles.unfocused
-    ].join(' ')
-    if (results.length === 0) {
-      return null
-    }
-    return (
-      <div className={styles.wrapper}>
-        <VirtualScroll
-          ref="list"
-          className={classNames}
-          height={visibleResults * RESULT_HEIGHT}
-          overscanRowCount={2}
-          rowCount={results.length}
-          rowHeight={RESULT_HEIGHT}
-          rowRenderer={this.rowRenderer}
-          width={(results[selected] !== undefined && results[selected].getPreview) ? 250 : 10000}
-          scrollToIndex={selected}
-          // Needed to force update of VirtualScroll
-          titles={results.map((result) => result.title)}
-          // Disable accesebility of VirtualScroll by tab
-          tabIndex={null}
-        />
-        <div className={styles.preview} id="preview">
-          {this.renderPreview()}
-        </div>
+  const classNames = [styles.resultsList, mainInputFocused ? styles.focused : styles.unfocused].join(' ')
+  if (results.length === 0) return null
+
+  return (
+    <div className={styles.wrapper}>
+      <List
+        className={classNames}
+        height={visibleResults * RESULT_HEIGHT}
+        overscanRowCount={2}
+        rowCount={results.length}
+        rowHeight={RESULT_HEIGHT}
+        rowRenderer={rowRenderer}
+        width={(results[selected] !== undefined && results[selected].getPreview) ? 250 : 10000}
+        scrollToIndex={selected}
+        // Needed to force update of VirtualScroll
+        titles={results.map((result) => result.title)}
+        // Disable accesebility of VirtualScroll by tab
+        tabIndex={null}
+      />
+      <div className={styles.preview} id="preview">
+        {renderPreview()}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 ResultsList.propTypes = {

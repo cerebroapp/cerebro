@@ -28,7 +28,7 @@ const updatePlugin = async (update, name) => {
     title: `${format.name(updatedPlugin.name)} (${format.version(updatedPlugin)})`,
     getPreview: () => (
       <Preview
-        {...updatedPlugin}
+        plugin={updatedPlugin}
         key={name}
         onComplete={() => updatePlugin(update, name)}
       />
@@ -49,7 +49,7 @@ const pluginToResult = (update) => (plugin) => {
     onSelect: () => shell.openExternal(plugin.repo),
     getPreview: () => (
       <Preview
-        {...plugin}
+        plugin={plugin}
         key={plugin.name}
         onComplete={() => updatePlugin(update, plugin.name)}
       />

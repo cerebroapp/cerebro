@@ -48,7 +48,7 @@ function Preview({ onComplete, plugin }) {
 
   const pluginAction = (pluginName, runningActionName) => () => [
     setRunningAction(runningActionName),
-    client[runningAction](pluginName)
+    client[runningActionName](pluginName)
   ]
 
   const {

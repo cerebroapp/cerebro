@@ -47,10 +47,11 @@ class Preview extends Component {
         {
           (content) => (
             <ReactMarkdown
-              source={content}
               className={styles.markdown}
               transformImageUri={(src) => urlTransform(repo, src)}
-            />
+            >
+              {content}
+            </ReactMarkdown>
           )
         }
       </Preload>

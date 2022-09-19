@@ -1,55 +1,54 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import config from 'lib/config'
 import FormItem from './FormItem'
 import styles from './styles.module.css'
 
-export default class Settings extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      values: config.get('plugins')[props.name] || {},
-    }
-    this.renderSetting = this.renderSetting.bind(this)
-    this.changeSetting = this.changeSetting.bind(this)
-  }
+function FormSettings({ settings, name, key }) {
+  const [values, setValues] = useState(config.get('plugins')[name] || {})
+  const setting = settings[key]
+  const { defaultValue, label, ...restProps } = setting
+  const value = key in values ? values[key] : defaultValue
 
-  changeSetting(plugin, label, value) {
-    const values = {
-      ...this.state.values,
-      [label]: value,
+  const changeSetting = (plugin, settingLabel, settingValue) => {
+    const newValues = {
+      ...values,
+      [settingLabel]: settingValue,
     }
 
-    this.setState({ values })
+    setValues({ values })
     config.set('plugins', {
       ...config.get('plugins'),
-      [this.props.name]: values,
+      [name]: newValues,
     })
   }
 
-  renderSetting(key) {
-    const setting = this.props.settings[key]
-    const { defaultValue, label, ...restProps } = setting
-    const value = key in this.state.values ? this.state.values[key] : defaultValue
+  return (
+    <FormItem
+      key={key}
+      label={label || key}
+      value={value}
+      onChange={(newValue) => changeSetting(name, key, newValue)}
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...restProps}
+    />
+  )
+}
 
-    return (
-      <FormItem
-        key={key}
-        label={label || key}
-        value={value}
-        onChange={(newValue) => this.changeSetting(this.props.name, key, newValue)}
-        {...restProps}
-      />
-    )
-  }
+function Settings({ settings, name }) {
+  return (
+    <div className={styles.settingsWrapper}>
+      {Object.keys(settings).map(<FormSettings settings={settings} name={name} />)}
+    </div>
+  )
+}
 
-  render() {
-    return (
-      <div className={styles.settingsWrapper}>
-        { Object.keys(this.props.settings).map(this.renderSetting) }
-      </div>
-    )
-  }
+export default Settings
+
+FormSettings.propTypes = {
+  name: PropTypes.string.isRequired,
+  settings: PropTypes.object.isRequired,
+  key: PropTypes.string.isRequired,
 }
 
 Settings.propTypes = {

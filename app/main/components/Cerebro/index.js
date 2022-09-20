@@ -341,7 +341,7 @@ function Cerebro({
           ref={mainInput}
           value={term}
           className={styles.input}
-          onChange={actions.updateTerm}
+          onChange={(e) => actions.updateTerm(e.target.value)}
           onKeyDown={onKeyDown}
           onFocus={onMainInputFocus}
           onBlur={onMainInputBlur}

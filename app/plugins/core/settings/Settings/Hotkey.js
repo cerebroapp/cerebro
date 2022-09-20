@@ -127,6 +127,7 @@ function Hotkey({ hotkey, onChange }) {
   return (
     <div>
       <input
+        readOnly
         className={styles.input}
         type="text"
         value={keys}

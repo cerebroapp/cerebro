@@ -16,7 +16,7 @@ function FormSettings({ settings, name, key }) {
       [settingLabel]: settingValue,
     }
 
-    setValues({ values })
+    setValues(values)
     config.set('plugins', {
       ...config.get('plugins'),
       [name]: newValues,

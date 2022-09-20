@@ -2,7 +2,7 @@ import { app, ipcRenderer } from 'electron'
 import fs from 'fs'
 import path from 'path'
 import { memoize } from 'cerebro-tools'
-import loadThemes from './loadThemes'
+import themes from './themes'
 
 const remote = process.type === 'browser'
   ? undefined
@@ -27,7 +27,7 @@ const defaultSettings = memoize(() => {
     locale,
     lang,
     country,
-    theme: loadThemes()[0].value,
+    theme: themes[0].value,
     hotkey: 'Control+Space',
     showInTray: true,
     firstStart: true,

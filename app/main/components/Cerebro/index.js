@@ -21,7 +21,6 @@ import {
 } from 'main/constants/ui'
 import * as searchActions from 'main/actions/search'
 
-import MainInput from '../MainInput'
 import ResultsList from '../ResultsList'
 import StatusBar from '../StatusBar'
 import styles from './styles.module.css'
@@ -335,9 +334,13 @@ function Cerebro({
     <div className={styles.search}>
       <Autocomplete autocompleteCalculator={autocompleteValue} />
       <div className={styles.inputWrapper}>
-        <MainInput
-          value={term}
+        <input
+          placeholder="Cerebro Search"
+          type="text"
+          id="main-input"
           ref={mainInput}
+          value={term}
+          className={styles.input}
           onChange={actions.updateTerm}
           onKeyDown={onKeyDown}
           onFocus={onMainInputFocus}

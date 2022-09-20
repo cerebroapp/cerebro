@@ -1,7 +1,7 @@
 {
   "name": "cerebro",
   "productName": "cerebro",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Cerebro is an open-source launcher to improve your productivity and efficiency",
   "main": "main.js",
   "scripts": {

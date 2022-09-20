@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { FormComponents } from '@cerebroapp/cerebro-ui'
-import loadThemes from 'lib/loadThemes'
+import themes from 'lib/themes'
 
 import Hotkey from './Hotkey'
 import countries from './countries'
@@ -30,6 +30,8 @@ function Settings({ get, set }) {
     setState((prevState) => ({ ...prevState, [key]: value }))
   }
 
+  console.log(state.country)
+
   return (
     <div className={styles.settings}>
       <Wrapper label="Hotkey" description="Type your global shortcut for Cerebro in this input">
@@ -41,14 +43,14 @@ function Settings({ get, set }) {
       <Select
         label="Country"
         description="Choose your country so Cerebro can better choose currency, language, etc."
-        value={state.country}
+        value={countries.find((c) => c.value === state.country)}
         options={countries}
         onChange={(value) => changeConfig('country', value)}
       />
       <Select
         label="Theme"
-        value={state.theme}
-        options={loadThemes()}
+        value={themes.find((t) => t.value === state.theme)}
+        options={themes}
         onChange={(value) => changeConfig('theme', value)}
       />
       <Text

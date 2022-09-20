@@ -120,7 +120,6 @@ function Cerebro({
   results, selected, visibleResults, actions, term, prevTerm, statusBarText
 }) {
   const mainInput = useRef(null)
-  // const [electronWindow] = useState(() => remote.getCurrentWindow())
   const [mainInputFocused, setMainInputFocused] = useState(false)
   const [prevResultsLenght, setPrevResultsLenght] = useState(() => results.length)
 
@@ -142,11 +141,7 @@ function Cerebro({
 
     // function to be called when unmounted
     return () => {
-      window.removeEventListener('resize', onWindowResize)
-      window.removeEventListener('keydown', onDocumentKeydown)
-      window.removeEventListener('beforeunload', cleanup)
-      electronWindow.removeListener('show', focusMainInput)
-      electronWindow.removeListener('show', () => updateElectronWindow(results, visibleResults))
+      cleanup()
     }
   }, [])
 
@@ -280,8 +275,7 @@ function Cerebro({
     window.removeEventListener('resize', onWindowResize)
     window.removeEventListener('keydown', onDocumentKeydown)
     window.removeEventListener('beforeunload', cleanup)
-    electronWindow.removeListener('show', focusMainInput)
-    electronWindow.removeListener('show', () => updateElectronWindow(results, visibleResults))
+    electronWindow.removeAllListeners('show')
   }
 
   /**

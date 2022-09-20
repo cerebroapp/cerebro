@@ -4,52 +4,43 @@ import config from 'lib/config'
 import FormItem from './FormItem'
 import styles from './styles.module.css'
 
-function FormSettings({ settings, name, key }) {
-  const [values, setValues] = useState(config.get('plugins')[name] || {})
-  const setting = settings[key]
-  const { defaultValue, label, ...restProps } = setting
-  const value = key in values ? values[key] : defaultValue
+function Settings({ settings, name }) {
+  const [values, setValues] = useState(() => config.get('plugins')[name] || {})
 
-  const changeSetting = (plugin, settingLabel, settingValue) => {
-    const newValues = {
-      ...values,
-      [settingLabel]: settingValue,
-    }
+  const changeSetting = (label, value) => {
+    setValues((prev) => ({ ...prev, [label]: value }))
 
-    setValues(values)
     config.set('plugins', {
       ...config.get('plugins'),
-      [name]: newValues,
+      [name]: values,
     })
   }
 
-  return (
-    <FormItem
-      key={key}
-      label={label || key}
-      value={value}
-      onChange={(newValue) => changeSetting(name, key, newValue)}
-      // eslint-disable-next-line react/jsx-props-no-spreading
-      {...restProps}
-    />
-  )
-}
+  const renderSetting = (key) => {
+    const setting = settings[key]
+    const { defaultValue, label, ...restProps } = setting
+    const value = values[key] || defaultValue
 
-function Settings({ settings, name }) {
+    return (
+      <FormItem
+        key={key}
+        label={label || key}
+        value={value}
+        onChange={(newValue) => changeSetting(key, newValue)}
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...restProps}
+      />
+    )
+  }
+
   return (
     <div className={styles.settingsWrapper}>
-      {Object.keys(settings).map(<FormSettings settings={settings} name={name} />)}
+      { Object.keys(settings).map(renderSetting) }
     </div>
   )
 }
 
 export default Settings
-
-FormSettings.propTypes = {
-  name: PropTypes.string.isRequired,
-  settings: PropTypes.object.isRequired,
-  key: PropTypes.string.isRequired,
-}
 
 Settings.propTypes = {
   name: PropTypes.string.isRequired,

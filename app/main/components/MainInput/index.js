@@ -1,28 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './styles.module.css'
 
-class MainInput extends Component {
-  focus() {
-    this.refs.input.focus()
-  }
-
-  render() {
-    return (
+function MainInput({
+  value, onChange, onBlur, onFocus, onKeyDown
+}) {
+  return (
+    <div>
       <input
         placeholder="Cerebro Search"
         type="text"
         id="main-input"
         ref="input"
-        value={this.props.value}
+        value={value}
         className={styles.input}
-        onChange={(e) => this.props.onChange(e.target.value)}
-        onKeyDown={this.props.onKeyDown}
-        onFocus={this.props.onFocus}
-        onBlur={this.props.onBlur}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyDown={onKeyDown}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
-    )
-  }
+    </div>
+  )
 }
 
 MainInput.propTypes = {

@@ -1,4 +1,5 @@
-# <a href="../plugins.md">Plugins</a> → Examples
+# [Plugins](../plugins.md) → Examples
+
 You always can check out source code of existing plugins, like:
 
 * [cerebro-math](https://github.com/cerebroapp/cerebro-math)
@@ -8,7 +9,8 @@ You always can check out source code of existing plugins, like:
 * [cerebro-kill](https://github.com/cerebroapp/cerebro-kill)
 * [cerebro-ip](https://github.com/cerebroapp/cerebro-ip)
 
-### Using `id`
+## Using `id`
+
 ```js
 export const fn = ({display}) => {
   display({
@@ -24,24 +26,26 @@ export const fn = ({display}) => {
 }
 ```
 
-### Using `icon`
+## Using `icon`
+
 ```js
-const icon = require('[path-to-icon]/icon.png');
+import icon from '[path-to-icon]/icon.png';
 
 const plugin = ({display}) => {
   display({
     icon,
     title: 'Title',
-	subtitle: 'Subtitle'
+    subtitle: 'Subtitle'
   });
 }
 
-module.exports = {
+export default {
   fn: plugin,
 }
 ```
 
-### Using `keyword` and `name`
+## Using `keyword` and `name`
+
 ```js
 const plugin = (scope) => {
   const match = scope.term.match(/^emoj\s(.+)/);
@@ -52,7 +56,7 @@ const plugin = (scope) => {
   };
 }
 
-module.exports = {
+export default {
   name: 'Search emojis...',
   fn: plugin,
   keyword: 'emoj'
@@ -60,7 +64,8 @@ module.exports = {
 
 ```
 
-### Using `initialize`
+## Using `initialize`
+
 ```js
 // Some data needed for your plugin
 let data;
@@ -77,14 +82,14 @@ const plugin = (scope) => {
   scope.display(results);
 }
 
-module.exports = {
+export default {
   initialize: initialize,
   fn: plugin
 }
 ```
 
+## Using `initializeAsync` and `onMessage`
 
-### Using `initializeAsync` and `onMessage`
 ```js
 let data;
 
@@ -106,17 +111,18 @@ const plugin = (scope) => {
   scope.display(results);
 }
 
-module.exports = {
+export default {
   initializeAsync: initialize,
   onMessage: onMessage,
   fn: plugin
 }
 ```
 
-### Using `cerebro-tools`
+## Using `cerebro-tools`
+
 ```js
-const { memoize, search } = require('cerebro-tools');
-const preprocessJson = require('./preprocessJson');
+import { memoize, search } from 'cerebro-tools';
+import preprocessJson from './preprocessJson';
 
 // Memoize your fetched data from external API
 const fetchData = memoize(() => {
@@ -132,12 +138,13 @@ const plugin = ({term, display}) => {
   })
 }
 
-module.exports = {
+export default {
   fn: plugin
 };
 ```
 
-### using `settings`
+## using `settings`
+
 ```js
 const plugin = ({ display, settings }) => {
   const icon = require('[path-to-icon]/icon.png');
@@ -149,7 +156,7 @@ const plugin = ({ display, settings }) => {
   })
 }
 
-module.exports = {
+export default {
   fn: plugin,
   settings: {
     username: { type: 'string' },
@@ -158,7 +165,11 @@ module.exports = {
     languages: {
       type: 'option',
       description: 'Your favorite programming languages'
-      options: ['JavaScript', 'Haskell', 'Rust'],
+      options: [
+        { label: 'JavaScript', value: 'js' },
+        { label: 'Haskell', value: 'hsk' },
+        { label: 'Rust', value: 'rs' }
+      ],
       multi: true,
       createable: true,
     }

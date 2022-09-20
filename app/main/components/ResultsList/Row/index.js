@@ -1,51 +1,34 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { SmartIcon } from '@cerebroapp/cerebro-ui'
 import styles from './styles.module.css'
 
-class Row extends Component {
-  classNames() {
-    return [
-      styles.row,
-      this.props.selected ? styles.selected : null
-    ].join(' ')
-  }
+function Row({
+  selected, icon, title, onSelect, onMouseMove, subtitle, style
+}) {
+  const classNames = [styles.row, selected ? styles.selected : null].join(' ')
 
-  renderIcon() {
-    const { icon } = this.props
-    if (!icon) return null
-    return <SmartIcon path={icon} className={styles.icon} />
-  }
+  return (
+    <div
+      style={style}
+      className={classNames}
+      onClick={onSelect}
+      onMouseMove={onMouseMove}
+      onKeyDown={() => {}}
+    >
+      {icon && <SmartIcon path={icon} className={styles.icon} />}
 
-  render() {
-    const {
-      title,
-      onSelect,
-      onMouseMove,
-      subtitle
-    } = this.props
+      <div className={styles.details}>
+        {title && <div className={styles.title}>{title}</div>}
 
-    return (
-      <div className={this.classNames()} onClick={onSelect} onMouseMove={onMouseMove}>
-        {this.renderIcon()}
-        <div className={styles.details}>
-          {title && (
-          <div className={styles.title}>
-            {` ${title} `}
-          </div>
-          )}
-          {subtitle && (
-          <div className={styles.subtitle}>
-            {` ${subtitle} `}
-          </div>
-          )}
-        </div>
+        {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 Row.propTypes = {
+  style: PropTypes.object,
   title: PropTypes.string,
   icon: PropTypes.string,
   selected: PropTypes.bool,

@@ -182,7 +182,7 @@ This object is used to specify settings that a plugin user can change. Each sett
 
 Check `settings` [example](./examples.md#using-settings)
 
-Look at [React Select](https://github.com/JedWatson/react-select) for more details on how the `option` type works.
+Take a look at [React Select](https://github.com/JedWatson/react-select) for more details on how the `option` type works.
 
 ## Available `env` variables
 

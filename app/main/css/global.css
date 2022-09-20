@@ -1,9 +1,9 @@
 @import "system-font.css";
 @import url("~normalize.css/normalize.css");
 @import url("~react-virtualized/styles.css");
-@import url("~react-select/dist/react-select.css");
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background-color: var(--main-background-color);

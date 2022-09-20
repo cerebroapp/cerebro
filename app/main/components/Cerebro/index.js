@@ -1,6 +1,8 @@
 /* eslint default-case: 0 */
 
-import React, { Component } from 'react'
+import React, {
+  useEffect, useRef, useState
+} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -8,7 +10,7 @@ import { clipboard, BrowserWindow } from 'electron'
 import { focusableSelector } from '@cerebroapp/cerebro-ui'
 import escapeStringRegexp from 'escape-string-regexp'
 
-import debounce from 'lodash/debounce'
+// import debounce from 'lodash/debounce'
 
 import getWindowPosition from 'lib/getWindowPosition'
 import {
@@ -19,7 +21,6 @@ import {
 } from 'main/constants/ui'
 import * as searchActions from 'main/actions/search'
 
-import MainInput from '../MainInput'
 import ResultsList from '../ResultsList'
 import StatusBar from '../StatusBar'
 import styles from './styles.module.css'
@@ -62,101 +63,125 @@ const cursorInEndOfInut = ({ selectionStart, selectionEnd, value }) => (
   selectionStart === selectionEnd && selectionStart >= value.length
 )
 
+const electronWindow = remote.getCurrentWindow()
+
+/**
+   * Set resizable and size for main electron window when results count is changed
+   */
+const updateElectronWindow = (results, visibleResults) => {
+  const { length } = results
+  const win = electronWindow
+  const [width] = win.getSize()
+
+  // When results list is empty window is not resizable
+  win.setResizable(length !== 0)
+
+  if (length === 0) {
+    win.setMinimumSize(WINDOW_WIDTH, INPUT_HEIGHT)
+    win.setSize(width, INPUT_HEIGHT)
+    win.setPosition(...getWindowPosition({ width }))
+    return
+  }
+
+  const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
+  const heightWithResults = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
+  const minHeightWithResults = MIN_VISIBLE_RESULTS * RESULT_HEIGHT + INPUT_HEIGHT
+  win.setMinimumSize(WINDOW_WIDTH, minHeightWithResults)
+  win.setSize(width, heightWithResults)
+  win.setPosition(...getWindowPosition({ width, heightWithResults }))
+}
+
+const onDocumentKeydown = (event) => {
+  if (event.keyCode === 27) {
+    event.preventDefault()
+    document.getElementById('main-input').focus()
+  }
+}
+
+function Autocomplete({ autocompleteCalculator }) {
+  const autocompleteTerm = autocompleteCalculator()
+
+  return autocompleteTerm
+    ? <div className={styles.autocomplete}>{autocompleteTerm}</div>
+    : null
+}
+
+Autocomplete.propTypes = {
+  autocompleteCalculator: PropTypes.func.isRequired,
+}
+
 /**
  * Main search container
  *
  * TODO: Remove redux
  * TODO: Split to more components
  */
-class Cerebro extends Component {
-  constructor(props) {
-    super(props)
-    this.electronWindow = remote.getCurrentWindow()
+function Cerebro({
+  results, selected, visibleResults, actions, term, prevTerm, statusBarText
+}) {
+  const mainInput = useRef(null)
+  const [mainInputFocused, setMainInputFocused] = useState(false)
+  const [prevResultsLenght, setPrevResultsLenght] = useState(() => results.length)
 
-    this.onWindowResize = debounce(this.onWindowResize, 100).bind(this)
+  const focusMainInput = () => mainInput.current.focus()
 
-    this.updateElectronWindow = debounce(this.updateElectronWindow, 16).bind(this)
-
-    this.onDocumentKeydown = this.onDocumentKeydown.bind(this)
-    this.onKeyDown = this.onKeyDown.bind(this)
-    this.onMainInputFocus = this.onMainInputFocus.bind(this)
-    this.onMainInputBlur = this.onMainInputBlur.bind(this)
-    this.cleanup = this.cleanup.bind(this)
-    this.focusMainInput = this.focusMainInput.bind(this)
-    this.selectItem = this.selectItem.bind(this)
-
-    this.state = { mainInputFocused: false }
-  }
-
-  componentWillMount() {
+  // suscribe to events
+  useEffect(() => {
+    focusMainInput()
+    updateElectronWindow(results, visibleResults)
     // Listen for window.resize and change default space for results to user's value
-    window.addEventListener('resize', this.onWindowResize)
+    window.addEventListener('resize', onWindowResize)
     // Add some global key handlers
-    window.addEventListener('keydown', this.onDocumentKeydown)
+    window.addEventListener('keydown', onDocumentKeydown)
     // Cleanup event listeners on unload
     // NOTE: when page refreshed (location.reload) componentWillUnmount is not called
-    window.addEventListener('beforeunload', this.cleanup)
-    this.electronWindow.on('show', this.focusMainInput)
-    this.electronWindow.on('show', this.updateElectronWindow)
-  }
+    window.addEventListener('beforeunload', cleanup)
+    electronWindow.on('show', focusMainInput)
+    electronWindow.on('show', () => updateElectronWindow(results, visibleResults))
 
-  componentDidMount() {
-    this.focusMainInput()
-    this.updateElectronWindow()
-  }
-
-  componentDidUpdate(prevProps) {
-    const { results } = this.props
-    if (results.length !== prevProps.results.length) {
-      // Resize electron window when results count changed
-      this.updateElectronWindow()
+    // function to be called when unmounted
+    return () => {
+      cleanup()
     }
-  }
+  }, [])
 
-  componentWillUnmount() {
-    this.cleanup()
+  if (results.length !== prevResultsLenght) {
+    // Resize electron window when results count changed
+    updateElectronWindow(results, visibleResults)
+    setPrevResultsLenght(results.length)
   }
 
   /**
    * Handle resize window and change count of visible results depends on window size
    */
-  onWindowResize() {
-    if (this.props.results.length <= MIN_VISIBLE_RESULTS) {
-      return false
-    }
-    let visibleResults = Math.floor((window.outerHeight - INPUT_HEIGHT) / RESULT_HEIGHT)
-    visibleResults = Math.max(MIN_VISIBLE_RESULTS, visibleResults)
-    if (visibleResults !== this.props.visibleResults) {
-      this.props.actions.changeVisibleResults(visibleResults)
-    }
-  }
+  const onWindowResize = () => {
+    if (results.length <= MIN_VISIBLE_RESULTS) return false
 
-  onDocumentKeydown(event) {
-    if (event.keyCode === 27) {
-      event.preventDefault()
-      document.getElementById('main-input').focus()
+    let maxVisibleResults = Math.floor((window.outerHeight - INPUT_HEIGHT) / RESULT_HEIGHT)
+    maxVisibleResults = Math.max(MIN_VISIBLE_RESULTS, maxVisibleResults)
+    if (maxVisibleResults !== visibleResults) {
+      actions.changeVisibleResults(maxVisibleResults)
     }
   }
 
   /**
    * Handle keyboard shortcuts
    */
-  onKeyDown(event) {
-    const highlighted = this.highlightedResult()
+  const onKeyDown = (event) => {
+    const highlighted = highlightedResult()
     // TODO: go to first result on cmd+up and last result on cmd+down
-    if (highlighted && highlighted.onKeyDown) {
-      highlighted.onKeyDown(event)
-    }
+    if (highlighted && highlighted.onKeyDown) highlighted.onKeyDown(event)
+
     if (event.defaultPrevented) { return }
 
     const keyActions = {
-      select: () => this.selectCurrent(event),
+      select: () => selectCurrent(event),
 
       arrowRight: () => {
         if (cursorInEndOfInut(event.target)) {
-          if (this.autocompleteValue()) {
+          if (autocompleteValue()) {
             // Autocomplete by arrow right only if autocomple value is shown
-            this.autocomplete(event)
+            autocomplete(event)
           } else {
             focusPreview()
             event.preventDefault()
@@ -165,15 +190,15 @@ class Cerebro extends Component {
       },
 
       arrowDown: () => {
-        this.props.actions.moveCursor(1)
+        actions.moveCursor(1)
         event.preventDefault()
       },
 
       arrowUp: () => {
-        if (this.props.results.length > 0) {
-          this.props.actions.moveCursor(-1)
-        } else if (this.props.prevTerm) {
-          this.props.actions.updateTerm(this.props.prevTerm)
+        if (results.length > 0) {
+          actions.moveCursor(-1)
+        } else if (prevTerm) {
+          actions.updateTerm(prevTerm)
         }
         event.preventDefault()
       }
@@ -183,24 +208,24 @@ class Cerebro extends Component {
     if ((event.metaKey || event.ctrlKey) && !event.altKey) {
       if (event.keyCode === 67) {
         // Copy to clipboard on cmd+c
-        const text = this.highlightedResult()?.clipboard || this.props.term
+        const text = highlightedResult()?.clipboard || term
         if (text) {
           clipboard.writeText(text)
-          this.props.actions.reset()
+          actions.reset()
           if (!event.defaultPrevented) {
-            this.electronWindow.hide()
+            electronWindow.hide()
           }
           event.preventDefault()
         }
         return
       }
+
+      // Select element by number
       if (event.keyCode >= 49 && event.keyCode <= 57) {
-        // Select element by number
         const number = Math.abs(49 - event.keyCode)
-        const result = this.props.results[number]
-        if (result) {
-          return this.selectItem(result, event)
-        }
+        const result = results[number]
+
+        if (result) return selectItem(result, event)
       }
 
       // Lightweight vim-mode: cmd/ctrl + jklo
@@ -222,7 +247,7 @@ class Cerebro extends Component {
 
     switch (event.keyCode) {
       case 9:
-        this.autocomplete(event)
+        autocomplete(event)
         break
       case 39:
         keyActions.arrowRight()
@@ -237,61 +262,48 @@ class Cerebro extends Component {
         keyActions.select()
         break
       case 27:
-        this.props.actions.reset()
-        this.electronWindow.hide()
+        actions.reset()
+        electronWindow.hide()
         break
     }
   }
 
-  onMainInputFocus() {
-    this.setState({ mainInputFocused: true })
-  }
+  const onMainInputFocus = () => setMainInputFocused(true)
+  const onMainInputBlur = () => setMainInputFocused(false)
 
-  onMainInputBlur() {
-    this.setState({ mainInputFocused: false })
-  }
-
-  cleanup() {
-    window.removeEventListener('resize', this.onWindowResize)
-    window.removeEventListener('keydown', this.onDocumentKeydown)
-    window.removeEventListener('beforeunload', this.cleanup)
-    this.electronWindow.removeListener('show', this.focusMainInput)
-    this.electronWindow.removeListener('show', this.updateElectronWindow)
-  }
-
-  focusMainInput() {
-    this.refs.mainInput.focus()
+  const cleanup = () => {
+    window.removeEventListener('resize', onWindowResize)
+    window.removeEventListener('keydown', onDocumentKeydown)
+    window.removeEventListener('beforeunload', cleanup)
+    electronWindow.removeAllListeners('show')
   }
 
   /**
    * Get highlighted result
    * @return {Object}
    */
-  highlightedResult() {
-    return this.props.results[this.props.selected]
-  }
+  const highlightedResult = () => results[selected]
 
   /**
    * Select item from results list
    * @param  {[type]} item [description]
    * @return {[type]}      [description]
    */
-  selectItem(item, realEvent) {
-    this.props.actions.reset()
+  const selectItem = (item, realEvent) => {
+    actions.reset()
     const event = wrapEvent(realEvent)
     item.onSelect(event)
-    if (!event.defaultPrevented) {
-      this.electronWindow.hide()
-    }
+
+    if (!event.defaultPrevented) electronWindow.hide()
   }
 
   /**
    * Autocomple search term from highlighted result
    */
-  autocomplete(event) {
-    const { term } = this.highlightedResult()
-    if (term && term !== this.props.term) {
-      this.props.actions.updateTerm(term)
+  const autocomplete = (event) => {
+    const { term: highlightedTerm } = highlightedResult()
+    if (highlightedTerm && highlightedTerm !== term) {
+      actions.updateTerm(highlightedTerm)
       event.preventDefault()
     }
   }
@@ -299,86 +311,47 @@ class Cerebro extends Component {
   /**
    * Select highlighted element
    */
-  selectCurrent(event) {
-    this.selectItem(this.highlightedResult(), event)
-  }
+  const selectCurrent = (event) => selectItem(highlightedResult(), event)
 
-  /**
-   * Set resizable and size for main electron window when results count is changed
-   */
-  updateElectronWindow() {
-    const { results, visibleResults } = this.props
-    const { length } = results
-    const win = this.electronWindow
-    const [width] = win.getSize()
-
-    // When results list is empty window is not resizable
-    win.setResizable(length !== 0)
-
-    if (length === 0) {
-      win.setMinimumSize(WINDOW_WIDTH, INPUT_HEIGHT)
-      win.setSize(width, INPUT_HEIGHT)
-      win.setPosition(...getWindowPosition({ width }))
-      return
-    }
-
-    const resultHeight = Math.max(Math.min(visibleResults, length), MIN_VISIBLE_RESULTS)
-    const heightWithResults = resultHeight * RESULT_HEIGHT + INPUT_HEIGHT
-    const minHeightWithResults = MIN_VISIBLE_RESULTS * RESULT_HEIGHT + INPUT_HEIGHT
-    win.setMinimumSize(WINDOW_WIDTH, minHeightWithResults)
-    win.setSize(width, heightWithResults)
-    win.setPosition(...getWindowPosition({ width, heightWithResults }))
-  }
-
-  autocompleteValue() {
-    const selected = this.highlightedResult()
-    if (selected && selected.term) {
-      const regexp = new RegExp(`^${escapeStringRegexp(this.props.term)}`, 'i')
-      if (selected.term.match(regexp)) {
-        return selected.term.replace(regexp, this.props.term)
+  const autocompleteValue = () => {
+    const selectedResult = highlightedResult()
+    if (selectedResult && selectedResult.term) {
+      const regexp = new RegExp(`^${escapeStringRegexp(term)}`, 'i')
+      if (selectedResult.term.match(regexp)) {
+        return selectedResult.term.replace(regexp, term)
       }
     }
     return ''
   }
 
-  /**
-   * Render autocomplete suggestion from selected item
-   * @return {React}
-   */
-  renderAutocomplete() {
-    const term = this.autocompleteValue()
-    if (term) {
-      return <div className={styles.autocomplete}>{term}</div>
-    }
-  }
-
-  render() {
-    const { mainInputFocused } = this.state
-    return (
-      <div className={styles.search}>
-        {this.renderAutocomplete()}
-        <div className={styles.inputWrapper}>
-          <MainInput
-            value={this.props.term}
-            ref="mainInput"
-            onChange={this.props.actions.updateTerm}
-            onKeyDown={this.onKeyDown}
-            onFocus={this.onMainInputFocus}
-            onBlur={this.onMainInputBlur}
-          />
-        </div>
-        <ResultsList
-          results={this.props.results}
-          selected={this.props.selected}
-          visibleResults={this.props.visibleResults}
-          onItemHover={this.props.actions.selectElement}
-          onSelect={this.selectItem}
-          mainInputFocused={mainInputFocused}
+  return (
+    <div className={styles.search}>
+      <Autocomplete autocompleteCalculator={autocompleteValue} />
+      <div className={styles.inputWrapper}>
+        <input
+          placeholder="Cerebro Search"
+          type="text"
+          id="main-input"
+          ref={mainInput}
+          value={term}
+          className={styles.input}
+          onChange={(e) => actions.updateTerm(e.target.value)}
+          onKeyDown={onKeyDown}
+          onFocus={onMainInputFocus}
+          onBlur={onMainInputBlur}
         />
-        {this.props.statusBarText && <StatusBar value={this.props.statusBarText} />}
       </div>
-    )
-  }
+      <ResultsList
+        results={results}
+        selected={selected}
+        visibleResults={visibleResults}
+        onItemHover={actions.selectElement}
+        onSelect={selectItem}
+        mainInputFocused={mainInputFocused}
+      />
+      {statusBarText && <StatusBar value={statusBarText} />}
+    </div>
+  )
 }
 
 Cerebro.propTypes = {

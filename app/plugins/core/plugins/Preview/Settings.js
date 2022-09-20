@@ -1,56 +1,46 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import config from 'lib/config'
 import FormItem from './FormItem'
 import styles from './styles.module.css'
 
-export default class Settings extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      values: config.get('plugins')[props.name] || {},
-    }
-    this.renderSetting = this.renderSetting.bind(this)
-    this.changeSetting = this.changeSetting.bind(this)
-  }
+function Settings({ settings, name }) {
+  const [values, setValues] = useState(() => config.get('plugins')[name] || {})
 
-  changeSetting(plugin, label, value) {
-    const values = {
-      ...this.state.values,
-      [label]: value,
-    }
+  const changeSetting = (label, value) => {
+    setValues((prev) => ({ ...prev, [label]: value }))
 
-    this.setState({ values })
     config.set('plugins', {
       ...config.get('plugins'),
-      [this.props.name]: values,
+      [name]: values,
     })
   }
 
-  renderSetting(key) {
-    const setting = this.props.settings[key]
+  const renderSetting = (key) => {
+    const setting = settings[key]
     const { defaultValue, label, ...restProps } = setting
-    const value = key in this.state.values ? this.state.values[key] : defaultValue
+    const value = values[key] || defaultValue
 
     return (
       <FormItem
         key={key}
         label={label || key}
         value={value}
-        onChange={(newValue) => this.changeSetting(this.props.name, key, newValue)}
+        onChange={(newValue) => changeSetting(key, newValue)}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...restProps}
       />
     )
   }
 
-  render() {
-    return (
-      <div className={styles.settingsWrapper}>
-        { Object.keys(this.props.settings).map(this.renderSetting) }
-      </div>
-    )
-  }
+  return (
+    <div className={styles.settingsWrapper}>
+      { Object.keys(settings).map(renderSetting) }
+    </div>
+  )
 }
+
+export default Settings
 
 Settings.propTypes = {
   name: PropTypes.string.isRequired,

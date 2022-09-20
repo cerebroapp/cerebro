@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import styles from './styles.module.css'
 
@@ -102,8 +102,8 @@ const charCodeToSign = ({ keyCode, shiftKey }) => {
   return String.fromCharCode(code)
 }
 
-class Hotkey extends Component {
-  onKeyDown(event) {
+function Hotkey({ hotkey, onChange }) {
+  const onKeyDown = (event) => {
     if (!event.ctrlKey && !event.altKey && !event.metaKey) {
       // Do not allow to set global shorcut without modifier keys
       // At least one of alt, cmd or ctrl is required
@@ -111,33 +111,30 @@ class Hotkey extends Component {
     }
     event.preventDefault()
     event.stopPropagation()
+
     const key = charCodeToSign(event)
-    if (!key) {
-      return
-    }
+    if (!key) return
     const keys = []
+
     if (event.ctrlKey) keys.push('Control')
     if (event.altKey) keys.push('Alt')
     if (event.shiftKey) keys.push('Shift')
     if (event.metaKey) keys.push('Command')
     keys.push(key)
-    this.props.onChange(keys.join('+'))
+    onChange(keys.join('+'))
   }
-
-  render() {
-    const { hotkey } = this.props
-    const keys = hotkey.split('+').map(keyToSign).join(osKeyDelimiter)
-    return (
-      <div>
-        <input
-          className={styles.input}
-          type="text"
-          value={keys}
-          onKeyDown={this.onKeyDown.bind(this)}
-        />
-      </div>
-    )
-  }
+  const keys = hotkey.split('+').map(keyToSign).join(osKeyDelimiter)
+  return (
+    <div>
+      <input
+        readOnly
+        className={styles.input}
+        type="text"
+        value={keys}
+        onKeyDown={onKeyDown}
+      />
+    </div>
+  )
 }
 
 Hotkey.propTypes = {

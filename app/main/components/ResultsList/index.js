@@ -60,8 +60,6 @@ function ResultsList({
         rowRenderer={rowRenderer}
         width={(results[selected] !== undefined && results[selected].getPreview) ? 250 : 10000}
         scrollToIndex={selected}
-        // Needed to force update of VirtualScroll
-        titles={results.map((result) => result.title)}
         // Disable accesebility of VirtualScroll by tab
         tabIndex={null}
       />

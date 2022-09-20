@@ -6,20 +6,18 @@ function MainInput({
   value, onChange, onBlur, onFocus, onKeyDown
 }) {
   return (
-    <div>
-      <input
-        placeholder="Cerebro Search"
-        type="text"
-        id="main-input"
-        ref="input"
-        value={value}
-        className={styles.input}
-        onChange={(e) => onChange(e.target.value)}
-        onKeyDown={onKeyDown}
-        onFocus={onFocus}
-        onBlur={onBlur}
-      />
-    </div>
+    <input
+      placeholder="Cerebro Search"
+      type="text"
+      id="main-input"
+      ref="input"
+      value={value}
+      className={styles.input}
+      onChange={(e) => onChange(e.target.value)}
+      onKeyDown={onKeyDown}
+      onFocus={onFocus}
+      onBlur={onBlur}
+    />
   )
 }
 

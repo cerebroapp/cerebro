@@ -189,3 +189,4 @@ Take a look at [React Select](https://github.com/JedWatson/react-select) for mor
 The following variables are available in the `process.env` object:
 
 * `CEREBRO_VERSION` – Version of Cerebro
+* `CEREBRO_DATA_PATH` – Path to Cerebro data directory

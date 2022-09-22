@@ -54,9 +54,9 @@ const setupEnvVariables = () => {
   if (isPortableMode) {
     const userDataPath = path.join(process.cwd(), 'userdata')
     app.setPath('userData', userDataPath)
-    process.env.USER_DATA_PATH = userDataPath
+    process.env.CEREBRO_DATA_PATH = userDataPath
   } else {
-    process.env.USER_DATA_PATH = app.getPath('userData')
+    process.env.CEREBRO_DATA_PATH = app.getPath('userData')
   }
 }
 

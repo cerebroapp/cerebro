@@ -19,7 +19,7 @@ const EMPTY_PACKAGE_JSON = JSON.stringify({
   dependencies: {}
 }, null, 2)
 
-export const pluginsPath = path.join(process.env.USER_DATA_PATH, 'plugins')
+export const pluginsPath = path.join(process.env.CEREBRO_DATA_PATH, 'plugins')
 export const modulesDirectory = path.join(pluginsPath, 'node_modules')
 export const packageJsonPath = path.join(pluginsPath, 'package.json')
 

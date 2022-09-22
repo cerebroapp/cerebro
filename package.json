@@ -5,7 +5,7 @@
   "description": "Cerebro is an open-source launcher to improve your productivity and efficiency",
   "main": "main.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test CEREBRO_DATA_PATH=userdata jest",
     "test-watch": "jest -- --watch",
     "lint": "eslint app/background app/lib app/main app/plugins *.js",
     "hot-server": "node -r @babel/register server.js",

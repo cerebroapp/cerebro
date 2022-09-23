@@ -19,10 +19,10 @@ After installation use the default shortcut `ctrl+space` to show the app window.
 
 ### Core plugins
 
-- Search in the web with google suggestions;
-- Search & launch application, i.e. `spotify`;
-- Navigate in file system with file previews (i.e. `~/Dropbox/passport.pdf`);
-- Calculator;
+- Search in the web with your favourite search engine
+- Search & launch application, i.e. `spotify`
+- Navigate in file system with file previews (i.e. `~/Dropbox/passport.pdf`)
+- Calculator
 - Smart converter. `15$`, `150 рублей в евро`, `100 eur in gbp`;
 
 ### Install plugins

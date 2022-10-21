@@ -8,7 +8,7 @@ import getInstalledPlugins from './getInstalledPlugins'
 
 const DEFAULT_PLUGINS = [
   process.platform === 'darwin' ? 'cerebro-mac-apps' : '@cerebroapp/cerebro-basic-apps',
-  'cerebro-google',
+  '@cerebroapp/search',
   'cerebro-math',
   'cerebro-converter',
   'cerebro-open-web',

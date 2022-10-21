@@ -1,6 +1,7 @@
 import {
   app, ipcMain, crashReporter, screen
 } from 'electron'
+import path from 'path'
 import {
   WINDOW_WIDTH,
   INPUT_HEIGHT,
@@ -44,8 +45,23 @@ if (process.env.NODE_ENV !== 'development') {
   }
 }
 
-app.whenReady().then(() => {
+const setupEnvVariables = () => {
   process.env.CEREBRO_VERSION = app.getVersion()
+
+  const isPortableMode = process.argv.some((arg) => arg.toLowerCase() === '-p' || arg.toLowerCase() === '--portable')
+  // initiate portable mode
+  // set data directory to ./userdata
+  if (isPortableMode) {
+    const userDataPath = path.join(process.cwd(), 'userdata')
+    app.setPath('userData', userDataPath)
+    process.env.CEREBRO_DATA_PATH = userDataPath
+  } else {
+    process.env.CEREBRO_DATA_PATH = app.getPath('userData')
+  }
+}
+
+app.whenReady().then(() => {
+  setupEnvVariables()
 
   mainWindow = createMainWindow({
     isDev,

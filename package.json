@@ -89,7 +89,7 @@
     "webpack-visualizer-plugin": "0.1.11"
   },
   "dependencies": {
-    "@cerebroapp/cerebro-ui": "2.0.0-alpha.2",
+    "@cerebroapp/cerebro-ui": "1.0.4",
     "@electron/remote": "2.0.8",
     "appdata-path": "1.0.0",
     "auto-launch": "5.0.5",

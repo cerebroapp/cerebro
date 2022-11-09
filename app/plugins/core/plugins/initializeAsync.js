@@ -20,8 +20,6 @@ const DEFAULT_PLUGINS = [
   'cerebro-files-nav'
 ]
 
-console.log(DEFAULT_PLUGINS)
-
 /**
  * Check plugins for updates and start plugins autoupdater
  */

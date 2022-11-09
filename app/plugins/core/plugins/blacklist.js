@@ -4,5 +4,6 @@
  * The name must match (case sensitive) the name in the `package.json`.
  */
 export default [
-  'cerebro-basic-apps' // @cerebroapp/cerebro-basic-apps
+  'cerebro-basic-apps', // @cerebroapp/cerebro-basic-apps
+  'cerebro-mac-apps' // @cerebroapp/cerebro-mac-apps
 ]

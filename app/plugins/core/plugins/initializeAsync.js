@@ -6,14 +6,21 @@ import {
 import loadPlugins from './loadPlugins'
 import getInstalledPlugins from './getInstalledPlugins'
 
+const OS_APPS_PLUGIN = {
+  darwin: '@cerebroapp/cerebro-mac-apps',
+  DEFAULT: '@cerebroapp/cerebro-basic-apps'
+}
+
 const DEFAULT_PLUGINS = [
-  process.platform === 'darwin' ? 'cerebro-mac-apps' : '@cerebroapp/cerebro-basic-apps',
+  OS_APPS_PLUGIN[process.platform] || OS_APPS_PLUGIN.DEFAULT,
   '@cerebroapp/search',
   'cerebro-math',
   'cerebro-converter',
   'cerebro-open-web',
   'cerebro-files-nav'
 ]
+
+console.log(DEFAULT_PLUGINS)
 
 /**
  * Check plugins for updates and start plugins autoupdater

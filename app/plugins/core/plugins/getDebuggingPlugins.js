@@ -20,7 +20,6 @@ const getScopedPluginNames = async () => {
 
   // for each scope, get all plugins
   const scopeNames = scopeSubfolders.map((scope) => {
-    console.log('scopes', scope)
     const scopePlugins = getSymlinkedPluginsInFolder(scope)
     return scopePlugins.map((plugin) => `${scope}/${plugin}`)
   }).flat() // flatten array of arrays

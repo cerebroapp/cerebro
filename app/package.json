@@ -2,7 +2,7 @@
   "name": "cerebro",
   "productName": "Cerebro",
   "description": "Cerebro is an open-source launcher to improve your productivity and efficiency",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "main": "./main.js",
   "license": "MIT",
   "author": {
@@ -17,10 +17,10 @@
   ],
   "dependencies": {
     "chokidar": "3.5.3",
-    "electron-updater": "5.2.1",
+    "electron-updater": "5.3.0",
     "move-file": "2.1.0",
     "rimraf": "3.0.2",
-    "semver": "7.3.7"
+    "semver": "7.3.8"
   },
   "optionalDependencies": {},
   "devDependencies": {}

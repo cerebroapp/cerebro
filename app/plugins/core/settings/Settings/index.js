@@ -20,6 +20,7 @@ function Settings({ get, set }) {
     proxy: get('proxy'),
     developerMode: get('developerMode'),
     cleanOnHide: get('cleanOnHide'),
+    selectOnShow: get('selectOnShow'),
     pluginsSettings: get('plugins'),
     crashreportingEnabled: get('crashreportingEnabled'),
     openAtLogin: get('openAtLogin')
@@ -29,8 +30,6 @@ function Settings({ get, set }) {
     set(key, value)
     setState((prevState) => ({ ...prevState, [key]: value }))
   }
-
-  console.log(state.country)
 
   return (
     <div className={styles.settings}>
@@ -78,6 +77,11 @@ function Settings({ get, set }) {
         label="Clean results on hide"
         value={state.cleanOnHide}
         onChange={(value) => changeConfig('cleanOnHide', value)}
+      />
+      <Checkbox
+        label="Select input on show"
+        value={state.selectOnShow}
+        onChange={(value) => changeConfig('selectOnShow', value)}
       />
       <Checkbox
         label="Send automatic crash reports (requires restart)"

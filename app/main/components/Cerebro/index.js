@@ -6,11 +6,9 @@ import React, {
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { clipboard, BrowserWindow } from 'electron'
+import { clipboard } from 'electron'
 import { focusableSelector } from '@cerebroapp/cerebro-ui'
 import escapeStringRegexp from 'escape-string-regexp'
-
-// import debounce from 'lodash/debounce'
 
 import getWindowPosition from 'lib/getWindowPosition'
 import {
@@ -25,9 +23,7 @@ import ResultsList from '../ResultsList'
 import StatusBar from '../StatusBar'
 import styles from './styles.module.css'
 
-const remote = process.type === 'browser'
-  ? { getCurrentWindow: BrowserWindow.getFocusedWindow }
-  : require('@electron/remote')
+const remote = require('@electron/remote')
 
 /**
  * Wrap click or mousedown event to custom `select-item` event,
@@ -206,8 +202,8 @@ function Cerebro({
 
     // shortcuts for ctrl+...
     if ((event.metaKey || event.ctrlKey) && !event.altKey) {
+      // Copy to clipboard on cmd+c
       if (event.keyCode === 67) {
-        // Copy to clipboard on cmd+c
         const text = highlightedResult()?.clipboard || term
         if (text) {
           clipboard.writeText(text)
@@ -218,6 +214,12 @@ function Cerebro({
           event.preventDefault()
         }
         return
+      }
+
+      // Select text on cmd+a
+      if (event.keyCode === 65) {
+        mainInput.current.select()
+        event.preventDefault()
       }
 
       // Select element by number

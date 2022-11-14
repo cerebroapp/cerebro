@@ -9,15 +9,26 @@ const components = {
   option: Select,
 }
 
-function FormItem({ type, ...props }) {
+function FormItem({
+  type, value, options, ...props
+}) {
   const Component = components[type] || Text
 
-  return <Component type={type} {...props} />
+  let actualValue = value
+  if (Component === Select) {
+    // when the value is a string, we need to find the option that matches it
+    if (typeof value === 'string' && options) {
+      actualValue = options.find((option) => option.value === value)
+    }
+  }
+
+  return <Component type={type} value={actualValue} options={options} {...props} />
 }
 
 FormItem.propTypes = {
   value: PropTypes.any,
   type: PropTypes.string.isRequired,
+  options: PropTypes.array
 }
 
 export default FormItem

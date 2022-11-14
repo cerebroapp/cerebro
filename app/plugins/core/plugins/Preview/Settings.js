@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import config from 'lib/config'
 import FormItem from './FormItem'
@@ -7,13 +7,18 @@ import styles from './styles.module.css'
 function Settings({ settings, name }) {
   const [values, setValues] = useState(() => config.get('plugins')[name] || {})
 
-  const changeSetting = (label, value) => {
-    setValues((prev) => ({ ...prev, [label]: value }))
-
+  useEffect(() => {
     config.set('plugins', {
       ...config.get('plugins'),
       [name]: values,
     })
+  }, [values])
+
+  const changeSetting = async (label, value) => {
+    setValues((prev) => ({
+      ...prev,
+      [label]: value
+    }))
   }
 
   const renderSetting = (key) => {

@@ -5,5 +5,6 @@
  */
 export default [
   'cerebro-basic-apps', // @cerebroapp/cerebro-basic-apps
-  'cerebro-mac-apps' // @cerebroapp/cerebro-mac-apps
+  'cerebro-mac-apps', // @cerebroapp/cerebro-mac-apps
+  'cerebro-brew', // @cerebroapp/cerebro-brew
 ]

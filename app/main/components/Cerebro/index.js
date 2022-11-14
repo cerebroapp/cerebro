@@ -21,6 +21,7 @@ import {
 } from 'main/constants/ui'
 import * as searchActions from 'main/actions/search'
 
+import config from 'lib/config'
 import ResultsList from '../ResultsList'
 import StatusBar from '../StatusBar'
 import styles from './styles.module.css'
@@ -123,7 +124,12 @@ function Cerebro({
   const [mainInputFocused, setMainInputFocused] = useState(false)
   const [prevResultsLenght, setPrevResultsLenght] = useState(() => results.length)
 
-  const focusMainInput = () => mainInput.current.focus()
+  const focusMainInput = () => {
+    mainInput.current.focus()
+    if (config.get('selectOnShow')) {
+      mainInput.current.select()
+    }
+  }
 
   // suscribe to events
   useEffect(() => {

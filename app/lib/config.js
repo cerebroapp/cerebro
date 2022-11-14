@@ -12,6 +12,7 @@ const schema = {
   firstStart: { type: 'boolean', default: true },
   developerMode: { type: 'boolean', default: false },
   cleanOnHide: { type: 'boolean', default: true },
+  selectOnShow: { type: 'boolean', default: false },
   hideOnBlur: { type: 'boolean', default: true },
   skipDonateDialog: { type: 'boolean', default: false },
   lastShownDonateDialog: { type: 'number', default: 0 },

@@ -1,12 +1,11 @@
-import { send } from 'lib/rpc'
+import { ipcRenderer } from 'electron'
 import icon from '../icon.png'
 
 const keyword = 'reload'
 const title = 'Reload'
 const subtitle = 'Reload Cerebro App'
 const onSelect = (event) => {
-  send('reload')
-  location.reload()
+  ipcRenderer.send('reload')
   event.preventDefault()
 }
 
@@ -20,8 +19,12 @@ const fn = ({ term, display }) => {
   const match = term.match(/^reload\s*/)
 
   if (match) {
-    display({ icon, title, subtitle, onSelect })
+    display({
+      icon, title, subtitle, onSelect
+    })
   }
 }
 
-export default { keyword, fn, icon, name: 'Reload' }
+export default {
+  keyword, fn, icon, name: 'Reload'
+}

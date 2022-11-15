@@ -30,6 +30,3 @@ on('initializePluginAsync', ({ name }) => {
 
   console.groupEnd()
 })
-
-// Handle `reload` rpc event and reload window
-on('reload', () => window.location.reload())

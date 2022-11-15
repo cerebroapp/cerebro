@@ -85,9 +85,8 @@ export default class AppTray {
           {
             label: 'Reload',
             click: () => {
-              mainWindow.reload()
-              backgroundWindow.reload()
-              backgroundWindow.hide()
+              app.relaunch()
+              app.exit()
             }
           }]
       })

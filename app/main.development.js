@@ -143,3 +143,7 @@ ipcMain.on('get-window-position', (event, { width, heightWithResults }) => {
 })
 
 ipcMain.on('quit', () => app.quit())
+ipcMain.on('reload', () => {
+  app.relaunch()
+  app.exit()
+})

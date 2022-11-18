@@ -1,10 +1,9 @@
 import {
-  BrowserWindow, globalShortcut, app, screen, shell
+  BrowserWindow, globalShortcut, app, shell
 } from 'electron'
 import debounce from 'lodash/debounce'
 import EventEmitter from 'events'
 import config from 'lib/config'
-import getWindowPosition from 'lib/getWindowPosition'
 
 import {
   INPUT_HEIGHT,
@@ -17,7 +16,7 @@ import handleUrl from './createWindow/handleUrl'
 import * as donateDialog from './createWindow/donateDialog'
 
 export default ({ src, isDev }) => {
-  const [x, y] = getWindowPosition({})
+  const [x, y] = config.get('winPosition')
 
   const browserWindowOptions = {
     width: WINDOW_WIDTH,
@@ -43,6 +42,9 @@ export default ({ src, isDev }) => {
   }
 
   const mainWindow = new BrowserWindow(browserWindowOptions)
+
+  // Workaround to set the position the first time (centers the window)
+  config.set('winPosition', mainWindow.getPosition())
 
   // Float main window above full-screen apps
   mainWindow.setAlwaysOnTop(true, 'modal-panel')
@@ -78,13 +80,7 @@ export default ({ src, isDev }) => {
       return
     }
 
-    const display = screen.getDisplayNearestPoint(
-      screen.getCursorScreenPoint()
-    )
-
-    const positions = config.get('positions') || {}
-    positions[display.id] = mainWindow.getPosition()
-    config.set('positions', positions)
+    config.set('winPosition', mainWindow.getPosition())
   }, 100))
 
   mainWindow.on('close', app.quit)

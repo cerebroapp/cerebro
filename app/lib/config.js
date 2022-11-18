@@ -19,10 +19,18 @@ const schema = {
   plugins: { type: 'object', default: {} },
   isMigratedPlugins: { type: 'boolean', default: false },
   crashreportingEnabled: { type: 'boolean', default: true },
-  openAtLogin: { type: 'boolean', default: true }
+  openAtLogin: { type: 'boolean', default: true },
+  winPosition: { type: 'array', default: [] },
 }
 
-const store = new Store({ schema })
+const store = new Store({
+  schema,
+  migrations: {
+    '>=0.9.0': (oldStore) => {
+      oldStore.delete('positions')
+    }
+  }
+})
 
 /**
  * Get a value from global configuration

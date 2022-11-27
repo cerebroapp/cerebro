@@ -10,7 +10,6 @@ import { clipboard } from 'electron'
 import { focusableSelector } from '@cerebroapp/cerebro-ui'
 import escapeStringRegexp from 'escape-string-regexp'
 
-import getWindowPosition from 'lib/getWindowPosition'
 import {
   WINDOW_WIDTH,
   INPUT_HEIGHT,
@@ -76,7 +75,8 @@ const updateElectronWindow = (results, visibleResults) => {
   if (length === 0) {
     win.setMinimumSize(WINDOW_WIDTH, INPUT_HEIGHT)
     win.setSize(width, INPUT_HEIGHT)
-    win.setPosition(...getWindowPosition({ width }))
+    const [x, y] = config.get('winPosition')
+    win.setPosition(x, y)
     return
   }
 
@@ -85,7 +85,8 @@ const updateElectronWindow = (results, visibleResults) => {
   const minHeightWithResults = MIN_VISIBLE_RESULTS * RESULT_HEIGHT + INPUT_HEIGHT
   win.setMinimumSize(WINDOW_WIDTH, minHeightWithResults)
   win.setSize(width, heightWithResults)
-  win.setPosition(...getWindowPosition({ width, heightWithResults }))
+  const [x, y] = config.get('winPosition')
+  win.setPosition(x, y)
 }
 
 const onDocumentKeydown = (event) => {

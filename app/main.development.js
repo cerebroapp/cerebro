@@ -1,13 +1,5 @@
-import {
-  app, ipcMain, crashReporter, screen
-} from 'electron'
+import { app, ipcMain, crashReporter } from 'electron'
 import path from 'path'
-import {
-  WINDOW_WIDTH,
-  INPUT_HEIGHT,
-  RESULT_HEIGHT,
-  MIN_VISIBLE_RESULTS,
-} from 'main/constants/ui'
 
 import createMainWindow from './main/createWindow'
 import createBackgroundWindow from './background/createWindow'
@@ -97,7 +89,7 @@ app.whenReady().then(() => {
 
   initAutoUpdater(mainWindow)
 
-  app.dock && app.dock.hide()
+  app?.dock?.hide()
 })
 
 ipcMain.on('message', (event, payload) => {
@@ -124,22 +116,6 @@ ipcMain.on('updateSettings', (event, key, value) => {
       if (value !== enabled) autoStart.set(value)
     })
   }
-})
-
-ipcMain.on('get-window-position', (event, { width, heightWithResults }) => {
-  const winWidth = typeof width !== 'undefined' ? width : WINDOW_WIDTH
-
-  const winHeight = typeof heightWithResults !== 'undefined'
-    ? heightWithResults
-    : MIN_VISIBLE_RESULTS * RESULT_HEIGHT + INPUT_HEIGHT
-
-  const display = screen.getPrimaryDisplay()
-
-  const x = parseInt(display.bounds.x + (display.workAreaSize.width - winWidth) / 2, 10)
-  const y = parseInt(display.bounds.y + (display.workAreaSize.height - winHeight) / 2, 10)
-
-  // eslint-disable-next-line no-param-reassign
-  event.returnValue = [x, y]
 })
 
 ipcMain.on('quit', () => app.quit())

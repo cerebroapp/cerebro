@@ -22,7 +22,6 @@ function Settings({ get, set }) {
     cleanOnHide: get('cleanOnHide'),
     selectOnShow: get('selectOnShow'),
     pluginsSettings: get('plugins'),
-    crashreportingEnabled: get('crashreportingEnabled'),
     openAtLogin: get('openAtLogin')
   }))
 
@@ -82,11 +81,6 @@ function Settings({ get, set }) {
         label="Select input on show"
         value={state.selectOnShow}
         onChange={(value) => changeConfig('selectOnShow', value)}
-      />
-      <Checkbox
-        label="Send automatic crash reports (requires restart)"
-        value={state.crashreportingEnabled}
-        onChange={(value) => changeConfig('crashreportingEnabled', value)}
       />
     </div>
   )

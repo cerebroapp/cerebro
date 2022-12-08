@@ -1,4 +1,4 @@
-import { app, ipcMain, crashReporter } from 'electron'
+import { app, ipcMain } from 'electron'
 import path from 'path'
 
 import createMainWindow from './main/createWindow'
@@ -21,21 +21,6 @@ const isDev = () => (process.env.NODE_ENV === 'development' || config.get('devel
 let mainWindow
 let backgroundWindow
 let tray
-
-if (process.env.NODE_ENV !== 'development') {
-  // Set up crash reporter before creating windows in production builds
-  if (config.get('crashreportingEnabled')) {
-    crashReporter.start({
-      globalExtra: {
-        _companyName: 'Cerebro',
-      },
-      productName: 'Cerebro',
-      submitURL: 'http://crashes.cerebroapp.com/post',
-      autoSubmit: true,
-      compress: false
-    })
-  }
-}
 
 const setupEnvVariables = () => {
   process.env.CEREBRO_VERSION = app.getVersion()

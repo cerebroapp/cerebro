@@ -1,4 +1,4 @@
-import plugins from 'plugins'
+import PluginsService from 'plugins'
 import config from 'lib/config'
 import { shell, clipboard } from 'electron'
 
@@ -43,8 +43,9 @@ const DEFAULT_SCOPE = {
  */
 const eachPlugin = (term, display) => {
   // TODO: order results by frequency?
-  Object.keys(plugins).forEach((name) => {
-    const plugin = plugins[name]
+  const allPlugins = PluginsService.getAllPlugins()
+  Object.keys(allPlugins).forEach((name) => {
+    const plugin = allPlugins[name]
     try {
       plugin.fn({
         ...DEFAULT_SCOPE,

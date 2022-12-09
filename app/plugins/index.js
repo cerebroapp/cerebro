@@ -1,4 +1,18 @@
 import core from './core'
-import externalPlugins from './externalPlugins'
+import getExternalPlugins from './externalPlugins'
 
-export default Object.assign(externalPlugins, core)
+class PluginsService {
+  getCorePlugins() {
+    return core
+  }
+
+  getExternalPlugins() {
+    return getExternalPlugins()
+  }
+
+  getAllPlugins() {
+    return { ...core, ...getExternalPlugins() }
+  }
+}
+
+export default new PluginsService()

@@ -1,16 +1,22 @@
 import { on } from 'lib/rpc'
-import plugins from 'plugins'
+import PluginsService from 'plugins'
 import initPlugin from './initPlugin'
 
+function listenToAsyncMessages() {
+  on('plugin.message', ({ name, data }) => {
+    const plugin = PluginsService.getAllPlugins()[name]
+    if (plugin.onMessage) plugin.onMessage(data)
+  })
+}
+
 /**
- * Starts listening for `initializePlugin` events and initializes all plugins
+ * Initialize all plugins and start listening for replies from plugin async initializers
  */
 export default () => {
   // Start listening for replies from plugin async initializers
-  on('plugin.message', ({ name, data }) => {
-    const plugin = plugins[name]
-    if (plugin.onMessage) plugin.onMessage(data)
-  })
+  listenToAsyncMessages()
 
-  Object.keys(plugins).forEach((name) => initPlugin(plugins[name], name))
+  const allPlugins = PluginsService.getAllPlugins()
+
+  Object.keys(allPlugins).forEach((name) => initPlugin(allPlugins[name], name))
 }

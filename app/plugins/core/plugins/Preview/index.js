@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { KeyboardNav, KeyboardNavItem } from '@cerebroapp/cerebro-ui'
 import { client } from 'lib/plugins'
-import plugins from 'plugins'
 import ReactMarkdown from 'react-markdown'
 
 import ActionButton from './ActionButton.js'
@@ -60,7 +59,7 @@ function Preview({ onComplete, plugin }) {
   } = plugin
 
   const githubRepo = repo && repo.match(/^.+github.com\/([^\/]+\/[^\/]+).*?/)
-  const settings = plugins[name] ? plugins[name].settings : null
+  const settings = plugin?.settings || null
   return (
     <div className={styles.preview} key={name}>
       <h2>{`${format.name(name)} (${version})`}</h2>
@@ -69,42 +68,42 @@ function Preview({ onComplete, plugin }) {
       <KeyboardNav>
         <div className={styles.header}>
 
-          { settings && (
-          <KeyboardNavItem onSelect={() => setShowSettings((prev) => !prev)}>
-            Settings
-          </KeyboardNavItem>
+          {settings && (
+            <KeyboardNavItem onSelect={() => setShowSettings((prev) => !prev)}>
+              Settings
+            </KeyboardNavItem>
           )}
 
           {showSettings && <Settings name={name} settings={settings} />}
 
-          { !isInstalled && !isDebugging && (
-          <ActionButton
-            action={pluginAction(name, 'install')}
-            text={runningAction === 'install' ? 'Installing...' : 'Install'}
-            onComplete={onCompleteAction}
-          />
+          {!isInstalled && !isDebugging && (
+            <ActionButton
+              action={pluginAction(name, 'install')}
+              text={runningAction === 'install' ? 'Installing...' : 'Install'}
+              onComplete={onCompleteAction}
+            />
           )}
 
-          { isInstalled && (
-          <ActionButton
-            action={pluginAction(name, 'uninstall')}
-            text={runningAction === 'uninstall' ? 'Uninstalling...' : 'Uninstall'}
-            onComplete={onCompleteAction}
-          />
+          {isInstalled && (
+            <ActionButton
+              action={pluginAction(name, 'uninstall')}
+              text={runningAction === 'uninstall' ? 'Uninstalling...' : 'Uninstall'}
+              onComplete={onCompleteAction}
+            />
           )}
 
-          { isUpdateAvailable && (
-          <ActionButton
-            action={pluginAction(name, 'update')}
-            text={runningAction === 'update' ? 'Updating...' : `Update (${installedVersion} → ${version})`}
-            onComplete={onCompleteAction}
-          />
+          {isUpdateAvailable && (
+            <ActionButton
+              action={pluginAction(name, 'update')}
+              text={runningAction === 'update' ? 'Updating...' : `Update (${installedVersion} → ${version})`}
+              onComplete={onCompleteAction}
+            />
           )}
 
-          { githubRepo && (
-          <KeyboardNavItem onSelect={() => setShowDescription((prev) => !prev)}>
-            Details
-          </KeyboardNavItem>
+          {githubRepo && (
+            <KeyboardNavItem onSelect={() => setShowDescription((prev) => !prev)}>
+              Details
+            </KeyboardNavItem>
           )}
 
         </div>

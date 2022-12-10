@@ -18,8 +18,7 @@
   "dependencies": {
     "chokidar": "3.5.3",
     "electron-updater": "5.3.0",
-    "move-file": "2.1.0",
-    "rimraf": "3.0.2",
+    "fs-extra": "11.1.0",
     "semver": "7.3.8"
   },
   "optionalDependencies": {},

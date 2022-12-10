@@ -1,13 +1,10 @@
 import fs from 'fs'
 import os from 'os'
-import rimraf from 'rimraf'
 import path from 'path'
 import tar from 'tar-fs'
 import zlib from 'zlib'
 import https from 'https'
-import moveFile from 'move-file'
-
-const removeDir = (dir) => rimraf.sync(dir)
+import { move, remove } from 'fs-extra'
 
 /**
  * Base url of npm API
@@ -51,7 +48,8 @@ const installPackage = async (tarPath, destination, middleware) => {
   })
 
   console.log(`Move ${tempPath} to ${destination}`)
-  moveFile.sync(tempPath, destination)
+  // Move temp folder to real location
+  await move(tempPath, destination, { overwrite: true })
 }
 
 /**
@@ -129,7 +127,7 @@ export default (dir) => {
       console.group('[npm] Uninstall package', name)
       console.log('Remove package directory ', modulePath)
       try {
-        removeDir(modulePath) // sync method
+        await remove(modulePath)
 
         const json = getConfig()
         console.log('Update package.json')

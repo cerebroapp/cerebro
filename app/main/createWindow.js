@@ -37,9 +37,6 @@ export default ({ src, isDev }) => {
     // Show main window on launch only when application started for the first time
   }
 
-  if (process.platform === 'linux') {
-    browserWindowOptions.type = 'splash'
-  }
 
   const mainWindow = new BrowserWindow(browserWindowOptions)
 
@@ -59,6 +56,7 @@ export default ({ src, isDev }) => {
   const toggleMainWindow = () => toggleWindow(mainWindow)
   // Function to show main window
   const showMainWindow = () => {
+    console.log('showMainWindow');
     mainWindow.show()
     mainWindow.focus()
   }

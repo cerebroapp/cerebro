@@ -56,7 +56,6 @@ export default ({ src, isDev }) => {
   const toggleMainWindow = () => toggleWindow(mainWindow)
   // Function to show main window
   const showMainWindow = () => {
-    console.log('showMainWindow');
     mainWindow.show()
     mainWindow.focus()
   }

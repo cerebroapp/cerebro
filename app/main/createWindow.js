@@ -13,7 +13,6 @@ import {
 import buildMenu from './createWindow/buildMenu'
 import toggleWindow from './createWindow/toggleWindow'
 import handleUrl from './createWindow/handleUrl'
-import * as donateDialog from './createWindow/donateDialog'
 
 export default ({ src, isDev }) => {
   const [x, y] = config.get('winPosition')
@@ -167,10 +166,6 @@ export default ({ src, isDev }) => {
         mainWindow.focus()
       }
     })
-  }
-
-  if (donateDialog.shouldShow()) {
-    setTimeout(donateDialog.show, 1000)
   }
 
   // Save in config information, that application has been started

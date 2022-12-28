@@ -14,11 +14,8 @@ const schema = {
   cleanOnHide: { type: 'boolean', default: true },
   selectOnShow: { type: 'boolean', default: false },
   hideOnBlur: { type: 'boolean', default: true },
-  skipDonateDialog: { type: 'boolean', default: false },
-  lastShownDonateDialog: { type: 'number', default: 0 },
   plugins: { type: 'object', default: {} },
   isMigratedPlugins: { type: 'boolean', default: false },
-  crashreportingEnabled: { type: 'boolean', default: true },
   openAtLogin: { type: 'boolean', default: true },
   winPosition: { type: 'array', default: [] },
 }
@@ -28,6 +25,9 @@ const store = new Store({
   migrations: {
     '>=0.9.0': (oldStore) => {
       oldStore.delete('positions')
+    },
+    '>=0.10.0': (oldStore) => {
+      oldStore.delete('crashreportingEnabled')
     }
   }
 })

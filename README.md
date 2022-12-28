@@ -67,10 +67,13 @@ If you'd like to install a version of Cerebro, but the executable hasn't been re
 
 1. Clone the repository
 2. Install dependencies with [yarn](https://yarnpkg.com/getting-started/install):
+
    ```bash
    yarn --force
    ```
+
 3. Build the package:
+
    ```bash
     yarn package
    ```

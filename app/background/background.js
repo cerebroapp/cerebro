@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import plugins from 'plugins'
 import { on, send } from 'lib/rpc'
 import { settings as pluginSettings, modulesDirectory } from 'lib/plugins'
-import PluginsService from 'plugins'
 
 global.React = React
 global.ReactDOM = ReactDOM
@@ -11,7 +11,8 @@ on('initializePluginAsync', ({ name }) => {
   console.group(`Initialize async plugin ${name}`)
 
   try {
-    const plugin = PluginsService.getCorePlugins()[name] || window.require(`${modulesDirectory}/${name}`)
+    const plugin = plugins.getCorePlugins()[name] || window.require(`${modulesDirectory}/${name}`)
+    console.log({ plugin })
     const { initializeAsync } = plugin
 
     if (!initializeAsync) {

@@ -50,7 +50,7 @@ const getPluginName = (pluginPath) => {
 
 const plugins = {}
 
-function setupPluginsWatcher() {
+const setupPluginsWatcher = () => {
   if (global.isBackground) return
 
   const pluginsWatcher = chokidar.watch(modulesDirectory, { depth: 1 })
@@ -108,6 +108,6 @@ function setupPluginsWatcher() {
 
 setupPluginsWatcher()
 
-export default function getExternalPlugins() {
-  return plugins
-}
+const getExternalPlugins = () => plugins
+
+export default getExternalPlugins

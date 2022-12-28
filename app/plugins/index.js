@@ -1,18 +1,14 @@
 import core from './core'
 import getExternalPlugins from './externalPlugins'
 
-class PluginsService {
-  getCorePlugins() {
-    return core
-  }
+const getCorePlugins = () => core
 
-  getExternalPlugins() {
-    return getExternalPlugins()
-  }
+const getAllPlugins = () => ({ ...core, ...getExternalPlugins() })
 
-  getAllPlugins() {
-    return { ...core, ...getExternalPlugins() }
-  }
+const pluginsService = {
+  getExternalPlugins,
+  getCorePlugins,
+  getAllPlugins,
 }
 
-export default new PluginsService()
+export default pluginsService

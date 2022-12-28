@@ -1,4 +1,4 @@
-import PluginsService from 'plugins'
+import plugins from 'plugins'
 import config from 'lib/config'
 import { shell, clipboard } from 'electron'
 
@@ -15,6 +15,8 @@ import {
 } from 'main/constants/actionTypes'
 
 import store from '../store'
+
+const allPlugins = plugins.getAllPlugins()
 
 const remote = process.type === 'browser'
   ? undefined
@@ -43,7 +45,6 @@ const DEFAULT_SCOPE = {
  */
 const eachPlugin = (term, display) => {
   // TODO: order results by frequency?
-  const allPlugins = PluginsService.getAllPlugins()
   Object.keys(allPlugins).forEach((name) => {
     const plugin = allPlugins[name]
     try {

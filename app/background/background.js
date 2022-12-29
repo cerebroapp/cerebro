@@ -8,12 +8,13 @@ global.React = React
 global.ReactDOM = ReactDOM
 
 on('initializePluginAsync', ({ name }) => {
+  const { corePlugins } = plugins
   console.group(`Initialize async plugin ${name}`)
 
   try {
-    const plugin = plugins.getCorePlugins()[name] || window.require(`${modulesDirectory}/${name}`)
-    console.log({ plugin })
-    const { initializeAsync } = plugin
+    const plugin = corePlugins[name] || window.require(`${modulesDirectory}/${name}`)
+    console.log({ corePlugins })
+    const { initializeAsync } = corePlugins
 
     if (!initializeAsync) {
       console.log('no `initializeAsync` function, skipped')

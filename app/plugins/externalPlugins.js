@@ -4,6 +4,8 @@ import path from 'path'
 import initPlugin from 'lib/initPlugin'
 import { modulesDirectory, ensureFiles, settings } from 'lib/plugins'
 
+const plugins = {}
+
 const requirePlugin = (pluginPath) => {
   try {
     let plugin = window.require(pluginPath)
@@ -47,8 +49,6 @@ const getPluginName = (pluginPath) => {
   if (!scope) return base
   return `${scope[0]}/${base}`
 }
-
-const plugins = {}
 
 const setupPluginsWatcher = () => {
   if (global.isBackground) return

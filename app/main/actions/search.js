@@ -16,8 +16,6 @@ import {
 
 import store from '../store'
 
-const allPlugins = plugins.getAllPlugins()
-
 const remote = process.type === 'browser'
   ? undefined
   : require('@electron/remote')
@@ -44,6 +42,7 @@ const DEFAULT_SCOPE = {
  * @param {Function} display Callback function that receives used search term and found results
  */
 const eachPlugin = (term, display) => {
+  const { allPlugins } = plugins
   // TODO: order results by frequency?
   Object.keys(allPlugins).forEach((name) => {
     const plugin = allPlugins[name]

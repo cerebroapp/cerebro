@@ -1,10 +1,10 @@
 import core from './core'
-import getExternalPlugins from './externalPlugins'
+import externalPlugins from './externalPlugins'
 
 const pluginsService = {
   corePlugins: core,
-  allPlugins: { ...core, ...getExternalPlugins() },
-  externalPlugins: getExternalPlugins()
+  allPlugins: Object.assign(externalPlugins, core),
+  externalPlugins,
 }
 
 export default pluginsService

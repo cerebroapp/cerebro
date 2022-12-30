@@ -2,7 +2,7 @@ import { search } from 'cerebro-tools'
 import {
   flow, filter, map, partialRight, values
 } from 'lodash/fp'
-import getExternalPlugins from 'plugins/externalPlugins'
+import externalPlugins from 'plugins/externalPlugins'
 import quit from 'plugins/core/quit'
 import plugins from 'plugins/core/plugins'
 import settings from 'plugins/core/settings'
@@ -10,7 +10,7 @@ import version from 'plugins/core/version'
 import reload from 'plugins/core/reload'
 
 const allPlugins = {
-  quit, plugins, settings, version, reload, ...getExternalPlugins()
+  quit, plugins, settings, version, reload, ...externalPlugins
 }
 
 const toString = (plugin) => plugin.keyword

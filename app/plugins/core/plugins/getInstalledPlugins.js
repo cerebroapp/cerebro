@@ -1,6 +1,6 @@
 import { packageJsonPath } from 'lib/plugins'
 import { readFile } from 'fs/promises'
-import getExternalPlugins from 'plugins/externalPlugins'
+import externalPlugins from 'plugins/externalPlugins'
 
 const readPackageJson = async () => {
   try {
@@ -20,7 +20,6 @@ const readPackageJson = async () => {
 export default async () => {
   const packageJson = await readPackageJson()
   const result = {}
-  const externalPlugins = getExternalPlugins()
 
   Object.keys(externalPlugins).forEach((pluginName) => {
     result[pluginName] = { ...externalPlugins[pluginName], version: packageJson.dependencies[pluginName] || '0.0.0' }

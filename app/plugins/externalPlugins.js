@@ -108,6 +108,4 @@ const setupPluginsWatcher = () => {
 
 setupPluginsWatcher()
 
-const getExternalPlugins = () => plugins
-
-export default getExternalPlugins
+export default plugins

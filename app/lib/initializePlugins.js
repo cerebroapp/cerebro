@@ -3,14 +3,17 @@ import plugins from 'plugins'
 import initPlugin from './initPlugin'
 
 /**
- * Starts listening for `initializePlugin` events and initializes all plugins
+ * Initialize all plugins and start listening for replies from plugin async initializers
  */
-export default () => {
+const initializePlugins = () => {
+  const { allPlugins } = plugins
+  Object.keys(allPlugins).forEach((name) => initPlugin(allPlugins[name], name))
+
   // Start listening for replies from plugin async initializers
   on('plugin.message', ({ name, data }) => {
-    const plugin = plugins[name]
-    if (plugin.onMessage) plugin.onMessage(data)
+    const plugin = allPlugins[name]
+    if (plugin && plugin.onMessage) plugin.onMessage(data)
   })
-
-  Object.keys(plugins).forEach((name) => initPlugin(plugins[name], name))
 }
+
+export default initializePlugins

@@ -6,13 +6,13 @@ import { settings as pluginSettings, modulesDirectory } from 'lib/plugins'
 
 global.React = React
 global.ReactDOM = ReactDOM
-global.isBackground = true
 
 on('initializePluginAsync', ({ name }) => {
+  const { allPlugins } = plugins
   console.group(`Initialize async plugin ${name}`)
 
   try {
-    const plugin = plugins[name] || window.require(`${modulesDirectory}/${name}`)
+    const plugin = allPlugins[name] || window.require(`${modulesDirectory}/${name}`)
     const { initializeAsync } = plugin
 
     if (!initializeAsync) {

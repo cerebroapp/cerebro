@@ -2,7 +2,16 @@ import { search } from 'cerebro-tools'
 import {
   flow, filter, map, partialRight, values
 } from 'lodash/fp'
-import plugins from 'plugins'
+import externalPlugins from 'plugins/externalPlugins'
+import quit from 'plugins/core/quit'
+import plugins from 'plugins/core/plugins'
+import settings from 'plugins/core/settings'
+import version from 'plugins/core/version'
+import reload from 'plugins/core/reload'
+
+const allPlugins = {
+  quit, plugins, settings, version, reload, ...externalPlugins
+}
 
 const toString = (plugin) => plugin.keyword
 const notMatch = (term) => (plugin) => (
@@ -32,6 +41,6 @@ const fn = ({ term, display, actions }) => flow(
   filter(notMatch(term)),
   map(pluginToResult(actions)),
   display
-)(plugins)
+)(allPlugins)
 
 export default { fn, name: 'Plugins autocomplete' }

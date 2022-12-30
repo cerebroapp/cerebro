@@ -21,21 +21,24 @@ export default async () => {
     getDebuggingPlugins()
   ])
 
-  const listOfInstalledPlugins = Object.entries(installed).map(([name, version]) => ({
+  const listOfInstalledPlugins = Object.entries(installed).map(([name, { version }]) => ({
     name,
     version,
     installedVersion: parseVersion(version),
     isInstalled: true,
-    isUpdateAvailable: false,
+    settings: installed[name].settings,
+    isUpdateAvailable: false
   }))
 
   const listOfAvailablePlugins = available.map((plugin) => {
-    const installedVersion = installed[plugin.name]
+    const installedVersion = installed[plugin.name]?.version
     if (!installedVersion) { return plugin }
 
     const isUpdateAvailable = compareVersions(plugin.version, parseVersion(installedVersion))
+    const installedPluginInfo = listOfInstalledPlugins.find((p) => p.name === plugin.name)
     return {
       ...plugin,
+      ...installedPluginInfo,
       installedVersion,
       isInstalled: true,
       isUpdateAvailable

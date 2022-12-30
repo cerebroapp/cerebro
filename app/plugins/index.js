@@ -1,4 +1,10 @@
 import core from './core'
 import externalPlugins from './externalPlugins'
 
-export default Object.assign(externalPlugins, core)
+const pluginsService = {
+  corePlugins: core,
+  allPlugins: Object.assign(externalPlugins, core),
+  externalPlugins,
+}
+
+export default pluginsService

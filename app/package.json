@@ -7,8 +7,13 @@
   "license": "MIT",
   "author": {
     "name": "CerebroApp Organization",
+    "email": "kelionweb@gmail.com",
     "url": "https://github.com/cerebroapp"
   },
+  "contributors": [
+    "Alexandr Subbotin <kelionweb@gmail.com> (https://github.com/KELiON)",
+    "Gustavo Pereira <oguhpereira@protonmail.com (https://github.com/oguhpereira)"
+  ],
   "dependencies": {
     "chokidar": "3.5.3",
     "electron-updater": "5.3.0",

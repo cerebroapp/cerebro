@@ -79,7 +79,7 @@
     "npm-run-all": "4.1.5",
     "postcss": "8.4.21",
     "postcss-loader": "7.0.2",
-    "postcss-nested": "5.0.6",
+    "postcss-nested": "6.0.0",
     "style-loader": "3.3.1",
     "url-loader": "4.1.1",
     "webpack": "5.75.0",

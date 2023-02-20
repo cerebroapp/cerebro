@@ -106,6 +106,7 @@
     "react-virtualized": "9.22.3",
     "redux": "4.2.1",
     "redux-thunk": "2.4.2",
+    "simple-plist": "1.1.1",
     "tar-fs": "2.1.1"
   },
   "devEngines": {

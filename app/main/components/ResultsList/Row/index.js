@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { SmartIcon } from '@cerebroapp/cerebro-ui'
+import SmartIcon from '../../SmartIcon'
 import styles from './styles.module.css'
 
 function Row({

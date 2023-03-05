@@ -24,7 +24,9 @@ const KEYWORDS = [
  * @param  {String} options.term
  * @param  {Function} options.display
  */
-const settingsPlugin = ({ term, display, config, actions }) => {
+const settingsPlugin = ({
+  term, display, config, actions
+}) => {
   const found = search(KEYWORDS, term).length > 0
   if (found) {
     const results = [{

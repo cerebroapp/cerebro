@@ -4,7 +4,7 @@ module.exports = {
   ...baseConfig,
   module: {
     rules: [{
-      test: /\.jsx?$/,
+      test: /\.(js|ts)x?$/,
       exclude: /node_modules/,
       use: ['babel-loader']
     }]

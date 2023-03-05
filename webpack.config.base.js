@@ -11,7 +11,7 @@ const externals = Object.assign(
 module.exports = {
   module: {
     rules: [{
-      test: /\.jsx?$/,
+      test: /\.(js|ts)x?$/,
       use: 'babel-loader',
       exclude: /node_modules/
     }, {
@@ -29,7 +29,7 @@ module.exports = {
       path.join(__dirname, 'app'),
       'node_modules'
     ],
-    extensions: ['.js'],
+    extensions: ['.ts', '.js'],
   },
   plugins: [
     new LodashModuleReplacementPlugin(),

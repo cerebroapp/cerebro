@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "baseUrl": "app",
+        "jsx": "react",
+        "allowJs": true,
+        "noImplicitAny": true,
+        "sourceMap": true,
+    },
+    "include": ["./app"]
+}

@@ -3,11 +3,8 @@ const baseConfig = require('./webpack.config.base')
 
 const config = {
   ...baseConfig,
-
   mode: 'development',
-
   devtool: 'inline-source-map',
-
   entry: {
     background: [
       'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr',
@@ -18,12 +15,10 @@ const config = {
       './app/main/main',
     ]
   },
-
   output: {
     ...baseConfig.output,
     publicPath: 'http://localhost:3000/dist/'
   },
-
   module: {
     ...baseConfig.module,
     rules: [
@@ -52,7 +47,6 @@ const config = {
       },
     ]
   },
-
   plugins: [
     ...baseConfig.plugins,
     new webpack.LoaderOptionsPlugin({
@@ -60,11 +54,9 @@ const config = {
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
-
   stats: {
     colors: true,
   },
-
   target: 'electron-renderer'
 }
 

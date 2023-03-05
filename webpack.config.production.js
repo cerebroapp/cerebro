@@ -5,25 +5,19 @@ const baseConfig = require('./webpack.config.base')
 
 const config = {
   ...baseConfig,
-
   mode: 'production',
-
   devtool: 'source-map',
-
   entry: {
     main: './app/main/main',
     background: './app/background/background'
   },
-
   output: {
     ...baseConfig.output,
     path: path.join(__dirname, 'app', 'dist'),
     publicPath: '../dist/'
   },
-
   module: {
     ...baseConfig.module,
-
     rules: [
       ...baseConfig.module.rules,
 
@@ -50,12 +44,10 @@ const config = {
       },
     ]
   },
-
   plugins: [
     ...baseConfig.plugins,
     new MiniCssExtractPlugin()
   ],
-
   target: 'electron-renderer'
 }
 

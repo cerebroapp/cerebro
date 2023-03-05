@@ -1,6 +1,0 @@
-{
-    "compilerOptions": {
-        "baseUrl": "app",
-    },
-    "include": ["app"]
-}

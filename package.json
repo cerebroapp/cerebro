@@ -3,7 +3,7 @@
   "productName": "cerebro",
   "version": "0.11.0",
   "description": "Cerebro is an open-source launcher to improve your productivity and efficiency",
-  "main": "main.js",
+  "main": "./app/main.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test CEREBRO_DATA_PATH=userdata jest",
     "test-watch": "jest -- --watch",
@@ -110,7 +110,11 @@
     "redux": "4.2.1",
     "redux-thunk": "2.4.2",
     "simple-plist": "1.1.1",
-    "tar-fs": "2.1.1"
+    "tar-fs": "2.1.1",
+    "chokidar": "3.5.3",
+    "fs-extra": "11.1.0",
+    "semver": "7.3.8",
+    "electron-updater": "5.3.0"
   },
   "devEngines": {
     "node": ">=16.x"

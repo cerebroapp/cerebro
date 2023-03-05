@@ -15,10 +15,6 @@
     "Gustavo Pereira <oguhpereira@protonmail.com (https://github.com/oguhpereira)"
   ],
   "dependencies": {
-    "chokidar": "3.5.3",
-    "electron-updater": "5.3.0",
-    "fs-extra": "11.1.0",
-    "semver": "7.3.8"
   },
   "optionalDependencies": {},
   "devDependencies": {}

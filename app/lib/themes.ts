@@ -1,6 +1,8 @@
 const prefix = process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : '../'
 
-const themes = [
+type Theme = { value: string, label: string}
+
+const themes: Array<Theme> = [
   {
     value: `${prefix}dist/main/css/themes/light.css`,
     label: 'Light'

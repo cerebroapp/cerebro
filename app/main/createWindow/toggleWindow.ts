@@ -2,7 +2,7 @@
  * Show or hide main window
  * @return {BrowserWindow} appWindow
  */
-export default (appWindow) => {
+export default (appWindow: any) => {
   if (appWindow.isVisible()) {
     appWindow.blur() // once for blurring the content of the window(?)
     appWindow.blur() // twice somehow restores focus to prev foreground window

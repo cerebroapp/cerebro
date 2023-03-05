@@ -3,7 +3,7 @@
  *
  * @return {BrowserWindow} appWindow
  */
-export default (appWindow, term) => {
+export default (appWindow: any, term: string) => {
   appWindow.show()
   appWindow.focus()
   appWindow.webContents.send('message', {

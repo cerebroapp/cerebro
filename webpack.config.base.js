@@ -23,7 +23,7 @@ module.exports = {
       path.join(__dirname, 'app'),
       'node_modules'
     ],
-    extensions: ['.ts', '.js'],
+    extensions: ['.ts', '.js', '.tsx', '.jsx'],
   },
   plugins: [
     new LodashModuleReplacementPlugin(),

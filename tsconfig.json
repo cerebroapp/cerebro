@@ -5,6 +5,7 @@
         "allowJs": true,
         "noImplicitAny": true,
         "sourceMap": true,
+        "esModuleInterop": true,
     },
     "include": ["./app"]
 }

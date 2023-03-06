@@ -1,5 +1,6 @@
 module.exports = {
   presets: [
+    '@babel/preset-typescript',
     [
       '@babel/preset-env', {
         /** Targets must match the versions supported by electron.

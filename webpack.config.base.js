@@ -33,5 +33,5 @@ module.exports = {
         to: './main/css/themes/[name][ext]'
       }]
     })
-  ],
+  ]
 }

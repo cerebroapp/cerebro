@@ -78,6 +78,7 @@
     "tray_icon.ico",
     "tray_iconTemplate@2x.png",
     "node_modules/",
+    "app/node_modules/",
     "main.js",
     "main.js.map",
     "package.json",

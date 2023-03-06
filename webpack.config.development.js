@@ -23,7 +23,6 @@ const config = {
     ...baseConfig.module,
     rules: [
       ...baseConfig.module.rules,
-
       {
         test: /\.css$/,
         use: [

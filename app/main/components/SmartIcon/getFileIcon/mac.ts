@@ -8,7 +8,7 @@ const remote = require('@electron/remote')
  * @param  {[type]} options.height
  * @return {Promise<String>} Promise resolves base64-encoded source of icon
  */
-module.exports = async function getFileIcon(path, { width = 24, height = 24 } = {}) {
+module.exports = async function getFileIcon(path: string, { width = 24, height = 24 } = {}) {
   // eslint-disable-next-line global-require
   const plist = require('simple-plist')
 

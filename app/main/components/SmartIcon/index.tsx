@@ -1,7 +1,13 @@
 import React, { memo } from 'react'
-import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
+
+// @ts-ignore
 import getFileIcon from './getFileIcon'
+
+interface IconProps {
+	className?: string
+	path: string
+}
 
 /**
  * Check if provided string is an image src
@@ -10,12 +16,12 @@ import getFileIcon from './getFileIcon'
  * @param  {String} path
  * @return {Boolean}
  */
-const isImage = (path) => !!path.match(/(^data:)|(\.(png|jpe?g|svg|ico)$)/)
+const isImage = (path: string) => !!path.match(/(^data:)|(\.(png|jpe?g|svg|ico)$)/)
 
 /**
   * Check if provided string matches a FontAwesome icon
   */
-const isFontAwesome = (path) => path.match(/^fa-(.+)$/)
+const isFontAwesome = (path: string) => path.match(/^fa-(.+)$/)
 
 /**
  * Render icon for provided path.
@@ -25,15 +31,10 @@ const isFontAwesome = (path) => path.match(/^fa-(.+)$/)
  * @param  {String} options.path
  * @return {Function}
  */
-function FileIcon({ className, path }) {
+function FileIcon({ className, path }:IconProps) {
   const src = getFileIcon(path)
 
   return src ? <img src={src} alt="" className={className} /> : null
-}
-
-FileIcon.propTypes = {
-  className: PropTypes.string,
-  path: PropTypes.string.isRequired
 }
 
 /**
@@ -45,7 +46,7 @@ FileIcon.propTypes = {
  * @param  {String} options.path
  * @return {Function}
  */
-function SmartIcon({ className, path }) {
+function SmartIcon({ className, path }: IconProps) {
   const fontAwesomeMatches = isFontAwesome(path)
   if (fontAwesomeMatches) {
     return (
@@ -62,11 +63,6 @@ function SmartIcon({ className, path }) {
       ? <img src={path} alt={path} className={className} />
       : <FileIcon path={path} className={className} />
   )
-}
-
-SmartIcon.propTypes = {
-  path: PropTypes.string.isRequired,
-  className: PropTypes.string,
 }
 
 export default memo(SmartIcon)

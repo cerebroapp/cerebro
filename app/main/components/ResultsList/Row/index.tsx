@@ -1,5 +1,7 @@
 import React from 'react'
 import SmartIcon from '../../SmartIcon'
+
+// @ts-ignore
 import styles from './styles.module.css'
 
 interface RowProps {

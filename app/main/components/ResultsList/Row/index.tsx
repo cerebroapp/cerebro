@@ -1,11 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import SmartIcon from '../../SmartIcon'
 import styles from './styles.module.css'
 
+interface RowProps {
+  style?: any
+  title?: string
+  icon?: string
+  selected?: boolean
+  subtitle?: string
+  onSelect?: () => void
+  onMouseMove?: () => void
+}
+
 function Row({
   selected, icon, title, onSelect, onMouseMove, subtitle, style
-}) {
+}: RowProps) {
   const classNames = [styles.row, selected ? styles.selected : null].join(' ')
 
   return (
@@ -25,16 +34,6 @@ function Row({
       </div>
     </div>
   )
-}
-
-Row.propTypes = {
-  style: PropTypes.object,
-  title: PropTypes.string,
-  icon: PropTypes.string,
-  selected: PropTypes.bool,
-  subtitle: PropTypes.string,
-  onSelect: PropTypes.func,
-  onMouseMove: PropTypes.func,
 }
 
 export default Row

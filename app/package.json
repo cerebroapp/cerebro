@@ -15,7 +15,7 @@
     "Gustavo Pereira <oguhpereira@protonmail.com (https://github.com/oguhpereira)"
   ],
   "dependencies": {
-    "@cerebroapp/cerebro-ui": "2.0.0-alpha.4",
+    "@cerebroapp/cerebro-ui": "2.0.0-alpha.5",
     "@electron/remote": "2.0.9",
     "auto-launch": "5.0.5",
     "cerebro-tools": "0.1.8",
@@ -30,12 +30,14 @@
     "react": "18.2.0",
     "react-addons-shallow-compare": "15.6.3",
     "react-dom": "18.2.0",
+    "react-fontawesome": "^1.7.1",
     "react-markdown": "8.0.5",
     "react-redux": "8.0.5",
     "react-virtualized": "9.22.3",
     "redux": "4.2.1",
     "redux-thunk": "2.4.2",
     "semver": "7.3.8",
+    "simple-plist": "^1.1.1",
     "tar-fs": "2.1.1"
   },
   "optionalDependencies": {},

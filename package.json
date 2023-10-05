@@ -63,7 +63,7 @@
     "cross-env": "7.0.3",
     "css-loader": "6.7.3",
     "cz-conventional-changelog": "3.3.0",
-    "electron": "20.2.0",
+    "electron": "22.3.25",
     "electron-builder": "23.6.0",
     "eslint": "8.34.0",
     "eslint-config-airbnb": "19.0.4",

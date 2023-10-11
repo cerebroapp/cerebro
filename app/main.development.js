@@ -8,6 +8,10 @@ import AppTray from './main/createWindow/AppTray'
 import autoStart from './main/createWindow/autoStart'
 import initAutoUpdater from './initAutoUpdater'
 
+import {
+  WINDOW_WIDTH,
+} from 'main/constants/ui'
+
 const iconSrc = {
   DEFAULT: `${__dirname}/tray_icon.png`,
   darwin: `${__dirname}/tray_iconTemplate@2x.png`,
@@ -38,12 +42,27 @@ const setupEnvVariables = () => {
 }
 
 app.whenReady().then(() => {
+  // We cannot require the screen module until the app is ready.
+  const { screen } = require('electron')
+
   setupEnvVariables()
 
   mainWindow = createMainWindow({
     isDev,
     src: `file://${__dirname}/main/index.html`, // Main window html
   })
+
+  mainWindow.on('show', (event) => {
+    const cursorScreenPoint = screen.getCursorScreenPoint()
+    const nearestDisplay = screen.getDisplayNearestPoint(cursorScreenPoint)
+
+    const goalWidth = WINDOW_WIDTH
+    const goalX = Math.floor(nearestDisplay.bounds.x + (nearestDisplay.size.width - goalWidth) / 2)
+    const goalY = nearestDisplay.bounds.y + 200 // "top" is hardcoded now, should get from config or calculate accordingly?
+
+    config.set('winPosition', [goalX, goalY])
+  })
+
   // eslint-disable-next-line global-require
   require('@electron/remote/main').initialize()
   // eslint-disable-next-line global-require

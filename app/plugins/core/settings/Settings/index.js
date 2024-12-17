@@ -22,7 +22,8 @@ function Settings({ get, set }) {
     cleanOnHide: get('cleanOnHide'),
     selectOnShow: get('selectOnShow'),
     pluginsSettings: get('plugins'),
-    openAtLogin: get('openAtLogin')
+    openAtLogin: get('openAtLogin'),
+    searchBarPlaceholder: get('searchBarPlaceholder')
   }))
 
   const changeConfig = (key, value) => {
@@ -56,6 +57,12 @@ function Settings({ get, set }) {
         label="Proxy"
         value={state.proxy}
         onChange={(value) => changeConfig('proxy', value)}
+      />
+      <Text
+        type="text"
+        label="Search bar placeholder"
+        value={state.searchBarPlaceholder}
+        onChange={(value) => changeConfig('searchBarPlaceholder', value)}
       />
       <Checkbox
         label="Open at login"

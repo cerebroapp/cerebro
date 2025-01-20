@@ -18,6 +18,7 @@ const schema = {
   isMigratedPlugins: { type: 'boolean', default: false },
   openAtLogin: { type: 'boolean', default: true },
   winPosition: { type: 'array', default: [] },
+  searchBarPlaceholder: { type: 'string', default: 'Cerebro Search' },
 }
 
 const store = new Store({

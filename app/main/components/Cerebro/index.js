@@ -338,7 +338,7 @@ function Cerebro({
       <Autocomplete autocompleteCalculator={autocompleteValue} />
       <div className={styles.inputWrapper}>
         <input
-          placeholder="Cerebro Search"
+          placeholder={config.get('searchBarPlaceholder')}
           type="text"
           id="main-input"
           ref={mainInput}

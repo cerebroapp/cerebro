@@ -21,7 +21,7 @@
     "cerebro-tools": "0.1.8",
     "chokidar": "3.5.3",
     "electron-store": "8.1.0",
-    "electron-updater": "5.3.0",
+    "electron-updater": "6.3.0",
     "escape-string-regexp": "5.0.0",
     "fs-extra": "11.1.0",
     "lodash": "4.17.21",

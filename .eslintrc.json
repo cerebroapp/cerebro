@@ -46,7 +46,11 @@
     "import/core-modules": "electron",
     "import/resolver": {
       "node": {
-        "paths": ["app"]
+        "paths": ["app"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "typescript": {
+        "project": "./tsconfig.json"
       }
     }
   }

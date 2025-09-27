@@ -29,7 +29,6 @@ const initialState = {
   visibleResults: MIN_VISIBLE_RESULTS
 }
 
-
 /**
  * Normalize index of selected item.
  * Index should be >= 0 and <= results.length
@@ -55,7 +54,9 @@ function normalizeResult(result) {
   }
 }
 
-export default function search(state = initialState, { type, payload }) {
+export default function search(stateParam, action) {
+  const state = stateParam === undefined ? initialState : stateParam
+  const { type, payload } = action
   switch (type) {
     case UPDATE_TERM: {
       return {
@@ -66,13 +67,11 @@ export default function search(state = initialState, { type, payload }) {
       }
     }
     case MOVE_CURSOR: {
-      let selected = state.selected
-      const resultIds = state.resultIds
-      selected += payload
-      selected = normalizeSelection(selected, resultIds.length)
+      const { selected: currentSelected, resultIds } = state
+      const nextSelected = normalizeSelection(currentSelected + payload, resultIds.length)
       return {
         ...state,
-        selected,
+        selected: nextSelected,
       }
     }
     case SELECT_ELEMENT: {
@@ -100,7 +99,7 @@ export default function search(state = initialState, { type, payload }) {
     case HIDE_RESULT: {
       const { id } = payload
       let { resultsById, resultIds } = state
-      resultIds = resultIds.filter(resultId => resultId !== id)
+      resultIds = resultIds.filter((resultId) => resultId !== id)
 
       resultsById = resultIds.reduce((acc, resultId) => ({
         ...acc,
@@ -132,7 +131,7 @@ export default function search(state = initialState, { type, payload }) {
       return {
         ...state,
         resultsById,
-        resultIds: orderBy(uniq(resultIds), id => resultsById[id].order || 0)
+        resultIds: orderBy(uniq(resultIds), (id) => resultsById[id].order || 0)
       }
     }
     case CHANGE_VISIBLE_RESULTS: {

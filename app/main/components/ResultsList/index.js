@@ -30,6 +30,8 @@ function ResultsList({
         }
       },
     }
+    // Plugins supply additional props (onKeyDown, term, etc.), keep forwarding them.
+    // eslint-disable-next-line react/jsx-props-no-spreading
     return <Row key={key} style={style} {...attrs} />
   }
 

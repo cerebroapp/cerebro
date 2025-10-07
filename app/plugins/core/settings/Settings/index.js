@@ -23,7 +23,8 @@ function Settings({ get, set }) {
     selectOnShow: get('selectOnShow'),
     pluginsSettings: get('plugins'),
     openAtLogin: get('openAtLogin'),
-    searchBarPlaceholder: get('searchBarPlaceholder')
+    searchBarPlaceholder: get('searchBarPlaceholder'),
+    spellcheck: get('spellcheck'),
   }))
 
   const changeConfig = (key, value) => {
@@ -88,6 +89,11 @@ function Settings({ get, set }) {
         label="Select input on show"
         value={state.selectOnShow}
         onChange={(value) => changeConfig('selectOnShow', value)}
+      />
+      <Checkbox
+        label="Enable spell check"
+        value={state.spellcheck}
+        onChange={(value) => changeConfig('spellcheck', value)}
       />
     </div>
   )

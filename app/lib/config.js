@@ -19,6 +19,7 @@ const schema = {
   openAtLogin: { type: 'boolean', default: true },
   winPosition: { type: 'array', default: [] },
   searchBarPlaceholder: { type: 'string', default: 'Cerebro Search' },
+  spellcheck: { type: 'boolean', default: false },
 }
 
 const store = new Store({

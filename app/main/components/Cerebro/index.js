@@ -348,6 +348,7 @@ function Cerebro({
           onKeyDown={onKeyDown}
           onFocus={onMainInputFocus}
           onBlur={onMainInputBlur}
+          spellCheck={config.get('spellcheck')}
         />
       </div>
       <ResultsList

@@ -22,6 +22,8 @@ function FormItem({
     }
   }
 
+  // Forward UI handlers from plugin configs (onChange, onBlur, etc.).
+  // eslint-disable-next-line react/jsx-props-no-spreading
   return <Component type={type} value={actualValue} options={options} {...props} />
 }
 

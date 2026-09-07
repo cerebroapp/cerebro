@@ -36,7 +36,8 @@ export default ({ src, isDev }) => {
     // Show main window on launch only when application started for the first time
   }
 
-  if (process.platform === 'linux') {
+  const isKde = process.env.KDE_FULL_SESSION === "true"
+  if (process.platform === 'linux' && !isKde) {
     browserWindowOptions.type = 'splash'
   }
 

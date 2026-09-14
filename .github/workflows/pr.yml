@@ -17,3 +17,4 @@ jobs:
             node-version: 16
         - run: yarn
         - run: yarn test --detectOpenHandles --forceExit
+        - run: yarn build
